@@ -1,0 +1,2030 @@
+_DrawPictureLine:
+  begin   (midx: 0)
+//RTCC_main.c,129 :: 		void DrawPictureLine(TRoller *Image, int line, int xcoo, int ycoo){
+_DrawPictureLine:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	R1 <2> <- R1   (midx: 0)
+	R2 <2> <- R2   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R3 <2> <- R3   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+//RTCC_main.c,134 :: 		TFT_CS = 0;
+	R5 <1> <- 0   (midx: 0)
+	R4 <4> <- addr(TFT_CS)   (midx: 0)
+	[R4] <0> <- R5   (midx: 0)
+//RTCC_main.c,135 :: 		count = (Image->Width * 2);
+	R4 <4> <-  R0 + 4   (midx: 2)
+	R7 <2> <- *R4   (midx: 0)
+	R4 <2> <-  R7 shl 1   (midx: 1)
+	DrawPictureLine_count_L0 <4> <- R4   (midx: 0)
+//RTCC_main.c,136 :: 		ptr = Image->Picture_Name + 6 + (unsigned long)line * count;
+   (midx: 0)
+	R4 <4> <-  R0 + 12   (midx: 2)
+	R4 <4> <- *R4   (midx: 0)
+	R6 <4> <-  R4 + 6   (midx: 2)
+   (midx: 0)
+	R5 <4> <- R1   (midx: 0)
+	R4 <4> <- DrawPictureLine_count_L0   (midx: 0)
+	R4 <4> <-  R5 * R4   (midx: 2)
+	R4 <4> <-  R6 + R4   (midx: 2)
+	DrawPictureLine_ptr_L0 <4> <- R4   (midx: 0)
+//RTCC_main.c,137 :: 		TFT_SSD1963_Set_Address_Ptr(xcoo, ycoo, xcoo + Image->Width - 1, ycoo);
+	R4 <2> <-  R2 + R7   (midx: 1)
+	R4 <2> <-  R4 - 1   (midx: 1)
+	R1 <2> <- R3   (midx: 0)
+	R3 <2> <- R3   (midx: 0)
+   (midx: 0)
+	R0 <2> <- R2   (midx: 0)
+   (midx: 0)
+	R2 <2> <- R4   (midx: 0)
+	R4 <4> <- addr(_TFT_SSD1963_Set_Address_Ptr)   (midx: 0)
+	R4 <4> <- [R4]   (midx: 0)
+	CALL (*R4)   (midx: 0)
+//RTCC_main.c,138 :: 		while(count>0){
+10:   (midx: 0)
+	R4 <4> <- DrawPictureLine_count_L0   (midx: 0)
+	if ( R4 <= 0) then goto 11   (midx: 6)
+//RTCC_main.c,139 :: 		color = (*ptr++);
+	R4 <4> <- DrawPictureLine_ptr_L0   (midx: 0)
+	R4 <1> <- *R4   (midx: 0)
+   (midx: 0)
+	R0 <2> <- R4   (midx: 0)
+	R4 <4> <- DrawPictureLine_ptr_L0   (midx: 0)
+	R6 <4> <-  R4 + 1   (midx: 2)
+//RTCC_main.c,140 :: 		color += (*ptr++) << 8;
+	R4 <1> <- *R6   (midx: 0)
+	R4 <2> <-  R4 shl 8   (midx: 1)
+   (midx: 0)
+	R5 <2> <-  R0 + R4   (midx: 1)
+	R4 <4> <-  R6 + 1   (midx: 2)
+	DrawPictureLine_ptr_L0 <4> <- R4   (midx: 0)
+//RTCC_main.c,141 :: 		TFT_Write_Data_Ptr(color & *pFilter);
+	R4 <4> <- addr(_pFilter)   (midx: 0)
+	R4 <4> <- [R4]   (midx: 0)
+	R4 <2> <- *R4   (midx: 0)
+	R4 <2> <-  R5 & R4   (midx: 1)
+	R0 <2> <- R4   (midx: 0)
+	R4 <4> <- addr(_TFT_Write_Data_Ptr)   (midx: 0)
+	R4 <4> <- [R4]   (midx: 0)
+	CALL (*R4)   (midx: 0)
+//RTCC_main.c,142 :: 		count = count-2;
+	R4 <4> <- DrawPictureLine_count_L0   (midx: 0)
+	R4 <4> <-  R4 - 2   (midx: 6)
+	DrawPictureLine_count_L0 <4> <- R4   (midx: 0)
+//RTCC_main.c,143 :: 		}
+	goto	10   (midx: 0)
+11:   (midx: 0)
+//RTCC_main.c,144 :: 		TFT_CS = 1;
+	R5 <1> <- 1   (midx: 0)
+	R4 <4> <- addr(TFT_CS)   (midx: 0)
+	[R4] <0> <- R5   (midx: 0)
+  end
+   (midx: 0)
+_Draw_Picture:
+  begin   (midx: 0)
+//RTCC_main.c,154 :: 		void Draw_Picture(TRoller *Image, int line, int xcoo, int ycoo){
+_Draw_Picture:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	R1 <2> <- R1   (midx: 0)
+	R2 <2> <- R2   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R3 <2> <- R3   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+//RTCC_main.c,157 :: 		pFilter = filter;
+	R5 <4> <- #_filter   (midx: 0)
+	R4 <4> <- addr(_pFilter)   (midx: 0)
+	[R4] <4> <- R5   (midx: 0)
+//RTCC_main.c,158 :: 		for (i = 0; i < (Image->Height)/2 - 2; i ++){
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R4 <1> <- 0   (midx: 0)
+	R7 <2> <- R1   (midx: 0)
+	R1 <4> <- R0   (midx: 0)
+	R0 <2> <- R2   (midx: 0)
+	R2 <1> <- R4   (midx: 0)
+	R3 <2> <- R3   (midx: 0)
+12:   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R4 <4> <-  R1 + 6   (midx: 2)
+	R4 <2> <- *R4   (midx: 0)
+	R4 <2> <-  R4 shr 1   (midx: 1)
+	R4 <2> <-  R4 - 2   (midx: 1)
+	if ( R2 >= R4) then goto 13   (midx: 1)
+//RTCC_main.c,159 :: 		temp = line - table[i];
+	R5 <4> <-  R2 shl 1   (midx: 2)
+	R4 <4> <- #_table   (midx: 0)
+	R4 <4> <-  R4 + R5   (midx: 2)
+	R4 <2> <- *R4   (midx: 0)
+	R6 <2> <-  R7 - R4   (midx: 1)
+	Draw_Picture_temp_L0_25 <2> <- R6   (midx: 0)
+//RTCC_main.c,160 :: 		if ((temp) > (signed int)(Image->ImageHeight - 1))
+	R4 <4> <-  R1 + 8   (midx: 2)
+	R4 <2> <- *R4   (midx: 0)
+	R4 <2> <-  R4 - 1   (midx: 1)
+	R5 <2> <- R4   (midx: 0)
+	R4 <2> <- R6   (midx: 0)
+	if ( R4 <= R5) then goto 15   (midx: 5)
+//RTCC_main.c,161 :: 		temp = temp - Image->ImageHeight - 1;
+	R4 <4> <-  R1 + 8   (midx: 2)
+	R5 <2> <- *R4   (midx: 0)
+	R4 <2> <- Draw_Picture_temp_L0_25   (midx: 0)
+	R4 <2> <-  R4 - R5   (midx: 1)
+	R4 <2> <-  R4 - 1   (midx: 1)
+	Draw_Picture_temp_L0_26 <2> <- R4   (midx: 0)
+15:   (midx: 0)
+//RTCC_main.c,162 :: 		if (temp < 0)
+	R4 <2> <- Draw_Picture_temp_L0_27   (midx: 0)
+	if ( R4 >= 0) then goto 16   (midx: 5)
+//RTCC_main.c,163 :: 		temp = Image->ImageHeight - 1 + temp;
+	R4 <4> <-  R1 + 8   (midx: 2)
+	R4 <2> <- *R4   (midx: 0)
+	R5 <2> <-  R4 - 1   (midx: 1)
+	R4 <2> <- Draw_Picture_temp_L0_27   (midx: 0)
+	R4 <2> <-  R5 + R4   (midx: 1)
+	Draw_Picture_temp_L0_28 <2> <- R4   (midx: 0)
+16:   (midx: 0)
+//RTCC_main.c,164 :: 		DrawPictureLine(Image, temp, xcoo, ycoo);
+	R1 <4> <- PUSH(R1)   (midx: 255)
+	R7 <2> <- PUSH(R7)   (midx: 255)
+	R0 <2> <- PUSH(R0)   (midx: 255)
+	R3 <2> <- PUSH(R3)   (midx: 255)
+	R2 <1> <- PUSH(R2)   (midx: 255)
+	R3 <2> <- R3   (midx: 0)
+	R2 <2> <- R0   (midx: 0)
+	R0 <4> <- R1   (midx: 0)
+	R1 <2> <- Draw_Picture_temp_L0_29   (midx: 0)
+	CALL _DrawPictureLine   (midx: 0)
+	R2 <1> <- POP   (midx: 255)
+	R3 <2> <- POP   (midx: 255)
+	R0 <2> <- POP   (midx: 255)
+	R7 <2> <- POP   (midx: 255)
+	R1 <4> <- POP   (midx: 255)
+//RTCC_main.c,165 :: 		line ++;
+	R7 <2> <-  R7 + 1   (midx: 1)
+	R7 <2> <- R7   (midx: 0)
+//RTCC_main.c,166 :: 		ycoo ++;
+	R3 <2> <-  R3 + 1   (midx: 1)
+	R3 <2> <- R3   (midx: 0)
+//RTCC_main.c,167 :: 		pFilter ++;
+	R5 <4> <- addr(_pFilter)   (midx: 0)
+	R4 <4> <- [R5]   (midx: 0)
+	R4 <4> <-  R4 + 2   (midx: 2)
+	[R5] <4> <- R4   (midx: 0)
+//RTCC_main.c,158 :: 		for (i = 0; i < (Image->Height)/2 - 2; i ++){
+	R2 <1> <-  R2 + 1   (midx: 0)
+	R2 <1> <- R2   (midx: 0)
+//RTCC_main.c,168 :: 		}
+   (midx: 0)
+	R1 <4> <- R1   (midx: 0)
+	R7 <2> <- R7   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	R3 <2> <- R3   (midx: 0)
+	R2 <1> <- R2   (midx: 0)
+	goto	12   (midx: 0)
+13:   (midx: 0)
+//RTCC_main.c,169 :: 		pFilter = &filter[(Image->Height)/2 - 2];
+	R4 <4> <-  R1 + 6   (midx: 2)
+	R4 <2> <- *R4   (midx: 0)
+	R4 <2> <-  R4 shr 1   (midx: 1)
+	R4 <2> <-  R4 - 2   (midx: 1)
+	R5 <4> <-  R4 shl 1   (midx: 2)
+	R4 <4> <- #_filter   (midx: 0)
+	R5 <4> <-  R4 + R5   (midx: 2)
+	R4 <4> <- addr(_pFilter)   (midx: 0)
+	[R4] <4> <- R5   (midx: 0)
+//RTCC_main.c,170 :: 		for (i = 95; i >= 0; i --){
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R2 <1> <- 95   (midx: 0)
+	R2 <1> <- PUSH(R2)   (midx: 254)
+	R3 <2> <- R3   (midx: 0)
+	R2 <2> <- R0   (midx: 0)
+	R7 <2> <- R7   (midx: 0)
+	R1 <4> <- R1   (midx: 0)
+	R0 <1> <- POP   (midx: 254)
+17:   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	if ( R0 < 0) then goto 18   (midx: 4)
+//RTCC_main.c,171 :: 		temp = line + table[i];
+   (midx: 0)
+   (midx: 0)
+	R5 <4> <-  R0 shl 1   (midx: 2)
+	R4 <4> <- #_table   (midx: 0)
+	R4 <4> <-  R4 + R5   (midx: 2)
+	R4 <2> <- *R4   (midx: 0)
+	R6 <2> <-  R7 + R4   (midx: 1)
+	Draw_Picture_temp_L0_17 <2> <- R6   (midx: 0)
+//RTCC_main.c,172 :: 		if (temp > (signed int)(Image->ImageHeight - 1))
+	R4 <4> <-  R1 + 8   (midx: 2)
+	R4 <2> <- *R4   (midx: 0)
+	R4 <2> <-  R4 - 1   (midx: 1)
+	R5 <2> <- R4   (midx: 0)
+	R4 <2> <- R6   (midx: 0)
+	if ( R4 <= R5) then goto 20   (midx: 5)
+//RTCC_main.c,173 :: 		temp = temp - Image->ImageHeight - 1;
+	R4 <4> <-  R1 + 8   (midx: 2)
+	R5 <2> <- *R4   (midx: 0)
+	R4 <2> <- Draw_Picture_temp_L0_17   (midx: 0)
+	R4 <2> <-  R4 - R5   (midx: 1)
+	R4 <2> <-  R4 - 1   (midx: 1)
+	Draw_Picture_temp_L0_18 <2> <- R4   (midx: 0)
+20:   (midx: 0)
+//RTCC_main.c,174 :: 		if (temp < 0)
+	R4 <2> <- Draw_Picture_temp_L0_19   (midx: 0)
+	if ( R4 >= 0) then goto 21   (midx: 5)
+//RTCC_main.c,175 :: 		temp = Image->ImageHeight - 1 + temp;
+	R4 <4> <-  R1 + 8   (midx: 2)
+	R4 <2> <- *R4   (midx: 0)
+	R5 <2> <-  R4 - 1   (midx: 1)
+	R4 <2> <- Draw_Picture_temp_L0_19   (midx: 0)
+	R4 <2> <-  R5 + R4   (midx: 1)
+	Draw_Picture_temp_L0_20 <2> <- R4   (midx: 0)
+21:   (midx: 0)
+//RTCC_main.c,176 :: 		DrawPictureLine(Image, temp, xcoo, ycoo);
+	R3 <2> <- PUSH(R3)   (midx: 255)
+	R2 <2> <- PUSH(R2)   (midx: 255)
+	R7 <2> <- PUSH(R7)   (midx: 255)
+	R1 <4> <- PUSH(R1)   (midx: 255)
+	R0 <1> <- PUSH(R0)   (midx: 255)
+	R3 <2> <- R3   (midx: 0)
+	R2 <2> <- R2   (midx: 0)
+	R0 <4> <- R1   (midx: 0)
+	R1 <2> <- Draw_Picture_temp_L0_21   (midx: 0)
+	CALL _DrawPictureLine   (midx: 0)
+	R0 <1> <- POP   (midx: 255)
+	R1 <4> <- POP   (midx: 255)
+	R7 <2> <- POP   (midx: 255)
+	R2 <2> <- POP   (midx: 255)
+	R3 <2> <- POP   (midx: 255)
+//RTCC_main.c,177 :: 		line ++;
+   (midx: 0)
+	R4 <2> <-  R7 + 1   (midx: 1)
+   (midx: 0)
+	R6 <2> <- R4   (midx: 0)
+//RTCC_main.c,178 :: 		ycoo ++;
+	R3 <2> <-  R3 + 1   (midx: 1)
+	R3 <2> <- R3   (midx: 0)
+//RTCC_main.c,179 :: 		pFilter --;
+	R5 <4> <- addr(_pFilter)   (midx: 0)
+	R4 <4> <- [R5]   (midx: 0)
+	R4 <4> <-  R4 - 2   (midx: 2)
+	[R5] <4> <- R4   (midx: 0)
+//RTCC_main.c,170 :: 		for (i = 95; i >= 0; i --){
+	R0 <1> <-  R0 - 1   (midx: 0)
+	R0 <1> <- R0   (midx: 0)
+//RTCC_main.c,180 :: 		}
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R3 <2> <- R3   (midx: 0)
+	R2 <2> <- R2   (midx: 0)
+	R7 <2> <- R6   (midx: 0)
+	R1 <4> <- R1   (midx: 0)
+	R0 <1> <- R0   (midx: 0)
+	goto	17   (midx: 0)
+18:   (midx: 0)
+  end
+   (midx: 0)
+_Roll_Roller:
+  begin   (midx: 0)
+//RTCC_main.c,214 :: 		void Roll_Roller(TRoller *Roller, char dir, char step){
+_Roll_Roller:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	R1 <1> <- R1   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R2 <1> <- R2   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+//RTCC_main.c,217 :: 		if (dir)
+   (midx: 0)
+	if (!R1) then goto 22   (midx: 0)
+//RTCC_main.c,218 :: 		Roller->position += step;
+	R4 <4> <-  R0 + 20   (midx: 2)
+	R3 <2> <- *R4   (midx: 0)
+   (midx: 0)
+	R3 <2> <-  R3 + R2   (midx: 5)
+	[R4] <2> <- R3   (midx: 0)
+	goto	23   (midx: 0)
+22:   (midx: 0)
+//RTCC_main.c,220 :: 		Roller->position -= step;
+   (midx: 0)
+	R4 <4> <-  R0 + 20   (midx: 2)
+	R3 <2> <- *R4   (midx: 0)
+   (midx: 0)
+	R3 <2> <-  R3 - R2   (midx: 5)
+	[R4] <2> <- R3   (midx: 0)
+23:   (midx: 0)
+//RTCC_main.c,222 :: 		if (Roller->position > (signed int)Roller->ImageHeight - 1)
+	R3 <4> <-  R0 + 20   (midx: 2)
+	R4 <2> <- *R3   (midx: 0)
+	R3 <4> <-  R0 + 8   (midx: 2)
+	R3 <2> <- *R3   (midx: 0)
+	R3 <2> <- R3   (midx: 0)
+	R3 <2> <-  R3 - 1   (midx: 5)
+	if ( R4 <= R3) then goto 24   (midx: 5)
+//RTCC_main.c,223 :: 		Roller->position = 0;
+	R4 <4> <-  R0 + 20   (midx: 2)
+	R3 <2> <- 0   (midx: 0)
+	[R4] <2> <- R3   (midx: 0)
+24:   (midx: 0)
+//RTCC_main.c,224 :: 		if (Roller->position < 0)
+	R3 <4> <-  R0 + 20   (midx: 2)
+	R3 <2> <- *R3   (midx: 0)
+	if ( R3 >= 0) then goto 25   (midx: 5)
+//RTCC_main.c,225 :: 		Roller->position = Roller->ImageHeight - 1;
+	R4 <4> <-  R0 + 20   (midx: 2)
+	R3 <4> <-  R0 + 8   (midx: 2)
+	R3 <2> <- *R3   (midx: 0)
+	R3 <2> <-  R3 - 1   (midx: 1)
+	[R4] <2> <- R3   (midx: 0)
+25:   (midx: 0)
+//RTCC_main.c,226 :: 		Draw_Picture(Roller, Roller->position - Roller->Height/2, Roller->Left, Roller->Top);
+	R3 <4> <-  R0 + 2   (midx: 2)
+	R3 <2> <- *R3   (midx: 0)
+	R6 <2> <- R3   (midx: 0)
+	R3 <2> <- *R0   (midx: 0)
+	R5 <2> <- R3   (midx: 0)
+	R3 <4> <-  R0 + 20   (midx: 2)
+	R4 <2> <- *R3   (midx: 0)
+	R3 <4> <-  R0 + 6   (midx: 2)
+	R3 <2> <- *R3   (midx: 0)
+	R3 <2> <-  R3 shr 1   (midx: 1)
+	R3 <2> <-  R4 - R3   (midx: 1)
+	R2 <2> <- R5   (midx: 0)
+	R1 <2> <- R3   (midx: 0)
+	R3 <2> <- R6   (midx: 0)
+   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	CALL _Draw_Picture   (midx: 0)
+  end
+   (midx: 0)
+_MyBoxOnPress:
+  begin   (midx: 0)
+//RTCC_main.c,58 :: 		void MyBoxOnPress(TRoller *Roller){
+_MyBoxOnPress:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+   (midx: 0)
+//RTCC_main.c,62 :: 		if (Roll_Flag == 0){
+	R1 <4> <- addr(_Roll_flag)   (midx: 0)
+	R1 <1> <- [R1]   (midx: 0)
+   (midx: 0)
+	if ( R1 != 0) then goto 0   (midx: 0)
+//RTCC_main.c,63 :: 		Roll_Flag = 1;
+	R2 <1> <- 1   (midx: 0)
+	R1 <4> <- addr(_Roll_flag)   (midx: 0)
+	[R1] <1> <- R2   (midx: 0)
+//RTCC_main.c,64 :: 		OldYcoo = Ycoord;
+	R1 <4> <- addr(_Ycoord)   (midx: 0)
+	R2 <2> <- [R1]   (midx: 0)
+	R1 <4> <- addr(_OldYcoo)   (midx: 0)
+	[R1] <2> <- R2   (midx: 0)
+//RTCC_main.c,65 :: 		OldDelta = 0;
+	R2 <2> <- 0   (midx: 0)
+	R1 <4> <- addr(_OldDelta)   (midx: 0)
+	[R1] <2> <- R2   (midx: 0)
+//RTCC_main.c,66 :: 		return;
+	return   (midx: 0)
+//RTCC_main.c,67 :: 		}
+0:   (midx: 0)
+//RTCC_main.c,69 :: 		delta = Ycoord - OldYcoo;
+   (midx: 0)
+	R1 <4> <- addr(_OldYcoo)   (midx: 0)
+	R2 <2> <- [R1]   (midx: 0)
+	R1 <4> <- addr(_Ycoord)   (midx: 0)
+	R1 <2> <- [R1]   (midx: 0)
+	R1 <2> <-  R1 - R2   (midx: 1)
+   (midx: 0)
+	R3 <2> <- R1   (midx: 0)
+//RTCC_main.c,70 :: 		if (delta > 0){
+	R1 <2> <- R1   (midx: 0)
+	if ( R1 <= 0) then goto 1   (midx: 5)
+//RTCC_main.c,71 :: 		dir = 0;
+	R1 <1> <- 0   (midx: 0)
+	MyBoxOnPress_dir_L0_3 <1> <- R1   (midx: 0)
+//RTCC_main.c,72 :: 		}
+1:   (midx: 0)
+//RTCC_main.c,73 :: 		if (delta < 0){
+	if ( R3 >= 0) then goto 79   (midx: 5)
+//RTCC_main.c,74 :: 		dir = 1;
+	R1 <1> <- 1   (midx: 0)
+	MyBoxOnPress_dir_L0_5 <1> <- R1   (midx: 0)
+//RTCC_main.c,75 :: 		delta = - delta;
+	R3 <2> <-  0 - R3   (midx: 5)
+   (midx: 0)
+	R3 <2> <- R3   (midx: 0)
+	R3 <2> <- R3   (midx: 0)
+//RTCC_main.c,76 :: 		}
+	goto	2   (midx: 0)
+79:   (midx: 0)
+//RTCC_main.c,73 :: 		if (delta < 0){
+	R3 <2> <- R3   (midx: 0)
+//RTCC_main.c,76 :: 		}
+2:   (midx: 0)
+//RTCC_main.c,78 :: 		if (delta < 4){
+   (midx: 0)
+   (midx: 0)
+	if ( R3 >= 4) then goto 3   (midx: 5)
+//RTCC_main.c,79 :: 		OldDelta = delta;
+	R1 <4> <- addr(_OldDelta)   (midx: 0)
+   (midx: 0)
+	[R1] <2> <- R3   (midx: 0)
+//RTCC_main.c,80 :: 		return;
+	return   (midx: 0)
+//RTCC_main.c,81 :: 		}
+3:   (midx: 0)
+//RTCC_main.c,83 :: 		step = 2;
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R2 <1> <- 2   (midx: 0)
+//RTCC_main.c,85 :: 		if ((delta - OldDelta) > 5)
+	R1 <4> <- addr(_OldDelta)   (midx: 0)
+	R1 <2> <- [R1]   (midx: 0)
+	R1 <2> <-  R3 - R1   (midx: 1)
+	if ( R1 <= 5) then goto 4   (midx: 1)
+//RTCC_main.c,86 :: 		delta += OldDelta + 5;
+	R1 <4> <- addr(_OldDelta)   (midx: 0)
+	R1 <2> <- [R1]   (midx: 0)
+	R1 <2> <-  R1 + 5   (midx: 1)
+	R3 <2> <-  R3 + R1   (midx: 1)
+	R3 <2> <- R3   (midx: 0)
+	R3 <2> <- R3   (midx: 0)
+	goto	5   (midx: 0)
+4:   (midx: 0)
+//RTCC_main.c,88 :: 		delta = delta + OldDelta;
+	R1 <4> <- addr(_OldDelta)   (midx: 0)
+	R1 <2> <- [R1]   (midx: 0)
+	R3 <2> <-  R3 + R1   (midx: 1)
+   (midx: 0)
+	R3 <2> <- R3   (midx: 0)
+	R3 <2> <- R3   (midx: 0)
+5:   (midx: 0)
+//RTCC_main.c,90 :: 		if (delta > 25){
+   (midx: 0)
+	if ( R3 <= 25) then goto 81   (midx: 5)
+//RTCC_main.c,91 :: 		step = 3;
+	R2 <1> <- 3   (midx: 0)
+//RTCC_main.c,92 :: 		if (delta > 40)
+   (midx: 0)
+	if ( R3 <= 40) then goto 80   (midx: 5)
+//RTCC_main.c,93 :: 		step = 4;
+   (midx: 0)
+   (midx: 0)
+	R1 <1> <- 4   (midx: 0)
+	R2 <1> <- R1   (midx: 0)
+	goto	7   (midx: 0)
+80:   (midx: 0)
+//RTCC_main.c,92 :: 		if (delta > 40)
+	R2 <1> <- R2   (midx: 0)
+//RTCC_main.c,93 :: 		step = 4;
+7:   (midx: 0)
+//RTCC_main.c,94 :: 		delta = 3 * delta;
+   (midx: 0)
+	R1 <2> <- 3   (midx: 0)
+	R3 <2> <-  R1 * R3   (midx: 5)
+   (midx: 0)
+   (midx: 0)
+	R3 <2> <- R3   (midx: 0)
+	R2 <1> <- R2   (midx: 0)
+	R3 <2> <- R3   (midx: 0)
+//RTCC_main.c,95 :: 		}
+	goto	6   (midx: 0)
+81:   (midx: 0)
+//RTCC_main.c,90 :: 		if (delta > 25){
+	R3 <2> <- R3   (midx: 0)
+	R2 <1> <- R2   (midx: 0)
+//RTCC_main.c,95 :: 		}
+6:   (midx: 0)
+//RTCC_main.c,96 :: 		delta = delta / 2;
+   (midx: 0)
+   (midx: 0)
+	R3 <2> <-  R3 shr 1   (midx: 5)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R3 <2> <- R3   (midx: 0)
+	R2 <1> <- PUSH(R2)   (midx: 254)
+	R2 <4> <- R0   (midx: 0)
+	R3 <2> <- R3   (midx: 0)
+	R0 <1> <- POP   (midx: 254)
+//RTCC_main.c,98 :: 		while (delta > 0){
+8:   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	if ( R3 <= 0) then goto 9   (midx: 5)
+//RTCC_main.c,99 :: 		Roll_Roller(Roller, dir, step);
+   (midx: 0)
+   (midx: 0)
+	R2 <4> <- PUSH(R2)   (midx: 255)
+	R0 <1> <- PUSH(R0)   (midx: 255)
+	R3 <2> <- PUSH(R3)   (midx: 255)
+	R2 <4> <- PUSH(R2)   (midx: 255)
+	R1 <1> <- MyBoxOnPress_dir_L0_22   (midx: 0)
+	R2 <1> <- R0   (midx: 0)
+	R0 <4> <- POP   (midx: 255)
+	CALL _Roll_Roller   (midx: 0)
+	R3 <2> <- POP   (midx: 255)
+	R0 <1> <- POP   (midx: 255)
+	R2 <4> <- POP   (midx: 255)
+//RTCC_main.c,100 :: 		delta = delta - step;
+	R3 <2> <-  R3 - R0   (midx: 5)
+	R3 <2> <- R3   (midx: 0)
+//RTCC_main.c,101 :: 		}
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R2 <4> <- R2   (midx: 0)
+	R0 <1> <- R0   (midx: 0)
+	R3 <2> <- R3   (midx: 0)
+	goto	8   (midx: 0)
+9:   (midx: 0)
+//RTCC_main.c,103 :: 		OldYcoo = Ycoord;
+	R1 <4> <- addr(_Ycoord)   (midx: 0)
+	R2 <2> <- [R1]   (midx: 0)
+	R1 <4> <- addr(_OldYcoo)   (midx: 0)
+	[R1] <2> <- R2   (midx: 0)
+//RTCC_main.c,104 :: 		OldDelta = 0;
+	R2 <2> <- 0   (midx: 0)
+	R1 <4> <- addr(_OldDelta)   (midx: 0)
+	[R1] <2> <- R2   (midx: 0)
+  end
+   (midx: 0)
+_Roll_Get_Level:
+  begin   (midx: 0)
+//RTCC_main.c,190 :: 		char Roll_Get_Level(TRoller *Roller){
+_Roll_Get_Level:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+   (midx: 0)
+//RTCC_main.c,191 :: 		Roller->currentlevel = Roller->position / (Roller->ImageHeight / Roller->levels);
+	R4 <4> <-  R0 + 16   (midx: 2)
+	R1 <4> <-  R0 + 20   (midx: 2)
+	R3 <2> <- *R1   (midx: 0)
+	R1 <4> <-  R0 + 8   (midx: 2)
+	R2 <2> <- *R1   (midx: 0)
+	R1 <4> <-  R0 + 22   (midx: 2)
+	R1 <1> <- *R1   (midx: 0)
+	R1 <2> <-  R2 / R1   (midx: 1)
+	R1 <2> <-  R3 / R1   (midx: 1)
+	[R4] <2> <- R1   (midx: 0)
+//RTCC_main.c,192 :: 		return Roller->currentlevel;
+   (midx: 0)
+	R1 <4> <-  R0 + 16   (midx: 2)
+	R1 <2> <- *R1   (midx: 0)
+	R0 <1> <- R1   (midx: 0)
+	return   (midx: 0)
+  end
+   (midx: 0)
+_Roll_Set_Level:
+  begin   (midx: 0)
+//RTCC_main.c,202 :: 		void Roll_Set_Level(TRoller *Roller, char level){
+_Roll_Set_Level:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R1 <1> <- R1   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+//RTCC_main.c,203 :: 		Roller->currentlevel = level;
+	R2 <4> <-  R0 + 16   (midx: 2)
+	[R2] <2> <- R1   (midx: 0)
+//RTCC_main.c,204 :: 		Roller->position = Roller->ImageHeight * level / Roller->levels;
+	R4 <4> <-  R0 + 20   (midx: 2)
+	R2 <4> <-  R0 + 8   (midx: 2)
+	R2 <2> <- *R2   (midx: 0)
+   (midx: 0)
+	R3 <2> <-  R2 * R1   (midx: 1)
+   (midx: 0)
+	R2 <4> <-  R0 + 22   (midx: 2)
+	R2 <1> <- *R2   (midx: 0)
+	R2 <2> <-  R3 / R2   (midx: 1)
+	[R4] <2> <- R2   (midx: 0)
+  end
+   (midx: 0)
+_Set_Roller:
+  begin   (midx: 0)
+//RTCC_main.c,236 :: 		void Set_Roller(TRoller *Roller, int pos, char step){
+_Set_Roller:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	R1 <2> <- R1   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R2 <1> <- R2   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+//RTCC_main.c,239 :: 		temp = pos * Roller->ImageHeight / Roller->levels + Roller->ImageHeight / Roller->levels / 2;
+	R3 <4> <-  R0 + 8   (midx: 2)
+	R5 <2> <- *R3   (midx: 0)
+   (midx: 0)
+	R4 <2> <-  R1 * R5   (midx: 1)
+	R3 <4> <-  R0 + 22   (midx: 2)
+	R3 <1> <- *R3   (midx: 0)
+	R4 <2> <-  R4 / R3   (midx: 1)
+	R3 <2> <-  R5 / R3   (midx: 1)
+	R3 <2> <-  R3 shr 1   (midx: 1)
+	R5 <2> <-  R4 + R3   (midx: 1)
+//RTCC_main.c,240 :: 		temp = temp - Roller->position;
+	R3 <4> <-  R0 + 20   (midx: 2)
+	R4 <2> <- *R3   (midx: 0)
+	R3 <2> <- R5   (midx: 0)
+	R3 <2> <-  R3 - R4   (midx: 5)
+   (midx: 0)
+	R4 <2> <- R3   (midx: 0)
+//RTCC_main.c,241 :: 		if (temp > 0)
+	if ( R3 <= 0) then goto 26   (midx: 5)
+//RTCC_main.c,242 :: 		direction = 1;
+   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+   (midx: 0)
+	R1 <1> <- R1   (midx: 0)
+	R4 <2> <- R4   (midx: 0)
+	goto	27   (midx: 0)
+26:   (midx: 0)
+//RTCC_main.c,244 :: 		direction = 0;
+   (midx: 0)
+	R1 <1> <- 0   (midx: 0)
+//RTCC_main.c,245 :: 		temp = -temp;
+	R4 <2> <-  0 - R4   (midx: 5)
+   (midx: 0)
+   (midx: 0)
+	R4 <2> <- R4   (midx: 0)
+	R1 <1> <- R1   (midx: 0)
+	R4 <2> <- R4   (midx: 0)
+//RTCC_main.c,246 :: 		}
+27:   (midx: 0)
+//RTCC_main.c,247 :: 		while (temp > step){
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R1 <1> <- PUSH(R1)   (midx: 254)
+	R1 <1> <- R2   (midx: 0)
+	R2 <4> <- R0   (midx: 0)
+	R4 <2> <- R4   (midx: 0)
+	R0 <1> <- POP   (midx: 254)
+28:   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	if ( R4 <= R1) then goto 29   (midx: 5)
+//RTCC_main.c,248 :: 		Roll_Roller(Roller, direction, step);
+	R2 <4> <- PUSH(R2)   (midx: 255)
+	R1 <1> <- PUSH(R1)   (midx: 255)
+	R4 <2> <- PUSH(R4)   (midx: 255)
+	R0 <1> <- PUSH(R0)   (midx: 255)
+	R0 <1> <- PUSH(R0)   (midx: 255)
+	R0 <4> <- R2   (midx: 0)
+	R2 <1> <- R1   (midx: 0)
+	R1 <1> <- POP   (midx: 255)
+	CALL _Roll_Roller   (midx: 0)
+	R0 <1> <- POP   (midx: 255)
+	R4 <2> <- POP   (midx: 255)
+	R1 <1> <- POP   (midx: 255)
+	R2 <4> <- POP   (midx: 255)
+//RTCC_main.c,249 :: 		temp -= step;
+	R4 <2> <-  R4 - R1   (midx: 5)
+	R4 <2> <- R4   (midx: 0)
+//RTCC_main.c,250 :: 		}
+   (midx: 0)
+	R2 <4> <- R2   (midx: 0)
+	R1 <1> <- R1   (midx: 0)
+	R4 <2> <- R4   (midx: 0)
+	R0 <1> <- R0   (midx: 0)
+	goto	28   (midx: 0)
+29:   (midx: 0)
+//RTCC_main.c,251 :: 		Roll_Roller(Roller, direction, temp);
+   (midx: 0)
+	R1 <1> <- R0   (midx: 0)
+   (midx: 0)
+	R0 <4> <- R2   (midx: 0)
+   (midx: 0)
+	R2 <1> <- R4   (midx: 0)
+	CALL _Roll_Roller   (midx: 0)
+  end
+   (midx: 0)
+_Roller_Deactivate:
+  begin   (midx: 0)
+//RTCC_main.c,261 :: 		void Roller_Deactivate(TRoller *Roller, unsigned int xpos, unsigned int ypos){
+_Roller_Deactivate:
+  begin   (midx: 0)
+   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	FARG_Roller_Deactivate_xpos <2> <- R1   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	FARG_Roller_Deactivate_ypos <2> <- R2   (midx: 0)
+   (midx: 0)
+//RTCC_main.c,263 :: 		TFT_Set_Pen(Set_clock.Color, 0);
+	R3 <4> <- addr(_Set_clock+0)   (midx: 0)
+	R3 <2> <- [R3]   (midx: 0)
+	R0 <4> <- PUSH(R0)   (midx: 255)
+	R1 <1> <- 0   (midx: 0)
+	R0 <2> <- R3   (midx: 0)
+	CALL _TFT_Set_Pen   (midx: 0)
+	R0 <4> <- POP   (midx: 255)
+//RTCC_main.c,264 :: 		TFT_Set_Brush(1, Set_clock.Color, 0, 0, 0, 0);
+	R5 <2> <- 0   (midx: 0)
+	R4 <2> <- 0   (midx: 0)
+	R3 <4> <- addr(_Set_clock+0)   (midx: 0)
+	R3 <2> <- [R3]   (midx: 0)
+	R0 <4> <- PUSH(R0)   (midx: 255)
+	R2 <1> <- 0   (midx: 0)
+	R1 <2> <- R3   (midx: 0)
+	R3 <1> <- 0   (midx: 0)
+	R0 <1> <- 1   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_to <2> <- PUSH(R5)   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_from <2> <- PUSH(R4)   (midx: 0)
+	CALL _TFT_Set_Brush   (midx: 0)
+	R0 <4> <- POP   (midx: 255)
+//RTCC_main.c,265 :: 		TFT_Rectangle(Roller->Left, Roller->Top, Roller->Left + Roller->Width, Roller->Top + Roller->Height);
+	R3 <4> <-  R0 + 2   (midx: 2)
+	R4 <2> <- *R3   (midx: 0)
+	R3 <4> <-  R0 + 6   (midx: 2)
+	R3 <2> <- *R3   (midx: 0)
+	R7 <2> <-  R4 + R3   (midx: 1)
+	R6 <2> <- *R0   (midx: 0)
+	R3 <4> <-  R0 + 4   (midx: 2)
+	R3 <2> <- *R3   (midx: 0)
+	R5 <2> <-  R6 + R3   (midx: 1)
+	R4 <2> <- R4   (midx: 0)
+	R3 <2> <- R6   (midx: 0)
+	R0 <4> <- PUSH(R0)   (midx: 255)
+	R2 <2> <- R5   (midx: 0)
+	R1 <2> <- R4   (midx: 0)
+	R0 <2> <- R3   (midx: 0)
+	R3 <2> <- R7   (midx: 0)
+	CALL _TFT_Rectangle   (midx: 0)
+	R0 <4> <- POP   (midx: 255)
+//RTCC_main.c,266 :: 		text[0] = Roller->currentlevel + 48;
+	R4 <4> <- addr(Roller_Deactivate_text_L0)   (midx: 0)
+	R3 <4> <-  R0 + 16   (midx: 2)
+	R3 <2> <- *R3   (midx: 0)
+	R3 <2> <-  R3 + 48   (midx: 1)
+	[R4] <1> <- R3   (midx: 0)
+//RTCC_main.c,267 :: 		text[1] = 0;
+	R4 <4> <-  R4 + 1   (midx: 2)
+	R3 <1> <- 0   (midx: 0)
+	[R4] <1> <- R3   (midx: 0)
+//RTCC_main.c,268 :: 		TFT_Set_Font(Label2.FontName, CL_WHITE, FO_HORIZONTAL);
+	R3 <4> <- addr(_Label2+20)   (midx: 0)
+	R3 <4> <- [R3]   (midx: 0)
+	R0 <4> <- PUSH(R0)   (midx: 255)
+	R2 <1> <- 0   (midx: 0)
+	R1 <2> <- 65535   (midx: 0)
+	R0 <4> <- R3   (midx: 0)
+	CALL _TFT_Set_Font   (midx: 0)
+	R0 <4> <- POP   (midx: 255)
+//RTCC_main.c,269 :: 		if (Roller == &AmPm){
+	R3 <4> <- #_AmPm   (midx: 0)
+	if ( R0 != R3) then goto 30   (midx: 2)
+//RTCC_main.c,270 :: 		if (Roller->currentlevel == 0)
+	R3 <4> <-  R0 + 16   (midx: 2)
+	R3 <2> <- *R3   (midx: 0)
+   (midx: 0)
+	if ( R3 != 0) then goto 31   (midx: 1)
+//RTCC_main.c,271 :: 		TFT_Write_Text("AM", xpos, ypos);
+	R3 <4> <- #?lstr1_RTCC_main   (midx: 0)
+	R2 <2> <- FARG_Roller_Deactivate_ypos   (midx: 0)
+	R1 <2> <- FARG_Roller_Deactivate_xpos   (midx: 0)
+	R0 <4> <- R3   (midx: 0)
+	CALL _TFT_Write_Text   (midx: 0)
+	goto	32   (midx: 0)
+31:   (midx: 0)
+//RTCC_main.c,272 :: 		else if (Roller->currentlevel == 1)
+   (midx: 0)
+   (midx: 0)
+	R3 <4> <-  R0 + 16   (midx: 2)
+	R3 <2> <- *R3   (midx: 0)
+	if ( R3 != 1) then goto 33   (midx: 1)
+//RTCC_main.c,273 :: 		TFT_Write_Text("PM", xpos, ypos);
+	R3 <4> <- #?lstr2_RTCC_main   (midx: 0)
+	R2 <2> <- FARG_Roller_Deactivate_ypos   (midx: 0)
+	R1 <2> <- FARG_Roller_Deactivate_xpos   (midx: 0)
+	R0 <4> <- R3   (midx: 0)
+	CALL _TFT_Write_Text   (midx: 0)
+33:   (midx: 0)
+32:   (midx: 0)
+//RTCC_main.c,274 :: 		}
+	goto	34   (midx: 0)
+30:   (midx: 0)
+//RTCC_main.c,276 :: 		TFT_Write_Text(text, xpos, ypos);
+	R3 <4> <- addr(Roller_Deactivate_text_L0)   (midx: 0)
+	R2 <2> <- FARG_Roller_Deactivate_ypos   (midx: 0)
+	R1 <2> <- FARG_Roller_Deactivate_xpos   (midx: 0)
+	R0 <4> <- R3   (midx: 0)
+	CALL _TFT_Write_Text   (midx: 0)
+34:   (midx: 0)
+  end
+   (midx: 0)
+_Roller_Init:
+  begin   (midx: 0)
+//RTCC_main.c,286 :: 		void Roller_Init(){
+_Roller_Init:
+  begin   (midx: 0)
+//RTCC_main.c,287 :: 		Hour1Roll.Left = 108;
+	R1 <2> <- 108   (midx: 0)
+	R0 <4> <- addr(_Hour1Roll+0)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,288 :: 		Hour1Roll.Top  = 42;
+	R1 <2> <- 42   (midx: 0)
+	R0 <4> <- addr(_Hour1Roll+2)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,289 :: 		Hour1Roll.Width = 36;
+	R1 <2> <- 36   (midx: 0)
+	R0 <4> <- addr(_Hour1Roll+4)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,290 :: 		Hour1Roll.Height = 194;
+	R1 <2> <- 194   (midx: 0)
+	R0 <4> <- addr(_Hour1Roll+6)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,291 :: 		Hour1Roll.ImageHeight = 148;
+	R1 <2> <- 148   (midx: 0)
+	R0 <4> <- addr(_Hour1Roll+8)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,292 :: 		Hour1Roll.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Hour1Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,293 :: 		Hour1Roll.Picture_Name = stripe_black_bmp;
+	R1 <4> <- 4028626   (midx: 0)
+	R0 <4> <- addr(_Hour1Roll+12)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//RTCC_main.c,294 :: 		Hour1Roll.position = 148 / 2 / 2; // 740 / 10 / 2;
+	R1 <2> <- 37   (midx: 0)
+	R0 <4> <- addr(_Hour1Roll+20)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,295 :: 		Hour1Roll.levels = 2;
+	R1 <1> <- 2   (midx: 0)
+	R0 <4> <- addr(_Hour1Roll+22)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//RTCC_main.c,297 :: 		Hour2Roll.Left = 146;
+	R1 <2> <- 146   (midx: 0)
+	R0 <4> <- addr(_Hour2Roll+0)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,298 :: 		Hour2Roll.Top  = 42;
+	R1 <2> <- 42   (midx: 0)
+	R0 <4> <- addr(_Hour2Roll+2)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,299 :: 		Hour2Roll.Width = 36;
+	R1 <2> <- 36   (midx: 0)
+	R0 <4> <- addr(_Hour2Roll+4)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,300 :: 		Hour2Roll.Height = 194;
+	R1 <2> <- 194   (midx: 0)
+	R0 <4> <- addr(_Hour2Roll+6)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,301 :: 		Hour2Roll.ImageHeight = 740;
+	R1 <2> <- 740   (midx: 0)
+	R0 <4> <- addr(_Hour2Roll+8)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,302 :: 		Hour2Roll.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Hour2Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,303 :: 		Hour2Roll.Picture_Name = stripe_black_bmp;
+	R1 <4> <- 4028626   (midx: 0)
+	R0 <4> <- addr(_Hour2Roll+12)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//RTCC_main.c,304 :: 		Hour2Roll.position =  740 / 10 / 2;
+	R1 <2> <- 37   (midx: 0)
+	R0 <4> <- addr(_Hour2Roll+20)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,305 :: 		Hour2Roll.levels = 10;
+	R1 <1> <- 10   (midx: 0)
+	R0 <4> <- addr(_Hour2Roll+22)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//RTCC_main.c,307 :: 		Minute1Roll.Left = 212;
+	R1 <2> <- 212   (midx: 0)
+	R0 <4> <- addr(_Minute1Roll+0)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,308 :: 		Minute1Roll.Top  = 42;
+	R1 <2> <- 42   (midx: 0)
+	R0 <4> <- addr(_Minute1Roll+2)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,309 :: 		Minute1Roll.Width = 36;
+	R1 <2> <- 36   (midx: 0)
+	R0 <4> <- addr(_Minute1Roll+4)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,310 :: 		Minute1Roll.Height = 194;
+	R1 <2> <- 194   (midx: 0)
+	R0 <4> <- addr(_Minute1Roll+6)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,311 :: 		Minute1Roll.ImageHeight = 444;
+	R1 <2> <- 444   (midx: 0)
+	R0 <4> <- addr(_Minute1Roll+8)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,312 :: 		Minute1Roll.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Minute1Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,313 :: 		Minute1Roll.Picture_Name = stripe_black_bmp;
+	R1 <4> <- 4028626   (midx: 0)
+	R0 <4> <- addr(_Minute1Roll+12)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//RTCC_main.c,314 :: 		Minute1Roll.position =  444 / 6 / 2;
+	R1 <2> <- 37   (midx: 0)
+	R0 <4> <- addr(_Minute1Roll+20)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,315 :: 		Minute1Roll.levels = 6;
+	R1 <1> <- 6   (midx: 0)
+	R0 <4> <- addr(_Minute1Roll+22)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//RTCC_main.c,317 :: 		Minute2Roll.Left = 250;
+	R1 <2> <- 250   (midx: 0)
+	R0 <4> <- addr(_Minute2Roll+0)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,318 :: 		Minute2Roll.Top  = 42;
+	R1 <2> <- 42   (midx: 0)
+	R0 <4> <- addr(_Minute2Roll+2)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,319 :: 		Minute2Roll.Width = 36;
+	R1 <2> <- 36   (midx: 0)
+	R0 <4> <- addr(_Minute2Roll+4)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,320 :: 		Minute2Roll.Height = 194;
+	R1 <2> <- 194   (midx: 0)
+	R0 <4> <- addr(_Minute2Roll+6)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,321 :: 		Minute2Roll.ImageHeight = 740;
+	R1 <2> <- 740   (midx: 0)
+	R0 <4> <- addr(_Minute2Roll+8)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,322 :: 		Minute2Roll.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Minute2Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,323 :: 		Minute2Roll.Picture_Name = stripe_black_bmp;
+	R1 <4> <- 4028626   (midx: 0)
+	R0 <4> <- addr(_Minute2Roll+12)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//RTCC_main.c,324 :: 		Minute2Roll.position =  740 / 10 / 2;
+	R1 <2> <- 37   (midx: 0)
+	R0 <4> <- addr(_Minute2Roll+20)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,325 :: 		Minute2Roll.levels = 10;
+	R1 <1> <- 10   (midx: 0)
+	R0 <4> <- addr(_Minute2Roll+22)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//RTCC_main.c,327 :: 		AmPm.Left         = 305;
+	R1 <2> <- 305   (midx: 0)
+	R0 <4> <- addr(_AmPm+0)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,328 :: 		AmPm.Top          = 42;
+	R1 <2> <- 42   (midx: 0)
+	R0 <4> <- addr(_AmPm+2)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,329 :: 		AmPm.Width        = 90;
+	R1 <2> <- 90   (midx: 0)
+	R0 <4> <- addr(_AmPm+4)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,330 :: 		AmPm.Height       = 194;
+	R1 <2> <- 194   (midx: 0)
+	R0 <4> <- addr(_AmPm+6)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,331 :: 		AmPm.ImageHeight  = 151;
+	R1 <2> <- 151   (midx: 0)
+	R0 <4> <- addr(_AmPm+8)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,332 :: 		AmPm.Picture_Name = am_pm_bmp;
+	R1 <4> <- 4081912   (midx: 0)
+	R0 <4> <- addr(_AmPm+12)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//RTCC_main.c,333 :: 		AmPm.currentlevel = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_AmPm+16)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,334 :: 		AmPm.active       = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_AmPm+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,335 :: 		AmPm.position     = 151 / 2 / 2;
+	R1 <2> <- 37   (midx: 0)
+	R0 <4> <- addr(_AmPm+20)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,336 :: 		AmPm.levels       = 2;
+	R1 <1> <- 2   (midx: 0)
+	R0 <4> <- addr(_AmPm+22)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_HoursTens:
+  begin   (midx: 0)
+//RTCC_main.c,346 :: 		void HoursTens(){
+_HoursTens:
+  begin   (midx: 0)
+//RTCC_main.c,348 :: 		if (Hour1Roll.active == 0){
+	R0 <4> <- addr(_Hour1Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 0) then goto 35   (midx: 5)
+//RTCC_main.c,349 :: 		if (Hour2Roll.active == 1){
+	R0 <4> <- addr(_Hour2Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 36   (midx: 5)
+//RTCC_main.c,350 :: 		Roller_Deactivate(&Hour2Roll, 149, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 149   (midx: 0)
+	R0 <4> <- #_Hour2Roll   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,351 :: 		Hour2Roll.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Hour2Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,352 :: 		}
+36:   (midx: 0)
+//RTCC_main.c,353 :: 		if (Minute1Roll.active == 1){
+	R0 <4> <- addr(_Minute1Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 37   (midx: 5)
+//RTCC_main.c,354 :: 		Roller_Deactivate(&Minute1Roll, 215, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 215   (midx: 0)
+	R0 <4> <- #_Minute1Roll   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,355 :: 		Minute1Roll.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Minute1Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,356 :: 		}
+37:   (midx: 0)
+//RTCC_main.c,357 :: 		if (Minute2Roll.active == 1){
+	R0 <4> <- addr(_Minute2Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 38   (midx: 5)
+//RTCC_main.c,358 :: 		Roller_Deactivate(&Minute2Roll, 253, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 253   (midx: 0)
+	R0 <4> <- #_Minute2Roll   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,359 :: 		Minute2Roll.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Minute2Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,360 :: 		}
+38:   (midx: 0)
+//RTCC_main.c,361 :: 		if (AmPm.active == 1){
+	R0 <4> <- addr(_AmPm+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 39   (midx: 5)
+//RTCC_main.c,362 :: 		Roller_Deactivate(&AmPm, 307, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 307   (midx: 0)
+	R0 <4> <- #_AmPm   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,363 :: 		AmPm.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_AmPm+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,364 :: 		}
+39:   (midx: 0)
+//RTCC_main.c,366 :: 		Draw_Picture(&Hour1Roll, Hour1Roll.position - 96, Hour1Roll.Left, Hour1Roll.Top);
+	R0 <4> <- addr(_Hour1Roll+2)   (midx: 0)
+	R2 <2> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_Hour1Roll+0)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_Hour1Roll+20)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  R0 - 96   (midx: 5)
+	R3 <2> <- R2   (midx: 0)
+	R2 <2> <- R1   (midx: 0)
+	R1 <2> <- R0   (midx: 0)
+	R0 <4> <- #_Hour1Roll   (midx: 0)
+	CALL _Draw_Picture   (midx: 0)
+//RTCC_main.c,367 :: 		}
+35:   (midx: 0)
+//RTCC_main.c,369 :: 		MyBoxOnPress(&Hour1Roll);
+	R0 <4> <- #_Hour1Roll   (midx: 0)
+	CALL _MyBoxOnPress   (midx: 0)
+//RTCC_main.c,370 :: 		Hour1Roll.active = 1;
+	R1 <2> <- 1   (midx: 0)
+	R0 <4> <- addr(_Hour1Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_HoursOnes:
+  begin   (midx: 0)
+//RTCC_main.c,380 :: 		void HoursOnes(){
+_HoursOnes:
+  begin   (midx: 0)
+//RTCC_main.c,382 :: 		if (Hour2Roll.active == 0){
+	R0 <4> <- addr(_Hour2Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 0) then goto 40   (midx: 5)
+//RTCC_main.c,383 :: 		if (Hour1Roll.active == 1){
+	R0 <4> <- addr(_Hour1Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 41   (midx: 5)
+//RTCC_main.c,384 :: 		Roller_Deactivate(&Hour1Roll, 111, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 111   (midx: 0)
+	R0 <4> <- #_Hour1Roll   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,385 :: 		Hour1Roll.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Hour1Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,386 :: 		}
+41:   (midx: 0)
+//RTCC_main.c,387 :: 		if (Minute1Roll.active == 1){
+	R0 <4> <- addr(_Minute1Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 42   (midx: 5)
+//RTCC_main.c,388 :: 		Roller_Deactivate(&Minute1Roll, 215, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 215   (midx: 0)
+	R0 <4> <- #_Minute1Roll   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,389 :: 		Minute1Roll.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Minute1Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,390 :: 		}
+42:   (midx: 0)
+//RTCC_main.c,391 :: 		if (Minute2Roll.active == 1){
+	R0 <4> <- addr(_Minute2Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 43   (midx: 5)
+//RTCC_main.c,392 :: 		Roller_Deactivate(&Minute2Roll, 253, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 253   (midx: 0)
+	R0 <4> <- #_Minute2Roll   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,393 :: 		Minute2Roll.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Minute2Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,394 :: 		}
+43:   (midx: 0)
+//RTCC_main.c,395 :: 		if (AmPm.active == 1){
+	R0 <4> <- addr(_AmPm+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 44   (midx: 5)
+//RTCC_main.c,396 :: 		Roller_Deactivate(&AmPm, 307, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 307   (midx: 0)
+	R0 <4> <- #_AmPm   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,397 :: 		AmPm.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_AmPm+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,398 :: 		}
+44:   (midx: 0)
+//RTCC_main.c,400 :: 		Draw_Picture(&Hour2Roll, Hour2Roll.position - 96, Hour2Roll.Left, Hour2Roll.Top);
+	R0 <4> <- addr(_Hour2Roll+2)   (midx: 0)
+	R2 <2> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_Hour2Roll+0)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_Hour2Roll+20)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  R0 - 96   (midx: 5)
+	R3 <2> <- R2   (midx: 0)
+	R2 <2> <- R1   (midx: 0)
+	R1 <2> <- R0   (midx: 0)
+	R0 <4> <- #_Hour2Roll   (midx: 0)
+	CALL _Draw_Picture   (midx: 0)
+//RTCC_main.c,401 :: 		}
+40:   (midx: 0)
+//RTCC_main.c,403 :: 		MyBoxOnPress(&Hour2Roll);
+	R0 <4> <- #_Hour2Roll   (midx: 0)
+	CALL _MyBoxOnPress   (midx: 0)
+//RTCC_main.c,404 :: 		Hour2Roll.active = 1;
+	R1 <2> <- 1   (midx: 0)
+	R0 <4> <- addr(_Hour2Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_MinutesTens:
+  begin   (midx: 0)
+//RTCC_main.c,414 :: 		void MinutesTens(){
+_MinutesTens:
+  begin   (midx: 0)
+//RTCC_main.c,416 :: 		if (Minute1Roll.active == 0){
+	R0 <4> <- addr(_Minute1Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 0) then goto 45   (midx: 5)
+//RTCC_main.c,417 :: 		if (Hour1Roll.active == 1){
+	R0 <4> <- addr(_Hour1Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 46   (midx: 5)
+//RTCC_main.c,418 :: 		Roller_Deactivate(&Hour1Roll, 111, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 111   (midx: 0)
+	R0 <4> <- #_Hour1Roll   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,419 :: 		Hour1Roll.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Hour1Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,420 :: 		}
+46:   (midx: 0)
+//RTCC_main.c,421 :: 		if (Hour2Roll.active == 1){
+	R0 <4> <- addr(_Hour2Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 47   (midx: 5)
+//RTCC_main.c,422 :: 		Roller_Deactivate(&Hour2Roll, 149, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 149   (midx: 0)
+	R0 <4> <- #_Hour2Roll   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,423 :: 		Hour2Roll.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Hour2Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,424 :: 		}
+47:   (midx: 0)
+//RTCC_main.c,425 :: 		if (Minute2Roll.active == 1){
+	R0 <4> <- addr(_Minute2Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 48   (midx: 5)
+//RTCC_main.c,426 :: 		Roller_Deactivate(&Minute2Roll, 253, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 253   (midx: 0)
+	R0 <4> <- #_Minute2Roll   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,427 :: 		Minute2Roll.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Minute2Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,428 :: 		}
+48:   (midx: 0)
+//RTCC_main.c,429 :: 		if (AmPm.active == 1){
+	R0 <4> <- addr(_AmPm+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 49   (midx: 5)
+//RTCC_main.c,430 :: 		Roller_Deactivate(&AmPm, 307, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 307   (midx: 0)
+	R0 <4> <- #_AmPm   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,431 :: 		AmPm.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_AmPm+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,432 :: 		}
+49:   (midx: 0)
+//RTCC_main.c,434 :: 		Draw_Picture(&Minute1Roll, Minute1Roll.position - 95, Minute1Roll.Left, Minute1Roll.Top);
+	R0 <4> <- addr(_Minute1Roll+2)   (midx: 0)
+	R2 <2> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_Minute1Roll+0)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_Minute1Roll+20)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  R0 - 95   (midx: 5)
+	R3 <2> <- R2   (midx: 0)
+	R2 <2> <- R1   (midx: 0)
+	R1 <2> <- R0   (midx: 0)
+	R0 <4> <- #_Minute1Roll   (midx: 0)
+	CALL _Draw_Picture   (midx: 0)
+//RTCC_main.c,435 :: 		}
+45:   (midx: 0)
+//RTCC_main.c,437 :: 		MyBoxOnPress(&Minute1Roll);
+	R0 <4> <- #_Minute1Roll   (midx: 0)
+	CALL _MyBoxOnPress   (midx: 0)
+//RTCC_main.c,438 :: 		Minute1Roll.active = 1;
+	R1 <2> <- 1   (midx: 0)
+	R0 <4> <- addr(_Minute1Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_MinutesOnes:
+  begin   (midx: 0)
+//RTCC_main.c,448 :: 		void MinutesOnes(){
+_MinutesOnes:
+  begin   (midx: 0)
+//RTCC_main.c,450 :: 		if (Minute2Roll.active == 0){
+	R0 <4> <- addr(_Minute2Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 0) then goto 50   (midx: 5)
+//RTCC_main.c,451 :: 		if (Hour1Roll.active == 1){
+	R0 <4> <- addr(_Hour1Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 51   (midx: 5)
+//RTCC_main.c,452 :: 		Roller_Deactivate(&Hour1Roll, 111, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 111   (midx: 0)
+	R0 <4> <- #_Hour1Roll   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,453 :: 		Hour1Roll.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Hour1Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,454 :: 		}
+51:   (midx: 0)
+//RTCC_main.c,455 :: 		if (Hour2Roll.active == 1){
+	R0 <4> <- addr(_Hour2Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 52   (midx: 5)
+//RTCC_main.c,456 :: 		Roller_Deactivate(&Hour2Roll, 149, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 149   (midx: 0)
+	R0 <4> <- #_Hour2Roll   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,457 :: 		Hour2Roll.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Hour2Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,458 :: 		}
+52:   (midx: 0)
+//RTCC_main.c,459 :: 		if (Minute1Roll.active == 1){
+	R0 <4> <- addr(_Minute1Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 53   (midx: 5)
+//RTCC_main.c,460 :: 		Roller_Deactivate(&Minute1Roll, 215, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 215   (midx: 0)
+	R0 <4> <- #_Minute1Roll   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,461 :: 		Minute1Roll.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Minute1Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,462 :: 		}
+53:   (midx: 0)
+//RTCC_main.c,463 :: 		if (AmPm.active == 1){
+	R0 <4> <- addr(_AmPm+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 54   (midx: 5)
+//RTCC_main.c,464 :: 		Roller_Deactivate(&AmPm, 307, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 307   (midx: 0)
+	R0 <4> <- #_AmPm   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,465 :: 		AmPm.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_AmPm+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,466 :: 		}
+54:   (midx: 0)
+//RTCC_main.c,468 :: 		Draw_Picture(&Minute2Roll, Minute2Roll.position - 95, Minute2Roll.Left, Minute2Roll.Top);
+	R0 <4> <- addr(_Minute2Roll+2)   (midx: 0)
+	R2 <2> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_Minute2Roll+0)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_Minute2Roll+20)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  R0 - 95   (midx: 5)
+	R3 <2> <- R2   (midx: 0)
+	R2 <2> <- R1   (midx: 0)
+	R1 <2> <- R0   (midx: 0)
+	R0 <4> <- #_Minute2Roll   (midx: 0)
+	CALL _Draw_Picture   (midx: 0)
+//RTCC_main.c,469 :: 		}
+50:   (midx: 0)
+//RTCC_main.c,471 :: 		MyBoxOnPress(&Minute2Roll);
+	R0 <4> <- #_Minute2Roll   (midx: 0)
+	CALL _MyBoxOnPress   (midx: 0)
+//RTCC_main.c,472 :: 		Minute2Roll.active = 1;
+	R1 <2> <- 1   (midx: 0)
+	R0 <4> <- addr(_Minute2Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_AmPmRun:
+  begin   (midx: 0)
+//RTCC_main.c,482 :: 		void AmPmRun(){
+_AmPmRun:
+  begin   (midx: 0)
+//RTCC_main.c,484 :: 		if (AmPm.active == 0){
+	R0 <4> <- addr(_AmPm+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 0) then goto 55   (midx: 5)
+//RTCC_main.c,485 :: 		if (Hour1Roll.active == 1){
+	R0 <4> <- addr(_Hour1Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 56   (midx: 5)
+//RTCC_main.c,486 :: 		Roller_Deactivate(&Hour1Roll, 111, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 111   (midx: 0)
+	R0 <4> <- #_Hour1Roll   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,487 :: 		Hour1Roll.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Hour1Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,488 :: 		}
+56:   (midx: 0)
+//RTCC_main.c,489 :: 		if (Hour2Roll.active == 1){
+	R0 <4> <- addr(_Hour2Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 57   (midx: 5)
+//RTCC_main.c,490 :: 		Roller_Deactivate(&Hour2Roll, 149, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 149   (midx: 0)
+	R0 <4> <- #_Hour2Roll   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,491 :: 		Hour2Roll.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Hour2Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,492 :: 		}
+57:   (midx: 0)
+//RTCC_main.c,493 :: 		if (Minute1Roll.active == 1){
+	R0 <4> <- addr(_Minute1Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 58   (midx: 5)
+//RTCC_main.c,494 :: 		Roller_Deactivate(&Minute1Roll, 215, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 215   (midx: 0)
+	R0 <4> <- #_Minute1Roll   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,495 :: 		Minute1Roll.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Minute1Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,496 :: 		}
+58:   (midx: 0)
+//RTCC_main.c,497 :: 		if (Minute2Roll.active == 1){
+	R0 <4> <- addr(_Minute2Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 59   (midx: 5)
+//RTCC_main.c,498 :: 		Roller_Deactivate(&Minute2Roll, 253, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 253   (midx: 0)
+	R0 <4> <- #_Minute2Roll   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,499 :: 		Minute2Roll.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Minute2Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,500 :: 		}
+59:   (midx: 0)
+//RTCC_main.c,502 :: 		Draw_Picture(&AmPm, AmPm.position - 75, AmPm.Left, AmPm.Top);
+	R0 <4> <- addr(_AmPm+2)   (midx: 0)
+	R2 <2> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_AmPm+0)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_AmPm+20)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  R0 - 75   (midx: 5)
+	R3 <2> <- R2   (midx: 0)
+	R2 <2> <- R1   (midx: 0)
+	R1 <2> <- R0   (midx: 0)
+	R0 <4> <- #_AmPm   (midx: 0)
+	CALL _Draw_Picture   (midx: 0)
+//RTCC_main.c,503 :: 		}
+55:   (midx: 0)
+//RTCC_main.c,505 :: 		MyBoxOnPress(&AmPm);
+	R0 <4> <- #_AmPm   (midx: 0)
+	CALL _MyBoxOnPress   (midx: 0)
+//RTCC_main.c,506 :: 		AmPm.active = 1;
+	R1 <2> <- 1   (midx: 0)
+	R0 <4> <- addr(_AmPm+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_Deactivate_All_Rollers:
+  begin   (midx: 0)
+//RTCC_main.c,516 :: 		void Deactivate_All_Rollers(){
+_Deactivate_All_Rollers:
+  begin   (midx: 0)
+//RTCC_main.c,517 :: 		if (Hour1Roll.active == 1){
+	R0 <4> <- addr(_Hour1Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 60   (midx: 5)
+//RTCC_main.c,518 :: 		Roller_Deactivate(&Hour1Roll, 111, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 111   (midx: 0)
+	R0 <4> <- #_Hour1Roll   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,519 :: 		Hour1Roll.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Hour1Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,520 :: 		}
+60:   (midx: 0)
+//RTCC_main.c,521 :: 		if (Hour2Roll.active == 1){
+	R0 <4> <- addr(_Hour2Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 61   (midx: 5)
+//RTCC_main.c,522 :: 		Roller_Deactivate(&Hour2Roll, 149, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 149   (midx: 0)
+	R0 <4> <- #_Hour2Roll   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,523 :: 		Hour2Roll.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Hour2Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,524 :: 		}
+61:   (midx: 0)
+//RTCC_main.c,525 :: 		if (Minute1Roll.active == 1){
+	R0 <4> <- addr(_Minute1Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 62   (midx: 5)
+//RTCC_main.c,526 :: 		Roller_Deactivate(&Minute1Roll, 215, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 215   (midx: 0)
+	R0 <4> <- #_Minute1Roll   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,527 :: 		Minute1Roll.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Minute1Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,528 :: 		}
+62:   (midx: 0)
+//RTCC_main.c,529 :: 		if (Minute2Roll.active == 1){
+	R0 <4> <- addr(_Minute2Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 63   (midx: 5)
+//RTCC_main.c,530 :: 		Roller_Deactivate(&Minute2Roll, 253, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 253   (midx: 0)
+	R0 <4> <- #_Minute2Roll   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,531 :: 		Minute2Roll.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Minute2Roll+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,532 :: 		}
+63:   (midx: 0)
+//RTCC_main.c,533 :: 		if (AmPm.active == 1){
+	R0 <4> <- addr(_AmPm+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 64   (midx: 5)
+//RTCC_main.c,534 :: 		Roller_Deactivate(&AmPm, 307, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 307   (midx: 0)
+	R0 <4> <- #_AmPm   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,535 :: 		AmPm.active = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_AmPm+18)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RTCC_main.c,536 :: 		}
+64:   (midx: 0)
+  end
+   (midx: 0)
+_RTC_Example_init:
+  begin   (midx: 0)
+//RTCC_main.c,546 :: 		void RTC_Example_init(){
+_RTC_Example_init:
+  begin   (midx: 0)
+//RTCC_main.c,547 :: 		Roller_Init();
+	CALL _Roller_Init   (midx: 0)
+//RTCC_main.c,548 :: 		RTCC_Read(&MyTime);
+	R0 <4> <- #_MyTime   (midx: 0)
+	CALL _RTCC_Read   (midx: 0)
+//RTCC_main.c,549 :: 		Roll_Set_Level(&Hour1Roll, MyTime.hours / 10);
+	R0 <4> <- addr(_MyTime+3)   (midx: 0)
+	R1 <1> <- [R0]   (midx: 0)
+	R0 <1> <- 10   (midx: 0)
+	R0 <1> <-  R1 / R0   (midx: 4)
+	R1 <1> <- R0   (midx: 0)
+	R0 <4> <- #_Hour1Roll   (midx: 0)
+	CALL _Roll_Set_Level   (midx: 0)
+//RTCC_main.c,550 :: 		Roll_Set_Level(&Hour2Roll, MyTime.hours % 10);
+	R0 <4> <- addr(_MyTime+3)   (midx: 0)
+	R2 <1> <- [R0]   (midx: 0)
+	R1 <1> <- 10   (midx: 0)
+	R0 <1> <-  R2 mod R1   (midx: 4)
+	R1 <1> <- R0   (midx: 0)
+	R0 <4> <- #_Hour2Roll   (midx: 0)
+	CALL _Roll_Set_Level   (midx: 0)
+//RTCC_main.c,551 :: 		Roll_Set_Level(&Minute1Roll, MyTime.minutes / 10);
+	R0 <4> <- addr(_MyTime+2)   (midx: 0)
+	R1 <1> <- [R0]   (midx: 0)
+	R0 <1> <- 10   (midx: 0)
+	R0 <1> <-  R1 / R0   (midx: 4)
+	R1 <1> <- R0   (midx: 0)
+	R0 <4> <- #_Minute1Roll   (midx: 0)
+	CALL _Roll_Set_Level   (midx: 0)
+//RTCC_main.c,552 :: 		Roll_Set_Level(&Minute2Roll, MyTime.minutes % 10);
+	R0 <4> <- addr(_MyTime+2)   (midx: 0)
+	R2 <1> <- [R0]   (midx: 0)
+	R1 <1> <- 10   (midx: 0)
+	R0 <1> <-  R2 mod R1   (midx: 4)
+	R1 <1> <- R0   (midx: 0)
+	R0 <4> <- #_Minute2Roll   (midx: 0)
+	CALL _Roll_Set_Level   (midx: 0)
+//RTCC_main.c,553 :: 		Roll_Set_Level(&AmPm, MyTime.ampm);
+	R0 <4> <- addr(_MyTime+0)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	R1 <1> <- R0   (midx: 0)
+	R0 <4> <- #_AmPm   (midx: 0)
+	CALL _Roll_Set_Level   (midx: 0)
+//RTCC_main.c,554 :: 		Roller_Deactivate(&Hour1Roll, 111, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 111   (midx: 0)
+	R0 <4> <- #_Hour1Roll   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,555 :: 		Roller_Deactivate(&Hour2Roll, 149, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 149   (midx: 0)
+	R0 <4> <- #_Hour2Roll   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,556 :: 		Roller_Deactivate(&Minute1Roll, 215, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 215   (midx: 0)
+	R0 <4> <- #_Minute1Roll   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,557 :: 		Roller_Deactivate(&Minute2Roll, 253, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 253   (midx: 0)
+	R0 <4> <- #_Minute2Roll   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+//RTCC_main.c,558 :: 		Roller_Deactivate(&AmPM, 307, 96);
+	R2 <2> <- 96   (midx: 0)
+	R1 <2> <- 307   (midx: 0)
+	R0 <4> <- #_AmPm   (midx: 0)
+	CALL _Roller_Deactivate   (midx: 0)
+  end
+   (midx: 0)
+_doRTC_Example:
+  begin   (midx: 0)
+//RTCC_main.c,568 :: 		void doRTC_Example(){
+_doRTC_Example:
+  begin   (midx: 0)
+//RTCC_main.c,570 :: 		Roll_Flag = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_Roll_flag)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//RTCC_main.c,572 :: 		if (Hour1Roll.active){
+	R0 <4> <- addr(_Hour1Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if (!R0) then goto 65   (midx: 0)
+//RTCC_main.c,573 :: 		Roll_Get_Level(&Hour1Roll);
+	R0 <4> <- #_Hour1Roll   (midx: 0)
+	CALL _Roll_Get_Level   (midx: 0)
+//RTCC_main.c,574 :: 		Set_Roller(&Hour1Roll, Hour1Roll.currentlevel, 1);
+	R0 <4> <- addr(_Hour1Roll+16)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R2 <1> <- 1   (midx: 0)
+	R1 <2> <- R0   (midx: 0)
+	R0 <4> <- #_Hour1Roll   (midx: 0)
+	CALL _Set_Roller   (midx: 0)
+//RTCC_main.c,575 :: 		}
+65:   (midx: 0)
+//RTCC_main.c,577 :: 		if (Hour2Roll.active){
+	R0 <4> <- addr(_Hour2Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if (!R0) then goto 66   (midx: 0)
+//RTCC_main.c,578 :: 		Roll_Get_Level(&Hour2Roll);
+	R0 <4> <- #_Hour2Roll   (midx: 0)
+	CALL _Roll_Get_Level   (midx: 0)
+//RTCC_main.c,579 :: 		Set_Roller(&Hour2Roll, Hour2Roll.currentlevel, 1);
+	R0 <4> <- addr(_Hour2Roll+16)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R2 <1> <- 1   (midx: 0)
+	R1 <2> <- R0   (midx: 0)
+	R0 <4> <- #_Hour2Roll   (midx: 0)
+	CALL _Set_Roller   (midx: 0)
+//RTCC_main.c,580 :: 		}
+66:   (midx: 0)
+//RTCC_main.c,582 :: 		if (Minute1Roll.active){
+	R0 <4> <- addr(_Minute1Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if (!R0) then goto 67   (midx: 0)
+//RTCC_main.c,583 :: 		Roll_Get_Level(&Minute1Roll);
+	R0 <4> <- #_Minute1Roll   (midx: 0)
+	CALL _Roll_Get_Level   (midx: 0)
+//RTCC_main.c,584 :: 		Set_Roller(&Minute1Roll, Minute1Roll.currentlevel, 1);
+	R0 <4> <- addr(_Minute1Roll+16)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R2 <1> <- 1   (midx: 0)
+	R1 <2> <- R0   (midx: 0)
+	R0 <4> <- #_Minute1Roll   (midx: 0)
+	CALL _Set_Roller   (midx: 0)
+//RTCC_main.c,585 :: 		}
+67:   (midx: 0)
+//RTCC_main.c,587 :: 		if (Minute2Roll.active){
+	R0 <4> <- addr(_Minute2Roll+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if (!R0) then goto 68   (midx: 0)
+//RTCC_main.c,588 :: 		Roll_Get_Level(&Minute2Roll);
+	R0 <4> <- #_Minute2Roll   (midx: 0)
+	CALL _Roll_Get_Level   (midx: 0)
+//RTCC_main.c,589 :: 		Set_Roller(&Minute2Roll, Minute2Roll.currentlevel, 1);
+	R0 <4> <- addr(_Minute2Roll+16)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R2 <1> <- 1   (midx: 0)
+	R1 <2> <- R0   (midx: 0)
+	R0 <4> <- #_Minute2Roll   (midx: 0)
+	CALL _Set_Roller   (midx: 0)
+//RTCC_main.c,590 :: 		}
+68:   (midx: 0)
+//RTCC_main.c,592 :: 		if (AmPm.active){
+	R0 <4> <- addr(_AmPm+18)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if (!R0) then goto 69   (midx: 0)
+//RTCC_main.c,593 :: 		Roll_Get_Level(&AmPm);
+	R0 <4> <- #_AmPm   (midx: 0)
+	CALL _Roll_Get_Level   (midx: 0)
+//RTCC_main.c,594 :: 		Set_Roller(&AmPm, AmPm.currentlevel, 1);
+	R0 <4> <- addr(_AmPm+16)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R2 <1> <- 1   (midx: 0)
+	R1 <2> <- R0   (midx: 0)
+	R0 <4> <- #_AmPm   (midx: 0)
+	CALL _Set_Roller   (midx: 0)
+//RTCC_main.c,595 :: 		}
+69:   (midx: 0)
+  end
+   (midx: 0)
+_Set_MyRTCC:
+  begin   (midx: 0)
+//RTCC_main.c,605 :: 		char Set_MyRTCC(){
+_Set_MyRTCC:
+  begin   (midx: 0)
+//RTCC_main.c,607 :: 		RTCC_Read(&MyTime);
+	R0 <4> <- #_MyTime   (midx: 0)
+	CALL _RTCC_Read   (midx: 0)
+//RTCC_main.c,608 :: 		temp = Hour1Roll.currentlevel * 10 + Hour2Roll.currentlevel;
+	R0 <4> <- addr(_Hour1Roll+16)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R0 <2> <- 10   (midx: 0)
+	R1 <2> <-  R1 * R0   (midx: 1)
+	R0 <4> <- addr(_Hour2Roll+16)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  R1 + R0   (midx: 1)
+   (midx: 0)
+	R1 <1> <- R0   (midx: 0)
+//RTCC_main.c,609 :: 		if (temp > 12)
+	R0 <1> <- R0   (midx: 0)
+   (midx: 0)
+	if ( R0 <= 12) then goto 70   (midx: 0)
+//RTCC_main.c,610 :: 		return 0;
+	R0 <1> <- 0   (midx: 0)
+	return   (midx: 0)
+70:   (midx: 0)
+//RTCC_main.c,611 :: 		MyTime.hours = temp;
+   (midx: 0)
+	R0 <4> <- addr(_MyTime+3)   (midx: 0)
+   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//RTCC_main.c,612 :: 		MyTime.minutes = Minute1Roll.currentlevel * 10 + Minute2Roll.currentlevel;
+	R0 <4> <- addr(_Minute1Roll+16)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R0 <2> <- 10   (midx: 0)
+	R1 <2> <-  R1 * R0   (midx: 1)
+	R0 <4> <- addr(_Minute2Roll+16)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R1 <2> <-  R1 + R0   (midx: 1)
+	R0 <4> <- addr(_MyTime+2)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//RTCC_main.c,613 :: 		MyTime.ampm = AmPm.currentlevel;
+	R0 <4> <- addr(_AmPm+16)   (midx: 0)
+	R1 <1> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_MyTime+0)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//RTCC_main.c,614 :: 		Set_RTC(&MyTime);
+	R0 <4> <- #_MyTime   (midx: 0)
+	CALL _Set_RTC   (midx: 0)
+//RTCC_main.c,615 :: 		return 1;
+	R0 <1> <- 1   (midx: 0)
+	return   (midx: 0)
+  end
+   (midx: 0)
+_UpdateTime:
+  begin   (midx: 0)
+//RTCC_main.c,625 :: 		void UpdateTime(TTime *RTCC_Time){
+_UpdateTime:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+   (midx: 0)
+//RTCC_main.c,626 :: 		Label19_Caption[0] = (RTCC_Time->hours / 10) + 48;
+	R3 <4> <-  R0 + 3   (midx: 2)
+	R2 <1> <- *R3   (midx: 0)
+	R1 <1> <- 10   (midx: 0)
+	R1 <1> <-  R2 / R1   (midx: 4)
+	R2 <2> <-  R1 + 48   (midx: 4)
+	R1 <4> <- addr(_Label19_Caption)   (midx: 0)
+	[R1] <1> <- R2   (midx: 0)
+//RTCC_main.c,627 :: 		Label19_Caption[1] = (RTCC_Time->hours % 10) + 48;
+	R3 <1> <- *R3   (midx: 0)
+	R2 <1> <- 10   (midx: 0)
+	R1 <1> <-  R3 mod R2   (midx: 4)
+	R2 <2> <-  R1 + 48   (midx: 4)
+	R1 <4> <- addr(_Label19_Caption+1)   (midx: 0)
+	[R1] <1> <- R2   (midx: 0)
+//RTCC_main.c,628 :: 		Label19_Caption[2] = ':';
+	R2 <1> <- 58   (midx: 0)
+	R1 <4> <- addr(_Label19_Caption+2)   (midx: 0)
+	[R1] <1> <- R2   (midx: 0)
+//RTCC_main.c,629 :: 		Label19_Caption[3] = (RTCC_Time->minutes / 10) + 48;
+	R3 <4> <-  R0 + 2   (midx: 2)
+	R2 <1> <- *R3   (midx: 0)
+	R1 <1> <- 10   (midx: 0)
+	R1 <1> <-  R2 / R1   (midx: 4)
+	R2 <2> <-  R1 + 48   (midx: 4)
+	R1 <4> <- addr(_Label19_Caption+3)   (midx: 0)
+	[R1] <1> <- R2   (midx: 0)
+//RTCC_main.c,630 :: 		Label19_Caption[4] = (RTCC_Time->minutes % 10) + 48;
+	R3 <1> <- *R3   (midx: 0)
+	R2 <1> <- 10   (midx: 0)
+	R1 <1> <-  R3 mod R2   (midx: 4)
+	R2 <2> <-  R1 + 48   (midx: 4)
+	R1 <4> <- addr(_Label19_Caption+4)   (midx: 0)
+	[R1] <1> <- R2   (midx: 0)
+//RTCC_main.c,631 :: 		Label19_Caption[5] = ' ';
+	R2 <1> <- 32   (midx: 0)
+	R1 <4> <- addr(_Label19_Caption+5)   (midx: 0)
+	[R1] <1> <- R2   (midx: 0)
+//RTCC_main.c,632 :: 		if (RTCC_Time->ampm == 0){
+	R1 <1> <- *R0   (midx: 0)
+   (midx: 0)
+	if ( R1 != 0) then goto 71   (midx: 4)
+//RTCC_main.c,633 :: 		Label19_Caption[6] = 'A';
+	R2 <1> <- 65   (midx: 0)
+	R1 <4> <- addr(_Label19_Caption+6)   (midx: 0)
+	[R1] <1> <- R2   (midx: 0)
+//RTCC_main.c,634 :: 		Label19_Caption[7] = 'M';
+	R2 <1> <- 77   (midx: 0)
+	R1 <4> <- addr(_Label19_Caption+7)   (midx: 0)
+	[R1] <1> <- R2   (midx: 0)
+//RTCC_main.c,635 :: 		}
+	goto	72   (midx: 0)
+71:   (midx: 0)
+//RTCC_main.c,636 :: 		else if (RTCC_Time->ampm == 1){
+   (midx: 0)
+   (midx: 0)
+	R1 <1> <- *R0   (midx: 0)
+	if ( R1 != 1) then goto 73   (midx: 4)
+//RTCC_main.c,637 :: 		Label19_Caption[6] = 'P';
+	R2 <1> <- 80   (midx: 0)
+	R1 <4> <- addr(_Label19_Caption+6)   (midx: 0)
+	[R1] <1> <- R2   (midx: 0)
+//RTCC_main.c,638 :: 		Label19_Caption[7] = 'M';
+	R2 <1> <- 77   (midx: 0)
+	R1 <4> <- addr(_Label19_Caption+7)   (midx: 0)
+	[R1] <1> <- R2   (midx: 0)
+//RTCC_main.c,639 :: 		}
+73:   (midx: 0)
+72:   (midx: 0)
+//RTCC_main.c,640 :: 		Label19_Caption[8] = 0;
+	R2 <1> <- 0   (midx: 0)
+	R1 <4> <- addr(_Label19_Caption+8)   (midx: 0)
+	[R1] <1> <- R2   (midx: 0)
+//RTCC_main.c,641 :: 		TFT_Set_Brush(1, Speedometer_graphics.Color, 0, 0, 0, 0);
+	R3 <2> <- 0   (midx: 0)
+	R2 <2> <- 0   (midx: 0)
+	R1 <4> <- addr(_Speedometer_graphics+0)   (midx: 0)
+	R1 <2> <- [R1]   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_to <2> <- PUSH(R3)   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_from <2> <- PUSH(R2)   (midx: 0)
+	R3 <1> <- 0   (midx: 0)
+	R2 <1> <- 0   (midx: 0)
+	R1 <2> <- R1   (midx: 0)
+	R0 <1> <- 1   (midx: 0)
+	CALL _TFT_Set_Brush   (midx: 0)
+//RTCC_main.c,642 :: 		TFT_Set_Pen(Speedometer_graphics.Color, 0);
+	R1 <4> <- addr(_Speedometer_graphics+0)   (midx: 0)
+	R1 <2> <- [R1]   (midx: 0)
+	R0 <2> <- R1   (midx: 0)
+	R1 <1> <- 0   (midx: 0)
+	CALL _TFT_Set_Pen   (midx: 0)
+//RTCC_main.c,643 :: 		TFT_Rectangle(Label19.Left, Label19.Top, Label19.Left + 60, Label19.Top + 20);
+	R2 <4> <- addr(_Label19+8)   (midx: 0)
+	R1 <2> <- [R2]   (midx: 0)
+	R5 <2> <-  R1 + 20   (midx: 1)
+	R4 <4> <- addr(_Label19+6)   (midx: 0)
+	R1 <2> <- [R4]   (midx: 0)
+	R3 <2> <-  R1 + 60   (midx: 1)
+	R1 <4> <- R2   (midx: 0)
+	R2 <2> <- [R1]   (midx: 0)
+	R1 <4> <- R4   (midx: 0)
+	R1 <2> <- [R1]   (midx: 0)
+	R0 <2> <- R1   (midx: 0)
+	R1 <2> <- R2   (midx: 0)
+	R2 <2> <- R3   (midx: 0)
+	R3 <2> <- R5   (midx: 0)
+	CALL _TFT_Rectangle   (midx: 0)
+//RTCC_main.c,644 :: 		DrawLabel(&Label19);
+	R0 <4> <- #_Label19   (midx: 0)
+	CALL _DrawLabel   (midx: 0)
+  end
+   (midx: 0)
+_checkRTC:
+  begin   (midx: 0)
+//RTCC_main.c,655 :: 		void checkRTC(){
+_checkRTC:
+  begin   (midx: 0)
+//RTCC_main.c,656 :: 		if (RTCC_Read(&MyTime)){
+	R0 <4> <- #_MyTime   (midx: 0)
+	CALL _RTCC_Read   (midx: 0)
+	if (!R0) then goto 74   (midx: 0)
+//RTCC_main.c,657 :: 		if ((MyTime.minutes != OldMyTime.minutes) || (MyTime.hours != OldMyTime.hours) || (MyTime.ampm != OldMyTime.ampm)){
+	R0 <4> <- addr(_OldMyTime+2)   (midx: 0)
+	R1 <1> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_MyTime+2)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 != R1) then goto 85   (midx: 4)
+	R0 <4> <- addr(_OldMyTime+3)   (midx: 0)
+	R1 <1> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_MyTime+3)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 != R1) then goto 84   (midx: 4)
+	R0 <4> <- addr(_OldMyTime+0)   (midx: 0)
+	R1 <1> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_MyTime+0)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 != R1) then goto 83   (midx: 4)
+	goto	77   (midx: 0)
+85:   (midx: 0)
+84:   (midx: 0)
+83:   (midx: 0)
+//RTCC_main.c,658 :: 		UpdateTime(&MyTime);
+	R0 <4> <- #_MyTime   (midx: 0)
+	CALL _UpdateTime   (midx: 0)
+//RTCC_main.c,659 :: 		OldMyTime = MyTime;
+	R3 <1> <- 8   (midx: 0)
+	R2 <4> <- addr(_OldMyTime)   (midx: 0)
+	R1 <4> <- addr(_MyTime)   (midx: 0)
+78:   (midx: 0)
+	R0 <1> <- *R1   (midx: 0)
+	[R2] <1> <- R0   (midx: 0)
+	R3 <1> <-  R3 - 1   (midx: 0)
+	R3 <1> <- R3   (midx: 0)
+	R1 <4> <-  R1 + 1   (midx: 0)
+	R2 <4> <-  R2 + 1   (midx: 0)
+	if (R3) then goto 78   (midx: 0)
+//RTCC_main.c,660 :: 		}
+77:   (midx: 0)
+//RTCC_main.c,661 :: 		}
+74:   (midx: 0)
+  end
+   (midx: 0)

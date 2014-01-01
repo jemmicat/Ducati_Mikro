@@ -1,0 +1,170 @@
+HMC5883L_driver_ADXL345_Write:
+  begin   (midx: 0)
+//HMC5883L_driver.c,30 :: 		static void ADXL345_Write(unsigned short address, unsigned short data1) {
+HMC5883L_driver_ADXL345_Write:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R5 <1> <- R0   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R6 <1> <- R1   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+//HMC5883L_driver.c,31 :: 		I2C1_Start();              // issue I2C start signal
+	CALL _I2C1_Start   (midx: 0)
+//HMC5883L_driver.c,32 :: 		data_[0] = address;
+	R2 <4> <- addr(_data_)   (midx: 0)
+   (midx: 0)
+	[R2] <1> <- R5   (midx: 0)
+//HMC5883L_driver.c,33 :: 		data_[1] = data1;
+	R2 <4> <- addr(_data_+1)   (midx: 0)
+   (midx: 0)
+	[R2] <1> <- R6   (midx: 0)
+//HMC5883L_driver.c,34 :: 		I2C1_Write(_ACCEL_ADDRESS, data_, 2, END_MODE_STOP);
+	R3 <4> <- 1   (midx: 0)
+	R2 <4> <- 2   (midx: 0)
+	R1 <4> <- #_data_   (midx: 0)
+	R0 <1> <- 83   (midx: 0)
+	CALL _I2C1_Write   (midx: 0)
+  end
+   (midx: 0)
+_ADXL345_Read:
+  begin   (midx: 0)
+//HMC5883L_driver.c,44 :: 		void ADXL345_Read(int *data_X, int *data_Y, int *data_Z){
+_ADXL345_Read:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R11 <4> <- R0   (midx: 0)
+	R12 <4> <- R1   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	FARG_ADXL345_Read_data_Z <4> <- R2   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+//HMC5883L_driver.c,45 :: 		data_[0] = _DATAX0;
+	R4 <1> <- 50   (midx: 0)
+	R3 <4> <- addr(_data_)   (midx: 0)
+	[R3] <1> <- R4   (midx: 0)
+//HMC5883L_driver.c,46 :: 		I2C1_Start();              // issue I2C start signal
+	CALL _I2C1_Start   (midx: 0)
+//HMC5883L_driver.c,47 :: 		I2C1_Write(_ACCEL_ADDRESS, data_, 1, END_MODE_RESTART);
+	R3 <4> <- 0   (midx: 0)
+	R2 <4> <- 1   (midx: 0)
+	R1 <4> <- #_data_   (midx: 0)
+	R0 <1> <- 83   (midx: 0)
+	CALL _I2C1_Write   (midx: 0)
+//HMC5883L_driver.c,48 :: 		I2C1_Read(_ACCEL_ADDRESS, data_, 6, END_MODE_STOP);
+	R3 <4> <- 1   (midx: 0)
+	R2 <4> <- 6   (midx: 0)
+	R1 <4> <- #_data_   (midx: 0)
+	R0 <1> <- 83   (midx: 0)
+	CALL _I2C1_Read   (midx: 0)
+//HMC5883L_driver.c,50 :: 		*data_X = data_[0] + (data_[1] << 8);
+	R3 <4> <- addr(_data_+1)   (midx: 0)
+	R3 <2> <- [R3]   (midx: 0)
+	R4 <2> <-  R3 shl 8   (midx: 1)
+	R3 <4> <- addr(_data_)   (midx: 0)
+	R3 <2> <- [R3]   (midx: 0)
+	R3 <2> <-  R3 + R4   (midx: 1)
+   (midx: 0)
+	[R11] <2> <- R3   (midx: 0)
+//HMC5883L_driver.c,51 :: 		*data_Y = data_[2] + (data_[3] << 8);
+	R3 <4> <- addr(_data_+3)   (midx: 0)
+	R3 <2> <- [R3]   (midx: 0)
+	R4 <2> <-  R3 shl 8   (midx: 1)
+	R3 <4> <- addr(_data_+2)   (midx: 0)
+	R3 <2> <- [R3]   (midx: 0)
+	R3 <2> <-  R3 + R4   (midx: 1)
+   (midx: 0)
+	[R12] <2> <- R3   (midx: 0)
+//HMC5883L_driver.c,52 :: 		*data_Z = data_[4] + (data_[5] << 8);
+	R3 <4> <- addr(_data_+5)   (midx: 0)
+	R3 <2> <- [R3]   (midx: 0)
+	R4 <2> <-  R3 shl 8   (midx: 1)
+	R3 <4> <- addr(_data_+4)   (midx: 0)
+	R3 <2> <- [R3]   (midx: 0)
+	R4 <2> <-  R3 + R4   (midx: 1)
+	R3 <4> <- FARG_ADXL345_Read_data_Z   (midx: 0)
+	[R3] <2> <- R4   (midx: 0)
+  end
+   (midx: 0)
+HMC5883L_driver_ADXL345_Read_Register:
+  begin   (midx: 0)
+//HMC5883L_driver.c,62 :: 		static unsigned short ADXL345_Read_Register(unsigned short address) {
+HMC5883L_driver_ADXL345_Read_Register:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R5 <1> <- R0   (midx: 0)
+   (midx: 0)
+//HMC5883L_driver.c,63 :: 		I2C1_Start();              // issue I2C start signal
+	CALL _I2C1_Start   (midx: 0)
+//HMC5883L_driver.c,64 :: 		data_[0] = address;
+	R1 <4> <- addr(_data_)   (midx: 0)
+   (midx: 0)
+	[R1] <1> <- R5   (midx: 0)
+//HMC5883L_driver.c,65 :: 		I2C1_Write(_ACCEL_ADDRESS, data_, 1, END_MODE_RESTART);
+	R3 <4> <- 0   (midx: 0)
+	R2 <4> <- 1   (midx: 0)
+	R1 <4> <- #_data_   (midx: 0)
+	R0 <1> <- 83   (midx: 0)
+	CALL _I2C1_Write   (midx: 0)
+//HMC5883L_driver.c,66 :: 		I2C1_Read(_ACCEL_ADDRESS, data_, 1, END_MODE_STOP);
+	R3 <4> <- 1   (midx: 0)
+	R2 <4> <- 1   (midx: 0)
+	R1 <4> <- #_data_   (midx: 0)
+	R0 <1> <- 83   (midx: 0)
+	CALL _I2C1_Read   (midx: 0)
+//HMC5883L_driver.c,67 :: 		return data_[0];
+	R1 <4> <- addr(_data_)   (midx: 0)
+	R0 <1> <- [R1]   (midx: 0)
+	return   (midx: 0)
+  end
+   (midx: 0)
+_ADXL345_Init:
+  begin   (midx: 0)
+//HMC5883L_driver.c,77 :: 		char ADXL345_Init() {
+_ADXL345_Init:
+  begin   (midx: 0)
+//HMC5883L_driver.c,78 :: 		char id = 0x00;
+   (midx: 0)
+//HMC5883L_driver.c,80 :: 		ADXL345_Write(0x2D, 0x00);
+	R1 <1> <- 0   (midx: 0)
+	R0 <1> <- 45   (midx: 0)
+	CALL HMC5883L_driver_ADXL345_Write   (midx: 0)
+//HMC5883L_driver.c,81 :: 		id = ADXL345_Read_Register(0x00);
+	R0 <1> <- 0   (midx: 0)
+	CALL HMC5883L_driver_ADXL345_Read_Register   (midx: 0)
+//HMC5883L_driver.c,82 :: 		if (id != 0xE5) {
+	if ( R0 = 229) then goto 0   (midx: 0)
+//HMC5883L_driver.c,83 :: 		return _ACCEL_ERROR;
+	R0 <1> <- 2   (midx: 0)
+	return   (midx: 0)
+//HMC5883L_driver.c,84 :: 		}
+0:   (midx: 0)
+//HMC5883L_driver.c,86 :: 		ADXL345_Write(_DATA_FORMAT, 0x08);       // Full resolution, +/-2g, 4mg/LSB, right justified
+	R1 <1> <- 8   (midx: 0)
+	R0 <1> <- 49   (midx: 0)
+	CALL HMC5883L_driver_ADXL345_Write   (midx: 0)
+//HMC5883L_driver.c,87 :: 		ADXL345_Write(_BW_RATE, 0x0A);           // Set 100 Hz data rate
+	R1 <1> <- 10   (midx: 0)
+	R0 <1> <- 44   (midx: 0)
+	CALL HMC5883L_driver_ADXL345_Write   (midx: 0)
+//HMC5883L_driver.c,88 :: 		ADXL345_Write(_FIFO_CTL, 0x80);          // stream mode
+	R1 <1> <- 128   (midx: 0)
+	R0 <1> <- 56   (midx: 0)
+	CALL HMC5883L_driver_ADXL345_Write   (midx: 0)
+//HMC5883L_driver.c,89 :: 		ADXL345_Write(_POWER_CTL, 0x08);         // POWER_CTL reg: measurement mode
+	R1 <1> <- 8   (midx: 0)
+	R0 <1> <- 45   (midx: 0)
+	CALL HMC5883L_driver_ADXL345_Write   (midx: 0)
+//HMC5883L_driver.c,90 :: 		return 0x00;
+	R0 <1> <- 0   (midx: 0)
+	return   (midx: 0)
+  end
+   (midx: 0)

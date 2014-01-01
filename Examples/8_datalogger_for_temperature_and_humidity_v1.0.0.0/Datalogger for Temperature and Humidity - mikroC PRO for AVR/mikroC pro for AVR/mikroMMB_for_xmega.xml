@@ -1,0 +1,13 @@
+<mmb_xmega>
+	<Attributes>
+		<Url></Url>
+		<Image>mikromedia for xmega.jpg</Image>
+		<File></File>
+	</Attributes>
+	<Events>
+		<OnLeftClick></OnLeftClick>
+		<OnRightClick></OnRightClick>
+		<OnDblClick></OnDblClick>
+		<OnMouseOver>PreviewImage</OnMouseOver>
+	</Events>
+</mmb_xmega>

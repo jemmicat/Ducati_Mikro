@@ -1,0 +1,13 @@
+<mirkomedia_PLUS_for_STM_Shield>
+	<Attributes>
+		<Url></Url>
+		<Image>mikromedia+_stm32_shield_thumb.jpg</Image>
+		<File></File>
+	</Attributes>
+	<Events>
+		<OnLeftClick></OnLeftClick>
+		<OnRightClick></OnRightClick>
+		<OnDblClick></OnDblClick>
+		<OnMouseOver>PreviewImage</OnMouseOver>
+	</Events>
+</mirkomedia_PLUS_for_STM_Shield>

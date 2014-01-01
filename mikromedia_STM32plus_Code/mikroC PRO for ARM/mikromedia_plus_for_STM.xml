@@ -1,0 +1,13 @@
+<mikromedia_plus_for_STM>
+	<Attributes>
+		<Url></Url>
+		<Image>mikromedia+_stm32_thumb.jpg</Image>
+		<File></File>
+	</Attributes>
+	<Events>
+		<OnLeftClick></OnLeftClick>
+		<OnRightClick></OnRightClick>
+		<OnDblClick></OnDblClick>
+		<OnMouseOver>PreviewImage</OnMouseOver>
+	</Events>
+</mikromedia_plus_for_STM>

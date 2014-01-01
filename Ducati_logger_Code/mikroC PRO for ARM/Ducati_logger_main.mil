@@ -1,0 +1,27 @@
+_main:
+  begin   (midx: 0)
+//Ducati_logger_main.c,28 :: 		void main() {
+_main:
+  begin   (midx: 0)
+//Ducati_logger_main.c,30 :: 		Init_GPIO();
+	CALL _Init_GPIO   (midx: 0)
+//Ducati_logger_main.c,31 :: 		Init_SDIO();
+	CALL _Init_SDIO   (midx: 0)
+//Ducati_logger_main.c,32 :: 		Init_FAT();
+	CALL _Init_FAT   (midx: 0)
+//Ducati_logger_main.c,33 :: 		RTC_Init();
+	CALL _RTC_Init   (midx: 0)
+//Ducati_logger_main.c,34 :: 		Start_TP();
+	CALL _Start_TP   (midx: 0)
+//Ducati_logger_main.c,37 :: 		while (1) {
+0:   (midx: 0)
+//Ducati_logger_main.c,38 :: 		DisableInterrupts();
+	CALL _DisableInterrupts   (midx: 0)
+//Ducati_logger_main.c,39 :: 		Check_TP();
+	CALL _Check_TP   (midx: 0)
+//Ducati_logger_main.c,40 :: 		EnableInterrupts();
+	CALL _EnableInterrupts   (midx: 0)
+//Ducati_logger_main.c,41 :: 		}
+	goto	0   (midx: 0)
+  end
+   (midx: 0)

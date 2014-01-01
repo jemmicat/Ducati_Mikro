@@ -1,0 +1,701 @@
+Slide_Show_DrawImageLine:
+  begin   (midx: 0)
+//Slide_Show.c,73 :: 		static void DrawImageLine(unsigned long image, int line){
+Slide_Show_DrawImageLine:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R1 <2> <- R1   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+//Slide_Show.c,78 :: 		TFT_CS = 0;
+	R3 <1> <- 0   (midx: 0)
+	R2 <4> <- addr(TFT_CS)   (midx: 0)
+	[R2] <0> <- R3   (midx: 0)
+//Slide_Show.c,79 :: 		offset = image + 6 + (unsigned long)line*960;
+   (midx: 0)
+	R4 <4> <-  R0 + 6   (midx: 2)
+   (midx: 0)
+	R3 <4> <- R1   (midx: 0)
+	R2 <4> <- 960   (midx: 0)
+	R2 <4> <-  R3 * R2   (midx: 2)
+	R2 <4> <-  R4 + R2   (midx: 2)
+	Slide_Show_DrawImageLine_offset_L0 <4> <- R2   (midx: 0)
+//Slide_Show.c,80 :: 		count = 960;
+	R2 <2> <- 960   (midx: 0)
+	Slide_Show_DrawImageLine_count_L0 <2> <- R2   (midx: 0)
+//Slide_Show.c,81 :: 		TFT_SSD1963_Set_Address_Ptr(0, Slides_disp_scroll, 479, Slides_disp_scroll);
+	R2 <4> <- addr(Slide_Show_Slides_disp_scroll)   (midx: 0)
+	R4 <2> <- [R2]   (midx: 0)
+	R2 <4> <- R2   (midx: 0)
+	R2 <2> <- [R2]   (midx: 0)
+	R3 <2> <- R4   (midx: 0)
+	R1 <2> <- R2   (midx: 0)
+	R2 <2> <- 479   (midx: 0)
+	R0 <2> <- 0   (midx: 0)
+	R4 <4> <- addr(_TFT_SSD1963_Set_Address_Ptr)   (midx: 0)
+	R4 <4> <- [R4]   (midx: 0)
+	CALL (*R4)   (midx: 0)
+//Slide_Show.c,82 :: 		while(count>0){
+0:   (midx: 0)
+	R2 <2> <- Slide_Show_DrawImageLine_count_L0   (midx: 0)
+	if ( R2 <= 0) then goto 1   (midx: 1)
+//Slide_Show.c,83 :: 		ptr = MyTFT_Get_Data(offset,count,&readed);
+	R2 <4> <- addr(Slide_Show_DrawImageLine_readed_L0)   (midx: 0)
+	R2 <4> <- R2   (midx: 0)
+	R1 <4> <- Slide_Show_DrawImageLine_count_L0   (midx: 0)
+	R0 <4> <- Slide_Show_DrawImageLine_offset_L0   (midx: 0)
+	CALL _MyTFT_Get_Data   (midx: 0)
+	Slide_Show_DrawImageLine_ptr_L0 <4> <- R0   (midx: 0)
+//Slide_Show.c,84 :: 		count -= readed;
+	R3 <4> <- Slide_Show_DrawImageLine_readed_L0   (midx: 0)
+	R2 <4> <- Slide_Show_DrawImageLine_count_L0   (midx: 0)
+	R2 <4> <-  R2 - R3   (midx: 2)
+	Slide_Show_DrawImageLine_count_L0 <2> <- R2   (midx: 0)
+//Slide_Show.c,85 :: 		offset += readed;
+	R3 <4> <- Slide_Show_DrawImageLine_readed_L0   (midx: 0)
+	R2 <4> <- Slide_Show_DrawImageLine_offset_L0   (midx: 0)
+	R2 <4> <-  R2 + R3   (midx: 2)
+	Slide_Show_DrawImageLine_offset_L0 <4> <- R2   (midx: 0)
+//Slide_Show.c,86 :: 		readed /= 2;
+	R2 <4> <- Slide_Show_DrawImageLine_readed_L0   (midx: 0)
+	R2 <4> <-  R2 shr 1   (midx: 2)
+	Slide_Show_DrawImageLine_readed_L0 <4> <- R2   (midx: 0)
+//Slide_Show.c,87 :: 		for (i = 0;i<readed;i++){
+   (midx: 0)
+   (midx: 0)
+	R5 <2> <- 0   (midx: 0)
+	R0 <2> <- R5   (midx: 0)
+2:   (midx: 0)
+   (midx: 0)
+	R2 <4> <- Slide_Show_DrawImageLine_readed_L0   (midx: 0)
+	if ( R0 >= R2) then goto 3   (midx: 2)
+//Slide_Show.c,88 :: 		color = *ptr++;
+	R2 <4> <- Slide_Show_DrawImageLine_ptr_L0   (midx: 0)
+	R2 <1> <- *R2   (midx: 0)
+   (midx: 0)
+	R1 <2> <- R2   (midx: 0)
+	R2 <4> <- Slide_Show_DrawImageLine_ptr_L0   (midx: 0)
+	R3 <4> <-  R2 + 1   (midx: 2)
+//Slide_Show.c,89 :: 		color += (*ptr++) << 8;
+	R2 <1> <- *R3   (midx: 0)
+	R2 <2> <-  R2 shl 8   (midx: 1)
+   (midx: 0)
+	R4 <2> <-  R1 + R2   (midx: 1)
+	R2 <4> <-  R3 + 1   (midx: 2)
+	Slide_Show_DrawImageLine_ptr_L0 <4> <- R2   (midx: 0)
+//Slide_Show.c,90 :: 		TFT_Write_Data_Ptr(color);
+	R0 <2> <- PUSH(R0)   (midx: 255)
+	R0 <2> <- R4   (midx: 0)
+	R4 <4> <- addr(_TFT_Write_Data_Ptr)   (midx: 0)
+	R4 <4> <- [R4]   (midx: 0)
+	CALL (*R4)   (midx: 0)
+	R0 <2> <- POP   (midx: 255)
+//Slide_Show.c,87 :: 		for (i = 0;i<readed;i++){
+   (midx: 0)
+	R2 <2> <-  R0 + 1   (midx: 1)
+   (midx: 0)
+	R5 <2> <- R2   (midx: 0)
+//Slide_Show.c,91 :: 		}
+   (midx: 0)
+	R0 <2> <- R5   (midx: 0)
+	goto	2   (midx: 0)
+3:   (midx: 0)
+//Slide_Show.c,92 :: 		}
+	goto	0   (midx: 0)
+1:   (midx: 0)
+//Slide_Show.c,94 :: 		TFT_CS = 1;
+	R3 <1> <- 1   (midx: 0)
+	R2 <4> <- addr(TFT_CS)   (midx: 0)
+	[R2] <0> <- R3   (midx: 0)
+  end
+   (midx: 0)
+Slide_Show_Slides_Scroll:
+  begin   (midx: 0)
+//Slide_Show.c,104 :: 		static void Slides_Scroll(char Adir) {
+Slide_Show_Slides_Scroll:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R0 <1> <- R0   (midx: 0)
+   (midx: 0)
+//Slide_Show.c,107 :: 		if (Adir == 1) {
+   (midx: 0)
+	if ( R0 != 1) then goto 5   (midx: 0)
+//Slide_Show.c,108 :: 		if (Slides_disp_scroll != _SLIDES_SCROLL_LAST_LINE - 1)
+	R1 <4> <- addr(Slide_Show_Slides_disp_scroll)   (midx: 0)
+	R1 <2> <- [R1]   (midx: 0)
+	if ( R1 = 246) then goto 6   (midx: 5)
+//Slide_Show.c,109 :: 		Slides_disp_scroll++;
+	R2 <4> <- addr(Slide_Show_Slides_disp_scroll)   (midx: 0)
+	R1 <2> <- [R2]   (midx: 0)
+	R1 <2> <-  R1 + 1   (midx: 1)
+	[R2] <2> <- R1   (midx: 0)
+	goto	7   (midx: 0)
+6:   (midx: 0)
+//Slide_Show.c,111 :: 		Slides_disp_scroll = _SLIDES_SCROLL_FIRST_LINE;
+	R2 <2> <- 38   (midx: 0)
+	R1 <4> <- addr(Slide_Show_Slides_disp_scroll)   (midx: 0)
+	[R1] <2> <- R2   (midx: 0)
+//Slide_Show.c,112 :: 		}
+7:   (midx: 0)
+//Slide_Show.c,113 :: 		}
+	goto	8   (midx: 0)
+5:   (midx: 0)
+//Slide_Show.c,115 :: 		if (Slides_disp_scroll != _SLIDES_SCROLL_FIRST_LINE)
+	R1 <4> <- addr(Slide_Show_Slides_disp_scroll)   (midx: 0)
+	R1 <2> <- [R1]   (midx: 0)
+	if ( R1 = 38) then goto 9   (midx: 5)
+//Slide_Show.c,116 :: 		Slides_disp_scroll--;
+	R2 <4> <- addr(Slide_Show_Slides_disp_scroll)   (midx: 0)
+	R1 <2> <- [R2]   (midx: 0)
+	R1 <2> <-  R1 - 1   (midx: 1)
+	[R2] <2> <- R1   (midx: 0)
+	goto	10   (midx: 0)
+9:   (midx: 0)
+//Slide_Show.c,118 :: 		Slides_disp_scroll = _SLIDES_SCROLL_LAST_LINE - 1;
+	R2 <2> <- 246   (midx: 0)
+	R1 <4> <- addr(Slide_Show_Slides_disp_scroll)   (midx: 0)
+	[R1] <2> <- R2   (midx: 0)
+//Slide_Show.c,119 :: 		}
+10:   (midx: 0)
+//Slide_Show.c,120 :: 		}
+8:   (midx: 0)
+//Slide_Show.c,122 :: 		Scroll(Slides_disp_scroll);
+	R1 <4> <- addr(Slide_Show_Slides_disp_scroll)   (midx: 0)
+	R1 <2> <- [R1]   (midx: 0)
+	R0 <2> <- R1   (midx: 0)
+	CALL _Scroll   (midx: 0)
+  end
+   (midx: 0)
+Slide_Show_GetNextImage:
+  begin   (midx: 0)
+//Slide_Show.c,132 :: 		static void GetNextImage(){
+Slide_Show_GetNextImage:
+  begin   (midx: 0)
+//Slide_Show.c,133 :: 		left_image = right_image;
+	R2 <4> <- addr(Slide_Show_right_image)   (midx: 0)
+	R1 <4> <- [R2]   (midx: 0)
+	R0 <4> <- addr(Slide_Show_left_image)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//Slide_Show.c,134 :: 		right_image = Slides[Slide_Index];
+	R0 <4> <- addr(_Slide_Index)   (midx: 0)
+	R0 <4> <- [R0]   (midx: 0)
+	R1 <4> <-  R0 shl 2   (midx: 2)
+	R0 <4> <- #_Slides   (midx: 0)
+	R0 <4> <-  R0 + R1   (midx: 2)
+	R0 <4> <- *R0   (midx: 0)
+	[R2] <4> <- R0   (midx: 0)
+//Slide_Show.c,136 :: 		Slides_imageLine = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(Slide_Show_Slides_imageLine)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+  end
+   (midx: 0)
+Slide_Show_GetPreviousImage:
+  begin   (midx: 0)
+//Slide_Show.c,146 :: 		static void GetPreviousImage(){
+Slide_Show_GetPreviousImage:
+  begin   (midx: 0)
+//Slide_Show.c,147 :: 		right_image = left_image;
+	R2 <4> <- addr(Slide_Show_left_image)   (midx: 0)
+	R1 <4> <- [R2]   (midx: 0)
+	R0 <4> <- addr(Slide_Show_right_image)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//Slide_Show.c,148 :: 		left_image = Slides[Slide_Index];
+	R0 <4> <- addr(_Slide_Index)   (midx: 0)
+	R0 <4> <- [R0]   (midx: 0)
+	R1 <4> <-  R0 shl 2   (midx: 2)
+	R0 <4> <- #_Slides   (midx: 0)
+	R0 <4> <-  R0 + R1   (midx: 2)
+	R0 <4> <- *R0   (midx: 0)
+	[R2] <4> <- R0   (midx: 0)
+//Slide_Show.c,150 :: 		Slides_imageLine = 209;
+	R1 <2> <- 209   (midx: 0)
+	R0 <4> <- addr(Slide_Show_Slides_imageLine)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+  end
+   (midx: 0)
+Slide_Show_Slides_ScrollUp:
+  begin   (midx: 0)
+//Slide_Show.c,160 :: 		static void Slides_ScrollUp(int scroll){
+Slide_Show_Slides_ScrollUp:
+  begin   (midx: 0)
+   (midx: 0)
+	FARG_Slide_Show_Slides_ScrollUp_scroll <2> <- R0   (midx: 0)
+   (midx: 0)
+//Slide_Show.c,161 :: 		while(scroll--){
+11:   (midx: 0)
+	R2 <2> <- FARG_Slide_Show_Slides_ScrollUp_scroll   (midx: 0)
+	R1 <2> <- FARG_Slide_Show_Slides_ScrollUp_scroll   (midx: 0)
+	R1 <2> <-  R1 - 1   (midx: 1)
+	FARG_Slide_Show_Slides_ScrollUp_scroll <2> <- R1   (midx: 0)
+	if (!R2) then goto 12   (midx: 0)
+//Slide_Show.c,162 :: 		Slides_Scroll(1);              // Scroll image
+	R0 <1> <- 1   (midx: 0)
+	CALL Slide_Show_Slides_Scroll   (midx: 0)
+//Slide_Show.c,163 :: 		DrawImageLine(right_image,Slides_imageLine); //  and draw next image line
+	R1 <4> <- addr(Slide_Show_Slides_imageLine)   (midx: 0)
+	R2 <2> <- [R1]   (midx: 0)
+	R1 <4> <- addr(Slide_Show_right_image)   (midx: 0)
+	R1 <4> <- [R1]   (midx: 0)
+	R0 <4> <- R1   (midx: 0)
+	R1 <2> <- R2   (midx: 0)
+	CALL Slide_Show_DrawImageLine   (midx: 0)
+//Slide_Show.c,164 :: 		Slides_imageLine++;
+	R2 <4> <- addr(Slide_Show_Slides_imageLine)   (midx: 0)
+	R1 <2> <- [R2]   (midx: 0)
+	R1 <2> <-  R1 + 1   (midx: 1)
+	[R2] <2> <- R1   (midx: 0)
+//Slide_Show.c,165 :: 		}
+	goto	11   (midx: 0)
+12:   (midx: 0)
+  end
+   (midx: 0)
+Slide_Show_Slides_ScrollDown:
+  begin   (midx: 0)
+//Slide_Show.c,175 :: 		static void Slides_ScrollDown(int scroll){
+Slide_Show_Slides_ScrollDown:
+  begin   (midx: 0)
+   (midx: 0)
+	FARG_Slide_Show_Slides_ScrollDown_scroll <2> <- R0   (midx: 0)
+   (midx: 0)
+//Slide_Show.c,176 :: 		while(scroll--){
+13:   (midx: 0)
+	R2 <2> <- FARG_Slide_Show_Slides_ScrollDown_scroll   (midx: 0)
+	R1 <2> <- FARG_Slide_Show_Slides_ScrollDown_scroll   (midx: 0)
+	R1 <2> <-  R1 - 1   (midx: 1)
+	FARG_Slide_Show_Slides_ScrollDown_scroll <2> <- R1   (midx: 0)
+	if (!R2) then goto 14   (midx: 0)
+//Slide_Show.c,177 :: 		Slides_imageLine--;
+	R2 <4> <- addr(Slide_Show_Slides_imageLine)   (midx: 0)
+	R1 <2> <- [R2]   (midx: 0)
+	R1 <2> <-  R1 - 1   (midx: 1)
+	[R2] <2> <- R1   (midx: 0)
+//Slide_Show.c,178 :: 		DrawImageLine(left_image,Slides_imageLine);
+	R2 <2> <- R1   (midx: 0)
+	R1 <4> <- addr(Slide_Show_left_image)   (midx: 0)
+	R1 <4> <- [R1]   (midx: 0)
+	R0 <4> <- R1   (midx: 0)
+	R1 <2> <- R2   (midx: 0)
+	CALL Slide_Show_DrawImageLine   (midx: 0)
+//Slide_Show.c,179 :: 		Slides_Scroll(0);
+	R0 <1> <- 0   (midx: 0)
+	CALL Slide_Show_Slides_Scroll   (midx: 0)
+//Slide_Show.c,180 :: 		}
+	goto	13   (midx: 0)
+14:   (midx: 0)
+  end
+   (midx: 0)
+_ScrollImageUp:
+  begin   (midx: 0)
+//Slide_Show.c,190 :: 		void ScrollImageUp(int scroll){
+_ScrollImageUp:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+   (midx: 0)
+//Slide_Show.c,191 :: 		if (Slides_imageLine == 0){
+	R1 <4> <- addr(Slide_Show_Slides_imageLine)   (midx: 0)
+	R1 <2> <- [R1]   (midx: 0)
+	if ( R1 != 0) then goto 15   (midx: 5)
+//Slide_Show.c,192 :: 		if (Slide_Dir == 1)
+	R1 <4> <- addr(Slide_Show_Slide_Dir)   (midx: 0)
+	R1 <1> <- [R1]   (midx: 0)
+	if ( R1 != 1) then goto 16   (midx: 0)
+//Slide_Show.c,193 :: 		GetPreviousImage();
+	R0 <2> <- PUSH(R0)   (midx: 255)
+	CALL Slide_Show_GetPreviousImage   (midx: 0)
+	R0 <2> <- POP   (midx: 255)
+16:   (midx: 0)
+//Slide_Show.c,194 :: 		}
+15:   (midx: 0)
+//Slide_Show.c,195 :: 		Slide_Dir = 2;
+	R2 <1> <- 2   (midx: 0)
+	R1 <4> <- addr(Slide_Show_Slide_Dir)   (midx: 0)
+	[R1] <1> <- R2   (midx: 0)
+//Slide_Show.c,197 :: 		if((Slides_imageLine+scroll > 210)){
+	R1 <4> <- addr(Slide_Show_Slides_imageLine)   (midx: 0)
+	R1 <2> <- [R1]   (midx: 0)
+	R1 <2> <-  R1 + R0   (midx: 5)
+	if ( R1 <= 210) then goto 17   (midx: 5)
+//Slide_Show.c,198 :: 		Slide_Index ++;
+	R2 <4> <- addr(_Slide_Index)   (midx: 0)
+	R1 <1> <- [R2]   (midx: 0)
+	R1 <1> <-  R1 + 1   (midx: 0)
+	[R2] <1> <- R1   (midx: 0)
+//Slide_Show.c,199 :: 		if (Slide_Index > 7)
+	if ( R1 <= 7) then goto 18   (midx: 4)
+//Slide_Show.c,200 :: 		Slide_Index = 0;
+	R2 <1> <- 0   (midx: 0)
+	R1 <4> <- addr(_Slide_Index)   (midx: 0)
+	[R1] <1> <- R2   (midx: 0)
+18:   (midx: 0)
+//Slide_Show.c,202 :: 		GetNextImage();
+	R0 <2> <- PUSH(R0)   (midx: 255)
+	CALL Slide_Show_GetNextImage   (midx: 0)
+	R0 <2> <- POP   (midx: 255)
+//Slide_Show.c,203 :: 		Slides_ScrollUp(scroll);
+   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL Slide_Show_Slides_ScrollUp   (midx: 0)
+//Slide_Show.c,204 :: 		}
+	goto	19   (midx: 0)
+17:   (midx: 0)
+//Slide_Show.c,206 :: 		Slides_ScrollUp(scroll);
+   (midx: 0)
+   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL Slide_Show_Slides_ScrollUp   (midx: 0)
+//Slide_Show.c,207 :: 		}
+19:   (midx: 0)
+  end
+   (midx: 0)
+_ScrollImageDown:
+  begin   (midx: 0)
+//Slide_Show.c,217 :: 		void ScrollImageDown(int scroll){
+_ScrollImageDown:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+   (midx: 0)
+//Slide_Show.c,218 :: 		if (Slides_imageLine == 209){
+	R1 <4> <- addr(Slide_Show_Slides_imageLine)   (midx: 0)
+	R1 <2> <- [R1]   (midx: 0)
+	if ( R1 != 209) then goto 20   (midx: 5)
+//Slide_Show.c,219 :: 		if (Slide_Dir == 2)
+	R1 <4> <- addr(Slide_Show_Slide_Dir)   (midx: 0)
+	R1 <1> <- [R1]   (midx: 0)
+	if ( R1 != 2) then goto 21   (midx: 0)
+//Slide_Show.c,220 :: 		GetNextImage();
+	R0 <2> <- PUSH(R0)   (midx: 255)
+	CALL Slide_Show_GetNextImage   (midx: 0)
+	R0 <2> <- POP   (midx: 255)
+21:   (midx: 0)
+//Slide_Show.c,221 :: 		}
+20:   (midx: 0)
+//Slide_Show.c,222 :: 		Slide_Dir = 1;
+	R2 <1> <- 1   (midx: 0)
+	R1 <4> <- addr(Slide_Show_Slide_Dir)   (midx: 0)
+	[R1] <1> <- R2   (midx: 0)
+//Slide_Show.c,224 :: 		if((Slides_imageLine-scroll < 0)){// || (Slides_imageLine == 209)){
+	R1 <4> <- addr(Slide_Show_Slides_imageLine)   (midx: 0)
+	R1 <2> <- [R1]   (midx: 0)
+	R1 <2> <-  R1 - R0   (midx: 5)
+	if ( R1 >= 0) then goto 22   (midx: 5)
+//Slide_Show.c,225 :: 		Slide_Index--;
+	R2 <4> <- addr(_Slide_Index)   (midx: 0)
+	R1 <1> <- [R2]   (midx: 0)
+	R1 <1> <-  R1 - 1   (midx: 0)
+	[R2] <1> <- R1   (midx: 0)
+//Slide_Show.c,226 :: 		if (Slide_Index < 0)
+	if ( R1 >= 0) then goto 23   (midx: 4)
+//Slide_Show.c,227 :: 		Slide_Index = 7;
+	R2 <1> <- 7   (midx: 0)
+	R1 <4> <- addr(_Slide_Index)   (midx: 0)
+	[R1] <1> <- R2   (midx: 0)
+23:   (midx: 0)
+//Slide_Show.c,229 :: 		GetPreviousImage();
+	R0 <2> <- PUSH(R0)   (midx: 255)
+	CALL Slide_Show_GetPreviousImage   (midx: 0)
+	R0 <2> <- POP   (midx: 255)
+//Slide_Show.c,230 :: 		Slides_ScrollDown(scroll);
+   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL Slide_Show_Slides_ScrollDown   (midx: 0)
+//Slide_Show.c,231 :: 		}
+	goto	24   (midx: 0)
+22:   (midx: 0)
+//Slide_Show.c,233 :: 		Slides_ScrollDown(scroll);
+   (midx: 0)
+   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL Slide_Show_Slides_ScrollDown   (midx: 0)
+//Slide_Show.c,234 :: 		}
+24:   (midx: 0)
+  end
+   (midx: 0)
+_Start_Slide_Show:
+  begin   (midx: 0)
+//Slide_Show.c,244 :: 		void Start_Slide_Show(){
+_Start_Slide_Show:
+  begin   (midx: 0)
+//Slide_Show.c,246 :: 		Scroll_Undone(_SLIDES_SCROLL_FIRST_LINE, _SLIDES_SCROLL_LAST_LINE);
+	R1 <2> <- 247   (midx: 0)
+	R0 <2> <- 38   (midx: 0)
+	CALL _Scroll_Undone   (midx: 0)
+//Slide_Show.c,247 :: 		Slide_Dir = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(Slide_Show_Slide_Dir)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//Slide_Show.c,248 :: 		left_image = Slides[0];
+	R0 <4> <- addr(_Slides)   (midx: 0)
+	R1 <4> <- [R0]   (midx: 0)
+	R0 <4> <- addr(Slide_Show_left_image)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//Slide_Show.c,249 :: 		right_image = Slides[7];
+	R0 <4> <- addr(_Slides+28)   (midx: 0)
+	R1 <4> <- [R0]   (midx: 0)
+	R0 <4> <- addr(Slide_Show_right_image)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//Slide_Show.c,250 :: 		Slide_Index = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_Slide_Index)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//Slide_Show.c,251 :: 		Slide_Dir_Old = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(Slide_Show_Slide_Dir_Old)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//Slide_Show.c,253 :: 		if(Init_FAT()){
+	CALL _Init_FAT   (midx: 0)
+	if (!R0) then goto 25   (midx: 0)
+//Slide_Show.c,254 :: 		TFT_Ext_Image(0, 38, Slides[0], 1);
+	R0 <4> <- addr(_Slides)   (midx: 0)
+	R0 <4> <- [R0]   (midx: 0)
+	R3 <1> <- 1   (midx: 0)
+	R2 <4> <- R0   (midx: 0)
+	R1 <2> <- 38   (midx: 0)
+	R0 <2> <- 0   (midx: 0)
+	CALL _TFT_Ext_Image   (midx: 0)
+//Slide_Show.c,255 :: 		}
+25:   (midx: 0)
+  end
+   (midx: 0)
+_Slide_scroll:
+  begin   (midx: 0)
+//Slide_Show.c,265 :: 		void Slide_scroll(){
+_Slide_scroll:
+  begin   (midx: 0)
+//Slide_Show.c,269 :: 		if (Slide_Flag == 0){
+	R0 <4> <- addr(Slide_Show_Slide_Flag)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 != 0) then goto 26   (midx: 0)
+//Slide_Show.c,270 :: 		Slide_Flag = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(Slide_Show_Slide_Flag)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//Slide_Show.c,271 :: 		OldYcoo = Ycoord;
+	R0 <4> <- addr(_Ycoord)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R0 <4> <- addr(Slide_Show_OldYcoo)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//Slide_Show.c,272 :: 		OldDelta = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(Slide_Show_OldDelta)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//Slide_Show.c,273 :: 		return;
+	return   (midx: 0)
+//Slide_Show.c,274 :: 		}
+26:   (midx: 0)
+//Slide_Show.c,275 :: 		delta = Ycoord - OldYcoo;
+	R0 <4> <- addr(Slide_Show_OldYcoo)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_Ycoord)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  R0 - R1   (midx: 1)
+   (midx: 0)
+	R1 <2> <- R0   (midx: 0)
+//Slide_Show.c,276 :: 		if (delta > 0){
+	R0 <2> <- R0   (midx: 0)
+	if ( R0 <= 0) then goto 27   (midx: 5)
+//Slide_Show.c,277 :: 		dir = 0;
+	R0 <1> <- 0   (midx: 0)
+	Slide_scroll_dir_L0_2 <1> <- R0   (midx: 0)
+//Slide_Show.c,278 :: 		}
+27:   (midx: 0)
+//Slide_Show.c,279 :: 		if (delta < 0){
+	if ( R1 >= 0) then goto 51   (midx: 5)
+//Slide_Show.c,280 :: 		dir = 1;
+	R0 <1> <- 1   (midx: 0)
+	Slide_scroll_dir_L0_4 <1> <- R0   (midx: 0)
+//Slide_Show.c,281 :: 		delta = - delta;
+	R1 <2> <-  0 - R1   (midx: 5)
+   (midx: 0)
+	R1 <2> <- R1   (midx: 0)
+	R1 <2> <- R1   (midx: 0)
+//Slide_Show.c,282 :: 		}
+	goto	28   (midx: 0)
+51:   (midx: 0)
+//Slide_Show.c,279 :: 		if (delta < 0){
+	R1 <2> <- R1   (midx: 0)
+//Slide_Show.c,282 :: 		}
+28:   (midx: 0)
+//Slide_Show.c,283 :: 		if (delta < 4){
+   (midx: 0)
+	if ( R1 >= 4) then goto 29   (midx: 5)
+//Slide_Show.c,284 :: 		OldDelta = delta;
+	R0 <4> <- addr(Slide_Show_OldDelta)   (midx: 0)
+   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//Slide_Show.c,285 :: 		return;
+	return   (midx: 0)
+//Slide_Show.c,286 :: 		}
+29:   (midx: 0)
+//Slide_Show.c,288 :: 		while (delta > 0){
+   (midx: 0)
+	R1 <2> <- R1   (midx: 0)
+   (midx: 0)
+30:   (midx: 0)
+   (midx: 0)
+	if ( R1 <= 0) then goto 31   (midx: 5)
+//Slide_Show.c,289 :: 		if (dir == 1)
+	R0 <1> <- Slide_scroll_dir_L0_8   (midx: 0)
+	if ( R0 != 1) then goto 32   (midx: 0)
+//Slide_Show.c,290 :: 		ScrollImageUp(1);
+	R1 <2> <- PUSH(R1)   (midx: 255)
+	R0 <2> <- 1   (midx: 0)
+	CALL _ScrollImageUp   (midx: 0)
+	R1 <2> <- POP   (midx: 255)
+	goto	33   (midx: 0)
+32:   (midx: 0)
+//Slide_Show.c,292 :: 		ScrollImageDown(1);
+	R1 <2> <- PUSH(R1)   (midx: 255)
+	R0 <2> <- 1   (midx: 0)
+	CALL _ScrollImageDown   (midx: 0)
+	R1 <2> <- POP   (midx: 255)
+33:   (midx: 0)
+//Slide_Show.c,293 :: 		delta = delta - 1;
+	R1 <2> <-  R1 - 1   (midx: 5)
+	R1 <2> <- R1   (midx: 0)
+//Slide_Show.c,294 :: 		}
+   (midx: 0)
+	R1 <2> <- R1   (midx: 0)
+	goto	30   (midx: 0)
+31:   (midx: 0)
+//Slide_Show.c,296 :: 		OldYcoo = Ycoord;
+	R0 <4> <- addr(_Ycoord)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R0 <4> <- addr(Slide_Show_OldYcoo)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_doSlide:
+  begin   (midx: 0)
+//Slide_Show.c,306 :: 		void doSlide(){
+_doSlide:
+  begin   (midx: 0)
+//Slide_Show.c,307 :: 		if (STMPE610_PressDetect() == 0){
+	CALL _STMPE610_PressDetect   (midx: 0)
+	if ( R0 != 0) then goto 34   (midx: 0)
+//Slide_Show.c,308 :: 		Slide_Flag = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(Slide_Show_Slide_Flag)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//Slide_Show.c,309 :: 		if ((Slides_imageLine > 0) && (Slides_imageLine < 209)){
+	R0 <4> <- addr(Slide_Show_Slides_imageLine)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 <= 0) then goto 66   (midx: 5)
+	R0 <4> <- addr(Slide_Show_Slides_imageLine)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 >= 209) then goto 65   (midx: 5)
+56:   (midx: 0)
+//Slide_Show.c,310 :: 		if ((Slides_imageLine > 20) && (Slide_Dir == 2))
+	R0 <4> <- addr(Slide_Show_Slides_imageLine)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 <= 20) then goto 58   (midx: 5)
+	R0 <4> <- addr(Slide_Show_Slide_Dir)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 != 2) then goto 57   (midx: 0)
+55:   (midx: 0)
+//Slide_Show.c,311 :: 		ScrollImageUp(209 - Slides_imageLine);
+	R0 <4> <- addr(Slide_Show_Slides_imageLine)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  209 - R0   (midx: 5)
+	R0 <2> <- R0   (midx: 0)
+	CALL _ScrollImageUp   (midx: 0)
+//Slide_Show.c,310 :: 		if ((Slides_imageLine > 20) && (Slide_Dir == 2))
+58:   (midx: 0)
+57:   (midx: 0)
+//Slide_Show.c,312 :: 		if ((Slides_imageLine < 21) && (Slide_Dir == 2))
+	R0 <4> <- addr(Slide_Show_Slides_imageLine)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 >= 21) then goto 60   (midx: 5)
+	R0 <4> <- addr(Slide_Show_Slide_Dir)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 != 2) then goto 59   (midx: 0)
+54:   (midx: 0)
+//Slide_Show.c,313 :: 		ScrollImageDown(Slide_Index);
+	R0 <4> <- addr(_Slide_Index)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _ScrollImageDown   (midx: 0)
+//Slide_Show.c,312 :: 		if ((Slides_imageLine < 21) && (Slide_Dir == 2))
+60:   (midx: 0)
+59:   (midx: 0)
+//Slide_Show.c,314 :: 		if ((Slides_imageLine < 189) &&  (Slide_Dir == 1))
+	R0 <4> <- addr(Slide_Show_Slides_imageLine)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 >= 189) then goto 62   (midx: 5)
+	R0 <4> <- addr(Slide_Show_Slide_Dir)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 61   (midx: 0)
+53:   (midx: 0)
+//Slide_Show.c,315 :: 		ScrollImageDown(Slides_imageLine);
+	R0 <4> <- addr(Slide_Show_Slides_imageLine)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _ScrollImageDown   (midx: 0)
+//Slide_Show.c,314 :: 		if ((Slides_imageLine < 189) &&  (Slide_Dir == 1))
+62:   (midx: 0)
+61:   (midx: 0)
+//Slide_Show.c,316 :: 		if ((Slides_imageLine > 188) &&  (Slide_Dir == 1))
+	R0 <4> <- addr(Slide_Show_Slides_imageLine)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 <= 188) then goto 64   (midx: 5)
+	R0 <4> <- addr(Slide_Show_Slide_Dir)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 63   (midx: 0)
+52:   (midx: 0)
+//Slide_Show.c,317 :: 		ScrollImageUp(209 - Slides_imageLine);
+	R0 <4> <- addr(Slide_Show_Slides_imageLine)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  209 - R0   (midx: 5)
+	R0 <2> <- R0   (midx: 0)
+	CALL _ScrollImageUp   (midx: 0)
+//Slide_Show.c,316 :: 		if ((Slides_imageLine > 188) &&  (Slide_Dir == 1))
+64:   (midx: 0)
+63:   (midx: 0)
+//Slide_Show.c,309 :: 		if ((Slides_imageLine > 0) && (Slides_imageLine < 209)){
+66:   (midx: 0)
+65:   (midx: 0)
+//Slide_Show.c,319 :: 		}
+34:   (midx: 0)
+//Slide_Show.c,320 :: 		if (Slide_Index_Old != Slide_Index){
+	R0 <4> <- addr(_Slide_Index)   (midx: 0)
+	R1 <1> <- [R0]   (midx: 0)
+	R0 <4> <- addr(Slide_Show_Slide_Index_Old)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = R1) then goto 50   (midx: 5)
+//Slide_Show.c,321 :: 		ByteToStr(Slide_Index + 1, Label35_caption);
+	R0 <4> <- addr(_Slide_Index)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  R0 + 1   (midx: 4)
+	R1 <4> <- #_Label35_Caption   (midx: 0)
+	R0 <1> <- R0   (midx: 0)
+	CALL _ByteToStr   (midx: 0)
+//Slide_Show.c,322 :: 		RedrawLabel(SlideShow.Color, &Label35, 20, 30);
+	R0 <4> <- addr(_SlideShow+0)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R3 <2> <- 30   (midx: 0)
+	R2 <2> <- 20   (midx: 0)
+	R1 <4> <- #_Label35   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _RedrawLabel   (midx: 0)
+//Slide_Show.c,323 :: 		Slide_Index_Old = Slide_Index;
+	R0 <4> <- addr(_Slide_Index)   (midx: 0)
+	R1 <1> <- [R0]   (midx: 0)
+	R0 <4> <- addr(Slide_Show_Slide_Index_Old)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//Slide_Show.c,324 :: 		}
+50:   (midx: 0)
+  end
+   (midx: 0)

@@ -1,0 +1,759 @@
+_MP3_Check_Time:
+  begin   (midx: 0)
+//MP3_main.c,165 :: 		void MP3_Check_Time(){
+_MP3_Check_Time:
+  begin   (midx: 0)
+//MP3_main.c,168 :: 		MP3_Get_Decode_Time(&time);
+	R0 <4> <- addr(MP3_Check_Time_time_L0)   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	CALL _MP3_Get_Decode_Time   (midx: 0)
+//MP3_main.c,169 :: 		mp3_mins = time / 60;
+	R1 <2> <- MP3_Check_Time_time_L0   (midx: 0)
+	R0 <2> <- 60   (midx: 0)
+	R1 <2> <-  R1 / R0   (midx: 1)
+	R0 <4> <- addr(_mp3_mins)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//MP3_main.c,170 :: 		mp3_secs = time % 60;
+	R1 <2> <- MP3_Check_Time_time_L0   (midx: 0)
+	R0 <2> <- 60   (midx: 0)
+	R2 <2> <-  R1 mod R0   (midx: 1)
+	R0 <4> <- addr(_mp3_secs)   (midx: 0)
+	[R0] <1> <- R2   (midx: 0)
+//MP3_main.c,171 :: 		if (mp3_secs != mp3_old_secs){
+	R0 <4> <- addr(_mp3_old_secs)   (midx: 0)
+	R1 <1> <- [R0]   (midx: 0)
+	R0 <1> <- R2   (midx: 0)
+	if ( R0 = R1) then goto 14   (midx: 0)
+//MP3_main.c,172 :: 		Label6_Caption[0] = mp3_mins / 10 + 48;
+	R2 <4> <- addr(_mp3_mins)   (midx: 0)
+	R1 <1> <- [R2]   (midx: 0)
+	R0 <1> <- 10   (midx: 0)
+	R0 <1> <-  R1 / R0   (midx: 0)
+	R1 <2> <-  R0 + 48   (midx: 0)
+	R0 <4> <- addr(_Label6_Caption)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//MP3_main.c,173 :: 		Label6_Caption[1] = mp3_mins % 10 + 48;
+	R0 <4> <- R2   (midx: 0)
+	R2 <1> <- [R0]   (midx: 0)
+	R1 <1> <- 10   (midx: 0)
+	R0 <1> <-  R2 mod R1   (midx: 0)
+	R1 <2> <-  R0 + 48   (midx: 0)
+	R0 <4> <- addr(_Label6_Caption+1)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//MP3_main.c,174 :: 		Label6_Caption[3] = mp3_secs / 10 + 48;
+	R2 <4> <- addr(_mp3_secs)   (midx: 0)
+	FLOC_MP3_Check_Time+4 <4> <- R2   (midx: 0)
+	R1 <1> <- [R2]   (midx: 0)
+	R0 <1> <- 10   (midx: 0)
+	R0 <1> <-  R1 / R0   (midx: 0)
+	R1 <2> <-  R0 + 48   (midx: 0)
+	R0 <4> <- addr(_Label6_Caption+3)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//MP3_main.c,175 :: 		Label6_Caption[4] = mp3_secs % 10 + 48;
+	R0 <4> <- R2   (midx: 0)
+	R2 <1> <- [R0]   (midx: 0)
+	R1 <1> <- 10   (midx: 0)
+	R0 <1> <-  R2 mod R1   (midx: 0)
+	R1 <2> <-  R0 + 48   (midx: 0)
+	R0 <4> <- addr(_Label6_Caption+4)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//MP3_main.c,176 :: 		RedrawLabel(MP3_player.Color, &Label6, 35, 25);
+	R0 <4> <- addr(_MP3_Player+0)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R3 <2> <- 25   (midx: 0)
+	R2 <2> <- 35   (midx: 0)
+	R1 <4> <- #_Label6   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _RedrawLabel   (midx: 0)
+//MP3_main.c,177 :: 		mp3_old_mins = mp3_mins;
+	R0 <4> <- addr(_mp3_mins)   (midx: 0)
+	R1 <1> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_mp3_old_mins)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//MP3_main.c,178 :: 		mp3_old_secs = mp3_secs;
+	R0 <4> <- FLOC_MP3_Check_Time+4   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	R1 <1> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_mp3_old_secs)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//MP3_main.c,179 :: 		}
+14:   (midx: 0)
+  end
+   (midx: 0)
+_MP3_play:
+  begin   (midx: 0)
+//MP3_main.c,81 :: 		void MP3_play(char *Song_Name, char File_No){
+_MP3_play:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R1 <1> <- PUSH(R1)   (midx: 255)
+	R1 <4> <- R0   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R0 <1> <- POP   (midx: 255)
+   (midx: 0)
+   (midx: 0)
+//MP3_main.c,82 :: 		current_file = File_No;
+	R2 <4> <- addr(_current_file)   (midx: 0)
+   (midx: 0)
+	[R2] <1> <- R0   (midx: 0)
+//MP3_main.c,83 :: 		Buffer_count = 0;
+	R3 <4> <- 0   (midx: 0)
+	R2 <4> <- addr(_Buffer_count)   (midx: 0)
+	[R2] <4> <- R3   (midx: 0)
+//MP3_main.c,84 :: 		current_fhandle = FAT32_Open(Song_Name, FILE_READ);
+	R1 <4> <- PUSH(R1)   (midx: 255)
+	R0 <4> <- R1   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	CALL _FAT32_Open   (midx: 0)
+	R1 <4> <- POP   (midx: 255)
+	R2 <4> <- addr(_current_fhandle)   (midx: 0)
+	[R2] <1> <- R0   (midx: 0)
+//MP3_main.c,85 :: 		FAT32_Size(Song_Name, &file_size);
+	R0 <4> <- R1   (midx: 0)
+   (midx: 0)
+	R1 <4> <- #_file_size   (midx: 0)
+	CALL _FAT32_Size   (midx: 0)
+//MP3_main.c,86 :: 		Buffer_count = 0;
+	R3 <4> <- 0   (midx: 0)
+	R2 <4> <- addr(_Buffer_count)   (midx: 0)
+	[R2] <4> <- R3   (midx: 0)
+//MP3_main.c,87 :: 		Total_Buffers = File_size / BUFFER_SIZE;
+	R2 <4> <- addr(_file_size)   (midx: 0)
+	R2 <4> <- [R2]   (midx: 0)
+	R3 <4> <-  R2 shr 8   (midx: 2)
+	R2 <4> <- addr(_Total_Buffers)   (midx: 0)
+	[R2] <4> <- R3   (midx: 0)
+//MP3_main.c,88 :: 		MP3_Reset_Time();
+	CALL _MP3_Reset_Time   (midx: 0)
+//MP3_main.c,89 :: 		MP3_Check_Time();
+	CALL _MP3_Check_Time   (midx: 0)
+//MP3_main.c,90 :: 		MP3_Set_Volume(100 - level, 100 - level);
+	R2 <4> <- addr(_level)   (midx: 0)
+	R2 <2> <- [R2]   (midx: 0)
+	R2 <2> <-  100 - R2   (midx: 0)
+	R1 <1> <- R2   (midx: 0)
+	R0 <1> <- R2   (midx: 0)
+	CALL _MP3_Set_Volume   (midx: 0)
+//MP3_main.c,91 :: 		UpdateVolumeBar( level, 0);
+	R2 <4> <- addr(_level)   (midx: 0)
+	R2 <1> <- [R2]   (midx: 0)
+	R1 <1> <- 0   (midx: 0)
+	R0 <1> <- R2   (midx: 0)
+	CALL _UpdateVolumeBar   (midx: 0)
+//MP3_main.c,92 :: 		MP3_Example_State = 2;
+	R3 <1> <- 2   (midx: 0)
+	R2 <4> <- addr(_MP3_Example_State)   (midx: 0)
+	[R2] <1> <- R3   (midx: 0)
+  end
+   (midx: 0)
+_Start_MP3_Player:
+  begin   (midx: 0)
+//MP3_main.c,102 :: 		void Start_MP3_Player(char *Song_Name, char File_No){
+_Start_MP3_Player:
+  begin   (midx: 0)
+	FARG_Start_MP3_Player_Song_Name <4> <- R0   (midx: 0)
+   (midx: 0)
+	FARG_Start_MP3_Player_File_No <1> <- R1   (midx: 0)
+//MP3_main.c,103 :: 		strcpy(Label28_Caption, Song_Name);
+	R1 <4> <- FARG_Start_MP3_Player_Song_Name   (midx: 0)
+	R0 <4> <- #_Label28_Caption   (midx: 0)
+	CALL _strcpy   (midx: 0)
+//MP3_main.c,104 :: 		DrawScreen(&MP3_Player);
+	R0 <4> <- #_MP3_Player   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//MP3_main.c,105 :: 		TFT_Ext_Image(204, 57, mp3_note_bmp, 1);
+	R3 <1> <- 1   (midx: 0)
+	R2 <4> <- 0   (midx: 0)
+	R1 <2> <- 57   (midx: 0)
+	R0 <2> <- 204   (midx: 0)
+	CALL _TFT_Ext_Image   (midx: 0)
+//MP3_main.c,106 :: 		pause_icon.Active = 1;
+	R3 <1> <- 1   (midx: 0)
+	R2 <4> <- addr(_pause_icon+21)   (midx: 0)
+	[R2] <1> <- R3   (midx: 0)
+//MP3_main.c,107 :: 		Play_icon.Active = 0;
+	R3 <1> <- 0   (midx: 0)
+	R2 <4> <- addr(_Play_icon+21)   (midx: 0)
+	[R2] <1> <- R3   (midx: 0)
+//MP3_main.c,108 :: 		DrawImage(&pause_icon);
+	R0 <4> <- #_pause_icon   (midx: 0)
+	CALL _DrawImage   (midx: 0)
+//MP3_main.c,109 :: 		MP3_play(Song_Name, File_No);
+	R1 <1> <- FARG_Start_MP3_Player_File_No   (midx: 0)
+	R0 <4> <- FARG_Start_MP3_Player_Song_Name   (midx: 0)
+	CALL _MP3_play   (midx: 0)
+  end
+   (midx: 0)
+_StopMP3_File:
+  begin   (midx: 0)
+//MP3_main.c,119 :: 		void StopMP3_File(){
+_StopMP3_File:
+  begin   (midx: 0)
+//MP3_main.c,120 :: 		FAT32_Close(current_fhandle);
+	R0 <4> <- addr(_current_fhandle)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	R0 <1> <- R0   (midx: 0)
+	CALL _FAT32_Close   (midx: 0)
+//MP3_main.c,121 :: 		MP3_Example_State = 3;
+	R1 <1> <- 3   (midx: 0)
+	R0 <4> <- addr(_MP3_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_GetNext_mp3_File:
+  begin   (midx: 0)
+//MP3_main.c,131 :: 		void GetNext_mp3_File(char Next_Previous){      // 0 for previous, 1 for next
+_GetNext_mp3_File:
+  begin   (midx: 0)
+//MP3_main.c,132 :: 		char temp = 0, temp1;
+   (midx: 0)
+//MP3_main.c,131 :: 		void GetNext_mp3_File(char Next_Previous){      // 0 for previous, 1 for next
+   (midx: 0)
+//MP3_main.c,132 :: 		char temp = 0, temp1;
+   (midx: 0)
+//MP3_main.c,131 :: 		void GetNext_mp3_File(char Next_Previous){      // 0 for previous, 1 for next
+	FARG_GetNext_mp3_File_Next_Previous <1> <- R0   (midx: 0)
+//MP3_main.c,132 :: 		char temp = 0, temp1;
+   (midx: 0)
+   (midx: 0)
+	R0 <-initialize(0)   (midx: 0)
+//MP3_main.c,133 :: 		StopMP3_File();
+	R0 <1> <- PUSH(R0)   (midx: 255)
+	CALL _StopMP3_File   (midx: 0)
+	R0 <1> <- POP   (midx: 255)
+//MP3_main.c,135 :: 		if (Next_Previous)
+	R1 <1> <- FARG_GetNext_mp3_File_Next_Previous   (midx: 0)
+   (midx: 0)
+	if (!R1) then goto 0   (midx: 0)
+	R1 <1> <- R0   (midx: 0)
+//MP3_main.c,136 :: 		while (temp == 0 && temp != 2)
+1:   (midx: 0)
+   (midx: 0)
+	if ( R1 != 0) then goto 41   (midx: 0)
+   (midx: 0)
+	if ( R1 = 2) then goto 40   (midx: 0)
+39:   (midx: 0)
+//MP3_main.c,137 :: 		temp = Get_Next_File_Name( ++current_file, MP3_song);
+	R2 <4> <- addr(_current_file)   (midx: 0)
+	R1 <1> <- [R2]   (midx: 0)
+	R1 <1> <-  R1 + 1   (midx: 0)
+	[R2] <1> <- R1   (midx: 0)
+	R1 <1> <- R1   (midx: 0)
+	R0 <1> <- R1   (midx: 0)
+	R1 <4> <- #_MP3_song   (midx: 0)
+	CALL _Get_Next_File_Name   (midx: 0)
+   (midx: 0)
+	R1 <1> <- R0   (midx: 0)
+	R1 <1> <- R1   (midx: 0)
+	goto	1   (midx: 0)
+//MP3_main.c,136 :: 		while (temp == 0 && temp != 2)
+41:   (midx: 0)
+40:   (midx: 0)
+//MP3_main.c,137 :: 		temp = Get_Next_File_Name( ++current_file, MP3_song);
+   (midx: 0)
+	R0 <1> <- R1   (midx: 0)
+	goto	5   (midx: 0)
+0:   (midx: 0)
+//MP3_main.c,139 :: 		while (temp == 0 && temp != 2)
+   (midx: 0)
+	R1 <1> <- R0   (midx: 0)
+   (midx: 0)
+6:   (midx: 0)
+   (midx: 0)
+	if ( R1 != 0) then goto 43   (midx: 0)
+   (midx: 0)
+	if ( R1 = 2) then goto 42   (midx: 0)
+38:   (midx: 0)
+//MP3_main.c,140 :: 		temp = Get_Next_File_Name( --current_file, MP3_song);
+	R2 <4> <- addr(_current_file)   (midx: 0)
+	R1 <1> <- [R2]   (midx: 0)
+	R1 <1> <-  R1 - 1   (midx: 0)
+	[R2] <1> <- R1   (midx: 0)
+	R1 <1> <- R1   (midx: 0)
+	R0 <1> <- R1   (midx: 0)
+	R1 <4> <- #_MP3_song   (midx: 0)
+	CALL _Get_Next_File_Name   (midx: 0)
+   (midx: 0)
+	R0 <1> <- R0   (midx: 0)
+   (midx: 0)
+	R1 <1> <- R0   (midx: 0)
+	goto	6   (midx: 0)
+//MP3_main.c,139 :: 		while (temp == 0 && temp != 2)
+43:   (midx: 0)
+   (midx: 0)
+42:   (midx: 0)
+//MP3_main.c,140 :: 		temp = Get_Next_File_Name( --current_file, MP3_song);
+	R0 <1> <- R1   (midx: 0)
+   (midx: 0)
+5:   (midx: 0)
+//MP3_main.c,141 :: 		if (temp == 1){
+   (midx: 0)
+   (midx: 0)
+	if ( R0 != 1) then goto 10   (midx: 0)
+//MP3_main.c,142 :: 		MP3_play(MP3_song, current_file);
+	R1 <4> <- addr(_current_file)   (midx: 0)
+	R1 <1> <- [R1]   (midx: 0)
+	R1 <1> <- R1   (midx: 0)
+	R0 <4> <- #_MP3_song   (midx: 0)
+	CALL _MP3_play   (midx: 0)
+//MP3_main.c,143 :: 		strcpy(Label28_Caption, MP3_song);
+	R1 <4> <- #_MP3_song   (midx: 0)
+	R0 <4> <- #_Label28_Caption   (midx: 0)
+	CALL _strcpy   (midx: 0)
+//MP3_main.c,144 :: 		RedrawLabel(MP3_Player.Color, &Label28, 200, 40);
+	R1 <4> <- addr(_MP3_Player+0)   (midx: 0)
+	R1 <2> <- [R1]   (midx: 0)
+	R3 <2> <- 40   (midx: 0)
+	R2 <2> <- 200   (midx: 0)
+	R0 <2> <- R1   (midx: 0)
+	R1 <4> <- #_Label28   (midx: 0)
+	CALL _RedrawLabel   (midx: 0)
+//MP3_main.c,145 :: 		}
+	goto	11   (midx: 0)
+10:   (midx: 0)
+//MP3_main.c,147 :: 		if (Next_Previous)
+	R1 <1> <- FARG_GetNext_mp3_File_Next_Previous   (midx: 0)
+	if (!R1) then goto 12   (midx: 0)
+//MP3_main.c,148 :: 		current_file = 0xFF;
+	R2 <1> <- 255   (midx: 0)
+	R1 <4> <- addr(_current_file)   (midx: 0)
+	[R1] <1> <- R2   (midx: 0)
+	goto	13   (midx: 0)
+12:   (midx: 0)
+//MP3_main.c,150 :: 		current_file = Total_Entries + 1;
+	R1 <4> <- addr(_Total_Entries)   (midx: 0)
+	R1 <2> <- [R1]   (midx: 0)
+	R2 <2> <-  R1 + 1   (midx: 0)
+	R1 <4> <- addr(_current_file)   (midx: 0)
+	[R1] <1> <- R2   (midx: 0)
+13:   (midx: 0)
+//MP3_main.c,151 :: 		MP3_Song[0] = 0;
+	R2 <1> <- 0   (midx: 0)
+	R1 <4> <- addr(_MP3_song)   (midx: 0)
+	[R1] <1> <- R2   (midx: 0)
+//MP3_main.c,152 :: 		strcpy(Label28_Caption, MP3_song);
+	R1 <4> <- #_MP3_song   (midx: 0)
+	R0 <4> <- #_Label28_Caption   (midx: 0)
+	CALL _strcpy   (midx: 0)
+//MP3_main.c,153 :: 		RedrawLabel(MP3_Player.Color, &Label28, 200, 40);
+	R1 <4> <- addr(_MP3_Player+0)   (midx: 0)
+	R1 <2> <- [R1]   (midx: 0)
+	R3 <2> <- 40   (midx: 0)
+	R2 <2> <- 200   (midx: 0)
+	R0 <2> <- R1   (midx: 0)
+	R1 <4> <- #_Label28   (midx: 0)
+	CALL _RedrawLabel   (midx: 0)
+//MP3_main.c,154 :: 		}
+11:   (midx: 0)
+  end
+   (midx: 0)
+_UpdateProgressBar:
+  begin   (midx: 0)
+//MP3_main.c,190 :: 		void UpdateProgressBar(){
+_UpdateProgressBar:
+  begin   (midx: 0)
+//MP3_main.c,192 :: 		progress = (Buffer_count * 250) / Total_Buffers;
+	R0 <4> <- addr(_Buffer_count)   (midx: 0)
+	R1 <4> <- [R0]   (midx: 0)
+	R0 <4> <- 250   (midx: 0)
+	R1 <4> <-  R1 * R0   (midx: 2)
+	R0 <4> <- addr(_Total_Buffers)   (midx: 0)
+	R0 <4> <- [R0]   (midx: 0)
+	R2 <4> <-  R1 / R0   (midx: 2)
+   (midx: 0)
+	R6 <1> <- R2   (midx: 0)
+//MP3_main.c,193 :: 		if (progress != old_Progress){
+	R0 <4> <- addr(_old_Progress)   (midx: 0)
+	R1 <1> <- [R0]   (midx: 0)
+	R0 <1> <- R2   (midx: 0)
+	if ( R0 = R1) then goto 15   (midx: 0)
+//MP3_main.c,194 :: 		if ((progress > 0) && (progress < 250)){
+	if ( R6 <= 0) then goto 46   (midx: 0)
+	if ( R6 >= 250) then goto 45   (midx: 0)
+44:   (midx: 0)
+//MP3_main.c,195 :: 		TFT_Set_Brush(1, 0x55FF, 0, 0, 0, 0);
+	R1 <2> <- 0   (midx: 0)
+	R0 <2> <- 0   (midx: 0)
+	R6 <1> <- PUSH(R6)   (midx: 255)
+	FARG_TFT_Set_Brush_gradient_color_to <2> <- PUSH(R1)   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_from <2> <- PUSH(R0)   (midx: 0)
+	R3 <1> <- 0   (midx: 0)
+	R2 <1> <- 0   (midx: 0)
+	R1 <2> <- 22015   (midx: 0)
+	R0 <1> <- 1   (midx: 0)
+	CALL _TFT_Set_Brush   (midx: 0)
+	R6 <1> <- POP   (midx: 255)
+//MP3_main.c,196 :: 		TFT_Set_Pen(0x55FF, 0);
+	R1 <1> <- 0   (midx: 0)
+	R0 <2> <- 22015   (midx: 0)
+	CALL _TFT_Set_Pen   (midx: 0)
+//MP3_main.c,197 :: 		TFT_Rectangle(ProgressBar.Left, ProgressBar.Top, ProgressBar.Left + progress, ProgressBar.Top + ProgressBar.Height);
+	R0 <4> <- addr(_ProgressBar+12)   (midx: 0)
+	R2 <2> <- [R0]   (midx: 0)
+	R1 <4> <- addr(_ProgressBar+8)   (midx: 0)
+	R0 <2> <- [R1]   (midx: 0)
+	R4 <2> <-  R0 + R2   (midx: 1)
+	R3 <4> <- addr(_ProgressBar+6)   (midx: 0)
+	R0 <2> <- [R3]   (midx: 0)
+	R2 <2> <-  R0 + R6   (midx: 1)
+	R0 <4> <- R1   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R0 <4> <- R3   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R6 <1> <- PUSH(R6)   (midx: 255)
+	R3 <2> <- R4   (midx: 0)
+	R2 <2> <- R2   (midx: 0)
+	R1 <2> <- R1   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Rectangle   (midx: 0)
+	R6 <1> <- POP   (midx: 255)
+//MP3_main.c,199 :: 		TFT_Set_Brush(1, ProgressBar.Color, 0, 0, 0, 0);
+	R2 <2> <- 0   (midx: 0)
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_ProgressBar+28)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R6 <1> <- PUSH(R6)   (midx: 255)
+	FARG_TFT_Set_Brush_gradient_color_to <2> <- PUSH(R2)   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_from <2> <- PUSH(R1)   (midx: 0)
+	R3 <1> <- 0   (midx: 0)
+	R2 <1> <- 0   (midx: 0)
+	R1 <2> <- R0   (midx: 0)
+	R0 <1> <- 1   (midx: 0)
+	CALL _TFT_Set_Brush   (midx: 0)
+	R6 <1> <- POP   (midx: 255)
+//MP3_main.c,200 :: 		TFT_Set_Pen(ProgressBar.Color, 0);
+	R0 <4> <- addr(_ProgressBar+28)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R1 <1> <- 0   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Set_Pen   (midx: 0)
+//MP3_main.c,201 :: 		TFT_Rectangle(ProgressBar.Left + progress + 1, ProgressBar.Top, ProgressBar.Left + ProgressBar.Width, ProgressBar.Top + ProgressBar.Height);
+	R0 <4> <- addr(_ProgressBar+12)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R5 <4> <- addr(_ProgressBar+8)   (midx: 0)
+	R0 <2> <- [R5]   (midx: 0)
+	R4 <2> <-  R0 + R1   (midx: 1)
+	R0 <4> <- addr(_ProgressBar+10)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R3 <4> <- addr(_ProgressBar+6)   (midx: 0)
+	R0 <2> <- [R3]   (midx: 0)
+	R2 <2> <-  R0 + R1   (midx: 1)
+	R0 <4> <- R5   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R0 <4> <- R3   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  R0 + R6   (midx: 1)
+	R0 <2> <-  R0 + 1   (midx: 1)
+	R6 <1> <- PUSH(R6)   (midx: 255)
+	R3 <2> <- R4   (midx: 0)
+	R2 <2> <- R2   (midx: 0)
+	R1 <2> <- R1   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Rectangle   (midx: 0)
+	R6 <1> <- POP   (midx: 255)
+//MP3_main.c,203 :: 		old_progress = progress;
+	R0 <4> <- addr(_old_Progress)   (midx: 0)
+   (midx: 0)
+	[R0] <1> <- R6   (midx: 0)
+//MP3_main.c,194 :: 		if ((progress > 0) && (progress < 250)){
+46:   (midx: 0)
+45:   (midx: 0)
+//MP3_main.c,205 :: 		}
+15:   (midx: 0)
+  end
+   (midx: 0)
+_MP3_Start:
+  begin   (midx: 0)
+//MP3_main.c,289 :: 		void MP3_Start() {
+_MP3_Start:
+  begin   (midx: 0)
+//MP3_main.c,292 :: 		GPIO_Config(&GPIOD_BASE, _GPIO_PINMASK_8 | _GPIO_PINMASK_10 | _GPIO_PINMASK_11, _GPIO_CFG_DIGITAL_OUTPUT);
+	R2 <4> <- 524308   (midx: 0)
+	R1 <2> <- 3328   (midx: 0)
+	R0 <4> <- #GPIOD_BASE   (midx: 0)
+	CALL _GPIO_Config   (midx: 0)
+//MP3_main.c,294 :: 		GPIO_Config(&GPIOD_BASE, _GPIO_PINMASK_9, _GPIO_CFG_DIGITAL_INPUT);
+	R2 <4> <- 66   (midx: 0)
+	R1 <2> <- 512   (midx: 0)
+	R0 <4> <- #GPIOD_BASE   (midx: 0)
+	CALL _GPIO_Config   (midx: 0)
+//MP3_main.c,296 :: 		MP3_CS            = 1;               // Deselect MP3_CS
+	R2 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(MP3_CS)   (midx: 0)
+	[R0] <0> <- R2   (midx: 0)
+//MP3_main.c,297 :: 		MP3_RST           = 1;               // Set MP3_RST pin
+	R0 <4> <- addr(MP3_RST)   (midx: 0)
+	[R0] <0> <- R2   (midx: 0)
+//MP3_main.c,298 :: 		BSYNC             = 0;               // Clear BSYNC
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(BSYNC)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+//MP3_main.c,299 :: 		BSYNC             = 1;               // Clear BSYNC
+	[R0] <0> <- R2   (midx: 0)
+//MP3_main.c,305 :: 		&_GPIO_MODULE_SPI2_PB13_14_15);
+	R2 <4> <- #__GPIO_MODULE_SPI2_PB13_14_15   (midx: 0)
+//MP3_main.c,304 :: 		_SPI_MSB_FIRST | _SPI_SS_DISABLE | _SPI_SSM_ENABLE | _SPI_SSI_1,
+	R1 <4> <- 772   (midx: 0)
+//MP3_main.c,302 :: 		SPI2_Init_Advanced(_SPI_FPCLK_DIV64, _SPI_MASTER | _SPI_8_BIT |
+	R0 <1> <- 5   (midx: 0)
+//MP3_main.c,305 :: 		&_GPIO_MODULE_SPI2_PB13_14_15);
+	CALL _SPI2_Init_Advanced   (midx: 0)
+//MP3_main.c,307 :: 		MP3_Set_default_Mode();
+	CALL _MP3_Set_default_Mode   (midx: 0)
+//MP3_main.c,313 :: 		&_GPIO_MODULE_SPI2_PB13_14_15);
+	R2 <4> <- #__GPIO_MODULE_SPI2_PB13_14_15   (midx: 0)
+//MP3_main.c,312 :: 		_SPI_MSB_FIRST | _SPI_SS_DISABLE | _SPI_SSM_ENABLE | _SPI_SSI_1,
+	R1 <4> <- 772   (midx: 0)
+//MP3_main.c,310 :: 		SPI2_Init_Advanced(_SPI_FPCLK_DIV4, _SPI_MASTER | _SPI_8_BIT |
+	R0 <1> <- 1   (midx: 0)
+//MP3_main.c,313 :: 		&_GPIO_MODULE_SPI2_PB13_14_15);
+	CALL _SPI2_Init_Advanced   (midx: 0)
+//MP3_main.c,315 :: 		MP3_Set_Volume(100 - level, 100 - level);
+	R0 <4> <- addr(_level)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  100 - R0   (midx: 0)
+	R1 <1> <- R0   (midx: 0)
+	R0 <1> <- R0   (midx: 0)
+	CALL _MP3_Set_Volume   (midx: 0)
+//MP3_main.c,316 :: 		MP3_Reset_Time();
+	CALL _MP3_Reset_Time   (midx: 0)
+  end
+   (midx: 0)
+_Mp3_Init:
+  begin   (midx: 0)
+//MP3_main.c,269 :: 		void Mp3_Init(){
+_Mp3_Init:
+  begin   (midx: 0)
+//MP3_main.c,271 :: 		Init_FAT();
+	CALL _Init_FAT   (midx: 0)
+//MP3_main.c,272 :: 		if (MMC_Card_Detect == 1){
+	R1 <4> <- addr(MMC_Card_Detect)   (midx: 0)
+	R0 <4> <- [R1]   (midx: 0)
+	if (!R0) then goto 37   (midx: 21)
+//MP3_main.c,273 :: 		DrawScreen(&MP3_SD);
+	R0 <4> <- #_MP3_SD   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//MP3_main.c,274 :: 		MP3_Example_State = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_MP3_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//MP3_main.c,275 :: 		return;
+	return   (midx: 0)
+//MP3_main.c,276 :: 		}
+37:   (midx: 0)
+//MP3_main.c,277 :: 		MP3_Example_State = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_MP3_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//MP3_main.c,278 :: 		Initialize_Scroll();
+	CALL _Initialize_Scroll   (midx: 0)
+//MP3_main.c,279 :: 		MP3_Start();
+	CALL _MP3_Start   (midx: 0)
+  end
+   (midx: 0)
+_doMP3:
+  begin   (midx: 0)
+//MP3_main.c,215 :: 		void doMP3(){
+_doMP3:
+  begin   (midx: 0)
+//MP3_main.c,217 :: 		switch (MP3_Example_State){
+	goto	19   (midx: 0)
+//MP3_main.c,218 :: 		case 0 : { // mp3 example started
+21:   (midx: 0)
+//MP3_main.c,219 :: 		if (MMC_Card_Detect == 0){        // if SD card detected
+	R1 <4> <- addr(MMC_Card_Detect)   (midx: 0)
+	R0 <4> <- [R1]   (midx: 0)
+	if (R0) then goto 22   (midx: 21)
+//MP3_main.c,220 :: 		DrawScreen(&MP3_SongList);
+	R0 <4> <- #_MP3_SongList   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//MP3_main.c,221 :: 		Delay_ms(100);
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+//MP3_main.c,222 :: 		Mp3_Init();
+	CALL _Mp3_Init   (midx: 0)
+//MP3_main.c,223 :: 		MP3_Example_State = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_MP3_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//MP3_main.c,224 :: 		}
+	goto	24   (midx: 0)
+22:   (midx: 0)
+//MP3_main.c,226 :: 		DrawImage(Images[MP3_Example_cnt / 200]);
+	R0 <4> <- addr(_MP3_Example_cnt)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R0 <2> <- 200   (midx: 0)
+	R0 <2> <-  R1 / R0   (midx: 5)
+	R1 <4> <-  R0 shl 2   (midx: 2)
+	R0 <4> <- #_Images   (midx: 0)
+	R0 <4> <-  R0 + R1   (midx: 2)
+	R0 <4> <- *R0   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	CALL _DrawImage   (midx: 0)
+//MP3_main.c,227 :: 		MP3_Example_cnt++;
+	R2 <4> <- addr(_MP3_Example_cnt)   (midx: 0)
+	R0 <2> <- [R2]   (midx: 0)
+	R1 <2> <-  R0 + 1   (midx: 1)
+	[R2] <2> <- R1   (midx: 0)
+//MP3_main.c,228 :: 		if (MP3_Example_cnt > 599)
+	R0 <4> <- 599   (midx: 0)
+	if ( R1 <= R0) then goto 25   (midx: 5)
+//MP3_main.c,229 :: 		MP3_Example_cnt = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_MP3_Example_cnt)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+25:   (midx: 0)
+//MP3_main.c,230 :: 		}
+24:   (midx: 0)
+//MP3_main.c,231 :: 		}; break;
+	goto	20   (midx: 0)
+//MP3_main.c,232 :: 		case 1 : { // stop playing
+26:   (midx: 0)
+//MP3_main.c,233 :: 		}; break;                           // if mp3 is stopped, do nothing
+	goto	20   (midx: 0)
+//MP3_main.c,234 :: 		case 2 : { // play song
+27:   (midx: 0)
+//MP3_main.c,235 :: 		if (file_size > BUFFER_SIZE){     // while there is still data, send it to mp3 codec chip
+	R0 <4> <- addr(_file_size)   (midx: 0)
+	R0 <4> <- [R0]   (midx: 0)
+	if ( R0 <= 256) then goto 28   (midx: 2)
+//MP3_main.c,236 :: 		Fat32_Read(current_fhandle, mp3_buffer, BUFFER_SIZE);
+	R0 <4> <- addr(_current_fhandle)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	R2 <2> <- 256   (midx: 0)
+	R1 <4> <- #_mp3_buffer   (midx: 0)
+	R0 <1> <- R0   (midx: 0)
+	CALL _FAT32_Read   (midx: 0)
+//MP3_main.c,237 :: 		for (i=0; i<BUFFER_SIZE/BYTES_2_WRITE; i++) {
+   (midx: 0)
+   (midx: 0)
+	R2 <4> <- 0   (midx: 0)
+	R2 <4> <- R2   (midx: 0)
+29:   (midx: 0)
+   (midx: 0)
+	if ( R2 >= 8) then goto 30   (midx: 2)
+//MP3_main.c,238 :: 		MP3_SDI_Write_32(mp3_buffer + i*BYTES_2_WRITE);
+	R1 <4> <-  R2 shl 5   (midx: 2)
+	R0 <4> <- #_mp3_buffer   (midx: 0)
+	R0 <4> <-  R0 + R1   (midx: 2)
+	R2 <4> <- PUSH(R2)   (midx: 255)
+	R0 <4> <- R0   (midx: 0)
+	CALL _MP3_SDI_Write_32   (midx: 0)
+	R2 <4> <- POP   (midx: 255)
+//MP3_main.c,237 :: 		for (i=0; i<BUFFER_SIZE/BYTES_2_WRITE; i++) {
+	R2 <4> <-  R2 + 1   (midx: 2)
+	R2 <4> <- R2   (midx: 0)
+//MP3_main.c,239 :: 		}
+   (midx: 0)
+	R2 <4> <- R2   (midx: 0)
+	goto	29   (midx: 0)
+30:   (midx: 0)
+//MP3_main.c,240 :: 		file_size -= BUFFER_SIZE;
+	R1 <4> <- addr(_file_size)   (midx: 0)
+	R0 <4> <- [R1]   (midx: 0)
+	R0 <4> <-  R0 - 256   (midx: 2)
+	[R1] <4> <- R0   (midx: 0)
+//MP3_main.c,241 :: 		Buffer_count ++;
+	R1 <4> <- addr(_Buffer_count)   (midx: 0)
+	R0 <4> <- [R1]   (midx: 0)
+	R0 <4> <-  R0 + 1   (midx: 2)
+	[R1] <4> <- R0   (midx: 0)
+//MP3_main.c,242 :: 		}
+28:   (midx: 0)
+//MP3_main.c,243 :: 		UpdateProgressBar();              // update progress bar
+	CALL _UpdateProgressBar   (midx: 0)
+//MP3_main.c,244 :: 		MP3_Check_Time();                 // update elapsed time
+	CALL _MP3_Check_Time   (midx: 0)
+//MP3_main.c,245 :: 		if (file_size < BUFFER_SIZE){     // finish playing file
+	R0 <4> <- addr(_file_size)   (midx: 0)
+	R0 <4> <- [R0]   (midx: 0)
+	if ( R0 >= 256) then goto 32   (midx: 2)
+//MP3_main.c,246 :: 		Fat32_Read(current_fhandle, mp3_buffer, file_size);
+	R0 <4> <- addr(_file_size)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_current_fhandle)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	R2 <2> <- R1   (midx: 0)
+	R1 <4> <- #_mp3_buffer   (midx: 0)
+	R0 <1> <- R0   (midx: 0)
+	CALL _FAT32_Read   (midx: 0)
+//MP3_main.c,247 :: 		for (i=0; i<file_size; i++){
+   (midx: 0)
+   (midx: 0)
+	R1 <4> <- 0   (midx: 0)
+	R1 <4> <- R1   (midx: 0)
+33:   (midx: 0)
+   (midx: 0)
+	R0 <4> <- addr(_file_size)   (midx: 0)
+	R0 <4> <- [R0]   (midx: 0)
+	if ( R1 >= R0) then goto 34   (midx: 2)
+//MP3_main.c,248 :: 		MP3_SDI_Write(mp3_buffer[i]);
+	R0 <4> <- #_mp3_buffer   (midx: 0)
+	R0 <4> <-  R0 + R1   (midx: 2)
+	R0 <1> <- *R0   (midx: 0)
+	R0 <1> <- R0   (midx: 0)
+	R1 <4> <- PUSH(R1)   (midx: 255)
+	R0 <1> <- R0   (midx: 0)
+	CALL _MP3_SDI_Write   (midx: 0)
+	R1 <4> <- POP   (midx: 255)
+//MP3_main.c,247 :: 		for (i=0; i<file_size; i++){
+	R1 <4> <-  R1 + 1   (midx: 2)
+	R1 <4> <- R1   (midx: 0)
+//MP3_main.c,249 :: 		}
+   (midx: 0)
+	R1 <4> <- R1   (midx: 0)
+	goto	33   (midx: 0)
+34:   (midx: 0)
+//MP3_main.c,250 :: 		MP3_Example_State = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_MP3_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//MP3_main.c,251 :: 		Buffer_count ++;
+	R1 <4> <- addr(_Buffer_count)   (midx: 0)
+	R0 <4> <- [R1]   (midx: 0)
+	R0 <4> <-  R0 + 1   (midx: 2)
+	[R1] <4> <- R0   (midx: 0)
+//MP3_main.c,252 :: 		UpdateProgressBar();
+	CALL _UpdateProgressBar   (midx: 0)
+//MP3_main.c,253 :: 		}
+32:   (midx: 0)
+//MP3_main.c,255 :: 		}; break;
+	goto	20   (midx: 0)
+//MP3_main.c,256 :: 		case 3 : { // pause playing
+36:   (midx: 0)
+//MP3_main.c,257 :: 		}; break;
+	goto	20   (midx: 0)
+//MP3_main.c,259 :: 		}
+19:   (midx: 0)
+	R0 <4> <- addr(_MP3_Example_State)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 0) then goto 21   (midx: 0)
+	R0 <4> <- addr(_MP3_Example_State)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 1) then goto 26   (midx: 0)
+	R0 <4> <- addr(_MP3_Example_State)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 2) then goto 27   (midx: 0)
+	R0 <4> <- addr(_MP3_Example_State)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 3) then goto 36   (midx: 0)
+20:   (midx: 0)
+  end
+   (midx: 0)
+MP3_main____?ag:
+  begin   (midx: 0)
+  end
+   (midx: 0)

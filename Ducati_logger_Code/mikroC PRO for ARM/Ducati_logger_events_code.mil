@@ -1,0 +1,457 @@
+_BLED_Fade_Out:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,32 :: 		void BLED_Fade_Out(){
+_BLED_Fade_Out:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,35 :: 		for ( i = 255; i > 0 ; i-- ){
+   (midx: 0)
+   (midx: 0)
+	R1 <2> <- 255   (midx: 0)
+	R1 <2> <- R1   (midx: 0)
+0:   (midx: 0)
+   (midx: 0)
+	if ( R1 <= 0) then goto 1   (midx: 5)
+//Ducati_logger_events_code.c,36 :: 		TFT_Set_DBC_SSD1963(i);
+	R1 <2> <- PUSH(R1)   (midx: 255)
+	R0 <1> <- R1   (midx: 0)
+	CALL _TFT_Set_DBC_SSD1963   (midx: 0)
+	R1 <2> <- POP   (midx: 255)
+//Ducati_logger_events_code.c,37 :: 		Delay_ms(1);
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+//Ducati_logger_events_code.c,35 :: 		for ( i = 255; i > 0 ; i-- ){
+	R1 <2> <-  R1 - 1   (midx: 1)
+	R1 <2> <- R1   (midx: 0)
+//Ducati_logger_events_code.c,38 :: 		}
+   (midx: 0)
+	R1 <2> <- R1   (midx: 0)
+	goto	0   (midx: 0)
+1:   (midx: 0)
+//Ducati_logger_events_code.c,39 :: 		TFT_Set_DBC_SSD1963(0);
+	R0 <1> <- 0   (midx: 0)
+	CALL _TFT_Set_DBC_SSD1963   (midx: 0)
+  end
+   (midx: 0)
+_BLED_Fade_In:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,42 :: 		void BLED_Fade_In(){
+_BLED_Fade_In:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,45 :: 		for (i = 1; i < 255; i++){
+   (midx: 0)
+   (midx: 0)
+	R1 <2> <- 1   (midx: 0)
+	R1 <2> <- R1   (midx: 0)
+4:   (midx: 0)
+   (midx: 0)
+	if ( R1 >= 255) then goto 5   (midx: 5)
+//Ducati_logger_events_code.c,46 :: 		TFT_Set_DBC_SSD1963(i);
+	R1 <2> <- PUSH(R1)   (midx: 255)
+	R0 <1> <- R1   (midx: 0)
+	CALL _TFT_Set_DBC_SSD1963   (midx: 0)
+	R1 <2> <- POP   (midx: 255)
+//Ducati_logger_events_code.c,47 :: 		Delay_ms(1);
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+//Ducati_logger_events_code.c,45 :: 		for (i = 1; i < 255; i++){
+	R1 <2> <-  R1 + 1   (midx: 1)
+	R1 <2> <- R1   (midx: 0)
+//Ducati_logger_events_code.c,48 :: 		}
+   (midx: 0)
+	R1 <2> <- R1   (midx: 0)
+	goto	4   (midx: 0)
+5:   (midx: 0)
+//Ducati_logger_events_code.c,49 :: 		TFT_Set_DBC_SSD1963(255);
+	R0 <1> <- 255   (midx: 0)
+	CALL _TFT_Set_DBC_SSD1963   (midx: 0)
+  end
+   (midx: 0)
+_Run_Logger:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,66 :: 		void Run_Logger(){
+_Run_Logger:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,67 :: 		switch (Logger_State) {
+	goto	8   (midx: 0)
+//Ducati_logger_events_code.c,68 :: 		case 0 : {
+10:   (midx: 0)
+//Ducati_logger_events_code.c,69 :: 		checkRTC();            // Speedometer screen
+	CALL _checkRTC   (midx: 0)
+//Ducati_logger_events_code.c,70 :: 		checkPowerM();
+	CALL _checkPowerM   (midx: 0)
+//Ducati_logger_events_code.c,71 :: 		Sensors_Read();
+	CALL _Sensors_Read   (midx: 0)
+//Ducati_logger_events_code.c,72 :: 		}; break;
+	goto	9   (midx: 0)
+//Ducati_logger_events_code.c,73 :: 		case 1 : {
+11:   (midx: 0)
+//Ducati_logger_events_code.c,74 :: 		checkRTC();            // Tachometer screen
+	CALL _checkRTC   (midx: 0)
+//Ducati_logger_events_code.c,75 :: 		checkPowerM();
+	CALL _checkPowerM   (midx: 0)
+//Ducati_logger_events_code.c,76 :: 		Sensors_Read();
+	CALL _Sensors_Read   (midx: 0)
+//Ducati_logger_events_code.c,77 :: 		}; break;
+	goto	9   (midx: 0)
+//Ducati_logger_events_code.c,79 :: 		case 2 : {
+12:   (midx: 0)
+//Ducati_logger_events_code.c,80 :: 		checkRTC();            // Settings screen
+	CALL _checkRTC   (midx: 0)
+//Ducati_logger_events_code.c,81 :: 		checkPowerM();
+	CALL _checkPowerM   (midx: 0)
+//Ducati_logger_events_code.c,82 :: 		}; break;
+	goto	9   (midx: 0)
+//Ducati_logger_events_code.c,83 :: 		case 3 : {                       // RTCC screen
+13:   (midx: 0)
+//Ducati_logger_events_code.c,84 :: 		if (PenDown == 0)
+	R0 <4> <- addr(_PenDown)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 != 0) then goto 14   (midx: 0)
+//Ducati_logger_events_code.c,85 :: 		doRTC_Example();
+	CALL _doRTC_Example   (midx: 0)
+14:   (midx: 0)
+//Ducati_logger_events_code.c,86 :: 		}; break;
+	goto	9   (midx: 0)
+//Ducati_logger_events_code.c,87 :: 		case 4 : break;                  // Sensor Test
+15:   (midx: 0)
+	goto	9   (midx: 0)
+//Ducati_logger_events_code.c,88 :: 		case 5 : {
+16:   (midx: 0)
+//Ducati_logger_events_code.c,90 :: 		}; break;
+	goto	9   (midx: 0)
+//Ducati_logger_events_code.c,91 :: 		case 6 : break;                   //Sensor Calibration
+17:   (midx: 0)
+	goto	9   (midx: 0)
+//Ducati_logger_events_code.c,92 :: 		case 7 : {                       // Oxygen sensor test
+18:   (midx: 0)
+//Ducati_logger_events_code.c,94 :: 		}; break;
+	goto	9   (midx: 0)
+//Ducati_logger_events_code.c,95 :: 		case 8 : {                       // Shift Light Adjust
+19:   (midx: 0)
+//Ducati_logger_events_code.c,97 :: 		}; break;
+	goto	9   (midx: 0)
+//Ducati_logger_events_code.c,98 :: 		}
+8:   (midx: 0)
+	R0 <4> <- addr(_Logger_State)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 0) then goto 10   (midx: 0)
+	R0 <4> <- addr(_Logger_State)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 1) then goto 11   (midx: 0)
+	R0 <4> <- addr(_Logger_State)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 2) then goto 12   (midx: 0)
+	R0 <4> <- addr(_Logger_State)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 3) then goto 13   (midx: 0)
+	R0 <4> <- addr(_Logger_State)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 4) then goto 15   (midx: 0)
+	R0 <4> <- addr(_Logger_State)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 5) then goto 16   (midx: 0)
+	R0 <4> <- addr(_Logger_State)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 6) then goto 17   (midx: 0)
+	R0 <4> <- addr(_Logger_State)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 7) then goto 18   (midx: 0)
+	R0 <4> <- addr(_Logger_State)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 8) then goto 19   (midx: 0)
+9:   (midx: 0)
+  end
+   (midx: 0)
+_doSetClock:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,141 :: 		void doSetClock() {
+_doSetClock:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,142 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//Ducati_logger_events_code.c,143 :: 		DrawScreen(&Set_clock);
+	R0 <4> <- #_Set_clock   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//Ducati_logger_events_code.c,144 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+//Ducati_logger_events_code.c,145 :: 		RTC_Example_init();
+	CALL _RTC_Example_init   (midx: 0)
+//Ducati_logger_events_code.c,146 :: 		Logger_State = 2;
+	R1 <1> <- 2   (midx: 0)
+	R0 <4> <- addr(_Logger_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_doCalibration:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,151 :: 		void doCalibration(){
+_doCalibration:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,152 :: 		Delay_ms(500);
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+//Ducati_logger_events_code.c,153 :: 		Calibrate();
+	CALL _Calibrate   (midx: 0)
+//Ducati_logger_events_code.c,154 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+//Ducati_logger_events_code.c,155 :: 		DrawScreen(&Settings);
+	R0 <4> <- #_Settings   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+  end
+   (midx: 0)
+_Box10OnPress:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,159 :: 		void Box10OnPress() {
+_Box10OnPress:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,160 :: 		HoursTens();
+	CALL _HoursTens   (midx: 0)
+  end
+   (midx: 0)
+_Box11OnPress:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,163 :: 		void Box11OnPress() {
+_Box11OnPress:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,164 :: 		HoursOnes();
+	CALL _HoursOnes   (midx: 0)
+  end
+   (midx: 0)
+_Box3OnPress:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,167 :: 		void Box3OnPress() {
+_Box3OnPress:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,168 :: 		MinutesTens();
+	CALL _MinutesTens   (midx: 0)
+  end
+   (midx: 0)
+_Box4OnPress:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,171 :: 		void Box4OnPress() {
+_Box4OnPress:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,172 :: 		MinutesOnes();
+	CALL _MinutesOnes   (midx: 0)
+  end
+   (midx: 0)
+_Box5OnPress:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,175 :: 		void Box5OnPress() {
+_Box5OnPress:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,176 :: 		AmPmRun();
+	CALL _AmPmRun   (midx: 0)
+  end
+   (midx: 0)
+_Image18OnPress:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,179 :: 		void Image18OnPress() {
+_Image18OnPress:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,180 :: 		if (Set_MyRTCC() == 0)
+	CALL _Set_MyRTCC   (midx: 0)
+	if ( R0 != 0) then goto 21   (midx: 0)
+//Ducati_logger_events_code.c,181 :: 		return;
+	return   (midx: 0)
+21:   (midx: 0)
+//Ducati_logger_events_code.c,182 :: 		Logger_State = 2;
+	R1 <1> <- 2   (midx: 0)
+	R0 <4> <- addr(_Logger_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//Ducati_logger_events_code.c,183 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//Ducati_logger_events_code.c,184 :: 		DrawScreen(&Settings);
+	R0 <4> <- #_Settings   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//Ducati_logger_events_code.c,185 :: 		Display_Bat_Stat = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_Display_Bat_Stat)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//Ducati_logger_events_code.c,186 :: 		checkPowerM();
+	CALL _checkPowerM   (midx: 0)
+//Ducati_logger_events_code.c,187 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+  end
+   (midx: 0)
+_Box8OnClick:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,190 :: 		void Box8OnClick() {
+_Box8OnClick:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,191 :: 		Deactivate_All_Rollers();
+	CALL _Deactivate_All_Rollers   (midx: 0)
+  end
+   (midx: 0)
+_doNextScreen:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,194 :: 		void doNextScreen() {
+_doNextScreen:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,195 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//Ducati_logger_events_code.c,196 :: 		DrawScreen(&Tachometer_graphics);
+	R0 <4> <- #_Tachometer_graphics   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//Ducati_logger_events_code.c,197 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+//Ducati_logger_events_code.c,198 :: 		Logger_State = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_Logger_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_doPrevScreen:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,201 :: 		void doPrevScreen() {
+_doPrevScreen:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,202 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//Ducati_logger_events_code.c,203 :: 		DrawScreen(&Speedometer_graphics);
+	R0 <4> <- #_Speedometer_graphics   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//Ducati_logger_events_code.c,204 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+//Ducati_logger_events_code.c,205 :: 		Logger_State = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_Logger_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_doLog:
+  begin   (midx: 0)
+  end
+   (midx: 0)
+_doSettings:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,213 :: 		void doSettings() {
+_doSettings:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,214 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//Ducati_logger_events_code.c,215 :: 		DrawScreen(&Settings);
+	R0 <4> <- #_Settings   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//Ducati_logger_events_code.c,216 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+//Ducati_logger_events_code.c,217 :: 		Logger_State = 2;
+	R1 <1> <- 2   (midx: 0)
+	R0 <4> <- addr(_Logger_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_doSensorTest:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,221 :: 		void doSensorTest() {
+_doSensorTest:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,222 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//Ducati_logger_events_code.c,223 :: 		DrawScreen(&Sensor_test);
+	R0 <4> <- #_Sensor_test   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//Ducati_logger_events_code.c,224 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+//Ducati_logger_events_code.c,225 :: 		Logger_State = 4;
+	R1 <1> <- 4   (midx: 0)
+	R0 <4> <- addr(_Logger_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_doGPSTest:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,229 :: 		void doGPSTest() {
+_doGPSTest:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,230 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//Ducati_logger_events_code.c,231 :: 		DrawScreen(&GPS_test);
+	R0 <4> <- #_GPS_Test   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//Ducati_logger_events_code.c,232 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+//Ducati_logger_events_code.c,233 :: 		Logger_State = 5;
+	R1 <1> <- 5   (midx: 0)
+	R0 <4> <- addr(_Logger_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_doSensorCalibration:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,236 :: 		void doSensorCalibration() {
+_doSensorCalibration:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,237 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//Ducati_logger_events_code.c,239 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+//Ducati_logger_events_code.c,240 :: 		Logger_State = 6;
+	R1 <1> <- 6   (midx: 0)
+	R0 <4> <- addr(_Logger_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_doO2Test:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,243 :: 		void doO2Test() {
+_doO2Test:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,244 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//Ducati_logger_events_code.c,245 :: 		DrawScreen(&Oxygen_Sensor_Readings);
+	R0 <4> <- #_Oxygen_Sensor_Readings   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//Ducati_logger_events_code.c,246 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+//Ducati_logger_events_code.c,247 :: 		Logger_State = 7;
+	R1 <1> <- 7   (midx: 0)
+	R0 <4> <- addr(_Logger_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_doShiftLightAdjust:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,250 :: 		void doShiftLightAdjust() {
+_doShiftLightAdjust:
+  begin   (midx: 0)
+//Ducati_logger_events_code.c,251 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//Ducati_logger_events_code.c,252 :: 		DrawScreen(&Shift_Light_Adjust);
+	R0 <4> <- #_Shift_Light_Adjust   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//Ducati_logger_events_code.c,253 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+//Ducati_logger_events_code.c,254 :: 		Logger_State = 8;
+	R1 <1> <- 8   (midx: 0)
+	R0 <4> <- addr(_Logger_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+  end
+   (midx: 0)

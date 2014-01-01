@@ -1,0 +1,105 @@
+[DEVICE]
+Name=STM32F407ZG
+Clock=150000000
+[MEMORY_MODEL]
+Value=0
+[BUILD_TYPE]
+Value=0
+[ACTIVE_TAB]
+Value=Ducati_logger_main.c
+[USE_EEPROM]
+Value=0
+[EEPROM_DEFINITION]
+Value=
+[USE_HEAP]
+Value=0
+[HEAP_SIZE]
+Value=2000
+[FILES]
+Count=10
+File0=Ducati_logger_main.c
+File1=Ducati_logger_events_code.c
+File2=Ducati_logger_driver.c
+File3=Ducati_logger_resources.c
+File4=Add-Ons\RTCC_driver.c
+File5=Add-Ons\RTCC_main.c
+File6=Add-Ons\Power_management.c
+File7=Add-Ons\Init_routines.c
+File8=Add-Ons\Scroll.c
+File9=Screen_Data\Speedometer.c
+[BINARIES]
+Count=0
+[IMAGES]
+Count=0
+ActiveImageIndex=-1
+[OPENED_FILES]
+Count=9
+File0=Ducati_logger_main.c
+File1=Ducati_logger_events_code.c
+File2=Ducati_logger_driver.c
+File3=Add-Ons\Power_management.c
+File4=Add-Ons\RTCC_main.c
+File5=Add-Ons\RTCC_driver.c
+File6=Add-Ons\Init_routines.c
+File7=Screen_Data\Speedometer.c
+File8=Ducati_logger_resources.c
+[EEPROM]
+Count=0
+[ACTIVE_COMMENTS_FILES]
+Count=0
+[OTHER_FILES]
+Count=0
+[SEARCH_PATH]
+Count=8
+Path0=C:\Program Files (x86)\mikroC PRO for ARM\defs\
+Path1=C:\Users\Jemmi\Desktop\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\
+Path2=C:\Program Files (x86)\mikroC PRO for ARM\Uses\ST M4\
+Path3=C:\Users\Jemmi\Desktop\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\Sensors\
+Path4=C:\Users\Jemmi\Desktop\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\Add-Ons\
+Path5=C:\Program Files (x86)\mikroC PRO for ARM\Packages\FAT32 Library\Uses\
+Path6=C:\Users\Jemmi\Desktop\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\GPS\
+Path7=C:\Users\Jemmi\Desktop\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\Screen_Data\
+[HEADER_PATH]
+Count=3
+Path0=C:\Users\Jemmi\Desktop\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\
+Path1=C:\Users\Jemmi\Desktop\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\Add-Ons\
+Path2=C:\Users\Jemmi\Desktop\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\GPS\
+[HEADERS]
+Count=4
+File0=Ducati_logger_objects.h
+File1=Ducati_logger_resources.h
+File2=Add-Ons\__Lib_FAT32.h
+File3=__Time.h
+[PLDS]
+Count=0
+[Useses]
+Count=20
+File0=Mmc_FAT16_Config
+File1=Mmc_FAT16
+File2=Time
+File3=ADC
+File4=FAT32_STM32
+File5=UART
+File6=FAT32_Driver_STM32
+File7=FAT32_Defs_STM32
+File8=Mmc
+File9=C_String
+File10=C_Type
+File11=SDIO
+File12=Spi
+File13=Conversions
+File14=Mmc_FAT16_Defs
+File15=I2C
+File16=STMPE610
+File17=TFT_Fonts
+File18=TFT_Defs
+File19=TFT
+[EXPANDED NODES]
+Node1=Sources
+Node2=Header Files
+Node3=Output Files
+Count=3
+[PROGRAMMER_OPTIONS]
+Value=JTAG
+[PROGRAMMER_TYPE]
+Value=mE

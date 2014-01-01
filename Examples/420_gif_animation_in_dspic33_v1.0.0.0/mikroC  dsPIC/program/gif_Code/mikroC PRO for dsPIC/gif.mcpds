@@ -1,0 +1,68 @@
+[DEVICE]
+Name=P33FJ256GP710A
+Clock=80000000
+[MEMORY_MODEL]
+Value=0
+[BUILD_TYPE]
+Value=0
+[ACTIVE_TAB]
+Value=gif_driver.c
+[USE_EEPROM]
+Value=0
+[EEPROM_DEFINITION]
+Value=
+[USE_HEAP]
+Value=0
+[HEAP_SIZE]
+Value=2000
+[FILES]
+Count=4
+File0=gif_main.c
+File1=gif_events_code.c
+File2=gif_driver.c
+File3=gif_resources.c
+[BINARIES]
+Count=0
+[IMAGES]
+Count=0
+ActiveImageIndex=-1
+[OPENED_FILES]
+Count=3
+File0=gif_main.c
+File1=gif_events_code.c
+File2=gif_driver.c
+[EEPROM]
+Count=0
+[ACTIVE_COMMENTS_FILES]
+Count=0
+[OTHER_FILES]
+Count=0
+[SEARCH_PATH]
+Count=3
+Path0=C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for dsPIC\defs\
+Path1=C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for dsPIC\uses\
+Path2=C:\Users\pc1\Desktop\gif animation\program\gif_Code\mikroC PRO for dsPIC\
+[HEADER_PATH]
+Count=1
+Path0=C:\Users\pc1\Desktop\gif animation\program\gif_Code\mikroC PRO for dsPIC\
+[HEADERS]
+Count=2
+File0=gif_objects.h
+File1=gif_resources.h
+[PLDS]
+Count=0
+[Useses]
+Count=9
+File0=C_String
+File1=TFT
+File2=TFT_Fonts
+File3=Mmc
+File4=Mmc_FAT16
+File5=Mmc_FAT16_Config
+File6=Mmc_FAT16_Defs
+File7=Spi
+File8=C_Type
+[EXPANDED NODES]
+Node1=Sources
+Node2=Header Files
+Count=2

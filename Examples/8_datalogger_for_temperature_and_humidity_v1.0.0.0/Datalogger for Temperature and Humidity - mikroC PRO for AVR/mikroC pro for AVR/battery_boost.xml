@@ -1,0 +1,13 @@
+<battery_boost>
+	<Attributes>
+		<Url></Url>
+		<Image>battery boost shield.jpg</Image>
+		<File></File>
+	</Attributes>
+	<Events>
+		<OnLeftClick></OnLeftClick>
+		<OnRightClick></OnRightClick>
+		<OnDblClick></OnDblClick>
+		<OnMouseOver>PreviewImage</OnMouseOver>
+	</Events>
+</battery_boost>

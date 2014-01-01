@@ -1,0 +1,347 @@
+_MP3_SCI_Write:
+  begin   (midx: 0)
+//MP3_driver.c,51 :: 		void MP3_SCI_Write(char address, unsigned int data_in) {
+_MP3_SCI_Write:
+  begin   (midx: 0)
+   (midx: 0)
+	R4 <1> <- R0   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	FARG_MP3_SCI_Write_data_in_2 <2> <- R1   (midx: 0)
+   (midx: 0)
+//MP3_driver.c,52 :: 		BSYNC = 1;
+	R3 <1> <- 1   (midx: 0)
+	R2 <4> <- addr(BSYNC)   (midx: 0)
+	[R2] <0> <- R3   (midx: 0)
+//MP3_driver.c,54 :: 		MP3_CS = 0;                    // select MP3 SCI
+	R3 <1> <- 0   (midx: 0)
+	R2 <4> <- addr(MP3_CS)   (midx: 0)
+	[R2] <0> <- R3   (midx: 0)
+//MP3_driver.c,55 :: 		SPI2_Write(WRITE_CODE);
+	R0 <2> <- 2   (midx: 0)
+	CALL _SPI2_Write   (midx: 0)
+//MP3_driver.c,56 :: 		SPI2_Write(address);
+   (midx: 0)
+	R0 <2> <- R4   (midx: 0)
+	CALL _SPI2_Write   (midx: 0)
+//MP3_driver.c,57 :: 		SPI2_Write(Hi(data_in));       // high byte
+	R2 <4> <- addr(FARG_MP3_SCI_Write_data_in)   (midx: 0)
+	R2 <4> <-  R2 + 1   (midx: 2)
+	R2 <1> <- *R2   (midx: 0)
+	R2 <2> <- R2   (midx: 0)
+	R0 <2> <- R2   (midx: 0)
+	CALL _SPI2_Write   (midx: 0)
+//MP3_driver.c,58 :: 		SPI2_Write(Lo(data_in));       // low byte
+	R2 <4> <- addr(FARG_MP3_SCI_Write_data_in)   (midx: 0)
+	R2 <1> <- *R2   (midx: 0)
+	R2 <2> <- R2   (midx: 0)
+	R0 <2> <- R2   (midx: 0)
+	CALL _SPI2_Write   (midx: 0)
+//MP3_driver.c,59 :: 		MP3_CS = 1;                    // deselect MP3 SCI
+	R3 <1> <- 1   (midx: 0)
+	R2 <4> <- addr(MP3_CS)   (midx: 0)
+	[R2] <0> <- R3   (midx: 0)
+//MP3_driver.c,60 :: 		while (DREQ == 0);             // wait until DREQ becomes 1, see MP3 codec datasheet, Serial Protocol for SCI
+0:   (midx: 0)
+	R3 <4> <- addr(DREQ)   (midx: 0)
+	R2 <4> <- [R3]   (midx: 0)
+	if (R2) then goto 1   (midx: 21)
+	goto	0   (midx: 0)
+1:   (midx: 0)
+  end
+   (midx: 0)
+_MP3_SCI_Read:
+  begin   (midx: 0)
+//MP3_driver.c,70 :: 		void MP3_SCI_Read(char start_address, char words_count, unsigned int *data_buffer) {
+_MP3_SCI_Read:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R5 <1> <- R0   (midx: 0)
+	R6 <1> <- R1   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R7 <4> <- R2   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+//MP3_driver.c,73 :: 		MP3_CS = 0;                    // select MP3 SCI
+	R4 <1> <- 0   (midx: 0)
+	R3 <4> <- addr(MP3_CS)   (midx: 0)
+	[R3] <0> <- R4   (midx: 0)
+//MP3_driver.c,74 :: 		SPI2_Write(READ_CODE);
+	R0 <2> <- 3   (midx: 0)
+	CALL _SPI2_Write   (midx: 0)
+//MP3_driver.c,75 :: 		SPI2_Write(start_address);
+   (midx: 0)
+	R0 <2> <- R5   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	CALL _SPI2_Write   (midx: 0)
+	R0 <1> <- R6   (midx: 0)
+	R6 <4> <- R7   (midx: 0)
+//MP3_driver.c,77 :: 		while (words_count--) {        // read words_count words byte per byte
+2:   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R4 <1> <- R0   (midx: 0)
+   (midx: 0)
+	R3 <1> <-  R0 - 1   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R5 <1> <- R3   (midx: 0)
+   (midx: 0)
+	if (!R4) then goto 3   (midx: 0)
+//MP3_driver.c,78 :: 		temp = SPI2_Read(0);
+   (midx: 0)
+	R0 <2> <- 0   (midx: 0)
+	CALL _SPI2_Read   (midx: 0)
+//MP3_driver.c,79 :: 		temp <<= 8;
+	R3 <2> <-  R0 shl 8   (midx: 1)
+   (midx: 0)
+	R4 <2> <- R3   (midx: 0)
+//MP3_driver.c,80 :: 		temp += SPI2_Read(0);
+	R0 <2> <- 0   (midx: 0)
+	CALL _SPI2_Read   (midx: 0)
+   (midx: 0)
+	R3 <2> <-  R4 + R0   (midx: 1)
+//MP3_driver.c,81 :: 		*(data_buffer++) = temp;
+	[R6] <2> <- R3   (midx: 0)
+	R6 <4> <-  R6 + 2   (midx: 2)
+	R6 <4> <- R6   (midx: 0)
+//MP3_driver.c,82 :: 		}
+   (midx: 0)
+   (midx: 0)
+	R0 <1> <- R5   (midx: 0)
+	R6 <4> <- R6   (midx: 0)
+	goto	2   (midx: 0)
+3:   (midx: 0)
+//MP3_driver.c,83 :: 		MP3_CS = 1;                    // deselect MP3 SCI
+	R4 <1> <- 1   (midx: 0)
+	R3 <4> <- addr(MP3_CS)   (midx: 0)
+	[R3] <0> <- R4   (midx: 0)
+//MP3_driver.c,84 :: 		while (DREQ == 0);             // wait until DREQ becomes 1, see MP3 codec datasheet, Serial Protocol for SCI
+4:   (midx: 0)
+	R4 <4> <- addr(DREQ)   (midx: 0)
+	R3 <4> <- [R4]   (midx: 0)
+	if (R3) then goto 5   (midx: 21)
+	goto	4   (midx: 0)
+5:   (midx: 0)
+  end
+   (midx: 0)
+_MP3_SDI_Write:
+  begin   (midx: 0)
+//MP3_driver.c,94 :: 		void MP3_SDI_Write(char data_) {
+_MP3_SDI_Write:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R0 <1> <- R0   (midx: 0)
+   (midx: 0)
+//MP3_driver.c,96 :: 		MP3_CS = 1;
+	R2 <1> <- 1   (midx: 0)
+	R1 <4> <- addr(MP3_CS)   (midx: 0)
+	[R1] <0> <- R2   (midx: 0)
+//MP3_driver.c,97 :: 		BSYNC = 0;
+	R2 <1> <- 0   (midx: 0)
+	R1 <4> <- addr(BSYNC)   (midx: 0)
+   (midx: 0)
+	[R1] <0> <- R2   (midx: 0)
+	R0 <1> <- R0   (midx: 0)
+//MP3_driver.c,99 :: 		while (DREQ == 0);             // wait until DREQ becomes 1, see MP3 codec datasheet, Serial Protocol for SCI
+6:   (midx: 0)
+   (midx: 0)
+	R2 <4> <- addr(DREQ)   (midx: 0)
+	R1 <4> <- [R2]   (midx: 0)
+	if (R1) then goto 7   (midx: 21)
+	R0 <1> <- R0   (midx: 0)
+	goto	6   (midx: 0)
+7:   (midx: 0)
+//MP3_driver.c,101 :: 		SPI2_Write(data_);
+   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _SPI2_Write   (midx: 0)
+//MP3_driver.c,102 :: 		BSYNC = 1;
+	R2 <1> <- 1   (midx: 0)
+	R1 <4> <- addr(BSYNC)   (midx: 0)
+	[R1] <0> <- R2   (midx: 0)
+  end
+   (midx: 0)
+_MP3_Reset_Time:
+  begin   (midx: 0)
+//MP3_driver.c,112 :: 		void MP3_Reset_Time(){
+_MP3_Reset_Time:
+  begin   (midx: 0)
+//MP3_driver.c,113 :: 		MP3_SCI_Write(SCI_DECODE_TIME_ADDR, 0);
+	R1 <2> <- 0   (midx: 0)
+	R0 <1> <- 4   (midx: 0)
+	CALL _MP3_SCI_Write   (midx: 0)
+  end
+   (midx: 0)
+_MP3_Get_Decode_Time:
+  begin   (midx: 0)
+//MP3_driver.c,123 :: 		void MP3_Get_Decode_Time(unsigned int *time){
+_MP3_Get_Decode_Time:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+   (midx: 0)
+//MP3_driver.c,124 :: 		MP3_SCI_Read(SCI_DECODE_TIME_ADDR, 1, time);
+   (midx: 0)
+	R2 <4> <- R0   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <1> <- 4   (midx: 0)
+	CALL _MP3_SCI_Read   (midx: 0)
+  end
+   (midx: 0)
+_MP3_SDI_Write_32:
+  begin   (midx: 0)
+//MP3_driver.c,134 :: 		void MP3_SDI_Write_32(char *data_) {
+_MP3_SDI_Write_32:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+   (midx: 0)
+//MP3_driver.c,137 :: 		MP3_CS = 1;
+	R2 <1> <- 1   (midx: 0)
+	R1 <4> <- addr(MP3_CS)   (midx: 0)
+	[R1] <0> <- R2   (midx: 0)
+//MP3_driver.c,138 :: 		BSYNC = 0;
+	R2 <1> <- 0   (midx: 0)
+	R1 <4> <- addr(BSYNC)   (midx: 0)
+   (midx: 0)
+	[R1] <0> <- R2   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+//MP3_driver.c,140 :: 		while (DREQ == 0);             // wait until DREQ becomes 1, see MP3 codec datasheet, Serial Protocol for SCI
+8:   (midx: 0)
+   (midx: 0)
+	R2 <4> <- addr(DREQ)   (midx: 0)
+	R1 <4> <- [R2]   (midx: 0)
+	if (R1) then goto 9   (midx: 21)
+	R0 <4> <- R0   (midx: 0)
+	goto	8   (midx: 0)
+9:   (midx: 0)
+//MP3_driver.c,142 :: 		for (i=0; i<32; i++)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R5 <1> <- 0   (midx: 0)
+	R4 <4> <- R0   (midx: 0)
+	R5 <1> <- R5   (midx: 0)
+10:   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	if ( R5 >= 32) then goto 11   (midx: 0)
+//MP3_driver.c,143 :: 		SPI2_Write(data_[i]);
+   (midx: 0)
+	R1 <4> <-  R4 + R5   (midx: 2)
+	R1 <1> <- *R1   (midx: 0)
+	R1 <2> <- R1   (midx: 0)
+	R0 <2> <- R1   (midx: 0)
+	CALL _SPI2_Write   (midx: 0)
+//MP3_driver.c,142 :: 		for (i=0; i<32; i++)
+	R5 <1> <-  R5 + 1   (midx: 0)
+	R5 <1> <- R5   (midx: 0)
+//MP3_driver.c,143 :: 		SPI2_Write(data_[i]);
+   (midx: 0)
+   (midx: 0)
+	R4 <4> <- R4   (midx: 0)
+	R5 <1> <- R5   (midx: 0)
+	goto	10   (midx: 0)
+11:   (midx: 0)
+//MP3_driver.c,144 :: 		BSYNC = 1;
+	R2 <1> <- 1   (midx: 0)
+	R1 <4> <- addr(BSYNC)   (midx: 0)
+	[R1] <0> <- R2   (midx: 0)
+  end
+   (midx: 0)
+_MP3_Set_Volume:
+  begin   (midx: 0)
+//MP3_driver.c,154 :: 		void MP3_Set_Volume(char left, char right) {
+_MP3_Set_Volume:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R0 <1> <- R0   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R1 <1> <- R1   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+//MP3_driver.c,157 :: 		volume = (left<<8) + right;             // calculate value
+   (midx: 0)
+	R2 <2> <-  R0 shl 8   (midx: 1)
+   (midx: 0)
+	R2 <2> <-  R2 + R1   (midx: 1)
+//MP3_driver.c,158 :: 		MP3_SCI_Write(SCI_VOL_ADDR, volume);    // Write value to VOL register
+	R1 <2> <- R2   (midx: 0)
+	R0 <1> <- 11   (midx: 0)
+	CALL _MP3_SCI_Write   (midx: 0)
+  end
+   (midx: 0)
+_MP3_Set_default_Mode:
+  begin   (midx: 0)
+//MP3_driver.c,161 :: 		void MP3_Set_default_Mode(){
+_MP3_Set_default_Mode:
+  begin   (midx: 0)
+//MP3_driver.c,162 :: 		BSYNC = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(BSYNC)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+//MP3_driver.c,163 :: 		MP3_CS = 1;
+	R0 <4> <- addr(MP3_CS)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+//MP3_driver.c,166 :: 		MP3_RST = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(MP3_RST)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+//MP3_driver.c,167 :: 		Delay_ms(10);
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+//MP3_driver.c,168 :: 		MP3_RST = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(MP3_RST)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+//MP3_driver.c,170 :: 		while (DREQ == 0);
+14:   (midx: 0)
+	R1 <4> <- addr(DREQ)   (midx: 0)
+	R0 <4> <- [R1]   (midx: 0)
+	if (R0) then goto 15   (midx: 21)
+	goto	14   (midx: 0)
+15:   (midx: 0)
+//MP3_driver.c,172 :: 		MP3_SCI_Write(SCI_MODE_ADDR, 0x0800);
+	R1 <2> <- 2048   (midx: 0)
+	R0 <1> <- 0   (midx: 0)
+	CALL _MP3_SCI_Write   (midx: 0)
+//MP3_driver.c,173 :: 		MP3_SCI_Write(SCI_BASS_ADDR, 0x7A00);
+	R1 <2> <- 31232   (midx: 0)
+	R0 <1> <- 2   (midx: 0)
+	CALL _MP3_SCI_Write   (midx: 0)
+//MP3_driver.c,174 :: 		MP3_SCI_Write(SCI_CLOCKF_ADDR, 0xC000);   // default 12 288 000 Hz
+	R1 <2> <- 49152   (midx: 0)
+	R0 <1> <- 3   (midx: 0)
+	CALL _MP3_SCI_Write   (midx: 0)
+  end
+   (midx: 0)

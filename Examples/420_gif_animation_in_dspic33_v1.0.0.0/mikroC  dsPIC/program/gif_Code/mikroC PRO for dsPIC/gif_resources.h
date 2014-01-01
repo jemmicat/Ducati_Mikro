@@ -1,0 +1,14 @@
+#define a_jpg 0x00000120
+#define b_jpg 0x00025926
+#define c_jpg 0x0004B12C
+#define d_jpg 0x00070932
+#define e_jpg 0x00096138
+#define f_jpg 0x000BB93E
+#define g_jpg 0x000E1144
+#define h_jpg 0x0010694A
+#define i_jpg 0x0012C150
+#define j_jpg 0x00151956
+#define k_jpg 0x0017715C
+#define l_jpg 0x0019C962
+#define m_jpg 0x001C2168
+#define n_jpg 0x001E796E

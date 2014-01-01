@@ -1,0 +1,1453 @@
+_Run_Example:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,104 :: 		void Run_Example(){
+_Run_Example:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,105 :: 		switch (Example_State) {
+	goto	0   (midx: 0)
+//mikromedia_STM32plus_events_code.c,106 :: 		case 0 : {
+2:   (midx: 0)
+//mikromedia_STM32plus_events_code.c,107 :: 		checkRTC();            // Home screen
+	CALL _checkRTC   (midx: 0)
+//mikromedia_STM32plus_events_code.c,108 :: 		checkPowerM();
+	CALL _checkPowerM   (midx: 0)
+//mikromedia_STM32plus_events_code.c,109 :: 		}; break;
+	goto	1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,110 :: 		case 1 : {
+3:   (midx: 0)
+//mikromedia_STM32plus_events_code.c,111 :: 		doAccel();             // Accel Screen
+	CALL _doAccel   (midx: 0)
+//mikromedia_STM32plus_events_code.c,112 :: 		}; break;
+	goto	1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,113 :: 		case 2 : {                       // RTCC screen
+4:   (midx: 0)
+//mikromedia_STM32plus_events_code.c,114 :: 		if (PenDown == 0)
+	R0 <4> <- addr(_PenDown)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 != 0) then goto 5   (midx: 0)
+//mikromedia_STM32plus_events_code.c,115 :: 		doRTC_Example();
+	CALL _doRTC_Example   (midx: 0)
+5:   (midx: 0)
+//mikromedia_STM32plus_events_code.c,116 :: 		}; break;
+	goto	1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,117 :: 		case 3 : break;                  // RGB screen
+6:   (midx: 0)
+	goto	1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,118 :: 		case 4 : {
+7:   (midx: 0)
+//mikromedia_STM32plus_events_code.c,119 :: 		Sensors_Read();        // Sensors screen
+	CALL _Sensors_Read   (midx: 0)
+//mikromedia_STM32plus_events_code.c,120 :: 		}; break;
+	goto	1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,121 :: 		case 5 : {
+8:   (midx: 0)
+//mikromedia_STM32plus_events_code.c,122 :: 		doMp3();               // MP3
+	CALL _doMP3   (midx: 0)
+//mikromedia_STM32plus_events_code.c,123 :: 		}; break;
+	goto	1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,124 :: 		case 6 : break;
+9:   (midx: 0)
+	goto	1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,125 :: 		case 7 : {                       // Slide Show
+10:   (midx: 0)
+//mikromedia_STM32plus_events_code.c,126 :: 		doSlide();
+	CALL _doSlide   (midx: 0)
+//mikromedia_STM32plus_events_code.c,127 :: 		}; break;
+	goto	1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,128 :: 		}
+0:   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 0) then goto 2   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 1) then goto 3   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 2) then goto 4   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 3) then goto 6   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 4) then goto 7   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 5) then goto 8   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 6) then goto 9   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 7) then goto 10   (midx: 0)
+1:   (midx: 0)
+  end
+   (midx: 0)
+_BLED_Fade_Out:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,131 :: 		void BLED_Fade_Out(){
+_BLED_Fade_Out:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,134 :: 		for ( i = 255; i > 0 ; i-- ){
+   (midx: 0)
+   (midx: 0)
+	R1 <2> <- 255   (midx: 0)
+	R1 <2> <- R1   (midx: 0)
+11:   (midx: 0)
+   (midx: 0)
+	if ( R1 <= 0) then goto 12   (midx: 5)
+//mikromedia_STM32plus_events_code.c,135 :: 		TFT_Set_DBC_SSD1963(i);
+	R1 <2> <- PUSH(R1)   (midx: 255)
+	R0 <1> <- R1   (midx: 0)
+	CALL _TFT_Set_DBC_SSD1963   (midx: 0)
+	R1 <2> <- POP   (midx: 255)
+//mikromedia_STM32plus_events_code.c,136 :: 		Delay_ms(1);
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+//mikromedia_STM32plus_events_code.c,134 :: 		for ( i = 255; i > 0 ; i-- ){
+	R1 <2> <-  R1 - 1   (midx: 1)
+	R1 <2> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,137 :: 		}
+   (midx: 0)
+	R1 <2> <- R1   (midx: 0)
+	goto	11   (midx: 0)
+12:   (midx: 0)
+//mikromedia_STM32plus_events_code.c,138 :: 		TFT_Set_DBC_SSD1963(0);
+	R0 <1> <- 0   (midx: 0)
+	CALL _TFT_Set_DBC_SSD1963   (midx: 0)
+  end
+   (midx: 0)
+_BLED_Fade_In:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,141 :: 		void BLED_Fade_In(){
+_BLED_Fade_In:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,144 :: 		for (i = 1; i < 255; i++){
+   (midx: 0)
+   (midx: 0)
+	R1 <2> <- 1   (midx: 0)
+	R1 <2> <- R1   (midx: 0)
+15:   (midx: 0)
+   (midx: 0)
+	if ( R1 >= 255) then goto 16   (midx: 5)
+//mikromedia_STM32plus_events_code.c,145 :: 		TFT_Set_DBC_SSD1963(i);
+	R1 <2> <- PUSH(R1)   (midx: 255)
+	R0 <1> <- R1   (midx: 0)
+	CALL _TFT_Set_DBC_SSD1963   (midx: 0)
+	R1 <2> <- POP   (midx: 255)
+//mikromedia_STM32plus_events_code.c,146 :: 		Delay_ms(1);
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+//mikromedia_STM32plus_events_code.c,144 :: 		for (i = 1; i < 255; i++){
+	R1 <2> <-  R1 + 1   (midx: 1)
+	R1 <2> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,147 :: 		}
+   (midx: 0)
+	R1 <2> <- R1   (midx: 0)
+	goto	15   (midx: 0)
+16:   (midx: 0)
+//mikromedia_STM32plus_events_code.c,148 :: 		TFT_Set_DBC_SSD1963(255);
+	R0 <1> <- 255   (midx: 0)
+	CALL _TFT_Set_DBC_SSD1963   (midx: 0)
+  end
+   (midx: 0)
+_UpdateVolumeBar:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,152 :: 		void UpdateVolumeBar(char vol, char old_vol){
+_UpdateVolumeBar:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R0 <1> <- R0   (midx: 0)
+   (midx: 0)
+//mikromedia_STM32plus_events_code.c,155 :: 		xcoo = (vol*3)/4 + VolmeBar.Left;
+	R2 <2> <- 3   (midx: 0)
+   (midx: 0)
+	R2 <2> <-  R0 * R2   (midx: 0)
+	R3 <2> <-  R2 shr 2   (midx: 5)
+	R4 <4> <- addr(_VolmeBar+6)   (midx: 0)
+	R2 <2> <- [R4]   (midx: 0)
+	R3 <2> <-  R3 + R2   (midx: 1)
+	UpdateVolumeBar_xcoo_L0 <2> <- R3   (midx: 0)
+//mikromedia_STM32plus_events_code.c,157 :: 		if (xcoo < VolmeBar.Left)
+	R2 <4> <- R4   (midx: 0)
+	R2 <2> <- [R2]   (midx: 0)
+	if ( R3 >= R2) then goto 19   (midx: 1)
+//mikromedia_STM32plus_events_code.c,158 :: 		xcoo = VolmeBar.Left;
+	R2 <4> <- addr(_VolmeBar+6)   (midx: 0)
+	R2 <2> <- [R2]   (midx: 0)
+	UpdateVolumeBar_xcoo_L0 <2> <- R2   (midx: 0)
+19:   (midx: 0)
+//mikromedia_STM32plus_events_code.c,160 :: 		if (xcoo > VolmeBar.Left + VolmeBar.Width)
+	R2 <4> <- addr(_VolmeBar+10)   (midx: 0)
+	R3 <2> <- [R2]   (midx: 0)
+	R2 <4> <- addr(_VolmeBar+6)   (midx: 0)
+	R2 <2> <- [R2]   (midx: 0)
+	R3 <2> <-  R2 + R3   (midx: 1)
+	R2 <2> <- UpdateVolumeBar_xcoo_L0   (midx: 0)
+	if ( R2 <= R3) then goto 20   (midx: 1)
+//mikromedia_STM32plus_events_code.c,161 :: 		xcoo = VolmeBar.Left + VolmeBar.Width;
+	R2 <4> <- addr(_VolmeBar+10)   (midx: 0)
+	R3 <2> <- [R2]   (midx: 0)
+	R2 <4> <- addr(_VolmeBar+6)   (midx: 0)
+	R2 <2> <- [R2]   (midx: 0)
+	R2 <2> <-  R2 + R3   (midx: 1)
+	UpdateVolumeBar_xcoo_L0 <2> <- R2   (midx: 0)
+20:   (midx: 0)
+//mikromedia_STM32plus_events_code.c,164 :: 		TFT_Set_Brush(1, 0x55FF, 0, 0, 0, 0);
+	R3 <2> <- 0   (midx: 0)
+	R2 <2> <- 0   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_to <2> <- PUSH(R3)   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_from <2> <- PUSH(R2)   (midx: 0)
+	R3 <1> <- 0   (midx: 0)
+	R2 <1> <- 0   (midx: 0)
+	R1 <2> <- 22015   (midx: 0)
+	R0 <1> <- 1   (midx: 0)
+	CALL _TFT_Set_Brush   (midx: 0)
+//mikromedia_STM32plus_events_code.c,165 :: 		TFT_Set_Pen(0x55FF, 0);
+	R1 <1> <- 0   (midx: 0)
+	R0 <2> <- 22015   (midx: 0)
+	CALL _TFT_Set_Pen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,166 :: 		TFT_Rectangle(VolmeBar.Left, VolmeBar.Top, xcoo, VolmeBar.Top + VolmeBar.Height);
+	R2 <4> <- addr(_VolmeBar+12)   (midx: 0)
+	R4 <2> <- [R2]   (midx: 0)
+	R3 <4> <- addr(_VolmeBar+8)   (midx: 0)
+	R2 <2> <- [R3]   (midx: 0)
+	R4 <2> <-  R2 + R4   (midx: 1)
+	R2 <4> <- R3   (midx: 0)
+	R3 <2> <- [R2]   (midx: 0)
+	R2 <4> <- addr(_VolmeBar+6)   (midx: 0)
+	R2 <2> <- [R2]   (midx: 0)
+	R1 <2> <- R3   (midx: 0)
+	R3 <2> <- R4   (midx: 0)
+	R0 <2> <- R2   (midx: 0)
+	R2 <2> <- UpdateVolumeBar_xcoo_L0   (midx: 0)
+	CALL _TFT_Rectangle   (midx: 0)
+//mikromedia_STM32plus_events_code.c,169 :: 		TFT_Set_Brush(1, VolmeBar.Color, 0, 0, 0, 0);
+	R4 <2> <- 0   (midx: 0)
+	R3 <2> <- 0   (midx: 0)
+	R2 <4> <- addr(_VolmeBar+28)   (midx: 0)
+	R2 <2> <- [R2]   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_to <2> <- PUSH(R4)   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_from <2> <- PUSH(R3)   (midx: 0)
+	R3 <1> <- 0   (midx: 0)
+	R1 <2> <- R2   (midx: 0)
+	R2 <1> <- 0   (midx: 0)
+	R0 <1> <- 1   (midx: 0)
+	CALL _TFT_Set_Brush   (midx: 0)
+//mikromedia_STM32plus_events_code.c,170 :: 		TFT_Set_Pen(VolmeBar.Color, 0);
+	R2 <4> <- addr(_VolmeBar+28)   (midx: 0)
+	R2 <2> <- [R2]   (midx: 0)
+	R1 <1> <- 0   (midx: 0)
+	R0 <2> <- R2   (midx: 0)
+	CALL _TFT_Set_Pen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,171 :: 		TFT_Rectangle(xcoo + 1, VolmeBar.Top, VolmeBar.Left + VolmeBar.Width + 1, VolmeBar.Top + VolmeBar.Height);
+	R2 <4> <- addr(_VolmeBar+12)   (midx: 0)
+	R3 <2> <- [R2]   (midx: 0)
+	R6 <4> <- addr(_VolmeBar+8)   (midx: 0)
+	R2 <2> <- [R6]   (midx: 0)
+	R5 <2> <-  R2 + R3   (midx: 1)
+	R2 <4> <- addr(_VolmeBar+10)   (midx: 0)
+	R3 <2> <- [R2]   (midx: 0)
+	R2 <4> <- addr(_VolmeBar+6)   (midx: 0)
+	R2 <2> <- [R2]   (midx: 0)
+	R2 <2> <-  R2 + R3   (midx: 1)
+	R4 <2> <-  R2 + 1   (midx: 1)
+	R2 <4> <- R6   (midx: 0)
+	R3 <2> <- [R2]   (midx: 0)
+	R2 <2> <- UpdateVolumeBar_xcoo_L0   (midx: 0)
+	R2 <2> <-  R2 + 1   (midx: 1)
+	R1 <2> <- R3   (midx: 0)
+	R3 <2> <- R5   (midx: 0)
+	R0 <2> <- R2   (midx: 0)
+	R2 <2> <- R4   (midx: 0)
+	CALL _TFT_Rectangle   (midx: 0)
+  end
+   (midx: 0)
+_Image2OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,179 :: 		void Image2OnPress() {
+_Image2OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,180 :: 		Example_State = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,181 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//mikromedia_STM32plus_events_code.c,182 :: 		Accel_Stop();
+	CALL _Accel_Stop   (midx: 0)
+//mikromedia_STM32plus_events_code.c,183 :: 		DrawScreen(&Home);
+	R0 <4> <- #_Home   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,184 :: 		Display_Bat_Stat = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_Display_Bat_Stat)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,185 :: 		checkPowerM();
+	CALL _checkPowerM   (midx: 0)
+//mikromedia_STM32plus_events_code.c,186 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+  end
+   (midx: 0)
+_Image1OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,189 :: 		void Image1OnPress() {
+_Image1OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,190 :: 		Example_State = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,191 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//mikromedia_STM32plus_events_code.c,192 :: 		DrawScreen(&Accelerometer);
+	R0 <4> <- #_Accelerometer   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,193 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+//mikromedia_STM32plus_events_code.c,194 :: 		ACCEL_Start(&cACCEL_test_status);
+	R0 <4> <- #_cACCEL_test_status   (midx: 0)
+	CALL _ACCEL_Start   (midx: 0)
+  end
+   (midx: 0)
+_Image3OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,197 :: 		void Image3OnPress() {
+_Image3OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,198 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//mikromedia_STM32plus_events_code.c,199 :: 		DrawScreen(&RGBLight);
+	R0 <4> <- #_RGBLight   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,200 :: 		RGB_Init();
+	CALL _RGB_Init   (midx: 0)
+//mikromedia_STM32plus_events_code.c,201 :: 		Example_State = 3;
+	R1 <1> <- 3   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,202 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+  end
+   (midx: 0)
+_Image5OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,206 :: 		void Image5OnPress() {
+_Image5OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,207 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//mikromedia_STM32plus_events_code.c,208 :: 		RGB_OFF();
+	CALL _RGB_OFF   (midx: 0)
+//mikromedia_STM32plus_events_code.c,209 :: 		DrawScreen(&Home);
+	R0 <4> <- #_Home   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,210 :: 		Display_Bat_Stat = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_Display_Bat_Stat)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,211 :: 		checkPowerM();
+	CALL _checkPowerM   (midx: 0)
+//mikromedia_STM32plus_events_code.c,212 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+//mikromedia_STM32plus_events_code.c,213 :: 		Example_state = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_Image4OnPress:
+  begin   (midx: 0)
+  end
+   (midx: 0)
+_Image6OnClick:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,220 :: 		void Image6OnClick() {
+_Image6OnClick:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,221 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//mikromedia_STM32plus_events_code.c,222 :: 		DrawScreen(&Clock);
+	R0 <4> <- #_Clock   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,223 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+//mikromedia_STM32plus_events_code.c,224 :: 		RTC_Example_init();
+	CALL _RTC_Example_init   (midx: 0)
+//mikromedia_STM32plus_events_code.c,225 :: 		Example_State = 2;
+	R1 <1> <- 2   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_Box2OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,228 :: 		void Box2OnPress() {
+_Box2OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,229 :: 		HoursTens();
+	CALL _HoursTens   (midx: 0)
+  end
+   (midx: 0)
+_Box3OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,232 :: 		void Box3OnPress() {
+_Box3OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,233 :: 		HoursOnes();
+	CALL _HoursOnes   (midx: 0)
+  end
+   (midx: 0)
+_Box4OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,236 :: 		void Box4OnPress() {
+_Box4OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,237 :: 		MinutesTens();
+	CALL _MinutesTens   (midx: 0)
+  end
+   (midx: 0)
+_Box5OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,240 :: 		void Box5OnPress() {
+_Box5OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,241 :: 		MinutesOnes();
+	CALL _MinutesOnes   (midx: 0)
+  end
+   (midx: 0)
+_ClockBackOnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,244 :: 		void ClockBackOnPress() {
+_ClockBackOnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,245 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//mikromedia_STM32plus_events_code.c,246 :: 		DrawScreen(&Home);
+	R0 <4> <- #_Home   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,247 :: 		Display_Bat_Stat = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_Display_Bat_Stat)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,248 :: 		checkPowerM();
+	CALL _checkPowerM   (midx: 0)
+//mikromedia_STM32plus_events_code.c,249 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+//mikromedia_STM32plus_events_code.c,250 :: 		Example_State = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_Image8OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,253 :: 		void Image8OnPress() {
+_Image8OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,254 :: 		if (Set_MyRTCC() == 0)
+	CALL _Set_MyRTCC   (midx: 0)
+	if ( R0 != 0) then goto 21   (midx: 0)
+//mikromedia_STM32plus_events_code.c,255 :: 		return;
+	return   (midx: 0)
+21:   (midx: 0)
+//mikromedia_STM32plus_events_code.c,256 :: 		Example_State = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,257 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//mikromedia_STM32plus_events_code.c,258 :: 		DrawScreen(&Home);
+	R0 <4> <- #_Home   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,259 :: 		Display_Bat_Stat = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_Display_Bat_Stat)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,260 :: 		checkPowerM();
+	CALL _checkPowerM   (midx: 0)
+//mikromedia_STM32plus_events_code.c,261 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+  end
+   (midx: 0)
+_BackIconSensorsOnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,264 :: 		void BackIconSensorsOnPress() {
+_BackIconSensorsOnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,265 :: 		Stop_sensors();
+	CALL _Stop_sensors   (midx: 0)
+//mikromedia_STM32plus_events_code.c,266 :: 		DrawScreen(&Home);
+	R0 <4> <- #_Home   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,267 :: 		Display_Bat_Stat = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_Display_Bat_Stat)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,268 :: 		checkPowerM();
+	CALL _checkPowerM   (midx: 0)
+//mikromedia_STM32plus_events_code.c,269 :: 		Example_state = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,270 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+  end
+   (midx: 0)
+_Image9OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,273 :: 		void Image9OnPress() {
+_Image9OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,274 :: 		Sensors_Init();
+	CALL _Sensors_Init   (midx: 0)
+//mikromedia_STM32plus_events_code.c,275 :: 		Example_state = 4;
+	R1 <1> <- 4   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,276 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//mikromedia_STM32plus_events_code.c,277 :: 		DrawScreen(&Sensors);
+	R0 <4> <- #_Sensors   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,278 :: 		Sensors_Read();
+	CALL _Sensors_Read   (midx: 0)
+//mikromedia_STM32plus_events_code.c,279 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+  end
+   (midx: 0)
+_Image16OnClick:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,282 :: 		void Image16OnClick() {
+_Image16OnClick:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,283 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//mikromedia_STM32plus_events_code.c,284 :: 		DrawScreen(&MP3_SongList);
+	R0 <4> <- #_MP3_SongList   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,285 :: 		Mp3_Init();
+	CALL _Mp3_Init   (midx: 0)
+//mikromedia_STM32plus_events_code.c,286 :: 		Example_state = 5;
+	R1 <1> <- 5   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,287 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+  end
+   (midx: 0)
+_mp3_back_iconOnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,290 :: 		void mp3_back_iconOnPress() {
+_mp3_back_iconOnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,291 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//mikromedia_STM32plus_events_code.c,292 :: 		DrawScreen(&Home);
+	R0 <4> <- #_Home   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,293 :: 		Display_Bat_Stat = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_Display_Bat_Stat)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,294 :: 		checkPowerM();
+	CALL _checkPowerM   (midx: 0)
+//mikromedia_STM32plus_events_code.c,295 :: 		Example_state = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,296 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+  end
+   (midx: 0)
+_Label22OnPress:
+  begin   (midx: 0)
+  end
+   (midx: 0)
+_Image15OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,303 :: 		void Image15OnPress() {
+_Image15OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,304 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//mikromedia_STM32plus_events_code.c,305 :: 		DrawScreen(&Home);
+	R0 <4> <- #_Home   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,306 :: 		Display_Bat_Stat = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_Display_Bat_Stat)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,307 :: 		checkPowerM();
+	CALL _checkPowerM   (midx: 0)
+//mikromedia_STM32plus_events_code.c,308 :: 		Example_state = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,309 :: 		Stop_Scroll();
+	CALL _Stop_Scroll   (midx: 0)
+//mikromedia_STM32plus_events_code.c,310 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+  end
+   (midx: 0)
+_Label24OnPress:
+  begin   (midx: 0)
+  end
+   (midx: 0)
+_Box6OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,317 :: 		void Box6OnPress() {
+_Box6OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,318 :: 		ScrollPress();
+	CALL _ScrollPress   (midx: 0)
+  end
+   (midx: 0)
+_Box6OnClick:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,321 :: 		void Box6OnClick() {
+_Box6OnClick:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,322 :: 		ScrollOnClick();
+	CALL _ScrollOnClick   (midx: 0)
+  end
+   (midx: 0)
+_Icon_back_mp3OnClick:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,325 :: 		void Icon_back_mp3OnClick() {
+_Icon_back_mp3OnClick:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,326 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//mikromedia_STM32plus_events_code.c,327 :: 		DrawScreen(&Home);
+	R0 <4> <- #_Home   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,328 :: 		Display_Bat_Stat = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_Display_Bat_Stat)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,329 :: 		checkPowerM();
+	CALL _checkPowerM   (midx: 0)
+//mikromedia_STM32plus_events_code.c,330 :: 		Example_state = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,331 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+  end
+   (midx: 0)
+_Label27OnPress:
+  begin   (midx: 0)
+  end
+   (midx: 0)
+_icon_paint_backOnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,339 :: 		void icon_paint_backOnPress() {
+_icon_paint_backOnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,340 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//mikromedia_STM32plus_events_code.c,341 :: 		DrawScreen(&Home);
+	R0 <4> <- #_Home   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,342 :: 		Display_Bat_Stat = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_Display_Bat_Stat)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,343 :: 		checkPowerM();
+	CALL _checkPowerM   (midx: 0)
+//mikromedia_STM32plus_events_code.c,344 :: 		Example_state = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,345 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+  end
+   (midx: 0)
+_pause_iconOnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,348 :: 		void pause_iconOnPress() {
+_pause_iconOnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,349 :: 		TFT_Set_Pen(ProgressBar.Color, 1);
+	R0 <4> <- addr(_ProgressBar+28)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Set_Pen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,350 :: 		TFT_Set_Brush(0, 0, 0, 0, 0, 0);
+	R1 <2> <- 0   (midx: 0)
+	R0 <2> <- 0   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_to <2> <- PUSH(R1)   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_from <2> <- PUSH(R0)   (midx: 0)
+	R3 <1> <- 0   (midx: 0)
+	R2 <1> <- 0   (midx: 0)
+	R1 <2> <- 0   (midx: 0)
+	R0 <1> <- 0   (midx: 0)
+	CALL _TFT_Set_Brush   (midx: 0)
+//mikromedia_STM32plus_events_code.c,351 :: 		TFT_Rectangle(pause_icon.Left - 2, 220, pause_icon.Left + pause_icon.Width + 2, 243);
+	R0 <4> <- addr(_pause_icon+10)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R2 <4> <- addr(_pause_icon+6)   (midx: 0)
+	R0 <2> <- [R2]   (midx: 0)
+	R0 <2> <-  R0 + R1   (midx: 1)
+	R1 <2> <-  R0 + 2   (midx: 1)
+	R0 <4> <- R2   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  R0 - 2   (midx: 1)
+	R3 <2> <- 243   (midx: 0)
+	R2 <2> <- R1   (midx: 0)
+	R1 <2> <- 220   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Rectangle   (midx: 0)
+//mikromedia_STM32plus_events_code.c,352 :: 		MP3_Example_State = 3;
+	R1 <1> <- 3   (midx: 0)
+	R0 <4> <- addr(_MP3_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,353 :: 		pause_icon.Active = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_pause_icon+21)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,354 :: 		Play_icon.Active = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_Play_icon+21)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,355 :: 		DrawImage(&play_icon);
+	R0 <4> <- #_Play_icon   (midx: 0)
+	CALL _DrawImage   (midx: 0)
+//mikromedia_STM32plus_events_code.c,356 :: 		TFT_Set_Pen(MP3_Player.Color, 1);
+	R0 <4> <- addr(_MP3_Player+0)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Set_Pen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,357 :: 		TFT_Set_Brush(0, 0, 0, 0, 0, 0);
+	R1 <2> <- 0   (midx: 0)
+	R0 <2> <- 0   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_to <2> <- PUSH(R1)   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_from <2> <- PUSH(R0)   (midx: 0)
+	R3 <1> <- 0   (midx: 0)
+	R2 <1> <- 0   (midx: 0)
+	R1 <2> <- 0   (midx: 0)
+	R0 <1> <- 0   (midx: 0)
+	CALL _TFT_Set_Brush   (midx: 0)
+//mikromedia_STM32plus_events_code.c,358 :: 		TFT_Rectangle(pause_icon.Left - 2, 220, pause_icon.Left + pause_icon.Width + 2, 243);
+	R0 <4> <- addr(_pause_icon+10)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R2 <4> <- addr(_pause_icon+6)   (midx: 0)
+	R0 <2> <- [R2]   (midx: 0)
+	R0 <2> <-  R0 + R1   (midx: 1)
+	R1 <2> <-  R0 + 2   (midx: 1)
+	R0 <4> <- R2   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  R0 - 2   (midx: 1)
+	R3 <2> <- 243   (midx: 0)
+	R2 <2> <- R1   (midx: 0)
+	R1 <2> <- 220   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Rectangle   (midx: 0)
+  end
+   (midx: 0)
+_songlist_iconOnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,361 :: 		void songlist_iconOnPress() {
+_songlist_iconOnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,362 :: 		TFT_Set_Pen(ProgressBar.Color, 1);
+	R0 <4> <- addr(_ProgressBar+28)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Set_Pen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,363 :: 		TFT_Set_Brush(0, 0, 0, 0, 0, 0);
+	R1 <2> <- 0   (midx: 0)
+	R0 <2> <- 0   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_to <2> <- PUSH(R1)   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_from <2> <- PUSH(R0)   (midx: 0)
+	R3 <1> <- 0   (midx: 0)
+	R2 <1> <- 0   (midx: 0)
+	R1 <2> <- 0   (midx: 0)
+	R0 <1> <- 0   (midx: 0)
+	CALL _TFT_Set_Brush   (midx: 0)
+//mikromedia_STM32plus_events_code.c,364 :: 		TFT_Rectangle(songlist_icon.Left - 2, 220, songlist_icon.Left + songlist_icon.Width + 2, 243);
+	R0 <4> <- addr(_songlist_icon+10)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R2 <4> <- addr(_songlist_icon+6)   (midx: 0)
+	R0 <2> <- [R2]   (midx: 0)
+	R0 <2> <-  R0 + R1   (midx: 1)
+	R1 <2> <-  R0 + 2   (midx: 1)
+	R0 <4> <- R2   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  R0 - 2   (midx: 1)
+	R3 <2> <- 243   (midx: 0)
+	R2 <2> <- R1   (midx: 0)
+	R1 <2> <- 220   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Rectangle   (midx: 0)
+//mikromedia_STM32plus_events_code.c,365 :: 		StopMP3_File();
+	CALL _StopMP3_File   (midx: 0)
+//mikromedia_STM32plus_events_code.c,367 :: 		Example_state = 5;
+	R1 <1> <- 5   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,368 :: 		MP3_Example_State = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_MP3_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,369 :: 		TFT_Set_Pen(MP3_Player.Color, 1);
+	R0 <4> <- addr(_MP3_Player+0)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Set_Pen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,370 :: 		TFT_Set_Brush(0, 0, 0, 0, 0, 0);
+	R1 <2> <- 0   (midx: 0)
+	R0 <2> <- 0   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_to <2> <- PUSH(R1)   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_from <2> <- PUSH(R0)   (midx: 0)
+	R3 <1> <- 0   (midx: 0)
+	R2 <1> <- 0   (midx: 0)
+	R1 <2> <- 0   (midx: 0)
+	R0 <1> <- 0   (midx: 0)
+	CALL _TFT_Set_Brush   (midx: 0)
+//mikromedia_STM32plus_events_code.c,371 :: 		TFT_Rectangle(songlist_icon.Left - 2, 220, songlist_icon.Left + songlist_icon.Width + 2, 243);
+	R0 <4> <- addr(_songlist_icon+10)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R2 <4> <- addr(_songlist_icon+6)   (midx: 0)
+	R0 <2> <- [R2]   (midx: 0)
+	R0 <2> <-  R0 + R1   (midx: 1)
+	R1 <2> <-  R0 + 2   (midx: 1)
+	R0 <4> <- R2   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  R0 - 2   (midx: 1)
+	R3 <2> <- 243   (midx: 0)
+	R2 <2> <- R1   (midx: 0)
+	R1 <2> <- 220   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Rectangle   (midx: 0)
+  end
+   (midx: 0)
+_stop_iconOnDown:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,374 :: 		void stop_iconOnDown() {
+_stop_iconOnDown:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,375 :: 		TFT_Set_Pen(ProgressBar.Color, 1);
+	R0 <4> <- addr(_ProgressBar+28)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Set_Pen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,376 :: 		TFT_Set_Brush(0, 0, 0, 0, 0, 0);
+	R1 <2> <- 0   (midx: 0)
+	R0 <2> <- 0   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_to <2> <- PUSH(R1)   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_from <2> <- PUSH(R0)   (midx: 0)
+	R3 <1> <- 0   (midx: 0)
+	R2 <1> <- 0   (midx: 0)
+	R1 <2> <- 0   (midx: 0)
+	R0 <1> <- 0   (midx: 0)
+	CALL _TFT_Set_Brush   (midx: 0)
+//mikromedia_STM32plus_events_code.c,377 :: 		TFT_Rectangle(stop_icon.Left - 2, 220, stop_icon.Left + stop_icon.Width + 2, 243);
+	R0 <4> <- addr(_stop_icon+10)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R2 <4> <- addr(_stop_icon+6)   (midx: 0)
+	R0 <2> <- [R2]   (midx: 0)
+	R0 <2> <-  R0 + R1   (midx: 1)
+	R1 <2> <-  R0 + 2   (midx: 1)
+	R0 <4> <- R2   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  R0 - 2   (midx: 1)
+	R3 <2> <- 243   (midx: 0)
+	R2 <2> <- R1   (midx: 0)
+	R1 <2> <- 220   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Rectangle   (midx: 0)
+//mikromedia_STM32plus_events_code.c,378 :: 		StopMP3_File();
+	CALL _StopMP3_File   (midx: 0)
+//mikromedia_STM32plus_events_code.c,379 :: 		MP3_Example_State = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_MP3_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,380 :: 		pause_icon.Active = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_pause_icon+21)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,381 :: 		Play_icon.Active = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_Play_icon+21)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,382 :: 		DrawImage(&stop_icon);
+	R0 <4> <- #_stop_icon   (midx: 0)
+	CALL _DrawImage   (midx: 0)
+//mikromedia_STM32plus_events_code.c,383 :: 		DrawImage(&play_icon);
+	R0 <4> <- #_Play_icon   (midx: 0)
+	CALL _DrawImage   (midx: 0)
+//mikromedia_STM32plus_events_code.c,384 :: 		TFT_Set_Pen(MP3_Player.Color, 1);
+	R0 <4> <- addr(_MP3_Player+0)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Set_Pen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,385 :: 		TFT_Set_Brush(0, 0, 0, 0, 0, 0);
+	R1 <2> <- 0   (midx: 0)
+	R0 <2> <- 0   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_to <2> <- PUSH(R1)   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_from <2> <- PUSH(R0)   (midx: 0)
+	R3 <1> <- 0   (midx: 0)
+	R2 <1> <- 0   (midx: 0)
+	R1 <2> <- 0   (midx: 0)
+	R0 <1> <- 0   (midx: 0)
+	CALL _TFT_Set_Brush   (midx: 0)
+//mikromedia_STM32plus_events_code.c,386 :: 		TFT_Rectangle(stop_icon.Left - 2, 220, stop_icon.Left + stop_icon.Width + 2, 243);
+	R0 <4> <- addr(_stop_icon+10)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R2 <4> <- addr(_stop_icon+6)   (midx: 0)
+	R0 <2> <- [R2]   (midx: 0)
+	R0 <2> <-  R0 + R1   (midx: 1)
+	R1 <2> <-  R0 + 2   (midx: 1)
+	R0 <4> <- R2   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  R0 - 2   (midx: 1)
+	R3 <2> <- 243   (midx: 0)
+	R2 <2> <- R1   (midx: 0)
+	R1 <2> <- 220   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Rectangle   (midx: 0)
+  end
+   (midx: 0)
+_next_iconOnDown:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,389 :: 		void next_iconOnDown() {
+_next_iconOnDown:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,390 :: 		TFT_Set_Pen(ProgressBar.Color, 1);
+	R0 <4> <- addr(_ProgressBar+28)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Set_Pen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,391 :: 		TFT_Set_Brush(0, 0, 0, 0, 0, 0);
+	R1 <2> <- 0   (midx: 0)
+	R0 <2> <- 0   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_to <2> <- PUSH(R1)   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_from <2> <- PUSH(R0)   (midx: 0)
+	R3 <1> <- 0   (midx: 0)
+	R2 <1> <- 0   (midx: 0)
+	R1 <2> <- 0   (midx: 0)
+	R0 <1> <- 0   (midx: 0)
+	CALL _TFT_Set_Brush   (midx: 0)
+//mikromedia_STM32plus_events_code.c,392 :: 		TFT_Rectangle(next_icon.Left - 2, 220, next_icon.Left + next_icon.Width + 2, 243);
+	R0 <4> <- addr(_next_icon+10)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R2 <4> <- addr(_next_icon+6)   (midx: 0)
+	R0 <2> <- [R2]   (midx: 0)
+	R0 <2> <-  R0 + R1   (midx: 1)
+	R1 <2> <-  R0 + 2   (midx: 1)
+	R0 <4> <- R2   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  R0 - 2   (midx: 1)
+	R3 <2> <- 243   (midx: 0)
+	R2 <2> <- R1   (midx: 0)
+	R1 <2> <- 220   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Rectangle   (midx: 0)
+//mikromedia_STM32plus_events_code.c,393 :: 		GetNext_mp3_File(1);
+	R0 <1> <- 1   (midx: 0)
+	CALL _GetNext_mp3_File   (midx: 0)
+//mikromedia_STM32plus_events_code.c,394 :: 		DrawImage(&next_icon);
+	R0 <4> <- #_next_icon   (midx: 0)
+	CALL _DrawImage   (midx: 0)
+//mikromedia_STM32plus_events_code.c,395 :: 		pause_icon.Active = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_pause_icon+21)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,396 :: 		Play_icon.Active = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_Play_icon+21)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,397 :: 		DrawImage(&pause_icon);
+	R0 <4> <- #_pause_icon   (midx: 0)
+	CALL _DrawImage   (midx: 0)
+//mikromedia_STM32plus_events_code.c,398 :: 		TFT_Set_Pen(MP3_Player.Color, 1);
+	R0 <4> <- addr(_MP3_Player+0)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Set_Pen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,399 :: 		TFT_Set_Brush(0, 0, 0, 0, 0, 0);
+	R1 <2> <- 0   (midx: 0)
+	R0 <2> <- 0   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_to <2> <- PUSH(R1)   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_from <2> <- PUSH(R0)   (midx: 0)
+	R3 <1> <- 0   (midx: 0)
+	R2 <1> <- 0   (midx: 0)
+	R1 <2> <- 0   (midx: 0)
+	R0 <1> <- 0   (midx: 0)
+	CALL _TFT_Set_Brush   (midx: 0)
+//mikromedia_STM32plus_events_code.c,400 :: 		TFT_Rectangle(next_icon.Left - 2, 220, next_icon.Left + next_icon.Width + 2, 243);
+	R0 <4> <- addr(_next_icon+10)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R2 <4> <- addr(_next_icon+6)   (midx: 0)
+	R0 <2> <- [R2]   (midx: 0)
+	R0 <2> <-  R0 + R1   (midx: 1)
+	R1 <2> <-  R0 + 2   (midx: 1)
+	R0 <4> <- R2   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  R0 - 2   (midx: 1)
+	R3 <2> <- 243   (midx: 0)
+	R2 <2> <- R1   (midx: 0)
+	R1 <2> <- 220   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Rectangle   (midx: 0)
+  end
+   (midx: 0)
+_previous_iconOnDown:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,403 :: 		void previous_iconOnDown() {
+_previous_iconOnDown:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,404 :: 		TFT_Set_Pen(ProgressBar.Color, 1);
+	R0 <4> <- addr(_ProgressBar+28)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Set_Pen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,405 :: 		TFT_Set_Brush(0, 0, 0, 0, 0, 0);
+	R1 <2> <- 0   (midx: 0)
+	R0 <2> <- 0   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_to <2> <- PUSH(R1)   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_from <2> <- PUSH(R0)   (midx: 0)
+	R3 <1> <- 0   (midx: 0)
+	R2 <1> <- 0   (midx: 0)
+	R1 <2> <- 0   (midx: 0)
+	R0 <1> <- 0   (midx: 0)
+	CALL _TFT_Set_Brush   (midx: 0)
+//mikromedia_STM32plus_events_code.c,406 :: 		TFT_Rectangle(previous_icon.Left - 2, 220, previous_icon.Left + previous_icon.Width + 2, 243);
+	R0 <4> <- addr(_previous_icon+10)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R2 <4> <- addr(_previous_icon+6)   (midx: 0)
+	R0 <2> <- [R2]   (midx: 0)
+	R0 <2> <-  R0 + R1   (midx: 1)
+	R1 <2> <-  R0 + 2   (midx: 1)
+	R0 <4> <- R2   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  R0 - 2   (midx: 1)
+	R3 <2> <- 243   (midx: 0)
+	R2 <2> <- R1   (midx: 0)
+	R1 <2> <- 220   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Rectangle   (midx: 0)
+//mikromedia_STM32plus_events_code.c,407 :: 		GetNext_mp3_File(0);
+	R0 <1> <- 0   (midx: 0)
+	CALL _GetNext_mp3_File   (midx: 0)
+//mikromedia_STM32plus_events_code.c,408 :: 		DrawImage(&previous_icon);
+	R0 <4> <- #_previous_icon   (midx: 0)
+	CALL _DrawImage   (midx: 0)
+//mikromedia_STM32plus_events_code.c,409 :: 		pause_icon.Active = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_pause_icon+21)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,410 :: 		Play_icon.Active = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_Play_icon+21)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,411 :: 		DrawImage(&pause_icon);
+	R0 <4> <- #_pause_icon   (midx: 0)
+	CALL _DrawImage   (midx: 0)
+//mikromedia_STM32plus_events_code.c,412 :: 		TFT_Set_Pen(MP3_Player.Color, 1);
+	R0 <4> <- addr(_MP3_Player+0)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Set_Pen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,413 :: 		TFT_Set_Brush(0, 0, 0, 0, 0, 0);
+	R1 <2> <- 0   (midx: 0)
+	R0 <2> <- 0   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_to <2> <- PUSH(R1)   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_from <2> <- PUSH(R0)   (midx: 0)
+	R3 <1> <- 0   (midx: 0)
+	R2 <1> <- 0   (midx: 0)
+	R1 <2> <- 0   (midx: 0)
+	R0 <1> <- 0   (midx: 0)
+	CALL _TFT_Set_Brush   (midx: 0)
+//mikromedia_STM32plus_events_code.c,414 :: 		TFT_Rectangle(previous_icon.Left - 2, 220, previous_icon.Left + previous_icon.Width + 2, 243);
+	R0 <4> <- addr(_previous_icon+10)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R2 <4> <- addr(_previous_icon+6)   (midx: 0)
+	R0 <2> <- [R2]   (midx: 0)
+	R0 <2> <-  R0 + R1   (midx: 1)
+	R1 <2> <-  R0 + 2   (midx: 1)
+	R0 <4> <- R2   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  R0 - 2   (midx: 1)
+	R3 <2> <- 243   (midx: 0)
+	R2 <2> <- R1   (midx: 0)
+	R1 <2> <- 220   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Rectangle   (midx: 0)
+  end
+   (midx: 0)
+_VolmeBarOnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,417 :: 		void VolmeBarOnPress() {
+_VolmeBarOnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,420 :: 		temp = Xcoord - VolmeBar.Left;
+	R0 <4> <- addr(_VolmeBar+6)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_Xcoord)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R1 <2> <-  R0 - R1   (midx: 1)
+//mikromedia_STM32plus_events_code.c,421 :: 		temp = temp * 100;
+	R0 <2> <- 100   (midx: 0)
+	R1 <2> <-  R1 * R0   (midx: 1)
+//mikromedia_STM32plus_events_code.c,422 :: 		level = temp / VolmeBar.Width;
+	R0 <4> <- addr(_VolmeBar+10)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R1 <2> <-  R1 / R0   (midx: 1)
+	R0 <4> <- addr(_level)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,423 :: 		MP3_Set_Volume(100 - level, 100 - level);
+	R0 <2> <- R1   (midx: 0)
+	R0 <2> <-  100 - R0   (midx: 0)
+	R1 <1> <- R0   (midx: 0)
+	R0 <1> <- R0   (midx: 0)
+	CALL _MP3_Set_Volume   (midx: 0)
+//mikromedia_STM32plus_events_code.c,425 :: 		UpdateVolumeBar(level, old_level);
+	R0 <4> <- addr(_old_level)   (midx: 0)
+	R1 <1> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_level)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	R1 <1> <- R1   (midx: 0)
+	R0 <1> <- R0   (midx: 0)
+	CALL _UpdateVolumeBar   (midx: 0)
+//mikromedia_STM32plus_events_code.c,426 :: 		old_level = level;
+	R0 <4> <- addr(_level)   (midx: 0)
+	R1 <1> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_old_level)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_ProgreesBarOnPress:
+  begin   (midx: 0)
+  end
+   (midx: 0)
+_Play_iconOnDown:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,433 :: 		void Play_iconOnDown() {
+_Play_iconOnDown:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,434 :: 		TFT_Set_Pen(ProgressBar.Color, 1);
+	R0 <4> <- addr(_ProgressBar+28)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Set_Pen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,435 :: 		TFT_Set_Brush(0, 0, 0, 0, 0, 0);
+	R1 <2> <- 0   (midx: 0)
+	R0 <2> <- 0   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_to <2> <- PUSH(R1)   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_from <2> <- PUSH(R0)   (midx: 0)
+	R3 <1> <- 0   (midx: 0)
+	R2 <1> <- 0   (midx: 0)
+	R1 <2> <- 0   (midx: 0)
+	R0 <1> <- 0   (midx: 0)
+	CALL _TFT_Set_Brush   (midx: 0)
+//mikromedia_STM32plus_events_code.c,436 :: 		TFT_Rectangle(Play_icon.Left - 2, 220, Play_icon.Left + Play_icon.Width + 2, 243);
+	R0 <4> <- addr(_Play_icon+10)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R2 <4> <- addr(_Play_icon+6)   (midx: 0)
+	R0 <2> <- [R2]   (midx: 0)
+	R0 <2> <-  R0 + R1   (midx: 1)
+	R1 <2> <-  R0 + 2   (midx: 1)
+	R0 <4> <- R2   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  R0 - 2   (midx: 1)
+	R3 <2> <- 243   (midx: 0)
+	R2 <2> <- R1   (midx: 0)
+	R1 <2> <- 220   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Rectangle   (midx: 0)
+//mikromedia_STM32plus_events_code.c,437 :: 		pause_icon.Active = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_pause_icon+21)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,438 :: 		Play_icon.Active = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_Play_icon+21)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,439 :: 		if (MP3_Example_State == 1)
+	R0 <4> <- addr(_MP3_Example_State)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 != 1) then goto 22   (midx: 0)
+//mikromedia_STM32plus_events_code.c,440 :: 		MP3_play(Label28_Caption, current_file);
+	R0 <4> <- addr(_current_file)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	R1 <1> <- R0   (midx: 0)
+	R0 <4> <- #_Label28_Caption   (midx: 0)
+	CALL _MP3_play   (midx: 0)
+22:   (midx: 0)
+//mikromedia_STM32plus_events_code.c,441 :: 		MP3_Example_State = 2;
+	R1 <1> <- 2   (midx: 0)
+	R0 <4> <- addr(_MP3_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,442 :: 		DrawImage(&pause_icon);
+	R0 <4> <- #_pause_icon   (midx: 0)
+	CALL _DrawImage   (midx: 0)
+//mikromedia_STM32plus_events_code.c,443 :: 		TFT_Set_Pen(MP3_Player.Color, 1);
+	R0 <4> <- addr(_MP3_Player+0)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Set_Pen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,444 :: 		TFT_Set_Brush(0, 0, 0, 0, 0, 0);
+	R1 <2> <- 0   (midx: 0)
+	R0 <2> <- 0   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_to <2> <- PUSH(R1)   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_from <2> <- PUSH(R0)   (midx: 0)
+	R3 <1> <- 0   (midx: 0)
+	R2 <1> <- 0   (midx: 0)
+	R1 <2> <- 0   (midx: 0)
+	R0 <1> <- 0   (midx: 0)
+	CALL _TFT_Set_Brush   (midx: 0)
+//mikromedia_STM32plus_events_code.c,445 :: 		TFT_Rectangle(Play_icon.Left - 2, 220, Play_icon.Left + Play_icon.Width + 2, 243);
+	R0 <4> <- addr(_Play_icon+10)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R2 <4> <- addr(_Play_icon+6)   (midx: 0)
+	R0 <2> <- [R2]   (midx: 0)
+	R0 <2> <-  R0 + R1   (midx: 1)
+	R1 <2> <-  R0 + 2   (midx: 1)
+	R0 <4> <- R2   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  R0 - 2   (midx: 1)
+	R3 <2> <- 243   (midx: 0)
+	R2 <2> <- R1   (midx: 0)
+	R1 <2> <- 220   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Rectangle   (midx: 0)
+  end
+   (midx: 0)
+_Icon_next_boxOnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,448 :: 		void Icon_next_boxOnPress() {
+_Icon_next_boxOnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,454 :: 		for (i = 0; i < 209; i ++)
+   (midx: 0)
+   (midx: 0)
+	R1 <1> <- 0   (midx: 0)
+	R1 <1> <- R1   (midx: 0)
+23:   (midx: 0)
+   (midx: 0)
+	if ( R1 >= 209) then goto 24   (midx: 0)
+//mikromedia_STM32plus_events_code.c,455 :: 		ScrollImageDown(1);
+	R1 <1> <- PUSH(R1)   (midx: 255)
+	R0 <2> <- 1   (midx: 0)
+	CALL _ScrollImageDown   (midx: 0)
+	R1 <1> <- POP   (midx: 255)
+//mikromedia_STM32plus_events_code.c,454 :: 		for (i = 0; i < 209; i ++)
+	R1 <1> <-  R1 + 1   (midx: 0)
+	R1 <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,455 :: 		ScrollImageDown(1);
+   (midx: 0)
+	R1 <1> <- R1   (midx: 0)
+	goto	23   (midx: 0)
+24:   (midx: 0)
+  end
+   (midx: 0)
+_icon_previous_boxOnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,458 :: 		void icon_previous_boxOnPress() {
+_icon_previous_boxOnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,464 :: 		for (i = 0; i < 209; i ++)
+   (midx: 0)
+   (midx: 0)
+	R1 <1> <- 0   (midx: 0)
+	R1 <1> <- R1   (midx: 0)
+26:   (midx: 0)
+   (midx: 0)
+	if ( R1 >= 209) then goto 27   (midx: 0)
+//mikromedia_STM32plus_events_code.c,465 :: 		ScrollImageUp(1);
+	R1 <1> <- PUSH(R1)   (midx: 255)
+	R0 <2> <- 1   (midx: 0)
+	CALL _ScrollImageUp   (midx: 0)
+	R1 <1> <- POP   (midx: 255)
+//mikromedia_STM32plus_events_code.c,464 :: 		for (i = 0; i < 209; i ++)
+	R1 <1> <-  R1 + 1   (midx: 0)
+	R1 <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,465 :: 		ScrollImageUp(1);
+   (midx: 0)
+	R1 <1> <- R1   (midx: 0)
+	goto	26   (midx: 0)
+27:   (midx: 0)
+  end
+   (midx: 0)
+_Image18OnClick:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,468 :: 		void Image18OnClick() {
+_Image18OnClick:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,469 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//mikromedia_STM32plus_events_code.c,470 :: 		DrawScreen(&SlideShow);
+	R0 <4> <- #_SlideShow   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,471 :: 		Start_Slide_Show();
+	CALL _Start_Slide_Show   (midx: 0)
+//mikromedia_STM32plus_events_code.c,472 :: 		Example_state = 7;
+	R1 <1> <- 7   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,473 :: 		ByteToStr(Slide_Index + 1, Label35_caption);
+	R0 <4> <- addr(_Slide_Index)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R0 <2> <-  R0 + 1   (midx: 4)
+	R1 <4> <- #_Label35_Caption   (midx: 0)
+	R0 <1> <- R0   (midx: 0)
+	CALL _ByteToStr   (midx: 0)
+//mikromedia_STM32plus_events_code.c,474 :: 		RedrawLabel(SlideShow.Color, &Label35, 20, 30);
+	R0 <4> <- addr(_SlideShow+0)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R3 <2> <- 30   (midx: 0)
+	R2 <2> <- 20   (midx: 0)
+	R1 <4> <- #_Label35   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _RedrawLabel   (midx: 0)
+//mikromedia_STM32plus_events_code.c,475 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+  end
+   (midx: 0)
+_Box7OnDown:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,478 :: 		void Box7OnDown() {
+_Box7OnDown:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,479 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//mikromedia_STM32plus_events_code.c,480 :: 		DrawScreen(&Home);
+	R0 <4> <- #_Home   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,481 :: 		Display_Bat_Stat = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_Display_Bat_Stat)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,482 :: 		checkPowerM();
+	CALL _checkPowerM   (midx: 0)
+//mikromedia_STM32plus_events_code.c,483 :: 		Example_state = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,484 :: 		Stop_Scroll();
+	CALL _Stop_Scroll   (midx: 0)
+//mikromedia_STM32plus_events_code.c,485 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+  end
+   (midx: 0)
+_RGB_Active_areaOnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,488 :: 		void RGB_Active_areaOnPress() {
+_RGB_Active_areaOnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,489 :: 		PickColor();
+	CALL _PickColor   (midx: 0)
+  end
+   (midx: 0)
+_Box9OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,492 :: 		void Box9OnPress() {
+_Box9OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,493 :: 		BLED_Fade_Out();
+	CALL _BLED_Fade_Out   (midx: 0)
+//mikromedia_STM32plus_events_code.c,494 :: 		DrawScreen(&Home);
+	R0 <4> <- #_Home   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//mikromedia_STM32plus_events_code.c,495 :: 		Display_Bat_Stat = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_Display_Bat_Stat)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,496 :: 		checkPowerM();
+	CALL _checkPowerM   (midx: 0)
+//mikromedia_STM32plus_events_code.c,497 :: 		Example_state = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_Example_State)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,498 :: 		NVIC_IntDisable(IVT_INT_TIM5);
+	R0 <4> <- 66   (midx: 0)
+	CALL _NVIC_IntDisable   (midx: 0)
+//mikromedia_STM32plus_events_code.c,499 :: 		BLED_Fade_In();
+	CALL _BLED_Fade_In   (midx: 0)
+//mikromedia_STM32plus_events_code.c,500 :: 		LED_R = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(LED_R)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,501 :: 		LED_B = 0;
+	R0 <4> <- addr(LED_B)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+//mikromedia_STM32plus_events_code.c,502 :: 		LED_G = 0;
+	R0 <4> <- addr(LED_G)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_Box12OnPress:
+  begin   (midx: 0)
+  end
+   (midx: 0)
+_Slide_Active_areaOnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,510 :: 		void Slide_Active_areaOnPress() {
+_Slide_Active_areaOnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,511 :: 		Slide_scroll();
+	CALL _Slide_scroll   (midx: 0)
+  end
+   (midx: 0)
+_Box12OnClick:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,514 :: 		void Box12OnClick() {
+_Box12OnClick:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,515 :: 		Deactivate_All_Rollers();
+	CALL _Deactivate_All_Rollers   (midx: 0)
+  end
+   (midx: 0)
+_Box13OnClick:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,519 :: 		void Box13OnClick() {
+_Box13OnClick:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,520 :: 		Deactivate_All_Rollers();
+	CALL _Deactivate_All_Rollers   (midx: 0)
+  end
+   (midx: 0)
+_Box14OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,523 :: 		void Box14OnPress() {
+_Box14OnPress:
+  begin   (midx: 0)
+//mikromedia_STM32plus_events_code.c,524 :: 		AmPmRun();
+	CALL _AmPmRun   (midx: 0)
+  end
+   (midx: 0)

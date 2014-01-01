@@ -1,0 +1,402 @@
+_Power_Man_Init:
+  begin   (midx: 0)
+//Power_management.c,37 :: 		void Power_Man_Init() {
+_Power_Man_Init:
+  begin   (midx: 0)
+//Power_management.c,38 :: 		GPIO_Analog_Input(&GPIOF_BASE, _GPIO_PINMASK_6);
+	R1 <4> <- 64   (midx: 0)
+	R0 <4> <- #GPIOF_BASE   (midx: 0)
+	CALL _GPIO_Analog_Input   (midx: 0)
+//Power_management.c,39 :: 		ADC3_Init();
+	CALL _ADC3_Init   (midx: 0)
+//Power_management.c,42 :: 		GPIO_Digital_Input(&GPIOA_BASE, _GPIO_PINMASK_9);            // USB_VBUS
+	R1 <4> <- 512   (midx: 0)
+	R0 <4> <- #GPIOA_BASE   (midx: 0)
+	CALL _GPIO_Digital_Input   (midx: 0)
+//Power_management.c,43 :: 		GPIO_Digital_Input(&GPIOF_BASE, _GPIO_PINMASK_3);            // DC_VBUS
+	R1 <4> <- 8   (midx: 0)
+	R0 <4> <- #GPIOF_BASE   (midx: 0)
+	CALL _GPIO_Digital_Input   (midx: 0)
+//Power_management.c,44 :: 		GPIO_Digital_Input(&GPIOF_BASE, _GPIO_PINMASK_4);            // BAT_STAT
+	R1 <4> <- 16   (midx: 0)
+	R0 <4> <- #GPIOF_BASE   (midx: 0)
+	CALL _GPIO_Digital_Input   (midx: 0)
+//Power_management.c,46 :: 		Power_State_Old.Battery_state = -1;
+	R1 <1> <- -1   (midx: 0)
+	R0 <4> <- addr(_Power_State_Old+0)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//Power_management.c,47 :: 		Power_State_Old.Source = -1;
+	R1 <1> <- -1   (midx: 0)
+	R0 <4> <- addr(_Power_State_Old+1)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//Power_management.c,48 :: 		Power_State_Old.ui_Voltage = -1;
+	R1 <2> <- -1   (midx: 0)
+	R0 <4> <- addr(_Power_State_Old+8)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+  end
+   (midx: 0)
+Power_management_ui_ReadBatteryVoltage:
+  begin   (midx: 0)
+//Power_management.c,58 :: 		static unsigned int ui_ReadBatteryVoltage() {
+Power_management_ui_ReadBatteryVoltage:
+  begin   (midx: 0)
+//Power_management.c,62 :: 		for(cntr=0, ui_voltage=0; cntr<8; cntr++) {
+   (midx: 0)
+	R5 <1> <- 0   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R6 <2> <- 0   (midx: 0)
+	R5 <1> <- R5   (midx: 0)
+	R6 <2> <- R6   (midx: 0)
+0:   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	if ( R5 >= 8) then goto 1   (midx: 0)
+//Power_management.c,63 :: 		ui_voltage += ADC3_Get_Sample(4);
+	R0 <2> <- 4   (midx: 0)
+	CALL _ADC3_Get_Sample   (midx: 0)
+	R6 <2> <-  R6 + R0   (midx: 1)
+	R6 <2> <- R6   (midx: 0)
+//Power_management.c,64 :: 		Delay_10ms();
+	CALL _Delay_10ms   (midx: 0)
+//Power_management.c,62 :: 		for(cntr=0, ui_voltage=0; cntr<8; cntr++) {
+	R5 <1> <-  R5 + 1   (midx: 0)
+	R5 <1> <- R5   (midx: 0)
+//Power_management.c,65 :: 		}
+   (midx: 0)
+	R5 <1> <- R5   (midx: 0)
+	R6 <2> <- R6   (midx: 0)
+	goto	0   (midx: 0)
+1:   (midx: 0)
+//Power_management.c,66 :: 		return ui_voltage >> 3;
+   (midx: 0)
+	R0 <2> <-  R6 shr 3   (midx: 1)
+	R0 <2> <- R0   (midx: 0)
+	return   (midx: 0)
+  end
+   (midx: 0)
+Power_management_f_ReadBatteryVoltage:
+  begin   (midx: 0)
+//Power_management.c,76 :: 		static float f_ReadBatteryVoltage() {
+Power_management_f_ReadBatteryVoltage:
+  begin   (midx: 0)
+//Power_management.c,79 :: 		ui_voltage = ui_ReadBatteryVoltage();
+	CALL Power_management_ui_ReadBatteryVoltage   (midx: 0)
+//Power_management.c,80 :: 		return (float)ui_voltage*0.0015;         // 3*2.048/4096
+	S1 <4> <- (type cast)R0   (midx: 0)
+	R0 <4> <- 1.500000E-003   (midx: 0)
+	S0 <4> <- R0   (midx: 0)
+	S0 <4> <-  S1 * S0   (midx: 9)
+	S0 <4> <- S0   (midx: 0)
+	return   (midx: 0)
+  end
+   (midx: 0)
+Power_management_GetPowerStatus:
+  begin   (midx: 0)
+//Power_management.c,90 :: 		static void GetPowerStatus() {
+Power_management_GetPowerStatus:
+  begin   (midx: 0)
+//Power_management.c,91 :: 		Power_State.f_Voltage   = f_ReadBatteryVoltage();
+	CALL Power_management_f_ReadBatteryVoltage   (midx: 0)
+	R0 <4> <- addr(_Power_State+4)   (midx: 0)
+	[R0] <4> <- S0   (midx: 0)
+//Power_management.c,92 :: 		Power_State.ui_Voltage  = (unsigned int)(Power_State.f_Voltage*100);
+	R0 <4> <- 1.000000E+002   (midx: 0)
+	S1 <4> <- R0   (midx: 0)
+	S0 <4> <-  S0 * S1   (midx: 9)
+	S0 <2> <- (type cast)S0   (midx: 0)
+	R1 <2> <- S0   (midx: 0)
+	R0 <4> <- addr(_Power_State+8)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//Power_management.c,94 :: 		if (DC_VBUS==0)
+	R1 <4> <- addr(DC_VBUS)   (midx: 0)
+	R0 <4> <- [R1]   (midx: 0)
+	if (R0) then goto 3   (midx: 21)
+//Power_management.c,95 :: 		Power_State.Source = SRC_DC;      // Works if Vdc>5V(Vusb), if Vdc<Vusb priority is changed
+	R1 <1> <- 2   (midx: 0)
+	R0 <4> <- addr(_Power_State+1)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+	goto	4   (midx: 0)
+3:   (midx: 0)
+//Power_management.c,97 :: 		if (USB_VBUS==1)
+	R1 <4> <- addr(USB_VBUS)   (midx: 0)
+	R0 <4> <- [R1]   (midx: 0)
+	if (!R0) then goto 5   (midx: 21)
+//Power_management.c,98 :: 		Power_State.Source = SRC_USB;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_Power_State+1)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+	goto	6   (midx: 0)
+5:   (midx: 0)
+//Power_management.c,100 :: 		Power_State.Source = SRC_BATTERY;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_Power_State+1)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//Power_management.c,101 :: 		}
+6:   (midx: 0)
+//Power_management.c,102 :: 		}
+4:   (midx: 0)
+//Power_management.c,104 :: 		if (BAT_STAT == 0)
+	R1 <4> <- addr(BAT_STAT)   (midx: 0)
+	R0 <4> <- [R1]   (midx: 0)
+	if (R0) then goto 7   (midx: 21)
+//Power_management.c,105 :: 		Power_State.Battery_state = BAT_CHARGING;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_Power_State+0)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+	goto	8   (midx: 0)
+7:   (midx: 0)
+//Power_management.c,107 :: 		if (Power_State.Source == SRC_BATTERY) {
+	R0 <4> <- addr(_Power_State+1)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 != 0) then goto 9   (midx: 0)
+//Power_management.c,108 :: 		Power_State.Battery_state = BAT_DISCHARGING;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(_Power_State+0)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//Power_management.c,109 :: 		}
+	goto	10   (midx: 0)
+9:   (midx: 0)
+//Power_management.c,111 :: 		if (Power_State.ui_Voltage>=425)
+	R0 <4> <- addr(_Power_State+8)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R0 <4> <- 425   (midx: 0)
+	if ( R1 < R0) then goto 11   (midx: 1)
+//Power_management.c,112 :: 		Power_State.Battery_state = BAT_UNPLUGGED;
+	R1 <1> <- 2   (midx: 0)
+	R0 <4> <- addr(_Power_State+0)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+	goto	12   (midx: 0)
+11:   (midx: 0)
+//Power_management.c,114 :: 		Power_State.Battery_state = BAT_FULL;
+	R1 <1> <- 3   (midx: 0)
+	R0 <4> <- addr(_Power_State+0)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+12:   (midx: 0)
+//Power_management.c,115 :: 		}
+10:   (midx: 0)
+//Power_management.c,116 :: 		}
+8:   (midx: 0)
+  end
+   (midx: 0)
+_checkPowerM:
+  begin   (midx: 0)
+//Power_management.c,127 :: 		void checkPowerM(){
+_checkPowerM:
+  begin   (midx: 0)
+//Power_management.c,130 :: 		GetPowerStatus();
+	CALL Power_management_GetPowerStatus   (midx: 0)
+//Power_management.c,132 :: 		if (Power_State.Battery_state != Power_State_Old.Battery_state) {
+	R0 <4> <- addr(_Power_State_Old+0)   (midx: 0)
+	R1 <1> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_Power_State+0)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = R1) then goto 13   (midx: 0)
+//Power_management.c,133 :: 		switch (Power_State.Battery_state) {
+	goto	14   (midx: 0)
+//Power_management.c,134 :: 		case BAT_CHARGING   : {
+16:   (midx: 0)
+//Power_management.c,135 :: 		}; break;
+	goto	15   (midx: 0)
+//Power_management.c,136 :: 		case BAT_DISCHARGING: {
+17:   (midx: 0)
+//Power_management.c,137 :: 		}; break;
+	goto	15   (midx: 0)
+//Power_management.c,138 :: 		case BAT_FULL       : {
+18:   (midx: 0)
+//Power_management.c,139 :: 		}; break;
+	goto	15   (midx: 0)
+//Power_management.c,140 :: 		case BAT_UNPLUGGED  : {
+19:   (midx: 0)
+//Power_management.c,141 :: 		}; break;
+	goto	15   (midx: 0)
+//Power_management.c,142 :: 		}
+14:   (midx: 0)
+	R0 <4> <- addr(_Power_State+0)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 0) then goto 16   (midx: 0)
+	R0 <4> <- addr(_Power_State+0)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 1) then goto 17   (midx: 0)
+	R0 <4> <- addr(_Power_State+0)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 3) then goto 18   (midx: 0)
+	R0 <4> <- addr(_Power_State+0)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 2) then goto 19   (midx: 0)
+15:   (midx: 0)
+//Power_management.c,144 :: 		Power_State_Old.Battery_state = Power_State.Battery_state;
+	R0 <4> <- addr(_Power_State+0)   (midx: 0)
+	R1 <1> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_Power_State_Old+0)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//Power_management.c,145 :: 		}
+13:   (midx: 0)
+//Power_management.c,147 :: 		if (Power_State.Source != Power_State_Old.Source) {
+	R0 <4> <- addr(_Power_State_Old+1)   (midx: 0)
+	R1 <1> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_Power_State+1)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = R1) then goto 20   (midx: 0)
+//Power_management.c,148 :: 		switch (Power_State.Source) {
+	goto	21   (midx: 0)
+//Power_management.c,149 :: 		case SRC_BATTERY: {
+23:   (midx: 0)
+//Power_management.c,150 :: 		}; break;
+	goto	22   (midx: 0)
+//Power_management.c,151 :: 		case SRC_DC     : {
+24:   (midx: 0)
+//Power_management.c,152 :: 		}; break;
+	goto	22   (midx: 0)
+//Power_management.c,153 :: 		case SRC_USB    : {
+25:   (midx: 0)
+//Power_management.c,154 :: 		}; break;
+	goto	22   (midx: 0)
+//Power_management.c,155 :: 		}
+21:   (midx: 0)
+	R0 <4> <- addr(_Power_State+1)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 0) then goto 23   (midx: 0)
+	R0 <4> <- addr(_Power_State+1)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 2) then goto 24   (midx: 0)
+	R0 <4> <- addr(_Power_State+1)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 1) then goto 25   (midx: 0)
+22:   (midx: 0)
+//Power_management.c,156 :: 		Power_State_Old.Source = Power_State.Source;
+	R0 <4> <- addr(_Power_State+1)   (midx: 0)
+	R1 <1> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_Power_State_Old+1)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//Power_management.c,157 :: 		}
+20:   (midx: 0)
+//Power_management.c,159 :: 		if ((Power_State.Battery_state != BAT_UNPLUGGED) && (Display_Bat_Stat)){
+	R0 <4> <- addr(_Power_State+0)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 = 2) then goto 40   (midx: 0)
+	R0 <4> <- addr(_Display_Bat_Stat)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if (!R0) then goto 39   (midx: 0)
+36:   (midx: 0)
+//Power_management.c,160 :: 		Bar_Width = ((signed int)Power_State.ui_Voltage - 295) / 5;
+	R0 <4> <- addr(_Power_State+8)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R1 <2> <-  R0 - 295   (midx: 5)
+	R0 <2> <- 5   (midx: 0)
+	R0 <2> <-  R1 / R0   (midx: 5)
+   (midx: 0)
+	R3 <2> <- R0   (midx: 0)
+//Power_management.c,161 :: 		if ((Bar_Width > 0) && (Bar_Width < 25)){
+	if ( R0 <= 0) then goto 38   (midx: 5)
+	if ( R3 >= 25) then goto 37   (midx: 5)
+35:   (midx: 0)
+//Power_management.c,163 :: 		if (Power_State.ui_Voltage > 330)
+	R0 <4> <- addr(_Power_State+8)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 <= 330) then goto 32   (midx: 1)
+//Power_management.c,164 :: 		TFT_Set_Brush(1, CL_WHITE, 0, 0, 0, 0);
+	R1 <2> <- 0   (midx: 0)
+	R0 <2> <- 0   (midx: 0)
+	R3 <2> <- PUSH(R3)   (midx: 255)
+	FARG_TFT_Set_Brush_gradient_color_to <2> <- PUSH(R1)   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_from <2> <- PUSH(R0)   (midx: 0)
+	R3 <1> <- 0   (midx: 0)
+	R2 <1> <- 0   (midx: 0)
+	R1 <2> <- 65535   (midx: 0)
+	R0 <1> <- 1   (midx: 0)
+	CALL _TFT_Set_Brush   (midx: 0)
+	R3 <2> <- POP   (midx: 255)
+	goto	33   (midx: 0)
+32:   (midx: 0)
+//Power_management.c,166 :: 		TFT_Set_Brush(1, CL_RED, 0, 0, 0, 0);
+	R1 <2> <- 0   (midx: 0)
+	R0 <2> <- 0   (midx: 0)
+	R3 <2> <- PUSH(R3)   (midx: 255)
+	FARG_TFT_Set_Brush_gradient_color_to <2> <- PUSH(R1)   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_from <2> <- PUSH(R0)   (midx: 0)
+	R3 <1> <- 0   (midx: 0)
+	R2 <1> <- 0   (midx: 0)
+	R1 <2> <- 63488   (midx: 0)
+	R0 <1> <- 1   (midx: 0)
+	CALL _TFT_Set_Brush   (midx: 0)
+	R3 <2> <- POP   (midx: 255)
+33:   (midx: 0)
+//Power_management.c,167 :: 		TFT_Set_Pen(CL_WHITE, 0);
+	R1 <1> <- 0   (midx: 0)
+	R0 <2> <- 65535   (midx: 0)
+	CALL _TFT_Set_Pen   (midx: 0)
+//Power_management.c,168 :: 		TFT_Rectangle(19, 12, 19 + Bar_width, 19);
+	R0 <2> <-  19 + R3   (midx: 5)
+	R3 <2> <- PUSH(R3)   (midx: 255)
+	R3 <2> <- 19   (midx: 0)
+	R2 <2> <- R0   (midx: 0)
+	R1 <2> <- 12   (midx: 0)
+	R0 <2> <- 19   (midx: 0)
+	CALL _TFT_Rectangle   (midx: 0)
+	R3 <2> <- POP   (midx: 255)
+//Power_management.c,170 :: 		TFT_Set_Brush(1, Home.Color, 0, 0, 0, 0);
+	R2 <2> <- 0   (midx: 0)
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Home+0)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R3 <2> <- PUSH(R3)   (midx: 255)
+	FARG_TFT_Set_Brush_gradient_color_to <2> <- PUSH(R2)   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_from <2> <- PUSH(R1)   (midx: 0)
+	R3 <1> <- 0   (midx: 0)
+	R2 <1> <- 0   (midx: 0)
+	R1 <2> <- R0   (midx: 0)
+	R0 <1> <- 1   (midx: 0)
+	CALL _TFT_Set_Brush   (midx: 0)
+	R3 <2> <- POP   (midx: 255)
+//Power_management.c,171 :: 		TFT_Set_Pen(CL_WHITE, 0);
+	R1 <1> <- 0   (midx: 0)
+	R0 <2> <- 65535   (midx: 0)
+	CALL _TFT_Set_Pen   (midx: 0)
+//Power_management.c,172 :: 		TFT_Rectangle(19 + Bar_width, 12, 43, 19);
+   (midx: 0)
+	R0 <2> <-  19 + R3   (midx: 5)
+	R3 <2> <- 19   (midx: 0)
+	R2 <2> <- 43   (midx: 0)
+	R1 <2> <- 12   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _TFT_Rectangle   (midx: 0)
+//Power_management.c,174 :: 		Display_Bat_Stat = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_Display_Bat_Stat)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//Power_management.c,175 :: 		}
+	goto	34   (midx: 0)
+//Power_management.c,161 :: 		if ((Bar_Width > 0) && (Bar_Width < 25)){
+38:   (midx: 0)
+37:   (midx: 0)
+//Power_management.c,177 :: 		TFT_Set_Brush(1, Home.Color, 0, 0, 0, 0);
+	R2 <2> <- 0   (midx: 0)
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_Home+0)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_to <2> <- PUSH(R2)   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_from <2> <- PUSH(R1)   (midx: 0)
+	R3 <1> <- 0   (midx: 0)
+	R2 <1> <- 0   (midx: 0)
+	R1 <2> <- R0   (midx: 0)
+	R0 <1> <- 1   (midx: 0)
+	CALL _TFT_Set_Brush   (midx: 0)
+//Power_management.c,178 :: 		TFT_Set_Pen(CL_WHITE, 0);
+	R1 <1> <- 0   (midx: 0)
+	R0 <2> <- 65535   (midx: 0)
+	CALL _TFT_Set_Pen   (midx: 0)
+//Power_management.c,179 :: 		TFT_Rectangle(19, 12, 43, 19);
+	R3 <2> <- 19   (midx: 0)
+	R2 <2> <- 43   (midx: 0)
+	R1 <2> <- 12   (midx: 0)
+	R0 <2> <- 19   (midx: 0)
+	CALL _TFT_Rectangle   (midx: 0)
+//Power_management.c,180 :: 		}
+34:   (midx: 0)
+//Power_management.c,159 :: 		if ((Power_State.Battery_state != BAT_UNPLUGGED) && (Display_Bat_Stat)){
+40:   (midx: 0)
+39:   (midx: 0)
+  end
+   (midx: 0)

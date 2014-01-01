@@ -1,0 +1,466 @@
+RGB_Light_InitTimer4:
+  begin   (midx: 0)
+//RGB_Light.c,45 :: 		static void InitTimer4(){
+RGB_Light_InitTimer4:
+  begin   (midx: 0)
+//RGB_Light.c,46 :: 		RCC_APB1ENR.TIM4EN = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(RCC_APB1ENR)   (midx: 0)
+	[R0] <0> <- R1   (midx: 20)
+//RGB_Light.c,47 :: 		TIM4_CR1.CEN = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(TIM4_CR1)   (midx: 0)
+	[R0] <0> <- R1   (midx: 20)
+//RGB_Light.c,48 :: 		TIM4_PSC = 0;
+	R1 <4> <- 0   (midx: 0)
+	R0 <4> <- addr(TIM4_PSC)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//RGB_Light.c,49 :: 		TIM4_ARR = 9375;
+	R1 <4> <- 9375   (midx: 0)
+	R0 <4> <- addr(TIM4_ARR)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//RGB_Light.c,50 :: 		NVIC_IntEnable(IVT_INT_TIM4);
+	R0 <4> <- 46   (midx: 0)
+	CALL _NVIC_IntEnable   (midx: 0)
+//RGB_Light.c,51 :: 		TIM4_DIER.UIE = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(TIM4_DIER)   (midx: 0)
+	[R0] <0> <- R1   (midx: 20)
+//RGB_Light.c,52 :: 		TIM4_CR1.CEN = 1;
+	R0 <4> <- addr(TIM4_CR1)   (midx: 0)
+	[R0] <0> <- R1   (midx: 20)
+  end
+   (midx: 0)
+_Timer4_SoftPWM_ISR:
+  begin   (midx: 0)
+//RGB_Light.c,62 :: 		void Timer4_SoftPWM_ISR(){
+_Timer4_SoftPWM_ISR:
+  begin   (midx: 0)
+//RGB_Light.c,63 :: 		SoftPWM_pr++;
+	R2 <4> <- addr(RGB_Light_SoftPWM_pr)   (midx: 0)
+	R0 <2> <- [R2]   (midx: 0)
+	R1 <2> <-  R0 + 1   (midx: 1)
+	[R2] <2> <- R1   (midx: 0)
+//RGB_Light.c,64 :: 		if (SoftPWM_pr < SoftPWM_duty){
+	R0 <4> <- addr(RGB_Light_SoftPWM_duty)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R1 >= R0) then goto 0   (midx: 1)
+//RGB_Light.c,65 :: 		LED_R = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(LED_R)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+//RGB_Light.c,66 :: 		}
+	goto	1   (midx: 0)
+0:   (midx: 0)
+//RGB_Light.c,68 :: 		LED_R = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(LED_R)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+//RGB_Light.c,69 :: 		}
+1:   (midx: 0)
+//RGB_Light.c,70 :: 		if (SoftPWM_pr > 31)
+	R0 <4> <- addr(RGB_Light_SoftPWM_pr)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 <= 31) then goto 2   (midx: 1)
+//RGB_Light.c,71 :: 		SoftPWM_pr = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(RGB_Light_SoftPWM_pr)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+2:   (midx: 0)
+  end
+   (midx: 0)
+_RGB_Init:
+  begin   (midx: 0)
+//RGB_Light.c,81 :: 		void RGB_Init() {
+_RGB_Init:
+  begin   (midx: 0)
+//RGB_Light.c,82 :: 		pwm_period1 = PWM_TIM3_Init(5000);
+	R0 <4> <- 5000   (midx: 0)
+	CALL _PWM_TIM3_Init   (midx: 0)
+	R1 <4> <- addr(RGB_Light_pwm_period1)   (midx: 0)
+	[R1] <2> <- R0   (midx: 0)
+//RGB_Light.c,83 :: 		pwm_period2 = PWM_TIM2_Init(5000);
+	R0 <4> <- 5000   (midx: 0)
+	CALL _PWM_TIM2_Init   (midx: 0)
+	R1 <4> <- addr(RGB_Light_pwm_period2)   (midx: 0)
+	[R1] <2> <- R0   (midx: 0)
+//RGB_Light.c,85 :: 		PWM_TIM3_Set_Duty(0, _PWM_NON_INVERTED, _PWM_CHANNEL1);  // Set current duty for PWM_TIM1
+	R2 <1> <- 0   (midx: 0)
+	R1 <1> <- 0   (midx: 0)
+	R0 <2> <- 0   (midx: 0)
+	CALL _PWM_TIM3_Set_Duty   (midx: 0)
+//RGB_Light.c,86 :: 		PWM_TIM2_Set_Duty(0, _PWM_NON_INVERTED, _PWM_CHANNEL2);  // Set current duty for PWM_TIM4
+	R2 <1> <- 1   (midx: 0)
+	R1 <1> <- 0   (midx: 0)
+	R0 <2> <- 0   (midx: 0)
+	CALL _PWM_TIM2_Set_Duty   (midx: 0)
+//RGB_Light.c,88 :: 		PWM_TIM3_Start(_PWM_CHANNEL1, &_GPIO_MODULE_TIM3_CH1_PB4);   // Starts PWM channel1 on PB4
+	R1 <4> <- #__GPIO_MODULE_TIM3_CH1_PB4   (midx: 0)
+	R0 <1> <- 0   (midx: 0)
+	CALL _PWM_TIM3_Start   (midx: 0)
+//RGB_Light.c,89 :: 		PWM_TIM2_Start(_PWM_CHANNEL2, &_GPIO_MODULE_TIM2_CH2_PB3);   // Starts PWM channel2 on PB3
+	R1 <4> <- #__GPIO_MODULE_TIM2_CH2_PB3   (midx: 0)
+	R0 <1> <- 1   (midx: 0)
+	CALL _PWM_TIM2_Start   (midx: 0)
+//RGB_Light.c,91 :: 		if (Init_FAT())                                          // displays background picture
+	CALL _Init_FAT   (midx: 0)
+	if (!R0) then goto 3   (midx: 0)
+//RGB_Light.c,92 :: 		TFT_Ext_Image(0, 38, rgb_bitmap_bmp, 1);
+	R3 <1> <- 1   (midx: 0)
+	R2 <4> <- 0   (midx: 0)
+	R1 <2> <- 38   (midx: 0)
+	R0 <2> <- 0   (midx: 0)
+	CALL _TFT_Ext_Image   (midx: 0)
+3:   (midx: 0)
+//RGB_Light.c,94 :: 		GPIO_Digital_Output(&GPIOG_BASE, _GPIO_PINMASK_15);      // Sets default values for softPWM
+	R1 <4> <- 32768   (midx: 0)
+	R0 <4> <- #GPIOG_BASE   (midx: 0)
+	CALL _GPIO_Digital_Output   (midx: 0)
+//RGB_Light.c,95 :: 		SoftPWM_pr = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(RGB_Light_SoftPWM_pr)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RGB_Light.c,96 :: 		SoftPWM_duty = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(RGB_Light_SoftPWM_duty)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RGB_Light.c,97 :: 		InitTimer4();
+	CALL RGB_Light_InitTimer4   (midx: 0)
+  end
+   (midx: 0)
+RGB_Light_GetColor_FromSD:
+  begin   (midx: 0)
+//RGB_Light.c,108 :: 		static unsigned int GetColor_FromSD(unsigned long Img, unsigned int xc, unsigned int yc){
+RGB_Light_GetColor_FromSD:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	R1 <2> <- R1   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R2 <2> <- R2   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+//RGB_Light.c,116 :: 		offset = Img + 6 + ((long)(480) * (yc - 1) + xc) * 2;
+   (midx: 0)
+	R5 <4> <-  R0 + 6   (midx: 2)
+   (midx: 0)
+	R4 <2> <-  R2 - 1   (midx: 1)
+	R3 <4> <- 480   (midx: 0)
+	R3 <4> <-  R3 * R4   (midx: 6)
+   (midx: 0)
+	R3 <4> <-  R3 + R1   (midx: 6)
+	R3 <4> <-  R3 shl 1   (midx: 6)
+	R4 <4> <-  R5 + R3   (midx: 2)
+//RGB_Light.c,120 :: 		ptr = MyTFT_Get_Data(offset,count,&readed);
+	R3 <4> <- addr(RGB_Light_GetColor_FromSD_readed_L0)   (midx: 0)
+	R2 <4> <- R3   (midx: 0)
+	R1 <4> <- 2   (midx: 0)
+	R0 <4> <- R4   (midx: 0)
+	CALL _MyTFT_Get_Data   (midx: 0)
+//RGB_Light.c,123 :: 		color_temp = (*ptr++);
+	R3 <1> <- *R0   (midx: 0)
+   (midx: 0)
+	R1 <2> <- R3   (midx: 0)
+	R3 <4> <-  R0 + 1   (midx: 2)
+//RGB_Light.c,124 :: 		color_temp += (*ptr) << 8;
+	R3 <1> <- *R3   (midx: 0)
+	R3 <2> <-  R3 shl 8   (midx: 1)
+   (midx: 0)
+	R3 <2> <-  R1 + R3   (midx: 1)
+//RGB_Light.c,126 :: 		return color_temp;
+	R0 <2> <- R3   (midx: 0)
+	return   (midx: 0)
+  end
+   (midx: 0)
+RGB_Light_GetColor_FromFlash:
+  begin   (midx: 0)
+//RGB_Light.c,136 :: 		static unsigned int GetColor_FromFlash(TImage *Img, unsigned int xc, unsigned int yc){
+RGB_Light_GetColor_FromFlash:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R4 <4> <- R0   (midx: 0)
+	R1 <2> <- R1   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R2 <2> <- R2   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+//RGB_Light.c,139 :: 		pColor = Img->Picture_Name + 6;
+	R3 <4> <-  R4 + 16   (midx: 2)
+	R3 <4> <- *R3   (midx: 0)
+	R3 <4> <-  R3 + 6   (midx: 2)
+   (midx: 0)
+	R0 <4> <- R3   (midx: 0)
+//RGB_Light.c,140 :: 		pColor = pColor + ((long)(Img->Width) * (yc - 1) + xc) * 2;
+   (midx: 0)
+	R3 <4> <-  R4 + 10   (midx: 2)
+	R3 <2> <- *R3   (midx: 0)
+	R4 <4> <- R3   (midx: 0)
+   (midx: 0)
+	R3 <2> <-  R2 - 1   (midx: 1)
+	R3 <4> <-  R4 * R3   (midx: 6)
+   (midx: 0)
+	R3 <4> <-  R3 + R1   (midx: 6)
+	R3 <4> <-  R3 shl 1   (midx: 6)
+   (midx: 0)
+	R4 <4> <-  R0 + R3   (midx: 2)
+//RGB_Light.c,141 :: 		color_temp = (*pColor++);
+	R3 <1> <- *R4   (midx: 0)
+   (midx: 0)
+	R0 <2> <- R3   (midx: 0)
+	R3 <4> <-  R4 + 1   (midx: 2)
+//RGB_Light.c,142 :: 		color_temp += (*pColor) << 8;
+	R3 <1> <- *R3   (midx: 0)
+	R3 <2> <-  R3 shl 8   (midx: 1)
+   (midx: 0)
+	R3 <2> <-  R0 + R3   (midx: 1)
+//RGB_Light.c,144 :: 		return color_temp;
+	R0 <2> <- R3   (midx: 0)
+	return   (midx: 0)
+  end
+   (midx: 0)
+RGB_Light_DisplayColor:
+  begin   (midx: 0)
+//RGB_Light.c,154 :: 		static void DisplayColor(){
+RGB_Light_DisplayColor:
+  begin   (midx: 0)
+//RGB_Light.c,155 :: 		Circle1.Color = MyColors.color_16bit;
+	R0 <4> <- addr(RGB_Light_MyColors+4)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_Circle1+26)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RGB_Light.c,156 :: 		DrawCircle(&Circle1);
+	R0 <4> <- #_Circle1   (midx: 0)
+	CALL _DrawCircle   (midx: 0)
+  end
+   (midx: 0)
+RGB_Light_Display_color_text:
+  begin   (midx: 0)
+//RGB_Light.c,166 :: 		static void Display_color_text(TLabel *label, short val) {
+RGB_Light_Display_color_text:
+  begin   (midx: 0)
+   (midx: 0)
+	FARG_RGB_Light_Display_color_text_label <4> <- R0   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R7 <1> <- R1   (midx: 0)
+   (midx: 0)
+//RGB_Light.c,170 :: 		ptr = label->Caption;
+	R2 <4> <- FARG_RGB_Light_Display_color_text_label   (midx: 0)
+	R2 <4> <-  R2 + 16   (midx: 2)
+	R2 <4> <- *R2   (midx: 0)
+	RGB_Light_Display_color_text_ptr_L0 <4> <- R2   (midx: 0)
+//RGB_Light.c,171 :: 		TFT_Set_Pen(RGBLight.Color,  0);
+	R2 <4> <- addr(_RGBLight+0)   (midx: 0)
+	R2 <2> <- [R2]   (midx: 0)
+	R1 <1> <- 0   (midx: 0)
+	R0 <2> <- R2   (midx: 0)
+	CALL _TFT_Set_Pen   (midx: 0)
+//RGB_Light.c,172 :: 		TFT_Set_Brush(1, RGBLight.Color, 0, 0, 0, 0);
+	R4 <2> <- 0   (midx: 0)
+	R3 <2> <- 0   (midx: 0)
+	R2 <4> <- addr(_RGBLight+0)   (midx: 0)
+	R2 <2> <- [R2]   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_to <2> <- PUSH(R4)   (midx: 0)
+	FARG_TFT_Set_Brush_gradient_color_from <2> <- PUSH(R3)   (midx: 0)
+	R3 <1> <- 0   (midx: 0)
+	R1 <2> <- R2   (midx: 0)
+	R2 <1> <- 0   (midx: 0)
+	R0 <1> <- 1   (midx: 0)
+	CALL _TFT_Set_Brush   (midx: 0)
+//RGB_Light.c,173 :: 		ShortToStr(val, text);
+	R2 <4> <- addr(RGB_Light_Display_color_text_text_L0)   (midx: 0)
+	R1 <4> <- R2   (midx: 0)
+   (midx: 0)
+	R0 <1> <- R7   (midx: 0)
+	CALL _ShortToStr   (midx: 0)
+//RGB_Light.c,174 :: 		strcpy(text1, ptr);
+	R2 <4> <- addr(RGB_Light_Display_color_text_text1_L0)   (midx: 0)
+	R1 <4> <- RGB_Light_Display_color_text_ptr_L0   (midx: 0)
+	R0 <4> <- R2   (midx: 0)
+	CALL _strcpy   (midx: 0)
+//RGB_Light.c,175 :: 		strcat(text1, text);
+	R3 <4> <- addr(RGB_Light_Display_color_text_text_L0)   (midx: 0)
+	R2 <4> <- addr(RGB_Light_Display_color_text_text1_L0)   (midx: 0)
+	R1 <4> <- R3   (midx: 0)
+	R0 <4> <- R2   (midx: 0)
+	CALL _strcat   (midx: 0)
+//RGB_Light.c,176 :: 		TFT_Rectangle(label->Left, Label->Top, label->Left + 55, Label->Top + 20);
+	R2 <4> <- FARG_RGB_Light_Display_color_text_label   (midx: 0)
+	R2 <4> <-  R2 + 8   (midx: 2)
+	R3 <2> <- *R2   (midx: 0)
+	R5 <2> <-  R3 + 20   (midx: 1)
+	R2 <4> <- FARG_RGB_Light_Display_color_text_label   (midx: 0)
+	R2 <4> <-  R2 + 6   (midx: 2)
+	R2 <2> <- *R2   (midx: 0)
+	R4 <2> <-  R2 + 55   (midx: 1)
+	R3 <2> <- R3   (midx: 0)
+	R2 <2> <- R2   (midx: 0)
+	R1 <2> <- R3   (midx: 0)
+	R3 <2> <- R5   (midx: 0)
+	R0 <2> <- R2   (midx: 0)
+	R2 <2> <- R4   (midx: 0)
+	CALL _TFT_Rectangle   (midx: 0)
+//RGB_Light.c,177 :: 		label->Caption = text1;
+	R2 <4> <- FARG_RGB_Light_Display_color_text_label   (midx: 0)
+	R3 <4> <-  R2 + 16   (midx: 2)
+	R2 <4> <- addr(RGB_Light_Display_color_text_text1_L0)   (midx: 0)
+	[R3] <4> <- R2   (midx: 0)
+//RGB_Light.c,178 :: 		Drawlabel(label);
+	R0 <4> <- FARG_RGB_Light_Display_color_text_label   (midx: 0)
+	CALL _DrawLabel   (midx: 0)
+//RGB_Light.c,179 :: 		label->Caption = ptr;
+	R2 <4> <- FARG_RGB_Light_Display_color_text_label   (midx: 0)
+	R3 <4> <-  R2 + 16   (midx: 2)
+	R2 <4> <- RGB_Light_Display_color_text_ptr_L0   (midx: 0)
+	[R3] <4> <- R2   (midx: 0)
+  end
+   (midx: 0)
+RGB_Light_Drive_RGB_Diode:
+  begin   (midx: 0)
+//RGB_Light.c,189 :: 		static void Drive_RGB_Diode(TColors *colors){
+RGB_Light_Drive_RGB_Diode:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R6 <4> <- R0   (midx: 0)
+   (midx: 0)
+//RGB_Light.c,190 :: 		PWM_TIM2_Set_Duty((int)pwm_period2 / 64 * colors->Green, _PWM_NON_INVERTED, _PWM_CHANNEL2);
+	R1 <4> <- addr(RGB_Light_pwm_period2)   (midx: 0)
+	R1 <2> <- [R1]   (midx: 0)
+	R2 <2> <-  R1 shr 6   (midx: 5)
+	R1 <4> <-  R6 + 1   (midx: 2)
+	R1 <1> <- *R1   (midx: 0)
+	R1 <2> <-  R2 * R1   (midx: 5)
+	R2 <1> <- 1   (midx: 0)
+	R0 <2> <- R1   (midx: 0)
+	R1 <1> <- 0   (midx: 0)
+	CALL _PWM_TIM2_Set_Duty   (midx: 0)
+//RGB_Light.c,191 :: 		PWM_TIM3_Set_Duty((int)pwm_period1 / 32 * colors->Blue, _PWM_NON_INVERTED, _PWM_CHANNEL1);
+	R1 <4> <- addr(RGB_Light_pwm_period1)   (midx: 0)
+	R1 <2> <- [R1]   (midx: 0)
+	R2 <2> <-  R1 shr 5   (midx: 5)
+	R1 <4> <-  R6 + 2   (midx: 2)
+	R1 <1> <- *R1   (midx: 0)
+	R1 <2> <-  R2 * R1   (midx: 5)
+	R2 <1> <- 0   (midx: 0)
+	R0 <2> <- R1   (midx: 0)
+	R1 <1> <- 0   (midx: 0)
+	CALL _PWM_TIM3_Set_Duty   (midx: 0)
+//RGB_Light.c,192 :: 		SoftPWM_duty = colors->Red;
+   (midx: 0)
+	R2 <1> <- *R6   (midx: 0)
+	R1 <4> <- addr(RGB_Light_SoftPWM_duty)   (midx: 0)
+	[R1] <2> <- R2   (midx: 0)
+  end
+   (midx: 0)
+_RGB_OFF:
+  begin   (midx: 0)
+//RGB_Light.c,202 :: 		void RGB_OFF(){
+_RGB_OFF:
+  begin   (midx: 0)
+//RGB_Light.c,203 :: 		PWM_TIM3_Stop(_PWM_CHANNEL1);
+	R0 <1> <- 0   (midx: 0)
+	CALL _PWM_TIM3_Stop   (midx: 0)
+//RGB_Light.c,204 :: 		PWM_TIM2_Stop(_PWM_CHANNEL2);
+	R0 <1> <- 1   (midx: 0)
+	CALL _PWM_TIM2_Stop   (midx: 0)
+//RGB_Light.c,205 :: 		TIM4_CR1.CEN = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(TIM4_CR1)   (midx: 0)
+	[R0] <0> <- R1   (midx: 20)
+//RGB_Light.c,206 :: 		TIM4_DIER.UIE = 0;
+	R0 <4> <- addr(TIM4_DIER)   (midx: 0)
+	[R0] <0> <- R1   (midx: 20)
+//RGB_Light.c,207 :: 		NVIC_IntDisable(IVT_INT_TIM4);
+	R0 <4> <- 46   (midx: 0)
+	CALL _NVIC_IntDisable   (midx: 0)
+//RGB_Light.c,208 :: 		LED_R = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(LED_R)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_PickColor:
+  begin   (midx: 0)
+//RGB_Light.c,218 :: 		void PickColor(){
+_PickColor:
+  begin   (midx: 0)
+//RGB_Light.c,220 :: 		ycoo = Ycoord - 38;
+	R0 <4> <- addr(_Ycoord)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R2 <2> <-  R0 - 38   (midx: 1)
+	R0 <4> <- addr(RGB_Light_ycoo)   (midx: 0)
+	[R0] <2> <- R2   (midx: 0)
+//RGB_Light.c,221 :: 		xcoo = Xcoord;
+	R0 <4> <- addr(_Xcoord)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R0 <4> <- addr(RGB_Light_xcoo)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//RGB_Light.c,222 :: 		if (ycoo > 0){
+	R0 <2> <- R2   (midx: 0)
+	if ( R0 <= 0) then goto 4   (midx: 5)
+//RGB_Light.c,224 :: 		mycolor = GetColor_FromSD(rgb_bitmap_bmp, xcoo, ycoo); // read color from Sd
+	R0 <4> <- addr(RGB_Light_ycoo)   (midx: 0)
+	R1 <2> <- [R0]   (midx: 0)
+	R0 <4> <- addr(RGB_Light_xcoo)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R2 <2> <- R1   (midx: 0)
+	R1 <2> <- R0   (midx: 0)
+	R0 <4> <- 0   (midx: 0)
+	CALL RGB_Light_GetColor_FromSD   (midx: 0)
+//RGB_Light.c,227 :: 		MyColors.color_16bit = mycolor;
+	R1 <4> <- addr(RGB_Light_MyColors+4)   (midx: 0)
+	[R1] <2> <- R0   (midx: 0)
+//RGB_Light.c,228 :: 		MyColors.Red = mycolor >> 11;
+	R2 <2> <-  R0 shr 11   (midx: 1)
+	R1 <4> <- addr(RGB_Light_MyColors+0)   (midx: 0)
+	[R1] <1> <- R2   (midx: 0)
+//RGB_Light.c,229 :: 		MyColors.Green = (mycolor >> 5) & 0x3F;
+	R1 <2> <-  R0 shr 5   (midx: 1)
+	R2 <2> <-  R1 & 63   (midx: 1)
+	R1 <4> <- addr(RGB_Light_MyColors+1)   (midx: 0)
+	[R1] <1> <- R2   (midx: 0)
+//RGB_Light.c,230 :: 		MyColors.Blue = mycolor & 0x1F;
+	R1 <2> <-  R0 & 31   (midx: 1)
+	R0 <4> <- addr(RGB_Light_MyColors+2)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//RGB_Light.c,233 :: 		DisplayColor();
+	CALL RGB_Light_DisplayColor   (midx: 0)
+//RGB_Light.c,234 :: 		Display_color_text(&Label11, MyColors.Red);
+	R0 <4> <- addr(RGB_Light_MyColors+0)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	R1 <1> <- R0   (midx: 0)
+	R0 <4> <- #_Label11   (midx: 0)
+	CALL RGB_Light_Display_color_text   (midx: 0)
+//RGB_Light.c,235 :: 		Display_color_text(&Label12, MyColors.Green);
+	R0 <4> <- addr(RGB_Light_MyColors+1)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	R1 <1> <- R0   (midx: 0)
+	R0 <4> <- #_Label12   (midx: 0)
+	CALL RGB_Light_Display_color_text   (midx: 0)
+//RGB_Light.c,236 :: 		Display_color_text(&Label13, MyColors.Blue);
+	R0 <4> <- addr(RGB_Light_MyColors+2)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	R1 <1> <- R0   (midx: 0)
+	R0 <4> <- #_Label13   (midx: 0)
+	CALL RGB_Light_Display_color_text   (midx: 0)
+//RGB_Light.c,239 :: 		Drive_RGB_Diode(&MyColors);
+	R0 <4> <- #RGB_Light_MyColors   (midx: 0)
+	CALL RGB_Light_Drive_RGB_Diode   (midx: 0)
+//RGB_Light.c,240 :: 		}
+4:   (midx: 0)
+  end
+   (midx: 0)

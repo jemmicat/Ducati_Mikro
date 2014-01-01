@@ -1,0 +1,14 @@
+_Start_Speedometer:
+  begin   (midx: 0)
+//Speedometer.c,9 :: 		void Start_Speedometer() {
+_Start_Speedometer:
+  begin   (midx: 0)
+//Speedometer.c,11 :: 		DrawScreen(&Speedometer_graphics);
+	R0 <4> <- #_Speedometer_graphics   (midx: 0)
+	CALL _DrawScreen   (midx: 0)
+//Speedometer.c,12 :: 		checkRTC();
+	CALL _checkRTC   (midx: 0)
+//Speedometer.c,13 :: 		checkPowerM();
+	CALL _checkPowerM   (midx: 0)
+  end
+   (midx: 0)

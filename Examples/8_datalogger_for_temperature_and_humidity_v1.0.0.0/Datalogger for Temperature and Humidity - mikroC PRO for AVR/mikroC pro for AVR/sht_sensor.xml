@@ -1,0 +1,13 @@
+<sht_sensor>
+	<Attributes>
+		<Url></Url>
+		<Image>sht1x proto.jpg</Image>
+		<File></File>
+	</Attributes>
+	<Events>
+		<OnLeftClick></OnLeftClick>
+		<OnRightClick></OnRightClick>
+		<OnDblClick></OnDblClick>
+		<OnMouseOver>PreviewImage</OnMouseOver>
+	</Events>
+</sht_sensor>

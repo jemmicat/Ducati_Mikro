@@ -1,0 +1,156 @@
+_Scroll_Init_Scroll_area:
+  begin   (midx: 0)
+//Scroll.c,43 :: 		void Scroll_Init_Scroll_area(unsigned int first, unsigned int last){
+_Scroll_Init_Scroll_area:
+  begin   (midx: 0)
+	FARG_Scroll_Init_Scroll_area_first_1 <2> <- R0   (midx: 0)
+   (midx: 0)
+	FARG_Scroll_Init_Scroll_area_last <2> <- R1   (midx: 0)
+//Scroll.c,45 :: 		TFT_CS = 0;
+	R3 <1> <- 0   (midx: 0)
+	R2 <4> <- addr(TFT_CS)   (midx: 0)
+	[R2] <0> <- R3   (midx: 0)
+//Scroll.c,46 :: 		TFT_mikromedia_Set_Index(0x33);
+	R0 <1> <- 51   (midx: 0)
+	CALL _TFT_mikromedia_Set_Index   (midx: 0)
+//Scroll.c,47 :: 		TFT_mikromedia_Write_Command(Hi(first));
+	R2 <4> <- addr(FARG_Scroll_Init_Scroll_area_first)   (midx: 0)
+	R2 <4> <-  R2 + 1   (midx: 2)
+	R2 <1> <- *R2   (midx: 0)
+	R2 <1> <- R2   (midx: 0)
+	R0 <1> <- R2   (midx: 0)
+	CALL _TFT_mikromedia_Write_Command   (midx: 0)
+//Scroll.c,48 :: 		TFT_mikromedia_Write_Command(Lo(first));
+	R2 <4> <- addr(FARG_Scroll_Init_Scroll_area_first)   (midx: 0)
+	R2 <1> <- *R2   (midx: 0)
+	R2 <1> <- R2   (midx: 0)
+	R0 <1> <- R2   (midx: 0)
+	CALL _TFT_mikromedia_Write_Command   (midx: 0)
+//Scroll.c,49 :: 		temp = last - first;
+	R3 <2> <- FARG_Scroll_Init_Scroll_area_first   (midx: 0)
+	R2 <2> <- FARG_Scroll_Init_Scroll_area_last   (midx: 0)
+	R2 <2> <-  R2 - R3   (midx: 1)
+	Scroll_Init_Scroll_area_temp_L0_3 <2> <- R2   (midx: 0)
+//Scroll.c,50 :: 		TFT_mikromedia_Write_Command(Hi(temp));
+	R2 <4> <- addr(Scroll_Init_Scroll_area_temp_L0)   (midx: 0)
+	R2 <4> <-  R2 + 1   (midx: 2)
+	R2 <1> <- *R2   (midx: 0)
+	R2 <1> <- R2   (midx: 0)
+	R0 <1> <- R2   (midx: 0)
+	CALL _TFT_mikromedia_Write_Command   (midx: 0)
+//Scroll.c,51 :: 		TFT_mikromedia_Write_Command(Lo(temp));
+	R2 <4> <- addr(Scroll_Init_Scroll_area_temp_L0)   (midx: 0)
+	R2 <1> <- *R2   (midx: 0)
+	R2 <1> <- R2   (midx: 0)
+	R0 <1> <- R2   (midx: 0)
+	CALL _TFT_mikromedia_Write_Command   (midx: 0)
+//Scroll.c,52 :: 		temp = _DISPLAY_HEIGHT - last;
+	R2 <2> <- FARG_Scroll_Init_Scroll_area_last   (midx: 0)
+	R2 <2> <-  272 - R2   (midx: 1)
+	Scroll_Init_Scroll_area_temp_L0 <2> <- R2   (midx: 0)
+//Scroll.c,53 :: 		TFT_mikromedia_Write_Command(Hi(temp));
+	R2 <4> <- addr(Scroll_Init_Scroll_area_temp_L0)   (midx: 0)
+	R2 <4> <-  R2 + 1   (midx: 2)
+	R2 <1> <- *R2   (midx: 0)
+	R2 <1> <- R2   (midx: 0)
+	R0 <1> <- R2   (midx: 0)
+	CALL _TFT_mikromedia_Write_Command   (midx: 0)
+//Scroll.c,54 :: 		TFT_mikromedia_Write_Command(Lo(temp));
+	R2 <4> <- addr(Scroll_Init_Scroll_area_temp_L0)   (midx: 0)
+	R2 <1> <- *R2   (midx: 0)
+	R2 <1> <- R2   (midx: 0)
+	R0 <1> <- R2   (midx: 0)
+	CALL _TFT_mikromedia_Write_Command   (midx: 0)
+//Scroll.c,55 :: 		TFT_CS = 1;
+	R3 <1> <- 1   (midx: 0)
+	R2 <4> <- addr(TFT_CS)   (midx: 0)
+	[R2] <0> <- R3   (midx: 0)
+  end
+   (midx: 0)
+_Scroll_Undone:
+  begin   (midx: 0)
+//Scroll.c,65 :: 		void Scroll_Undone(unsigned int first, unsigned int last){
+_Scroll_Undone:
+  begin   (midx: 0)
+   (midx: 0)
+	FARG_Scroll_Undone_first_1 <2> <- R0   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R1 <2> <- R1   (midx: 0)
+   (midx: 0)
+//Scroll.c,66 :: 		Scroll_Init_Scroll_area(first, last);
+   (midx: 0)
+	R1 <2> <- R1   (midx: 0)
+	R0 <2> <- FARG_Scroll_Undone_first_1   (midx: 0)
+	CALL _Scroll_Init_Scroll_area   (midx: 0)
+//Scroll.c,67 :: 		TFT_CS = 0;
+	R3 <1> <- 0   (midx: 0)
+	R2 <4> <- addr(TFT_CS)   (midx: 0)
+	[R2] <0> <- R3   (midx: 0)
+//Scroll.c,68 :: 		TFT_mikromedia_Set_Index(0x36);
+	R0 <1> <- 54   (midx: 0)
+	CALL _TFT_mikromedia_Set_Index   (midx: 0)
+//Scroll.c,69 :: 		TFT_mikromedia_Write_Command(0x00);
+	R0 <1> <- 0   (midx: 0)
+	CALL _TFT_mikromedia_Write_Command   (midx: 0)
+//Scroll.c,71 :: 		TFT_mikromedia_Set_Index(0x37);
+	R0 <1> <- 55   (midx: 0)
+	CALL _TFT_mikromedia_Set_Index   (midx: 0)
+//Scroll.c,72 :: 		TFT_mikromedia_Write_Command(Hi(first));
+	R2 <4> <- addr(FARG_Scroll_Undone_first)   (midx: 0)
+	R2 <4> <-  R2 + 1   (midx: 2)
+	R2 <1> <- *R2   (midx: 0)
+	R2 <1> <- R2   (midx: 0)
+	R0 <1> <- R2   (midx: 0)
+	CALL _TFT_mikromedia_Write_Command   (midx: 0)
+//Scroll.c,73 :: 		TFT_mikromedia_Write_Command(Lo(first));
+	R2 <4> <- addr(FARG_Scroll_Undone_first)   (midx: 0)
+	R2 <1> <- *R2   (midx: 0)
+	R2 <1> <- R2   (midx: 0)
+	R0 <1> <- R2   (midx: 0)
+	CALL _TFT_mikromedia_Write_Command   (midx: 0)
+//Scroll.c,75 :: 		TFT_CS = 1;
+	R3 <1> <- 1   (midx: 0)
+	R2 <4> <- addr(TFT_CS)   (midx: 0)
+	[R2] <0> <- R3   (midx: 0)
+  end
+   (midx: 0)
+_Scroll:
+  begin   (midx: 0)
+//Scroll.c,85 :: 		void Scroll(unsigned int scroll) {
+_Scroll:
+  begin   (midx: 0)
+   (midx: 0)
+	FARG_Scroll_scroll_1 <2> <- R0   (midx: 0)
+//Scroll.c,86 :: 		TFT_CS = 0;
+	R2 <1> <- 0   (midx: 0)
+	R1 <4> <- addr(TFT_CS)   (midx: 0)
+	[R1] <0> <- R2   (midx: 0)
+//Scroll.c,88 :: 		TFT_mikromedia_Set_Index(0x36);
+	R0 <1> <- 54   (midx: 0)
+	CALL _TFT_mikromedia_Set_Index   (midx: 0)
+//Scroll.c,89 :: 		TFT_mikromedia_Write_Command(0x00);
+	R0 <1> <- 0   (midx: 0)
+	CALL _TFT_mikromedia_Write_Command   (midx: 0)
+//Scroll.c,91 :: 		TFT_mikromedia_Set_Index(0x37);
+	R0 <1> <- 55   (midx: 0)
+	CALL _TFT_mikromedia_Set_Index   (midx: 0)
+//Scroll.c,92 :: 		TFT_mikromedia_Write_Command(Hi(scroll));
+	R1 <4> <- addr(FARG_Scroll_scroll)   (midx: 0)
+	R1 <4> <-  R1 + 1   (midx: 2)
+	R1 <1> <- *R1   (midx: 0)
+	R1 <1> <- R1   (midx: 0)
+	R0 <1> <- R1   (midx: 0)
+	CALL _TFT_mikromedia_Write_Command   (midx: 0)
+//Scroll.c,93 :: 		TFT_mikromedia_Write_Command(Lo(scroll));
+	R1 <4> <- addr(FARG_Scroll_scroll)   (midx: 0)
+	R1 <1> <- *R1   (midx: 0)
+	R1 <1> <- R1   (midx: 0)
+	R0 <1> <- R1   (midx: 0)
+	CALL _TFT_mikromedia_Write_Command   (midx: 0)
+//Scroll.c,95 :: 		TFT_CS = 1;
+	R2 <1> <- 1   (midx: 0)
+	R1 <4> <- addr(TFT_CS)   (midx: 0)
+	[R1] <0> <- R2   (midx: 0)
+  end
+   (midx: 0)
