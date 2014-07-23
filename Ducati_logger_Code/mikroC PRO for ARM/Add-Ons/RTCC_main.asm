@@ -1,7 +1,10 @@
 _MyBoxOnPress:
 ;RTCC_main.c,58 :: 		void MyBoxOnPress(TRoller *Roller){
+; Roller start address is: 0 (R0)
 SUB	SP, SP, #20
 STR	LR, [SP, #0]
+; Roller end address is: 0 (R0)
+; Roller start address is: 0 (R0)
 ;RTCC_main.c,62 :: 		if (Roll_Flag == 0){
 MOVW	R1, #lo_addr(_Roll_flag+0)
 MOVT	R1, #hi_addr(_Roll_flag+0)
@@ -9,6 +12,7 @@ LDRB	R1, [R1, #0]
 CMP	R1, #0
 IT	NE
 BNE	L_MyBoxOnPress0
+; Roller end address is: 0 (R0)
 ;RTCC_main.c,63 :: 		Roll_Flag = 1;
 MOVS	R2, #1
 MOVW	R1, #lo_addr(_Roll_flag+0)
@@ -32,6 +36,7 @@ BAL	L_end_MyBoxOnPress
 ;RTCC_main.c,67 :: 		}
 L_MyBoxOnPress0:
 ;RTCC_main.c,69 :: 		delta = Ycoord - OldYcoo;
+; Roller start address is: 0 (R0)
 MOVW	R1, #lo_addr(_OldYcoo+0)
 MOVT	R1, #hi_addr(_OldYcoo+0)
 LDRH	R2, [R1, #0]
@@ -74,6 +79,7 @@ L_MyBoxOnPress2:
 CMP	R3, #4
 IT	GE
 BGE	L_MyBoxOnPress3
+; Roller end address is: 0 (R0)
 ;RTCC_main.c,79 :: 		OldDelta = delta;
 MOVW	R1, #lo_addr(_OldDelta+0)
 MOVT	R1, #hi_addr(_OldDelta+0)
@@ -87,6 +93,7 @@ L_MyBoxOnPress3:
 ;RTCC_main.c,83 :: 		step = 2;
 ; delta start address is: 12 (R3)
 ; step start address is: 8 (R2)
+; Roller start address is: 0 (R0)
 MOVS	R2, #2
 ;RTCC_main.c,85 :: 		if ((delta - OldDelta) > 5)
 MOVW	R1, #lo_addr(_OldDelta+0)
@@ -159,6 +166,7 @@ L_MyBoxOnPress6:
 ; step start address is: 8 (R2)
 ASRS	R3, R3, #1
 SXTH	R3, R3
+; Roller end address is: 0 (R0)
 ; step end address is: 8 (R2)
 ; delta end address is: 12 (R3)
 STRB	R2, [SP, #4]
@@ -168,14 +176,19 @@ LDRB	R0, [SP, #4]
 L_MyBoxOnPress8:
 ; delta start address is: 12 (R3)
 ; Roller start address is: 8 (R2)
+; step start address is: 0 (R0)
+; step start address is: 0 (R0)
+; step end address is: 0 (R0)
 ; Roller start address is: 8 (R2)
 ; Roller end address is: 8 (R2)
 CMP	R3, #0
 IT	LE
 BLE	L_MyBoxOnPress9
+; step end address is: 0 (R0)
 ; Roller end address is: 8 (R2)
 ;RTCC_main.c,99 :: 		Roll_Roller(Roller, dir, step);
 ; Roller start address is: 8 (R2)
+; step start address is: 0 (R0)
 STR	R2, [SP, #4]
 STRB	R0, [SP, #8]
 STRH	R3, [SP, #10]
@@ -191,6 +204,7 @@ LDR	R2, [SP, #4]
 SUB	R3, R3, R0
 SXTH	R3, R3
 ;RTCC_main.c,101 :: 		}
+; step end address is: 0 (R0)
 ; Roller end address is: 8 (R2)
 ; delta end address is: 12 (R3)
 IT	AL
@@ -219,11 +233,14 @@ _DrawPictureLine:
 ; ycoo start address is: 12 (R3)
 ; xcoo start address is: 8 (R2)
 ; line start address is: 4 (R1)
+; Image start address is: 0 (R0)
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
 ; ycoo end address is: 12 (R3)
 ; xcoo end address is: 8 (R2)
 ; line end address is: 4 (R1)
+; Image end address is: 0 (R0)
+; Image start address is: 0 (R0)
 ; line start address is: 4 (R1)
 ; xcoo start address is: 8 (R2)
 ; ycoo start address is: 12 (R3)
@@ -241,6 +258,7 @@ UXTH	R4, R4
 STR	R4, [SP, #4]
 ;RTCC_main.c,136 :: 		ptr = Image->Picture_Name + 6 + (unsigned long)line * count;
 ADDW	R4, R0, #12
+; Image end address is: 0 (R0)
 LDR	R4, [R4, #0]
 ADDS	R6, R4, #6
 SXTH	R5, R1
@@ -272,6 +290,7 @@ BLE	L_DrawPictureLine11
 ;RTCC_main.c,139 :: 		color = (*ptr++);
 LDR	R4, [SP, #8]
 LDRB	R4, [R4, #0]
+; color start address is: 0 (R0)
 UXTB	R0, R4
 LDR	R4, [SP, #8]
 ADDS	R6, R4, #1
@@ -281,6 +300,7 @@ LSLS	R4, R4, #8
 UXTH	R4, R4
 ADDS	R5, R0, R4
 UXTH	R5, R5
+; color end address is: 0 (R0)
 ADDS	R4, R6, #1
 STR	R4, [SP, #8]
 ;RTCC_main.c,141 :: 		TFT_Write_Data_Ptr(color & *pFilter);
@@ -319,11 +339,14 @@ _Draw_Picture:
 ; ycoo start address is: 12 (R3)
 ; xcoo start address is: 8 (R2)
 ; line start address is: 4 (R1)
-SUB	SP, SP, #24
+; Image start address is: 0 (R0)
+SUB	SP, SP, #28
 STR	LR, [SP, #0]
 ; ycoo end address is: 12 (R3)
 ; xcoo end address is: 8 (R2)
 ; line end address is: 4 (R1)
+; Image end address is: 0 (R0)
+; Image start address is: 0 (R0)
 ; line start address is: 4 (R1)
 ; xcoo start address is: 8 (R2)
 ; ycoo start address is: 12 (R3)
@@ -337,6 +360,7 @@ STR	R5, [R4, #0]
 ; i start address is: 16 (R4)
 MOVS	R4, #0
 SXTB	R4, R4
+; Image end address is: 0 (R0)
 ; line end address is: 4 (R1)
 ; i end address is: 16 (R4)
 ; xcoo end address is: 8 (R2)
@@ -348,6 +372,7 @@ SXTB	R2, R4
 L_Draw_Picture12:
 ; i start address is: 8 (R2)
 ; ycoo start address is: 12 (R3)
+; xcoo start address is: 0 (R0)
 ; line start address is: 28 (R7)
 ; Image start address is: 4 (R1)
 ADDS	R4, R1, #6
@@ -366,7 +391,7 @@ MOVT	R4, #hi_addr(_table+0)
 ADDS	R4, R4, R5
 LDRH	R4, [R4, #0]
 SUB	R6, R7, R4
-STRH	R6, [SP, #22]
+STRH	R6, [SP, #24]
 ;RTCC_main.c,160 :: 		if ((temp) > (signed int)(Image->ImageHeight - 1))
 ADDW	R4, R1, #8
 LDRH	R4, [R4, #0]
@@ -379,14 +404,14 @@ BLE	L_Draw_Picture15
 ;RTCC_main.c,161 :: 		temp = temp - Image->ImageHeight - 1;
 ADDW	R4, R1, #8
 LDRH	R5, [R4, #0]
-LDRSH	R4, [SP, #22]
+LDRSH	R4, [SP, #24]
 SUB	R4, R4, R5
 UXTH	R4, R4
 SUBS	R4, R4, #1
-STRH	R4, [SP, #22]
+STRH	R4, [SP, #24]
 L_Draw_Picture15:
 ;RTCC_main.c,162 :: 		if (temp < 0)
-LDRSH	R4, [SP, #22]
+LDRSH	R4, [SP, #24]
 CMP	R4, #0
 IT	GE
 BGE	L_Draw_Picture16
@@ -395,9 +420,9 @@ ADDW	R4, R1, #8
 LDRH	R4, [R4, #0]
 SUBS	R5, R4, #1
 UXTH	R5, R5
-LDRSH	R4, [SP, #22]
+LDRSH	R4, [SP, #24]
 ADDS	R4, R5, R4
-STRH	R4, [SP, #22]
+STRH	R4, [SP, #24]
 L_Draw_Picture16:
 ;RTCC_main.c,164 :: 		DrawPictureLine(Image, temp, xcoo, ycoo);
 STR	R1, [SP, #4]
@@ -407,7 +432,7 @@ STRH	R3, [SP, #16]
 STRB	R2, [SP, #18]
 SXTH	R2, R0
 MOV	R0, R1
-LDRSH	R1, [SP, #22]
+LDRSH	R1, [SP, #24]
 BL	_DrawPictureLine+0
 LDRSB	R2, [SP, #18]
 LDRSH	R3, [SP, #16]
@@ -452,6 +477,7 @@ STR	R5, [R4, #0]
 ; i start address is: 8 (R2)
 MOVS	R2, #95
 SXTB	R2, R2
+; xcoo end address is: 0 (R0)
 ; i end address is: 8 (R2)
 ; line end address is: 28 (R7)
 ; ycoo end address is: 12 (R3)
@@ -459,6 +485,7 @@ STRB	R2, [SP, #4]
 SXTH	R2, R0
 LDRSB	R0, [SP, #4]
 L_Draw_Picture17:
+; i start address is: 0 (R0)
 ; xcoo start address is: 8 (R2)
 ; Image start address is: 4 (R1)
 ; Image end address is: 4 (R1)
@@ -480,7 +507,7 @@ MOVT	R4, #hi_addr(_table+0)
 ADDS	R4, R4, R5
 LDRH	R4, [R4, #0]
 ADDS	R6, R7, R4
-STRH	R6, [SP, #22]
+STRH	R6, [SP, #24]
 ;RTCC_main.c,172 :: 		if (temp > (signed int)(Image->ImageHeight - 1))
 ADDW	R4, R1, #8
 LDRH	R4, [R4, #0]
@@ -493,14 +520,14 @@ BLE	L_Draw_Picture20
 ;RTCC_main.c,173 :: 		temp = temp - Image->ImageHeight - 1;
 ADDW	R4, R1, #8
 LDRH	R5, [R4, #0]
-LDRSH	R4, [SP, #22]
+LDRSH	R4, [SP, #24]
 SUB	R4, R4, R5
 UXTH	R4, R4
 SUBS	R4, R4, #1
-STRH	R4, [SP, #22]
+STRH	R4, [SP, #24]
 L_Draw_Picture20:
 ;RTCC_main.c,174 :: 		if (temp < 0)
-LDRSH	R4, [SP, #22]
+LDRSH	R4, [SP, #24]
 CMP	R4, #0
 IT	GE
 BGE	L_Draw_Picture21
@@ -509,9 +536,9 @@ ADDW	R4, R1, #8
 LDRH	R4, [R4, #0]
 SUBS	R5, R4, #1
 UXTH	R5, R5
-LDRSH	R4, [SP, #22]
+LDRSH	R4, [SP, #24]
 ADDS	R4, R5, R4
-STRH	R4, [SP, #22]
+STRH	R4, [SP, #24]
 L_Draw_Picture21:
 ;RTCC_main.c,176 :: 		DrawPictureLine(Image, temp, xcoo, ycoo);
 STRH	R3, [SP, #4]
@@ -520,7 +547,7 @@ STRH	R7, [SP, #12]
 STR	R1, [SP, #16]
 STRB	R0, [SP, #20]
 MOV	R0, R1
-LDRSH	R1, [SP, #22]
+LDRSH	R1, [SP, #24]
 BL	_DrawPictureLine+0
 LDRSB	R0, [SP, #20]
 LDR	R1, [SP, #16]
@@ -549,6 +576,7 @@ SXTB	R0, R0
 ; xcoo end address is: 8 (R2)
 ; line end address is: 24 (R6)
 ; ycoo end address is: 12 (R3)
+; i end address is: 0 (R0)
 SXTH	R7, R6
 IT	AL
 BAL	L_Draw_Picture17
@@ -556,11 +584,14 @@ L_Draw_Picture18:
 ;RTCC_main.c,181 :: 		}
 L_end_Draw_Picture:
 LDR	LR, [SP, #0]
-ADD	SP, SP, #24
+ADD	SP, SP, #28
 BX	LR
 ; end of _Draw_Picture
 _Roll_Get_Level:
 ;RTCC_main.c,190 :: 		char Roll_Get_Level(TRoller *Roller){
+; Roller start address is: 0 (R0)
+; Roller end address is: 0 (R0)
+; Roller start address is: 0 (R0)
 ;RTCC_main.c,191 :: 		Roller->currentlevel = Roller->position / (Roller->ImageHeight / Roller->levels);
 ADDW	R4, R0, #16
 ADDW	R1, R0, #20
@@ -575,6 +606,7 @@ UDIV	R1, R3, R1
 STRH	R1, [R4, #0]
 ;RTCC_main.c,192 :: 		return Roller->currentlevel;
 ADDW	R1, R0, #16
+; Roller end address is: 0 (R0)
 LDRH	R1, [R1, #0]
 UXTB	R0, R1
 ;RTCC_main.c,193 :: 		}
@@ -584,7 +616,10 @@ BX	LR
 _Roll_Set_Level:
 ;RTCC_main.c,202 :: 		void Roll_Set_Level(TRoller *Roller, char level){
 ; level start address is: 4 (R1)
+; Roller start address is: 0 (R0)
 ; level end address is: 4 (R1)
+; Roller end address is: 0 (R0)
+; Roller start address is: 0 (R0)
 ; level start address is: 4 (R1)
 ;RTCC_main.c,203 :: 		Roller->currentlevel = level;
 ADDW	R2, R0, #16
@@ -597,6 +632,7 @@ MUL	R3, R2, R1
 UXTH	R3, R3
 ; level end address is: 4 (R1)
 ADDW	R2, R0, #22
+; Roller end address is: 0 (R0)
 LDRB	R2, [R2, #0]
 UDIV	R2, R3, R2
 STRH	R2, [R4, #0]
@@ -608,10 +644,13 @@ _Roll_Roller:
 ;RTCC_main.c,214 :: 		void Roll_Roller(TRoller *Roller, char dir, char step){
 ; step start address is: 8 (R2)
 ; dir start address is: 4 (R1)
+; Roller start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
 ; step end address is: 8 (R2)
 ; dir end address is: 4 (R1)
+; Roller end address is: 0 (R0)
+; Roller start address is: 0 (R0)
 ; dir start address is: 4 (R1)
 ; step start address is: 8 (R2)
 ;RTCC_main.c,217 :: 		if (dir)
@@ -682,6 +721,7 @@ SUB	R3, R4, R3
 SXTH	R2, R5
 SXTH	R1, R3
 SXTH	R3, R6
+; Roller end address is: 0 (R0)
 BL	_Draw_Picture+0
 ;RTCC_main.c,227 :: 		}
 L_end_Roll_Roller:
@@ -693,10 +733,13 @@ _Set_Roller:
 ;RTCC_main.c,236 :: 		void Set_Roller(TRoller *Roller, int pos, char step){
 ; step start address is: 8 (R2)
 ; pos start address is: 4 (R1)
+; Roller start address is: 0 (R0)
 SUB	SP, SP, #16
 STR	LR, [SP, #0]
 ; step end address is: 8 (R2)
 ; pos end address is: 4 (R1)
+; Roller end address is: 0 (R0)
+; Roller start address is: 0 (R0)
 ; pos start address is: 4 (R1)
 ; step start address is: 8 (R2)
 ;RTCC_main.c,239 :: 		temp = pos * Roller->ImageHeight / Roller->levels + Roller->ImageHeight / Roller->levels / 2;
@@ -747,6 +790,7 @@ L_Set_Roller27:
 ; temp start address is: 16 (R4)
 ; direction start address is: 4 (R1)
 STRB	R1, [SP, #4]
+; Roller end address is: 0 (R0)
 ; step end address is: 8 (R2)
 ; direction end address is: 4 (R1)
 ; temp end address is: 16 (R4)
@@ -754,6 +798,7 @@ UXTB	R1, R2
 MOV	R2, R0
 LDRB	R0, [SP, #4]
 L_Set_Roller28:
+; direction start address is: 0 (R0)
 ; temp start address is: 16 (R4)
 ; step start address is: 4 (R1)
 ; Roller start address is: 8 (R2)
@@ -786,6 +831,7 @@ L_Set_Roller29:
 UXTB	R1, R0
 ; temp end address is: 16 (R4)
 MOV	R0, R2
+; direction end address is: 0 (R0)
 UXTB	R2, R4
 ; Roller end address is: 8 (R2)
 BL	_Roll_Roller+0
@@ -797,10 +843,13 @@ BX	LR
 ; end of _Set_Roller
 _Roller_Deactivate:
 ;RTCC_main.c,261 :: 		void Roller_Deactivate(TRoller *Roller, unsigned int xpos, unsigned int ypos){
+; Roller start address is: 0 (R0)
 SUB	SP, SP, #20
 STR	LR, [SP, #0]
 STRH	R1, [SP, #12]
 STRH	R2, [SP, #16]
+; Roller end address is: 0 (R0)
+; Roller start address is: 0 (R0)
 ;RTCC_main.c,263 :: 		TFT_Set_Pen(Set_clock.Color, 0);
 MOVW	R3, #lo_addr(_Set_clock+0)
 MOVT	R3, #hi_addr(_Set_clock+0)
@@ -875,6 +924,7 @@ LDRH	R3, [R3, #0]
 CMP	R3, #0
 IT	NE
 BNE	L_Roller_Deactivate31
+; Roller end address is: 0 (R0)
 ;RTCC_main.c,271 :: 		TFT_Write_Text("AM", xpos, ypos);
 MOVW	R3, #lo_addr(?lstr1_RTCC_main+0)
 MOVT	R3, #hi_addr(?lstr1_RTCC_main+0)
@@ -886,7 +936,9 @@ IT	AL
 BAL	L_Roller_Deactivate32
 L_Roller_Deactivate31:
 ;RTCC_main.c,272 :: 		else if (Roller->currentlevel == 1)
+; Roller start address is: 0 (R0)
 ADDW	R3, R0, #16
+; Roller end address is: 0 (R0)
 LDRH	R3, [R3, #0]
 CMP	R3, #1
 IT	NE
@@ -2231,8 +2283,11 @@ BX	LR
 ; end of _Set_MyRTCC
 _UpdateTime:
 ;RTCC_main.c,625 :: 		void UpdateTime(TTime *RTCC_Time){
+; RTCC_Time start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
+; RTCC_Time end address is: 0 (R0)
+; RTCC_Time start address is: 0 (R0)
 ;RTCC_main.c,626 :: 		Label19_Caption[0] = (RTCC_Time->hours / 10) + 48;
 ADDS	R3, R0, #3
 LDRSB	R2, [R3, #0]
@@ -2292,6 +2347,7 @@ LDRSB	R1, [R0, #0]
 CMP	R1, #0
 IT	NE
 BNE	L_UpdateTime71
+; RTCC_Time end address is: 0 (R0)
 ;RTCC_main.c,633 :: 		Label19_Caption[6] = 'A';
 MOVS	R2, #65
 MOVW	R1, #lo_addr(_Label19_Caption+6)
@@ -2307,7 +2363,9 @@ IT	AL
 BAL	L_UpdateTime72
 L_UpdateTime71:
 ;RTCC_main.c,636 :: 		else if (RTCC_Time->ampm == 1){
+; RTCC_Time start address is: 0 (R0)
 LDRSB	R1, [R0, #0]
+; RTCC_Time end address is: 0 (R0)
 CMP	R1, #1
 IT	NE
 BNE	L_UpdateTime73

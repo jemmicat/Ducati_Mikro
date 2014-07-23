@@ -1,14 +1,14 @@
-#line 1 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Scroll.c"
-#line 1 "c:/program files (x86)/mikroc pro for arm/include/built_in.h"
-#line 25 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Scroll.c"
+#line 1 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Scroll.c"
+#line 1 "c:/users/jjmcdo1/documents/mikroelektronika/mikroc pro for arm/include/built_in.h"
+#line 25 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Scroll.c"
 extern sbit sfr TFT_CS;
 
 const _DISPLAY_HEIGHT = 272;
-#line 32 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Scroll.c"
+#line 32 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Scroll.c"
 void TFT_Write_to_16bitPort(unsigned int _data);
 void TFT_mikromedia_Write_Command(unsigned short cmd);
 void TFT_mikromedia_Set_Index(unsigned short index);
-#line 43 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Scroll.c"
+#line 43 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Scroll.c"
 void Scroll_Init_Scroll_area(unsigned int first, unsigned int last){
 unsigned int temp;
  TFT_CS = 0;
@@ -23,7 +23,7 @@ unsigned int temp;
  TFT_mikromedia_Write_Command( ((char *)&temp)[0] );
  TFT_CS = 1;
 }
-#line 65 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Scroll.c"
+#line 65 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Scroll.c"
 void Scroll_Undone(unsigned int first, unsigned int last){
  Scroll_Init_Scroll_area(first, last);
  TFT_CS = 0;
@@ -36,7 +36,7 @@ void Scroll_Undone(unsigned int first, unsigned int last){
 
  TFT_CS = 1;
 }
-#line 85 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Scroll.c"
+#line 85 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Scroll.c"
 void Scroll(unsigned int scroll) {
  TFT_CS = 0;
 

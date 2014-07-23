@@ -1,5 +1,5 @@
-#line 1 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
-#line 1 "c:/users/jemmi/desktop/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
+#line 1 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
+#line 1 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
 
 typedef struct Screen TScreen;
@@ -650,7 +650,7 @@ void DrawCBox(TCBox *ACbox);
 void DrawLine(TLine *Aline);
 void Check_TP();
 void Start_TP();
-#line 11 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
+#line 11 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
 sbit USB_VBUS at GPIOA_IDR.B9;
 sbit DC_VBUS at GPIOF_IDR.B3;
 sbit BAT_STAT at GPIOF_IDR.B4;
@@ -669,7 +669,7 @@ struct { Batt_Status Battery_state;
  float f_Voltage;
  unsigned ui_Voltage;
  } Power_State, Power_State_Old;
-#line 37 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
+#line 37 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
 void Power_Man_Init() {
  GPIO_Analog_Input(&GPIOF_BASE, _GPIO_PINMASK_6);
  ADC3_Init();
@@ -683,7 +683,7 @@ void Power_Man_Init() {
  Power_State_Old.Source = -1;
  Power_State_Old.ui_Voltage = -1;
 }
-#line 58 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
+#line 58 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
 static unsigned int ui_ReadBatteryVoltage() {
  unsigned int ui_voltage;
  char cntr;
@@ -694,14 +694,14 @@ static unsigned int ui_ReadBatteryVoltage() {
  }
  return ui_voltage >> 3;
 }
-#line 76 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
+#line 76 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
 static float f_ReadBatteryVoltage() {
  int ui_voltage;
 
  ui_voltage = ui_ReadBatteryVoltage();
  return (float)ui_voltage*0.0015;
 }
-#line 90 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
+#line 90 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
 static void GetPowerStatus() {
  Power_State.f_Voltage = f_ReadBatteryVoltage();
  Power_State.ui_Voltage = (unsigned int)(Power_State.f_Voltage*100);
@@ -732,7 +732,7 @@ static void GetPowerStatus() {
 }
 
 char Display_Bat_Stat = 1;
-#line 127 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
+#line 127 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
 void checkPowerM(){
  int Bar_Width;
 

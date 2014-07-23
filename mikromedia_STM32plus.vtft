@@ -1,5 +1,5 @@
 object TatDiagram
-  LastSelControl = frmDisplay.Label34
+  LastSelControl = 'Label34'
   NettoExportOffset = 1
   AutomaticNodes = False
   AutoScroll = True
@@ -6227,7 +6227,7 @@ object TatDiagram
   end
 end
 object TatDiagram
-  LastSelControl = frmDisplay.Box23
+  LastSelControl = 'Box23'
   NettoExportOffset = 1
   AutomaticNodes = False
   AutoScroll = True
@@ -6933,7 +6933,7 @@ object TatDiagram
   end
 end
 object TatDiagram
-  LastSelControl = frmDisplay.Label9
+  LastSelControl = 'Label9'
   NettoExportOffset = 1
   AutomaticNodes = False
   AutoScroll = True
@@ -7799,7 +7799,7 @@ object TatDiagram
   end
 end
 object TatDiagram
-  LastSelControl = frmDisplay.Box14
+  LastSelControl = 'Box14'
   NettoExportOffset = 1
   AutomaticNodes = False
   AutoScroll = True
@@ -13324,7 +13324,7 @@ object TatDiagram
   end
 end
 object TatDiagram
-  LastSelControl = frmDisplay.Box21
+  LastSelControl = 'Box21'
   NettoExportOffset = 1
   AutomaticNodes = False
   AutoScroll = True
@@ -14873,7 +14873,7 @@ object TatDiagram
   end
 end
 object TatDiagram
-  LastSelControl = frmDisplay.mp3_back_icon
+  LastSelControl = 'mp3_back_icon'
   NettoExportOffset = 1
   AutomaticNodes = False
   AutoScroll = True
@@ -15898,7 +15898,7 @@ object TatDiagram
   end
 end
 object TatDiagram
-  LastSelControl = frmDisplay.mp3_back_icon2
+  LastSelControl = 'mp3_back_icon2'
   NettoExportOffset = 1
   AutomaticNodes = False
   AutoScroll = True
@@ -16630,7 +16630,7 @@ object TatDiagram
   end
 end
 object TatDiagram
-  LastSelControl = frmDisplay.songlist_icon
+  LastSelControl = 'songlist_icon'
   NettoExportOffset = 1
   AutomaticNodes = False
   AutoScroll = True
@@ -18078,7 +18078,7 @@ object TatDiagram
   end
 end
 object TatDiagram
-  LastSelControl = frmDisplay.Box18
+  LastSelControl = 'Box18'
   NettoExportOffset = 1
   AutomaticNodes = False
   AutoScroll = True
@@ -22413,7 +22413,7 @@ object TatDiagram
   end
 end
 object TatDiagram
-  LastSelControl = frmDisplay.Label35
+  LastSelControl = 'Label35'
   NettoExportOffset = 1
   AutomaticNodes = False
   AutoScroll = True
@@ -23478,7 +23478,7 @@ object TatDiagram
   end
 end
 object TatDiagram
-  LastSelControl = frmDisplay.Label38
+  LastSelControl = 'Label38'
   NettoExportOffset = 1
   AutomaticNodes = False
   AutoScroll = True
@@ -26220,7 +26220,7 @@ SCREEN_SECTION_END
 
 PROJECT_INFO_START
 
-VERSION       = 4
+VERSION       = 5
 BOARD         = Mikromedia_Plus_for_STM32_ARM
 COMPILER      = mikroC PRO for ARM
 CONTROLLER    = SSD1963
@@ -26292,6 +26292,49 @@ char _cnt;
   STMPE610_SetDefaultMode();
 }
 INIT_MCU_CODE_END
+
+CUSTOM_TFT_ROUTINES = True
+AUXILIARY_CODE_START
+void Write_to_Data_Lines(unsigned char _hi, unsigned char _lo) {
+  unsigned int temp;
+  temp = GPIOE_ODR;
+  temp &= 0x00FF;
+  GPIOE_ODR = temp | (_hi << 8);
+  temp = GPIOG_ODR;
+  temp &= 0xFF00;
+  GPIOG_ODR = temp | _lo;
+}
+AUXILIARY_CODE_END
+
+SET_INDEX_CODE_START
+void Set_Index(unsigned short index) {
+  TFT_RS = 0;
+  Write_to_Data_Lines(0, index);
+  TFT_WR = 0;
+  asm nop;
+  TFT_WR = 1;
+}
+SET_INDEX_CODE_END
+
+WRITE_COMMAND_CODE_START
+void Write_Command(unsigned short cmd) {
+  TFT_RS = 1;
+  Write_to_Data_Lines(0, cmd);
+  TFT_WR = 0;
+  asm nop;
+  TFT_WR = 1;
+}
+WRITE_COMMAND_CODE_END
+
+WRITE_DATA_CODE_START
+void Write_Data(unsigned int _data) {
+  TFT_RS = 1;
+  Write_to_Data_Lines(Hi(_data), Lo(_data));
+  TFT_WR = 0;
+  asm nop;
+  TFT_WR = 1;
+}
+WRITE_DATA_CODE_END
 
 EXT_MEM_TYPE=MMC
 EXT_MEM_DECL_CODE_START

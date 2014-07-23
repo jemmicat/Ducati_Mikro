@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 //#include "includes.h"
+#include "stdbool.h"
 
 #define _GPS_VERSION 12 // software version of this library
 #define _GPS_MPH_PER_KNOT 1.15077945
@@ -50,9 +51,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 static const float GPS_INVALID_F_ANGLE, GPS_INVALID_F_ALTITUDE, GPS_INVALID_F_SPEED;
 
 typedef unsigned char byte;
-typedef unsigned int bool;
- #define true 1;
- #define false 0;
+//typedef unsigned int bool;
+ //#define true 1;
+// #define false 0;
 
 
 

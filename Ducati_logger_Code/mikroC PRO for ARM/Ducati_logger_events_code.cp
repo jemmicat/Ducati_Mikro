@@ -1,5 +1,5 @@
-#line 1 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_events_code.c"
-#line 1 "c:/users/jemmi/desktop/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
+#line 1 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_events_code.c"
+#line 1 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
 
 typedef struct Screen TScreen;
@@ -650,8 +650,8 @@ void DrawCBox(TCBox *ACbox);
 void DrawLine(TLine *Aline);
 void Check_TP();
 void Start_TP();
-#line 1 "c:/users/jemmi/desktop/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_resources.h"
-#line 5 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_events_code.c"
+#line 1 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_resources.h"
+#line 5 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_events_code.c"
 void Calibrate();
 void doRTC_Example();
 void RTC_Example_init();
@@ -747,7 +747,7 @@ void Run_Logger(){
  }; break;
  }
 }
-#line 141 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_events_code.c"
+#line 141 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_events_code.c"
 void doSetClock() {
  BLED_Fade_Out();
  DrawScreen(&Set_clock);

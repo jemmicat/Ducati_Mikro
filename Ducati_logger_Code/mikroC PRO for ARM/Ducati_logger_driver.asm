@@ -1,7 +1,10 @@
 _Write_to_Data_Lines:
 ;Ducati_logger_driver.c,61 :: 		void Write_to_Data_Lines(unsigned char _hi, unsigned char _lo) {
 ; _lo start address is: 4 (R1)
+; _hi start address is: 0 (R0)
 ; _lo end address is: 4 (R1)
+; _hi end address is: 0 (R0)
+; _hi start address is: 0 (R0)
 ; _lo start address is: 4 (R1)
 ;Ducati_logger_driver.c,63 :: 		temp = GPIOE_ODR;
 MOVW	R2, #lo_addr(GPIOE_ODR+0)
@@ -15,6 +18,7 @@ UXTH	R3, R3
 ;Ducati_logger_driver.c,65 :: 		GPIOE_ODR = temp | (_hi << 8);
 LSLS	R2, R0, #8
 UXTH	R2, R2
+; _hi end address is: 0 (R0)
 ORRS	R3, R2
 UXTH	R3, R3
 MOVW	R2, #lo_addr(GPIOE_ODR+0)
@@ -23,10 +27,12 @@ STR	R3, [R2, #0]
 ;Ducati_logger_driver.c,66 :: 		temp = GPIOG_ODR;
 MOVW	R2, #lo_addr(GPIOG_ODR+0)
 MOVT	R2, #hi_addr(GPIOG_ODR+0)
+; temp start address is: 0 (R0)
 LDR	R0, [R2, #0]
 ;Ducati_logger_driver.c,67 :: 		temp &= 0xFF00;
 AND	R2, R0, #65280
 UXTH	R2, R2
+; temp end address is: 0 (R0)
 ;Ducati_logger_driver.c,68 :: 		GPIOG_ODR = temp | _lo;
 ORR	R3, R2, R1, LSL #0
 UXTH	R3, R3
@@ -40,8 +46,11 @@ BX	LR
 ; end of _Write_to_Data_Lines
 _TFT_mikromedia_Set_Index:
 ;Ducati_logger_driver.c,71 :: 		void TFT_mikromedia_Set_Index(unsigned short index) {
+; index start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
+; index end address is: 0 (R0)
+; index start address is: 0 (R0)
 ;Ducati_logger_driver.c,72 :: 		TFT_RS = 0;
 MOVS	R2, #0
 SXTB	R2, R2
@@ -50,6 +59,7 @@ MOVT	R1, #hi_addr(GPIOF_ODR+0)
 STR	R2, [R1, #0]
 ;Ducati_logger_driver.c,73 :: 		Write_to_Data_Lines(0, index);
 UXTB	R1, R0
+; index end address is: 0 (R0)
 MOVS	R0, #0
 BL	_Write_to_Data_Lines+0
 ;Ducati_logger_driver.c,74 :: 		TFT_WR = 0;
@@ -74,8 +84,11 @@ BX	LR
 ; end of _TFT_mikromedia_Set_Index
 _TFT_mikromedia_Write_Command:
 ;Ducati_logger_driver.c,79 :: 		void TFT_mikromedia_Write_Command(unsigned short cmd) {
+; cmd start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
+; cmd end address is: 0 (R0)
+; cmd start address is: 0 (R0)
 ;Ducati_logger_driver.c,80 :: 		TFT_RS = 1;
 MOVS	R2, #1
 SXTB	R2, R2
@@ -84,6 +97,7 @@ MOVT	R1, #hi_addr(GPIOF_ODR+0)
 STR	R2, [R1, #0]
 ;Ducati_logger_driver.c,81 :: 		Write_to_Data_Lines(0, cmd);
 UXTB	R1, R0
+; cmd end address is: 0 (R0)
 MOVS	R0, #0
 BL	_Write_to_Data_Lines+0
 ;Ducati_logger_driver.c,82 :: 		TFT_WR = 0;
@@ -148,11 +162,13 @@ BX	LR
 ; end of _TFT_Write_to_16bitPort
 _TFT_Get_Data:
 ;Ducati_logger_driver.c,95 :: 		char* TFT_Get_Data(unsigned long offset, unsigned long count, unsigned long *num) {
+; offset start address is: 0 (R0)
 SUB	SP, SP, #20
 STR	LR, [SP, #0]
 STR	R2, [SP, #16]
 MOV	R2, R0
 STR	R1, [SP, #12]
+; offset end address is: 0 (R0)
 ; offset start address is: 8 (R2)
 ;Ducati_logger_driver.c,99 :: 		start_sector = Mmc_Get_File_Write_Sector() + offset/512;
 BL	_Mmc_Get_File_Write_Sector+0
@@ -14813,9 +14829,12 @@ Ducati_logger_driver_IsInsideObject:
 ; Top start address is: 12 (R3)
 ; Left start address is: 8 (R2)
 ; Y start address is: 4 (R1)
+; X start address is: 0 (R0)
 ; Top end address is: 12 (R3)
 ; Left end address is: 8 (R2)
 ; Y end address is: 4 (R1)
+; X end address is: 0 (R0)
+; X start address is: 0 (R0)
 ; Y start address is: 4 (R1)
 ; Left start address is: 8 (R2)
 ; Top start address is: 12 (R3)
@@ -14836,6 +14855,7 @@ UXTH	R4, R4
 CMP	R4, R0
 IT	CC
 BCC	L_Ducati_logger_driver_IsInsideObject264
+; X end address is: 0 (R0)
 ;Ducati_logger_driver.c,3794 :: 		(Top <= Y)  && (Top + Height - 1 >= Y) )
 CMP	R3, R1
 IT	HI
@@ -14869,8 +14889,11 @@ BX	LR
 ; end of Ducati_logger_driver_IsInsideObject
 _DrawRoundButton:
 ;Ducati_logger_driver.c,3812 :: 		void DrawRoundButton(TButton_Round *Around_button) {
+; Around_button start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
+; Around_button end address is: 0 (R0)
+; Around_button start address is: 0 (R0)
 ;Ducati_logger_driver.c,3813 :: 		if (Around_button->Visible == 1) {
 ADDW	R1, R0, #18
 LDRB	R1, [R1, #0]
@@ -15053,6 +15076,7 @@ ADDS	R1, R0, #6
 LDRH	R1, [R1, #0]
 ADDS	R2, R1, #4
 ADDW	R1, R0, #24
+; Around_button end address is: 0 (R0)
 LDR	R1, [R1, #0]
 MOV	R0, R1
 UXTH	R1, R2
@@ -15062,6 +15086,7 @@ IT	AL
 BAL	L_DrawRoundButton22
 L_DrawRoundButton21:
 ;Ducati_logger_driver.c,3831 :: 		else if (Around_button->TextAlign == _taCenter)
+; Around_button start address is: 0 (R0)
 ADDW	R1, R0, #28
 LDRB	R1, [R1, #0]
 CMP	R1, #1
@@ -15093,6 +15118,7 @@ LSRS	R1, R1, #1
 UXTH	R1, R1
 ADDS	R2, R3, R1
 ADDW	R1, R0, #24
+; Around_button end address is: 0 (R0)
 LDR	R1, [R1, #0]
 MOV	R0, R1
 UXTH	R1, R2
@@ -15102,6 +15128,7 @@ IT	AL
 BAL	L_DrawRoundButton24
 L_DrawRoundButton23:
 ;Ducati_logger_driver.c,3833 :: 		else if (Around_button->TextAlign == _taRight)
+; Around_button start address is: 0 (R0)
 ADDW	R1, R0, #28
 LDRB	R1, [R1, #0]
 CMP	R1, #2
@@ -15133,6 +15160,7 @@ SUBS	R1, R1, #4
 UXTH	R1, R1
 ADDS	R2, R3, R1
 ADDW	R1, R0, #24
+; Around_button end address is: 0 (R0)
 LDR	R1, [R1, #0]
 MOV	R0, R1
 UXTH	R1, R2
@@ -15151,8 +15179,11 @@ BX	LR
 ; end of _DrawRoundButton
 _DrawLabel:
 ;Ducati_logger_driver.c,3838 :: 		void DrawLabel(TLabel *ALabel) {
+; ALabel start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
+; ALabel end address is: 0 (R0)
+; ALabel start address is: 0 (R0)
 ;Ducati_logger_driver.c,3839 :: 		if (ALabel->Visible == 1) {
 ADDW	R1, R0, #26
 LDRB	R1, [R1, #0]
@@ -15179,6 +15210,7 @@ ADDS	R1, R0, #6
 LDRH	R1, [R1, #0]
 UXTH	R2, R1
 ADDW	R1, R0, #16
+; ALabel end address is: 0 (R0)
 LDR	R1, [R1, #0]
 MOV	R0, R1
 UXTH	R1, R2
@@ -15194,8 +15226,11 @@ BX	LR
 ; end of _DrawLabel
 _DrawImage:
 ;Ducati_logger_driver.c,3845 :: 		void DrawImage(TImage *AImage) {
+; AImage start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
+; AImage end address is: 0 (R0)
+; AImage start address is: 0 (R0)
 ;Ducati_logger_driver.c,3846 :: 		if (AImage->Visible) {
 ADDW	R1, R0, #20
 LDRB	R1, [R1, #0]
@@ -15213,6 +15248,7 @@ ADDW	R1, R0, #8
 LDRH	R1, [R1, #0]
 UXTH	R2, R1
 ADDS	R1, R0, #6
+; AImage end address is: 0 (R0)
 LDRH	R1, [R1, #0]
 UXTH	R0, R1
 UXTH	R1, R2
@@ -15229,8 +15265,11 @@ BX	LR
 ; end of _DrawImage
 _DrawCImage:
 ;Ducati_logger_driver.c,3851 :: 		void DrawCImage(TCImage *AImage) {
+; AImage start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
+; AImage end address is: 0 (R0)
+; AImage start address is: 0 (R0)
 ;Ducati_logger_driver.c,3852 :: 		if (AImage->Visible) {
 ADDW	R1, R0, #20
 LDRB	R1, [R1, #0]
@@ -15248,6 +15287,7 @@ ADDW	R1, R0, #8
 LDRH	R1, [R1, #0]
 UXTH	R2, R1
 ADDS	R1, R0, #6
+; AImage end address is: 0 (R0)
 LDRH	R1, [R1, #0]
 UXTH	R0, R1
 UXTH	R1, R2
@@ -15264,8 +15304,11 @@ BX	LR
 ; end of _DrawCImage
 _DrawCircle:
 ;Ducati_logger_driver.c,3857 :: 		void DrawCircle(TCircle *ACircle) {
+; ACircle start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
+; ACircle end address is: 0 (R0)
+; ACircle start address is: 0 (R0)
 ;Ducati_logger_driver.c,3858 :: 		if (ACircle->Visible == 1) {
 ADDW	R1, R0, #16
 LDRB	R1, [R1, #0]
@@ -15373,6 +15416,7 @@ LDRH	R1, [R1, #0]
 ADDS	R2, R1, R4
 ;Ducati_logger_driver.c,3869 :: 		TFT_Circle(ACircle->Left + ACircle->Radius,
 ADDS	R1, R0, #6
+; ACircle end address is: 0 (R0)
 LDRH	R1, [R1, #0]
 ADDS	R1, R1, R4
 SXTH	R0, R1
@@ -15391,8 +15435,11 @@ BX	LR
 ; end of _DrawCircle
 _DrawCircleButton:
 ;Ducati_logger_driver.c,3875 :: 		void DrawCircleButton(TCircleButton *ACircle_button) {
+; ACircle_button start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
+; ACircle_button end address is: 0 (R0)
+; ACircle_button start address is: 0 (R0)
 ;Ducati_logger_driver.c,3876 :: 		if (ACircle_button->Visible == 1) {
 ADDW	R1, R0, #16
 LDRB	R1, [R1, #0]
@@ -15562,6 +15609,7 @@ ADDS	R1, R0, #6
 LDRH	R1, [R1, #0]
 ADDS	R2, R1, #4
 ADDW	R1, R0, #20
+; ACircle_button end address is: 0 (R0)
 LDR	R1, [R1, #0]
 MOV	R0, R1
 UXTH	R1, R2
@@ -15571,6 +15619,7 @@ IT	AL
 BAL	L_DrawCircleButton36
 L_DrawCircleButton35:
 ;Ducati_logger_driver.c,3894 :: 		else if (ACircle_button->TextAlign == _taCenter)
+; ACircle_button start address is: 0 (R0)
 ADDW	R1, R0, #24
 LDRB	R1, [R1, #0]
 CMP	R1, #1
@@ -15602,6 +15651,7 @@ LSRS	R1, R1, #1
 UXTH	R1, R1
 ADDS	R2, R3, R1
 ADDW	R1, R0, #20
+; ACircle_button end address is: 0 (R0)
 LDR	R1, [R1, #0]
 MOV	R0, R1
 UXTH	R1, R2
@@ -15611,6 +15661,7 @@ IT	AL
 BAL	L_DrawCircleButton38
 L_DrawCircleButton37:
 ;Ducati_logger_driver.c,3896 :: 		else if (ACircle_button->TextAlign == _taRight)
+; ACircle_button start address is: 0 (R0)
 ADDW	R1, R0, #24
 LDRB	R1, [R1, #0]
 CMP	R1, #2
@@ -15642,6 +15693,7 @@ SUBS	R1, R1, #4
 UXTH	R1, R1
 ADDS	R2, R3, R1
 ADDW	R1, R0, #20
+; ACircle_button end address is: 0 (R0)
 LDR	R1, [R1, #0]
 MOV	R0, R1
 UXTH	R1, R2
@@ -15660,8 +15712,11 @@ BX	LR
 ; end of _DrawCircleButton
 _DrawBox:
 ;Ducati_logger_driver.c,3901 :: 		void DrawBox(TBox *ABox) {
+; ABox start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
+; ABox end address is: 0 (R0)
+; ABox start address is: 0 (R0)
 ;Ducati_logger_driver.c,3902 :: 		if (ABox->Visible == 1) {
 ADDW	R1, R0, #18
 LDRB	R1, [R1, #0]
@@ -15764,6 +15819,7 @@ SUBS	R5, R1, #1
 ADDS	R1, R0, #6
 LDRH	R4, [R1, #0]
 ADDW	R1, R0, #10
+; ABox end address is: 0 (R0)
 LDRH	R1, [R1, #0]
 ADDS	R1, R4, R1
 UXTH	R1, R1
@@ -15785,8 +15841,11 @@ BX	LR
 ; end of _DrawBox
 _DrawCBox:
 ;Ducati_logger_driver.c,3915 :: 		void DrawCBox(TCBox *ABox) {
+; ABox start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
+; ABox end address is: 0 (R0)
+; ABox start address is: 0 (R0)
 ;Ducati_logger_driver.c,3916 :: 		if (ABox->Visible == 1) {
 ADDW	R1, R0, #18
 LDRB	R1, [R1, #0]
@@ -15889,6 +15948,7 @@ SUBS	R5, R1, #1
 ADDS	R1, R0, #6
 LDRH	R4, [R1, #0]
 ADDW	R1, R0, #10
+; ABox end address is: 0 (R0)
 LDRH	R1, [R1, #0]
 ADDS	R1, R4, R1
 UXTH	R1, R1
@@ -15910,9 +15970,11 @@ BX	LR
 ; end of _DrawCBox
 _DrawLine:
 ;Ducati_logger_driver.c,3929 :: 		void DrawLine(TLine *Aline) {
+; Aline start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
 MOV	R5, R0
+; Aline end address is: 0 (R0)
 ; Aline start address is: 20 (R5)
 ;Ducati_logger_driver.c,3930 :: 		if (Aline->Visible == 1) {
 ADDW	R1, R5, #15
@@ -15958,8 +16020,11 @@ BX	LR
 ; end of _DrawLine
 _DrawScreen:
 ;Ducati_logger_driver.c,3936 :: 		void DrawScreen(TScreen *aScreen) {
+; aScreen start address is: 0 (R0)
 SUB	SP, SP, #120
 STR	LR, [SP, #0]
+; aScreen end address is: 0 (R0)
+; aScreen start address is: 0 (R0)
 ;Ducati_logger_driver.c,3958 :: 		object_pressed = 0;
 MOVS	R2, #0
 MOVW	R1, #lo_addr(_object_pressed+0)
@@ -16001,6 +16066,7 @@ MOVT	R1, #hi_addr(_CurrentScreen+0)
 STR	R0, [R1, #0]
 ;Ducati_logger_driver.c,3971 :: 		if ((display_width != CurrentScreen->Width) || (display_height != CurrentScreen->Height)) {
 ADDS	R1, R0, #2
+; aScreen end address is: 0 (R0)
 LDRH	R2, [R1, #0]
 MOVW	R1, #lo_addr(_display_width+0)
 MOVT	R1, #hi_addr(_display_width+0)
@@ -16512,9 +16578,12 @@ BX	LR
 _Get_Object:
 ;Ducati_logger_driver.c,4071 :: 		void Get_Object(unsigned int X, unsigned int Y) {
 ; Y start address is: 4 (R1)
+; X start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
 ; Y end address is: 4 (R1)
+; X end address is: 0 (R0)
+; X start address is: 0 (R0)
 ; Y start address is: 4 (R1)
 ;Ducati_logger_driver.c,4072 :: 		round_button_order  = -1;
 MOVW	R3, #65535
@@ -16570,6 +16639,7 @@ SXTH	R3, R3
 MOVW	R2, #lo_addr(__object_count+0)
 MOVT	R2, #hi_addr(__object_count+0)
 STRH	R3, [R2, #0]
+; X end address is: 0 (R0)
 ; Y end address is: 4 (R1)
 UXTH	R8, R0
 UXTH	R7, R1
@@ -17570,9 +17640,12 @@ BX	LR
 Ducati_logger_driver_Process_TP_Press:
 ;Ducati_logger_driver.c,4196 :: 		static void Process_TP_Press(unsigned int X, unsigned int Y) {
 ; Y start address is: 4 (R1)
+; X start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
 ; Y end address is: 4 (R1)
+; X end address is: 0 (R0)
+; X start address is: 0 (R0)
 ; Y start address is: 4 (R1)
 ;Ducati_logger_driver.c,4197 :: 		exec_round_button   = 0;
 MOVS	R3, #0
@@ -17616,6 +17689,7 @@ MOVT	R2, #hi_addr(_exec_cbox+0)
 STR	R3, [R2, #0]
 ;Ducati_logger_driver.c,4206 :: 		Get_Object(X, Y);
 ; Y end address is: 4 (R1)
+; X end address is: 0 (R0)
 BL	_Get_Object+0
 ;Ducati_logger_driver.c,4208 :: 		if (_object_count != -1) {
 MOVW	R2, #lo_addr(__object_count+0)
@@ -17987,9 +18061,12 @@ BX	LR
 Ducati_logger_driver_Process_TP_Up:
 ;Ducati_logger_driver.c,4284 :: 		static void Process_TP_Up(unsigned int X, unsigned int Y) {
 ; Y start address is: 4 (R1)
+; X start address is: 0 (R0)
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
 ; Y end address is: 4 (R1)
+; X end address is: 0 (R0)
+; X start address is: 0 (R0)
 ; Y start address is: 4 (R1)
 ;Ducati_logger_driver.c,4286 :: 		switch (PressedObjectType) {
 IT	AL
@@ -18307,9 +18384,11 @@ CMP	R2, #14
 IT	EQ
 BEQ	L_Ducati_logger_driver_Process_TP_Up166
 ; Y end address is: 4 (R1)
+; X end address is: 0 (R0)
 L_Ducati_logger_driver_Process_TP_Up145:
 ;Ducati_logger_driver.c,4344 :: 		exec_label          = 0;
 ; Y start address is: 4 (R1)
+; X start address is: 0 (R0)
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_exec_label+0)
 MOVT	R2, #hi_addr(_exec_label+0)
@@ -18326,6 +18405,7 @@ MOVT	R2, #hi_addr(_exec_cimage+0)
 STR	R3, [R2, #0]
 ;Ducati_logger_driver.c,4348 :: 		Get_Object(X, Y);
 ; Y end address is: 4 (R1)
+; X end address is: 0 (R0)
 BL	_Get_Object+0
 ;Ducati_logger_driver.c,4351 :: 		if (_object_count != -1) {
 MOVW	R2, #lo_addr(__object_count+0)
@@ -19012,9 +19092,12 @@ BX	LR
 Ducati_logger_driver_Process_TP_Down:
 ;Ducati_logger_driver.c,4469 :: 		static void Process_TP_Down(unsigned int X, unsigned int Y) {
 ; Y start address is: 4 (R1)
+; X start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
 ; Y end address is: 4 (R1)
+; X end address is: 0 (R0)
+; X start address is: 0 (R0)
 ; Y start address is: 4 (R1)
 ;Ducati_logger_driver.c,4471 :: 		object_pressed      = 0;
 MOVS	R3, #0
@@ -19063,6 +19146,7 @@ MOVT	R2, #hi_addr(_exec_cbox+0)
 STR	R3, [R2, #0]
 ;Ducati_logger_driver.c,4481 :: 		Get_Object(X, Y);
 ; Y end address is: 4 (R1)
+; X end address is: 0 (R0)
 BL	_Get_Object+0
 ;Ducati_logger_driver.c,4483 :: 		if (_object_count != -1) {
 MOVW	R2, #lo_addr(__object_count+0)

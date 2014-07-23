@@ -19,7 +19,7 @@
 */
 
 #include "TinyGPS.h"
-#include <math.h>
+//#include <math.h>
 #define _GPRMC_TERM   "GPRMC"
 #define _GPGGA_TERM   "GPGGA"
 

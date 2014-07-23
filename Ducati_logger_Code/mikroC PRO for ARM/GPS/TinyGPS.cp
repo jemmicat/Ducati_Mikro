@@ -1,6 +1,11 @@
-#line 1 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/GPS/TinyGPS.c"
-#line 1 "c:/users/jemmi/desktop/ducati_mikro/ducati_logger_code/mikroc pro for arm/gps/tinygps.h"
-#line 50 "c:/users/jemmi/desktop/ducati_mikro/ducati_logger_code/mikroc pro for arm/gps/tinygps.h"
+#line 1 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/GPS/TinyGPS.c"
+#line 1 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/gps/tinygps.h"
+#line 1 "c:/users/jjmcdo1/documents/mikroelektronika/mikroc pro for arm/include/stdbool.h"
+
+
+
+ typedef char _Bool;
+#line 51 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/gps/tinygps.h"
 static const float GPS_INVALID_F_ANGLE, GPS_INVALID_F_ALTITUDE, GPS_INVALID_F_SPEED;
 
 typedef unsigned char byte;
@@ -29,12 +34,12 @@ unsigned long _last_position_fix, _new_position_fix;
 
 
 byte _parity;
-
+ _Bool  _is_checksum_term;
 char _term[15];
 byte _sentence_type;
 byte _term_number;
 byte _term_offset;
-
+ _Bool  _gps_data_good;
 
 
 
@@ -48,7 +53,7 @@ unsigned short _passed_checksum;
 
 void TinyGPS_init(TinyGPS* gps);
 
-
+ _Bool  encode(TinyGPS* gps, char c);
 
 
 long altitude(TinyGPS* gps);
@@ -70,9 +75,9 @@ int from_hex(char a);
 unsigned long parse_decimal(TinyGPS* gps);
 
 unsigned long parse_degrees(TinyGPS* gps);
+ _Bool  term_complete(TinyGPS* gps);
 
-
-
+ _Bool  gpsisdigit(char c);
 long gpsatol(const char *str);
 int gpsstrcmp(const char *str1, const char *str2);
 
@@ -108,40 +113,18 @@ static const char *cardinal(float course);
 
 
  void stats(TinyGPS* gps, unsigned long *chars, unsigned short *good_sentences, unsigned short *failed_cs);
-#line 1 "c:/program files (x86)/mikroc pro for arm/include/math.h"
-
-
-
-
-
-double fabs(double d);
-double floor(double x);
-double ceil(double x);
-double frexp(double value, int * eptr);
-double ldexp(double value, int newexp);
-double modf(double val, double * iptr);
-double sqrt(double x);
-double atan(double f);
-double asin(double x);
-double acos(double x);
-double atan2(double y,double x);
-double sin(double f);
-double cos(double f);
-double tan(double x);
-double exp(double x);
-double log(double x);
-double log10(double x);
-double pow(double x, double y);
-double sinh(double x);
-double cosh(double x);
-double tanh(double x);
-#line 26 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/GPS/TinyGPS.c"
+#line 26 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/GPS/TinyGPS.c"
 unsigned long PI = 3.14159265358979323846264338327950288419716939937510;
 unsigned long millis()
 {
  return 0;
 }
-#line 37 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/GPS/TinyGPS.c"
+ _Bool  gpsisdigit(char c)
+ {
+ return c >= '0' && c <= '9';
+ }
+
+
 unsigned short satellites(TinyGPS* gps)
  {
  return gps->_numsats;
@@ -189,11 +172,11 @@ unsigned long speed(TinyGPS* gps)
 
 
  gps->_parity = 0;
- gps->_is_checksum_term = false;
+ gps->_is_checksum_term =  0 ;
  gps->_sentence_type =  3 ;
  gps->_term_number = 0;
  gps->_term_offset = 0;
- gps->_gps_data_good = false;
+ gps->_gps_data_good =  0 ;
 
  gps->_encoded_characters = 0;
  gps->_good_sentences = 0;
@@ -207,9 +190,9 @@ unsigned long speed(TinyGPS* gps)
 
 
 
-bool encode(TinyGPS* gps, char c)
+ _Bool  encode(TinyGPS* gps, char c)
 {
- bool valid_sentence = false;
+  _Bool  valid_sentence =  0 ;
 
  ++gps->_encoded_characters;
  switch(c)
@@ -233,8 +216,8 @@ bool encode(TinyGPS* gps, char c)
  gps->_term_number = gps->_term_offset = 0;
  gps->_parity = 0;
  gps->_sentence_type =  3 ;
- gps->_is_checksum_term = false;
- gps->_gps_data_good = false;
+ gps->_is_checksum_term =  0 ;
+ gps->_gps_data_good =  0 ;
  return valid_sentence;
  }
 
@@ -275,7 +258,7 @@ unsigned long parse_decimal(TinyGPS* gps)
 {
  unsigned long ret;
  char *p = gps->_term;
- bool isneg = *p == '-';
+  _Bool  isneg = *p == '-';
  if (isneg)
  {
  ++p;
@@ -316,7 +299,7 @@ unsigned long parse_degrees(TinyGPS* gps)
 
 
 
-bool term_complete(TinyGPS* gps)
+ _Bool  term_complete(TinyGPS* gps)
 {
  if (gps->_is_checksum_term)
  {
@@ -351,7 +334,7 @@ bool term_complete(TinyGPS* gps)
  break;
  }
 
- return true;
+ return  1 ;
  }
  }
 
@@ -359,7 +342,7 @@ bool term_complete(TinyGPS* gps)
  else
  ++gps->_failed_checksum;
 
- return false;
+ return  0 ;
  }
 
 
@@ -371,7 +354,7 @@ bool term_complete(TinyGPS* gps)
  gps->_sentence_type =  1 ;
  else
  gps->_sentence_type =  3 ;
- return false;
+ return  0 ;
  }
 
 if (gps->_sentence_type !=  3  && gps->_term[0])
@@ -431,7 +414,7 @@ if (gps->_sentence_type !=  3  && gps->_term[0])
  gps->_new_altitude = parse_decimal(gps);
  break;
  }
- return false;
+ return  0 ;
 }
 
 long gpsatol(const char *str)

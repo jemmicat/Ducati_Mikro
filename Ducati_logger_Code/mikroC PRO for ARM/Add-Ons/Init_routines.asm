@@ -38,10 +38,13 @@ BX	LR
 ; end of _Init_GPIO
 _MyTFT_Get_Data:
 ;Init_routines.c,68 :: 		char* MyTFT_Get_Data(unsigned long offset, unsigned long count, unsigned long *num) {
+; offset start address is: 0 (R0)
 SUB	SP, SP, #16
 STR	LR, [SP, #0]
 STR	R1, [SP, #8]
 STR	R2, [SP, #12]
+; offset end address is: 0 (R0)
+; offset start address is: 0 (R0)
 ;Init_routines.c,72 :: 		FAT32_Seek(Ext_fhandle, offset);
 MOVW	R3, #lo_addr(_Ext_fhandle+0)
 MOVT	R3, #hi_addr(_Ext_fhandle+0)
@@ -54,6 +57,8 @@ LDR	R0, [SP, #4]
 ;Init_routines.c,73 :: 		pos = (unsigned long)offset%512;
 MOVW	R3, #511
 AND	R3, R0, R3, LSL #0
+; offset end address is: 0 (R0)
+; pos start address is: 0 (R0)
 UXTH	R0, R3
 ;Init_routines.c,74 :: 		FAT32_Read(Ext_fhandle, My_Ext_Data_Buffer, 512);
 MOVW	R3, #lo_addr(_Ext_fhandle+0)
@@ -76,6 +81,7 @@ BLS	L_MyTFT_Get_Data0
 ;Init_routines.c,77 :: 		*num = 512-pos;
 RSB	R4, R0, #512
 UXTH	R4, R4
+; pos end address is: 0 (R0)
 LDR	R3, [SP, #12]
 STR	R4, [R3, #0]
 IT	AL
