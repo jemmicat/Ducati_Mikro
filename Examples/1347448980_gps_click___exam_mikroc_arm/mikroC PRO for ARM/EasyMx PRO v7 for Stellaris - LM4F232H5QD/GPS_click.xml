@@ -1,0 +1,13 @@
+<GPS_click>
+	<Attributes>
+		<Url>http://www.mikroe.com/eng/products/view/871/gps-click-l10/</Url>
+		<Image>GPS_click.jpg</Image>
+		<File></File>
+	</Attributes>
+	<Events>
+		<OnLeftClick></OnLeftClick>
+		<OnRightClick></OnRightClick>
+		<OnDblClick>OpenUrl</OnDblClick>
+		<OnMouseOver>PreviewImage</OnMouseOver>
+	</Events>
+</GPS_click>
