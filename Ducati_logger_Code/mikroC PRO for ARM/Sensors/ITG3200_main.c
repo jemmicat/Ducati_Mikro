@@ -4,7 +4,7 @@
 * Example reads Gyro values and displays graph on TFT for all three axes
 *******************************************************************************/
 #include "built_in.h"
-#include "mikromedia_STM32plus_objects.h"
+#include "ducati_logger_objects.h"
 
 // externals
 void ITG3200_Read(int *data_X, int *data_Y, int *data_Z);
@@ -72,8 +72,8 @@ char text[7];
 char text1[10];
 char *ptr;
   ptr = label->Caption;
-  TFT_Set_Pen(Accelerometer.Color,  0);
-  TFT_Set_Brush(1, Accelerometer.Color, 0, 0, 0, 0);
+  TFT_Set_Pen(Sensor_test.Color,  0);
+  TFT_Set_Brush(1, Sensor_test.Color, 0, 0, 0, 0);
   IntToStr(val & 0xFE, text);
   strcpy(text1, ptr);
   strcat(text1, text);
@@ -96,8 +96,8 @@ static void Scroll_Gyro(char Adir) {
 unsigned int _temp;
 
 if (Adir == _Gyro_UP) {
-      if (_disp_gyro_scroll != _SCROLL_GYRO_FIRST_LINE)
-        _disp_gyro_scroll--;
+      //if (_disp_gyro_scroll != _SCROLL_GYRO_FIRST_LINE)
+      //  _disp_gyro_scroll--;
       else {
         _disp_gyro_scroll = _SCROLL_GYRO_LAST_LINE - 1;
       }

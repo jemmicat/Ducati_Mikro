@@ -4,7 +4,7 @@
 * Example reads values from light and temperature sensors
 *******************************************************************************/
 
-#include "mikromedia_STM32plus_objects.h"
+#include "ducati_logger_objects.h"
 
 const VREF = 2048 ;
 static int Sensors_counter;

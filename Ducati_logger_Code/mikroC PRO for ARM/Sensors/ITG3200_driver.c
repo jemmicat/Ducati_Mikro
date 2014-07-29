@@ -1,17 +1,17 @@
 #include "built_in.h"
 
 // ITG3200 Register Definition
-//#define WHO_AM_I 		    0x00
-#define SMPLRT_DIV		    0x15
-#define DLPF_FS 			0x16
+//#define WHO_AM_I                     0x00
+#define SMPLRT_DIV                    0x15
+#define DLPF_FS                         0x16
 #define _GYRODATAX0         0x1D
 #define _GYRODATAX1         0x1E
 #define _GYRODATAY0         0x1F
 #define _GYRODATAY1         0x20
 #define _GURODATAZ0         0x21
 #define _GYRODATAZ1         0x22
-#define _GYRO_ERROR    		0x02
-#define _GYRO_ADDRESS  		0x69          // if ALT ADDRESS = 0
+#define _GYRO_ERROR                    0x02
+#define _GYRO_ADDRESS                  0x69          // if ALT ADDRESS = 0
 
 char data_[10];
 /*******************************************************************************
@@ -36,7 +36,7 @@ static void ITG3200_Write(unsigned short address, unsigned short data1) {
 * Output: data from addressed register in ITG3200
 *******************************************************************************/
 void ITG3200_Read(int *data_X, int *data_Y, int *data_Z){
-  data_[0] = _DATAX0;
+  data_[0] = _GYRODATAX0;
   I2C2_Start();              // issue I2C start signal
   I2C2_Write(_GYRO_ADDRESS, data_, 1, END_MODE_RESTART);
   I2C2_Read(_GYRO_ADDRESS, data_, 6, END_MODE_STOP);
@@ -78,12 +78,12 @@ char ITG3200_Init() {
   }
   else {
      //Configure the gyroscope
-	 
-	 //Set the gyroscope scale for the outputs to +/-2000 degrees per second
-	ITG3200_Write(SMPLRT_DIV, 0x09);       
+         
+         //Set the gyroscope scale for the outputs to +/-2000 degrees per second
+        ITG3200_Write(SMPLRT_DIV, 0x09);       
     
-	//Set the sample rate to 100 hz
-	ITG3200_Write(DLPF_FS, (DLPF_FS_SEL_0|DLPF_FS_SEL_1|DLPF_CFG_0));                    
+        //Set the sample rate to 100 hz
+        //ITG3200_Write(DLPF_FS, (DLPF_FS_SEL_0|DLPF_FS_SEL_1|DLPF_CFG_0));
     return 0x00;
   }
 }

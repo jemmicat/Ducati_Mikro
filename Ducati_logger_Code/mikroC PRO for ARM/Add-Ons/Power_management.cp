@@ -1,5 +1,5 @@
-#line 1 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
-#line 1 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
+#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
+#line 1 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
 
 typedef struct Screen TScreen;
@@ -369,37 +369,14 @@ extern TImage * const code Screen5_Images[3];
 extern TBox * const code Screen5_Boxes[7];
 
 extern TScreen Sensor_test;
+extern TBox Box23;
 extern TBox Box6;
+extern TImage Image49;
 extern TLabel Label1;
 extern TLabel Label3;
 extern TLabel Label4;
 extern TLabel Label7;
-extern TLabel Label8;
-extern TLabel Label9;
-extern TBox Box15;
-extern TImage Image49;
-extern TLabel Label31;
-extern TLabel Label33;
-extern TLabel Label34;
-extern TLabel Label35;
-extern TLabel Label36;
-extern TLabel Label37;
-extern TLabel Label38;
-extern TLabel Label39;
-extern TLabel Label40;
-extern TLabel Label41;
-extern TLabel Label42;
-extern TLabel Label43;
-extern TLabel Label44;
-extern TLabel Label45;
-extern TLabel Label46;
-extern TLabel Label47;
-extern TLabel Label48;
-extern TLabel Label49;
-extern TLabel Label50;
-extern TLabel Label51;
-extern TLabel Label52;
-extern TLabel * const code Screen6_Labels[27];
+extern TLabel * const code Screen6_Labels[4];
 extern TImage * const code Screen6_Images[1];
 extern TBox * const code Screen6_Boxes[2];
 
@@ -431,24 +408,6 @@ extern TLabel Label72;
 extern TLabel * const code Screen7_Labels[21];
 extern TImage * const code Screen7_Images[1];
 extern TBox * const code Screen7_Boxes[2];
-
-extern TScreen Oxygen_Sensor_Readings;
-extern TBox Box13;
-extern TBox Box18;
-extern TImage Image52;
-extern TLabel Label74;
-extern TLabel * const code Screen8_Labels[1];
-extern TImage * const code Screen8_Images[1];
-extern TBox * const code Screen8_Boxes[2];
-
-extern TScreen Shift_Light_Adjust;
-extern TBox Box14;
-extern TBox Box19;
-extern TImage Image53;
-extern TLabel Label75;
-extern TLabel * const code Screen9_Labels[1];
-extern TImage * const code Screen9_Images[1];
-extern TBox * const code Screen9_Boxes[2];
 
 
 
@@ -574,36 +533,13 @@ extern char Image19_Caption[];
 extern char Label6_Caption[];
 extern char Image20_Caption[];
 extern char Box5_Caption[];
+extern char Box23_Caption[];
 extern char Box6_Caption[];
+extern char Image49_Caption[];
 extern char Label1_Caption[];
 extern char Label3_Caption[];
 extern char Label4_Caption[];
 extern char Label7_Caption[];
-extern char Label8_Caption[];
-extern char Label9_Caption[];
-extern char Box15_Caption[];
-extern char Image49_Caption[];
-extern char Label31_Caption[];
-extern char Label33_Caption[];
-extern char Label34_Caption[];
-extern char Label35_Caption[];
-extern char Label36_Caption[];
-extern char Label37_Caption[];
-extern char Label38_Caption[];
-extern char Label39_Caption[];
-extern char Label40_Caption[];
-extern char Label41_Caption[];
-extern char Label42_Caption[];
-extern char Label43_Caption[];
-extern char Label44_Caption[];
-extern char Label45_Caption[];
-extern char Label46_Caption[];
-extern char Label47_Caption[];
-extern char Label48_Caption[];
-extern char Label49_Caption[];
-extern char Label50_Caption[];
-extern char Label51_Caption[];
-extern char Label52_Caption[];
 extern char Box9_Caption[];
 extern char Box16_Caption[];
 extern char Image50_Caption[];
@@ -628,14 +564,6 @@ extern char Label69_Caption[];
 extern char Label70_Caption[];
 extern char Label71_Caption[];
 extern char Label72_Caption[];
-extern char Box13_Caption[];
-extern char Box18_Caption[];
-extern char Image52_Caption[];
-extern char Label74_Caption[];
-extern char Box14_Caption[];
-extern char Box19_Caption[];
-extern char Image53_Caption[];
-extern char Label75_Caption[];
 
 
 void DrawScreen(TScreen *aScreen);
@@ -650,7 +578,10 @@ void DrawCBox(TCBox *ACbox);
 void DrawLine(TLine *Aline);
 void Check_TP();
 void Start_TP();
-#line 11 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
+void Process_TP_Press(unsigned int X, unsigned int Y);
+void Process_TP_Up(unsigned int X, unsigned int Y);
+void Process_TP_Down(unsigned int X, unsigned int Y);
+#line 11 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
 sbit USB_VBUS at GPIOA_IDR.B9;
 sbit DC_VBUS at GPIOF_IDR.B3;
 sbit BAT_STAT at GPIOF_IDR.B4;
@@ -669,7 +600,7 @@ struct { Batt_Status Battery_state;
  float f_Voltage;
  unsigned ui_Voltage;
  } Power_State, Power_State_Old;
-#line 37 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
+#line 37 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
 void Power_Man_Init() {
  GPIO_Analog_Input(&GPIOF_BASE, _GPIO_PINMASK_6);
  ADC3_Init();
@@ -683,7 +614,7 @@ void Power_Man_Init() {
  Power_State_Old.Source = -1;
  Power_State_Old.ui_Voltage = -1;
 }
-#line 58 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
+#line 58 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
 static unsigned int ui_ReadBatteryVoltage() {
  unsigned int ui_voltage;
  char cntr;
@@ -694,14 +625,14 @@ static unsigned int ui_ReadBatteryVoltage() {
  }
  return ui_voltage >> 3;
 }
-#line 76 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
+#line 76 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
 static float f_ReadBatteryVoltage() {
  int ui_voltage;
 
  ui_voltage = ui_ReadBatteryVoltage();
  return (float)ui_voltage*0.0015;
 }
-#line 90 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
+#line 90 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
 static void GetPowerStatus() {
  Power_State.f_Voltage = f_ReadBatteryVoltage();
  Power_State.ui_Voltage = (unsigned int)(Power_State.f_Voltage*100);
@@ -732,7 +663,7 @@ static void GetPowerStatus() {
 }
 
 char Display_Bat_Stat = 1;
-#line 127 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
+#line 127 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Power_management.c"
 void checkPowerM(){
  int Bar_Width;
 

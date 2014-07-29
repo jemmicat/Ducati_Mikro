@@ -1,11 +1,13 @@
 BMP085_driver_ADXL345_Write:
 ;BMP085_driver.c,30 :: 		static void ADXL345_Write(unsigned short address, unsigned short data1) {
 ; data1 start address is: 4 (R1)
+; address start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
 UXTB	R5, R0
 UXTB	R6, R1
 ; data1 end address is: 4 (R1)
+; address end address is: 0 (R0)
 ; address start address is: 20 (R5)
 ; data1 start address is: 24 (R6)
 ;BMP085_driver.c,31 :: 		I2C1_Start();              // issue I2C start signal
@@ -36,12 +38,14 @@ BX	LR
 _ADXL345_Read:
 ;BMP085_driver.c,44 :: 		void ADXL345_Read(int *data_X, int *data_Y, int *data_Z){
 ; data_Y start address is: 4 (R1)
+; data_X start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
 MOV	R11, R0
 MOV	R12, R1
 STR	R2, [SP, #4]
 ; data_Y end address is: 4 (R1)
+; data_X end address is: 0 (R0)
 ; data_X start address is: 44 (R11)
 ; data_Y start address is: 48 (R12)
 ;BMP085_driver.c,45 :: 		data_[0] = _DATAX0;
@@ -109,9 +113,11 @@ BX	LR
 ; end of _ADXL345_Read
 BMP085_driver_ADXL345_Read_Register:
 ;BMP085_driver.c,62 :: 		static unsigned short ADXL345_Read_Register(unsigned short address) {
+; address start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
 UXTB	R5, R0
+; address end address is: 0 (R0)
 ; address start address is: 20 (R5)
 ;BMP085_driver.c,63 :: 		I2C1_Start();              // issue I2C start signal
 BL	_I2C1_Start+0

@@ -42,6 +42,8 @@ main
 								I2Cx_Get_Status
 					I2C2_Start
 						I2Cx_Start
+					I2C3_Start
+						I2Cx_Start
 					UART1_Read
 						UARTx_Read
 					UART1_Data_Ready
@@ -334,6 +336,7 @@ main
 						Mmc_Multi_Read_Stop
 							I2C1_Start
 							I2C2_Start
+							I2C3_Start
 							UART1_Read
 							UART1_Data_Ready
 							UART1_Tx_Idle
@@ -406,6 +409,7 @@ main
 						Write_to_Data_Lines
 					TFT_mikromedia_Write_Command
 						Write_to_Data_Lines
+					USBD_USR_DeviceReset
 					TFT_Set_Index
 						Write_to_Port
 					TFT_Write_Command
@@ -420,6 +424,7 @@ main
 			TFT_Set_DBC_SSD1963
 				TFT_mikromedia_Set_Index
 				TFT_mikromedia_Write_Command
+				USBD_USR_DeviceReset
 				TFT_Set_Index
 				TFT_Write_Command
 				TFT_SSD1963_8bit_Set_Index
@@ -431,6 +436,7 @@ main
 					STMPE610_ReadReg
 						I2C1_Start
 						I2C2_Start
+						I2C3_Start
 						UART1_Read
 						UART1_Data_Ready
 						UART1_Tx_Idle
@@ -460,15 +466,20 @@ main
 								ChekXForEvent
 						I2C2_Write
 							I2Cx_Write
+						I2C3_Write
+							I2Cx_Write
 						I2C1_Read
 							I2Cx_Read
 								ChekXForEvent
 						I2C2_Read
 							I2Cx_Read
+						I2C3_Read
+							I2Cx_Read
 			STMPE610_Reset
 				STMPE610_WriteReg
 					I2C1_Start
 					I2C2_Start
+					I2C3_Start
 					UART1_Read
 					UART1_Data_Ready
 					UART1_Tx_Idle
@@ -495,6 +506,7 @@ main
 					Mmc_Multi_Write_Stop_SDIO
 					I2C1_Write
 					I2C2_Write
+					I2C3_Write
 				Delay_10ms
 			STMPE610_Module
 				STMPE610_ReadReg
@@ -539,6 +551,7 @@ main
 				Is_TFT_Rotated_180
 				TFT_mikromedia_Set_Index
 				TFT_mikromedia_Write_Command
+				USBD_USR_DeviceReset
 				TFT_Set_Index
 				TFT_Write_Command
 				TFT_SSD1963_8bit_Set_Index
@@ -546,6 +559,7 @@ main
 			TFT_Set_Address
 				TFT_mikromedia_Set_Index
 				TFT_mikromedia_Write_Command
+				USBD_USR_DeviceReset
 				TFT_Set_Index
 				TFT_Write_Command
 				TFT_SSD1963_8bit_Set_Index
@@ -553,6 +567,7 @@ main
 			TFT_Set_Address_SST7715R
 				TFT_mikromedia_Set_Index
 				TFT_mikromedia_Write_Command
+				USBD_USR_DeviceReset
 				TFT_Set_Index
 				TFT_Write_Command
 				TFT_SSD1963_8bit_Set_Index
@@ -560,6 +575,7 @@ main
 			TFT_Set_Address_HX8352A
 				TFT_mikromedia_Set_Index
 				TFT_mikromedia_Write_Command
+				USBD_USR_DeviceReset
 				TFT_Set_Index
 				TFT_Write_Command
 				TFT_SSD1963_8bit_Set_Index
@@ -567,6 +583,7 @@ main
 			TFT_Set_Address_R61526
 				TFT_mikromedia_Set_Index
 				TFT_mikromedia_Write_Command
+				USBD_USR_DeviceReset
 				TFT_Set_Index
 				TFT_Write_Command
 				TFT_SSD1963_8bit_Set_Index
@@ -574,6 +591,7 @@ main
 			TFT_Set_Address_ILI9481
 				TFT_mikromedia_Set_Index
 				TFT_mikromedia_Write_Command
+				USBD_USR_DeviceReset
 				TFT_Set_Index
 				TFT_Write_Command
 				TFT_SSD1963_8bit_Set_Index
@@ -581,6 +599,7 @@ main
 			TFT_Set_Address_ILI9342
 				TFT_mikromedia_Set_Index
 				TFT_mikromedia_Write_Command
+				USBD_USR_DeviceReset
 				TFT_Set_Index
 				TFT_Write_Command
 				TFT_SSD1963_8bit_Set_Index
@@ -588,6 +607,7 @@ main
 			TFT_Set_Address_ILI9340
 				TFT_mikromedia_Set_Index
 				TFT_mikromedia_Write_Command
+				USBD_USR_DeviceReset
 				TFT_Set_Index
 				TFT_Write_Command
 				TFT_SSD1963_8bit_Set_Index
@@ -726,6 +746,7 @@ main
 						STMPE610_ReadReg
 						I2C1_Start
 						I2C2_Start
+						I2C3_Start
 						UART1_Read
 						UART1_Data_Ready
 						UART1_Tx_Idle
@@ -752,8 +773,10 @@ main
 						Mmc_Multi_Write_Stop_SDIO
 						I2C1_Write
 						I2C2_Write
+						I2C3_Write
 						I2C1_Read
 						I2C2_Read
+						I2C3_Read
 					STMPE610_SetDispOrientation
 						STMPE610_SetCalibrationConsts
 		InitializeObjects
@@ -771,6 +794,7 @@ main
 					TFT_Set_Reg
 						TFT_mikromedia_Set_Index
 						TFT_mikromedia_Write_Command
+						USBD_USR_DeviceReset
 						TFT_Set_Index
 						TFT_Write_Command
 						TFT_SSD1963_8bit_Set_Index
@@ -1061,6 +1085,12 @@ main
 					Roller_Deactivate
 					Draw_Picture
 					MyBoxOnPress
+			USBD_USR_Init
+			USBD_USR_DeviceConfigured
+			USBD_USR_DeviceSuspended
+			USBD_USR_DeviceResumed
+			USBD_USR_DeviceConnected
+			USBD_USR_DeviceDisconnected
 		Process_TP_Down
 			Get_Object
 			DrawRoundButton
@@ -1086,6 +1116,12 @@ main
 			Box3OnPress
 			Box4OnPress
 			Box5OnPress
+			USBD_USR_Init
+			USBD_USR_DeviceConfigured
+			USBD_USR_DeviceSuspended
+			USBD_USR_DeviceResumed
+			USBD_USR_DeviceConnected
+			USBD_USR_DeviceDisconnected
 		Process_TP_Up
 			DrawRoundButton
 			DrawCircle
@@ -1111,5 +1147,11 @@ main
 			Box3OnPress
 			Box4OnPress
 			Box5OnPress
+			USBD_USR_Init
+			USBD_USR_DeviceConfigured
+			USBD_USR_DeviceSuspended
+			USBD_USR_DeviceResumed
+			USBD_USR_DeviceConnected
+			USBD_USR_DeviceDisconnected
 	EnableInterrupts
 	__FillZeros

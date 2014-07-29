@@ -4,7 +4,7 @@
 * Example reads accel values and displays graph on TFT for all three axes
 *******************************************************************************/
 #include "built_in.h"
-#include "mikromedia_STM32plus_objects.h"
+#include "ducati_logger_objects.h"
 
 // externals
 void ADXL345_Read(int *data_X, int *data_Y, int *data_Z);
@@ -72,8 +72,8 @@ char text[7];
 char text1[10];
 char *ptr;
   ptr = label->Caption;
-  TFT_Set_Pen(Accelerometer.Color,  0);
-  TFT_Set_Brush(1, Accelerometer.Color, 0, 0, 0, 0);
+  TFT_Set_Pen(Sensor_test.Color,  0);
+  TFT_Set_Brush(1, Sensor_test.Color, 0, 0, 0, 0);
   IntToStr(val & 0xFE, text);
   strcpy(text1, ptr);
   strcat(text1, text);

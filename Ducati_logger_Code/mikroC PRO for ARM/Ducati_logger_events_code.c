@@ -13,6 +13,9 @@ void HoursOnes();
 void HoursTens();
 void Deactivate_All_Rollers();
 void AmPmRun();
+void doAccel();
+void ACCEL_Start(char *test);
+void Accel_Stop();
 
 void checkPowerM();
 
@@ -62,6 +65,9 @@ void Sensors_Init();
 void Sensors_Read();
 void Stop_sensors();
 char Logger_State;
+void doAccel();
+void ACCEL_Start(char *test);
+void Accel_Stop();
 
 void Run_Logger(){
   switch (Logger_State) {
@@ -84,7 +90,9 @@ void Run_Logger(){
               if (PenDown == 0)
                 doRTC_Example();
              }; break;                
-    case 4 : break;                  // Sensor Test
+    case 4 : {
+                 doAccel();
+              };   break;                  // Sensor Test
     case 5 : {
               //doMp3();               // GPS Test
              }; break;
@@ -238,18 +246,4 @@ void doSensorCalibration() {
     //DrawScreen(&GPS_test);
     BLED_Fade_In();
     Logger_State = 6;
-}
-
-void doO2Test() {
-    BLED_Fade_Out();
-    DrawScreen(&Oxygen_Sensor_Readings);
-    BLED_Fade_In();
-    Logger_State = 7;
-}
-
-void doShiftLightAdjust() {
-    BLED_Fade_Out();
-    DrawScreen(&Shift_Light_Adjust);
-    BLED_Fade_In();
-    Logger_State = 8;
 }
