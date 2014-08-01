@@ -1,11 +1,11 @@
-#line 1 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/GPS/TinyGPS.c"
-#line 1 "c:/users/jemmi/desktop/ducati_mikro/ducati_logger_code/mikroc pro for arm/gps/tinygps.h"
-#line 1 "c:/users/jemmi/documents/mikroelektronika/mikroc pro for arm/include/stdbool.h"
+#line 1 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/GPS/TinyGPS.c"
+#line 1 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/gps/tinygps.h"
+#line 1 "c:/users/jjmcdo1/documents/mikroelektronika/mikroc pro for arm/include/stdbool.h"
 
 
 
  typedef char _Bool;
-#line 51 "c:/users/jemmi/desktop/ducati_mikro/ducati_logger_code/mikroc pro for arm/gps/tinygps.h"
+#line 51 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/gps/tinygps.h"
 static const float GPS_INVALID_F_ANGLE, GPS_INVALID_F_ALTITUDE, GPS_INVALID_F_SPEED;
 
 typedef unsigned char byte;
@@ -113,7 +113,7 @@ static const char *cardinal(float course);
 
 
  void stats(TinyGPS* gps, unsigned long *chars, unsigned short *good_sentences, unsigned short *failed_cs);
-#line 26 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/GPS/TinyGPS.c"
+#line 26 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/GPS/TinyGPS.c"
 unsigned long PI = 3.14159265358979323846264338327950288419716939937510;
 unsigned long millis()
 {
