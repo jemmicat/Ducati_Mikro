@@ -51,17 +51,17 @@ void RedrawLabel(unsigned int BackGround_Color, Tlabel *Label, unsigned int Xoff
 * Input: temperature, flag if celsius or fahrenheit is selected
 * Output: Nothing
 *******************************************************************************/
-static void Display_Temp(unsigned long temperature, char CF){
+/*static void Display_Temp(unsigned long temperature, char CF){
   char text1[11], text2[11];
   char *ptr1, *ptr2, temp;
-  
+
   LongWordToStr(temperature, text1);
   ptr1 = text1;
   if (CF == 0)
     ptr2 = Diagram5_Label2.Caption;
   else
     ptr2 = Diagram5_Label5.Caption;
-    
+
   while (*ptr1){
     if (*ptr1 != ' ')
       *ptr2++ = *ptr1;
@@ -78,12 +78,12 @@ static void Display_Temp(unsigned long temperature, char CF){
   else
     *ptr2++ = 'F';
   *ptr2 = 0;
-  
+
   if (CF == 0)
     RedrawLabel(Sensors.Color, &Diagram5_Label2, 135, 50);
   else
     RedrawLabel(Sensors.Color, &Diagram5_Label5, 75, 30);
-}
+}*/
 
 /*******************************************************************************
 * Function Get_Temperature()
@@ -100,12 +100,12 @@ static void Get_Temperature(){
   temp = ADC3_Get_Sample(6);
   temp = (unsigned long)(VREF * temp) / 4100;
   temp = temp - 500;
-  Display_Temp(temp, 0);
+  //Display_Temp(temp, 0);
   
   // convert and display in fahrenheit degrees
   temp2 = (float)(temp) / 10 * 1.8 + 32;
   temp2 = temp2 * 10;
-  Display_Temp((unsigned long)temp2, 1);
+  //Display_Temp((unsigned long)temp2, 1);
 }
 
 /*******************************************************************************
@@ -137,13 +137,13 @@ static void Dim_BackLight(char intensity){
 * Input: Nothing
 * Output: Nothing
 *******************************************************************************/
-static unsigned int Get_Light_Intensity(){
+/*static unsigned int Get_Light_Intensity(){
   unsigned int Light_Intensity;
   char *ptr1, *ptr2;
   char text[7], temp;
-  
+
   Light_Intensity = ADC3_Get_Sample(7);
-  Light_Intensity = Light_Intensity / 4; 
+  Light_Intensity = Light_Intensity / 4;
 
   if (Light_Intensity >= 1000)
     Light_Intensity = 1000;
@@ -163,10 +163,9 @@ static unsigned int Get_Light_Intensity(){
   *ptr2++ = '%';
   *ptr2 = 0;
   RedrawLabel(Diagram5_Box1.Color, &Diagram5_Label4, 140, 50);
-  
-  return Light_Intensity;
-}
 
+  return Light_Intensity;
+}*/
 /*******************************************************************************
 * Function Sensors_Read()
 * ------------------------------------------------------------------------------
@@ -179,7 +178,7 @@ unsigned int Light_temp;
   Sensors_counter++;
   if (Sensors_counter > 2000){
     Get_Temperature();
-    Light_temp = Get_Light_Intensity();
+    /*Light_temp = Get_Light_Intensity();
     // dim backlight if there is low luminous flux
     if (Light_temp < 200){
       if (Light_intensity_cnt < 5)
@@ -188,7 +187,7 @@ unsigned int Light_temp;
     else
       if (Light_intensity_cnt > -5)
         Light_intensity_cnt --;
-      
+
     if ((Light_intensity_cnt > 4) && (FULL_BackLight == 1)){
       Dim_BackLight(70);
       FULL_BackLight = 0;
@@ -197,8 +196,8 @@ unsigned int Light_temp;
     else if ((Light_intensity_cnt < -4) && (FULL_BackLight == 0)){
       Dim_BackLight(255);
       FULL_BackLight = 1;
-      Light_intensity_cnt = 0;
-    }
+      Light_intensity_cnt = 0;*/
+//    }
     
     Sensors_counter = 0;
   }

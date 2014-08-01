@@ -1,5 +1,5 @@
-#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_events_code.c"
-#line 1 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
+#line 1 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_events_code.c"
+#line 1 "c:/users/jemmi/desktop/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
 
 typedef struct Screen TScreen;
@@ -368,7 +368,7 @@ extern TLabel * const code Screen5_Labels[3];
 extern TImage * const code Screen5_Images[3];
 extern TBox * const code Screen5_Boxes[7];
 
-extern TScreen Sensor_test;
+extern TScreen Accelerometer_test;
 extern TBox Box23;
 extern TBox Box6;
 extern TImage Image49;
@@ -409,6 +409,42 @@ extern TLabel * const code Screen7_Labels[21];
 extern TImage * const code Screen7_Images[1];
 extern TBox * const code Screen7_Boxes[2];
 
+extern TScreen Gyro_test;
+extern TBox Box13;
+extern TBox Box14;
+extern TImage Image52;
+extern TLabel Label8;
+extern TLabel Label9;
+extern TLabel Label31;
+extern TLabel Label33;
+extern TLabel * const code Screen8_Labels[4];
+extern TImage * const code Screen8_Images[1];
+extern TBox * const code Screen8_Boxes[2];
+
+extern TScreen Magnetometer_test;
+extern TBox Box15;
+extern TBox Box18;
+extern TImage Image53;
+extern TLabel Label34;
+extern TLabel Label35;
+extern TLabel Label36;
+extern TLabel Label37;
+extern TLabel * const code Screen9_Labels[4];
+extern TImage * const code Screen9_Images[1];
+extern TBox * const code Screen9_Boxes[2];
+
+extern TScreen Pressure_test;
+extern TBox Box19;
+extern TBox Box20;
+extern TImage Image54;
+extern TLabel Label38;
+extern TLabel Label39;
+extern TLabel Label40;
+extern TLabel Label41;
+extern TLabel * const code Screen10_Labels[4];
+extern TImage * const code Screen10_Images[1];
+extern TBox * const code Screen10_Boxes[2];
+
 
 
 
@@ -418,17 +454,17 @@ void Box3OnPress();
 void Box4OnPress();
 void Box5OnPress();
 void Box8OnClick();
+void doAccelerometerTest();
 void doCalibration();
 void doGPSTest();
+void doGyroTest();
 void doLog();
+void doMagnetTest();
 void doNextScreen();
-void doO2Test();
+void doPressureTest();
 void doPrevScreen();
-void doSensorCalibration();
-void doSensorTest();
 void doSetClock();
 void doSettings();
-void doShiftLightAdjust();
 void Image18OnPress();
 
 
@@ -564,6 +600,27 @@ extern char Label69_Caption[];
 extern char Label70_Caption[];
 extern char Label71_Caption[];
 extern char Label72_Caption[];
+extern char Box13_Caption[];
+extern char Box14_Caption[];
+extern char Image52_Caption[];
+extern char Label8_Caption[];
+extern char Label9_Caption[];
+extern char Label31_Caption[];
+extern char Label33_Caption[];
+extern char Box15_Caption[];
+extern char Box18_Caption[];
+extern char Image53_Caption[];
+extern char Label34_Caption[];
+extern char Label35_Caption[];
+extern char Label36_Caption[];
+extern char Label37_Caption[];
+extern char Box19_Caption[];
+extern char Box20_Caption[];
+extern char Image54_Caption[];
+extern char Label38_Caption[];
+extern char Label39_Caption[];
+extern char Label40_Caption[];
+extern char Label41_Caption[];
 
 
 void DrawScreen(TScreen *aScreen);
@@ -581,8 +638,8 @@ void Start_TP();
 void Process_TP_Press(unsigned int X, unsigned int Y);
 void Process_TP_Up(unsigned int X, unsigned int Y);
 void Process_TP_Down(unsigned int X, unsigned int Y);
-#line 1 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_resources.h"
-#line 5 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_events_code.c"
+#line 1 "c:/users/jemmi/desktop/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_resources.h"
+#line 5 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_events_code.c"
 void Calibrate();
 void doRTC_Example();
 void RTC_Example_init();
@@ -686,7 +743,7 @@ void Run_Logger(){
  }; break;
  }
 }
-#line 149 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_events_code.c"
+#line 149 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_events_code.c"
 void doSetClock() {
  BLED_Fade_Out();
  DrawScreen(&Set_clock);
@@ -767,9 +824,9 @@ void doSettings() {
 
 }
 
-void doSensorTest() {
+void doAccelerometerTest() {
  BLED_Fade_Out();
- DrawScreen(&Sensor_test);
+ DrawScreen(&Accelerometer_test);
  BLED_Fade_In();
  Logger_State = 4;
 
@@ -782,9 +839,25 @@ void doGPSTest() {
  Logger_State = 5;
 }
 
-void doSensorCalibration() {
+void doGyroTest() {
  BLED_Fade_Out();
+ DrawScreen(&Gyro_test);
+ BLED_Fade_In();
+ Logger_State = 6;
+}
 
+
+void doPressureTest() {
+ BLED_Fade_Out();
+ DrawScreen(&Pressure_test);
+ BLED_Fade_In();
+ Logger_State = 6;
+
+}
+
+void doMagnetTest() {
+ BLED_Fade_Out();
+ DrawScreen(&Magnetometer_test);
  BLED_Fade_In();
  Logger_State = 6;
 }

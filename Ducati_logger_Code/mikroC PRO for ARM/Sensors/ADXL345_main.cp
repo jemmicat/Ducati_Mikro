@@ -1,6 +1,6 @@
-#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
+#line 1 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
 #line 1 "c:/users/jemmi/documents/mikroelektronika/mikroc pro for arm/include/built_in.h"
-#line 1 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
+#line 1 "c:/users/jemmi/desktop/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
 
 typedef struct Screen TScreen;
@@ -369,7 +369,7 @@ extern TLabel * const code Screen5_Labels[3];
 extern TImage * const code Screen5_Images[3];
 extern TBox * const code Screen5_Boxes[7];
 
-extern TScreen Sensor_test;
+extern TScreen Accelerometer_test;
 extern TBox Box23;
 extern TBox Box6;
 extern TImage Image49;
@@ -410,6 +410,42 @@ extern TLabel * const code Screen7_Labels[21];
 extern TImage * const code Screen7_Images[1];
 extern TBox * const code Screen7_Boxes[2];
 
+extern TScreen Gyro_test;
+extern TBox Box13;
+extern TBox Box14;
+extern TImage Image52;
+extern TLabel Label8;
+extern TLabel Label9;
+extern TLabel Label31;
+extern TLabel Label33;
+extern TLabel * const code Screen8_Labels[4];
+extern TImage * const code Screen8_Images[1];
+extern TBox * const code Screen8_Boxes[2];
+
+extern TScreen Magnetometer_test;
+extern TBox Box15;
+extern TBox Box18;
+extern TImage Image53;
+extern TLabel Label34;
+extern TLabel Label35;
+extern TLabel Label36;
+extern TLabel Label37;
+extern TLabel * const code Screen9_Labels[4];
+extern TImage * const code Screen9_Images[1];
+extern TBox * const code Screen9_Boxes[2];
+
+extern TScreen Pressure_test;
+extern TBox Box19;
+extern TBox Box20;
+extern TImage Image54;
+extern TLabel Label38;
+extern TLabel Label39;
+extern TLabel Label40;
+extern TLabel Label41;
+extern TLabel * const code Screen10_Labels[4];
+extern TImage * const code Screen10_Images[1];
+extern TBox * const code Screen10_Boxes[2];
+
 
 
 
@@ -419,17 +455,17 @@ void Box3OnPress();
 void Box4OnPress();
 void Box5OnPress();
 void Box8OnClick();
+void doAccelerometerTest();
 void doCalibration();
 void doGPSTest();
+void doGyroTest();
 void doLog();
+void doMagnetTest();
 void doNextScreen();
-void doO2Test();
+void doPressureTest();
 void doPrevScreen();
-void doSensorCalibration();
-void doSensorTest();
 void doSetClock();
 void doSettings();
-void doShiftLightAdjust();
 void Image18OnPress();
 
 
@@ -565,6 +601,27 @@ extern char Label69_Caption[];
 extern char Label70_Caption[];
 extern char Label71_Caption[];
 extern char Label72_Caption[];
+extern char Box13_Caption[];
+extern char Box14_Caption[];
+extern char Image52_Caption[];
+extern char Label8_Caption[];
+extern char Label9_Caption[];
+extern char Label31_Caption[];
+extern char Label33_Caption[];
+extern char Box15_Caption[];
+extern char Box18_Caption[];
+extern char Image53_Caption[];
+extern char Label34_Caption[];
+extern char Label35_Caption[];
+extern char Label36_Caption[];
+extern char Label37_Caption[];
+extern char Box19_Caption[];
+extern char Box20_Caption[];
+extern char Image54_Caption[];
+extern char Label38_Caption[];
+extern char Label39_Caption[];
+extern char Label40_Caption[];
+extern char Label41_Caption[];
 
 
 void DrawScreen(TScreen *aScreen);
@@ -582,7 +639,7 @@ void Start_TP();
 void Process_TP_Press(unsigned int X, unsigned int Y);
 void Process_TP_Up(unsigned int X, unsigned int Y);
 void Process_TP_Down(unsigned int X, unsigned int Y);
-#line 10 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
+#line 10 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
 void ADXL345_Read(int *data_X, int *data_Y, int *data_Z);
 char ADXL345_Init();
 void Scroll_Undone(unsigned int first, unsigned int last);
@@ -609,7 +666,7 @@ typedef struct Accel_values{
 } TAccel_values;
 
 char cACCEL_test_status;
-#line 44 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
+#line 44 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
 static void Accel_Average() {
  int i, sx, sy, sz, xx, yy, zz;
 
@@ -628,14 +685,14 @@ static void Accel_Average() {
  readings[1] = sy >> 4;
  readings[2] = sz >> 4;
 }
-#line 70 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
+#line 70 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
 static void Display_Value(TLabel *label, int val) {
 char text[7];
 char text1[10];
 char *ptr;
  ptr = label->Caption;
- TFT_Set_Pen(Sensor_test.Color, 0);
- TFT_Set_Brush(1, Sensor_test.Color, 0, 0, 0, 0);
+ TFT_Set_Pen(Accelerometer_test.Color, 0);
+ TFT_Set_Brush(1, Accelerometer_test.Color, 0, 0, 0, 0);
  IntToStr(val & 0xFE, text);
  strcpy(text1, ptr);
  strcat(text1, text);
@@ -646,7 +703,7 @@ char *ptr;
 }
 
 const _ACCEL_UP = 1, _ACCEL_DOWN = 0;
-#line 95 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
+#line 95 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
 static void Scroll_ACCEL(char Adir) {
 unsigned int _temp;
 
@@ -667,7 +724,7 @@ if (Adir == _ACCEL_UP) {
 
  Scroll(_disp_accel_scroll);
 }
-#line 123 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
+#line 123 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
 static void WriteGraph(TAccel_values *old, TAccel_values *new){
 int temp1, temp2;
  if ((_disp_accel_scroll < _SCROLL_ACCEL_LAST_LINE - 2) && (_disp_accel_scroll > _SCROLL_ACCEL_FIRST_LINE)){
@@ -687,7 +744,7 @@ int temp1, temp2;
  TFT_Line(temp1, _disp_accel_scroll + 2, temp2, _disp_accel_scroll + 1);
  }
 }
-#line 150 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
+#line 150 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
 static void Scroll_Add_Line(char ScrollDiection){
 int i, temp;
  if (ScrollDiection > 0){
@@ -704,11 +761,11 @@ int i, temp;
  TFT_CS = 1;
  }
 }
-#line 174 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
+#line 174 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
 void Accel_Stop(){
  Scroll_Undone(_SCROLL_ACCEL_FIRST_LINE, _SCROLL_ACCEL_LAST_LINE);
 }
-#line 185 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
+#line 185 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
 void ACCEL_Start(char *test) {
 
  *test = 0;
@@ -726,7 +783,7 @@ void ACCEL_Start(char *test) {
  }
  Scroll_Undone(_SCROLL_ACCEL_FIRST_LINE, _SCROLL_ACCEL_LAST_LINE);
 }
-#line 210 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
+#line 210 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
 static void ACCEL_Test(TAccel_values *values) {
  Accel_Average();
 
@@ -736,7 +793,7 @@ static void ACCEL_Test(TAccel_values *values) {
 }
 
 TAccel_values Accel_vals, Old_Accel_vals = {0, 0, 0};
-#line 227 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
+#line 227 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
 void doAccel(){
  ACCEL_Test(&Accel_vals);
  Scroll_ACCEL(_ACCEL_UP);

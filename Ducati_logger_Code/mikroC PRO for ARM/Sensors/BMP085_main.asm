@@ -99,18 +99,18 @@ LDR	R2, [SP, #28]
 ADDS	R2, #16
 LDR	R2, [R2, #0]
 STR	R2, [SP, #24]
-;BMP085_main.c,75 :: 		TFT_Set_Pen(Sensor_test.Color,  0);
-MOVW	R2, #lo_addr(_Sensor_test+0)
-MOVT	R2, #hi_addr(_Sensor_test+0)
+;BMP085_main.c,75 :: 		TFT_Set_Pen(Pressure_test.Color,  0);
+MOVW	R2, #lo_addr(_Pressure_test+0)
+MOVT	R2, #hi_addr(_Pressure_test+0)
 LDRH	R2, [R2, #0]
 MOVS	R1, #0
 UXTH	R0, R2
 BL	_TFT_Set_Pen+0
-;BMP085_main.c,76 :: 		TFT_Set_Brush(1, Sensor_test.Color, 0, 0, 0, 0);
+;BMP085_main.c,76 :: 		TFT_Set_Brush(1, Pressure_test.Color, 0, 0, 0, 0);
 MOVS	R4, #0
 MOVS	R3, #0
-MOVW	R2, #lo_addr(_Sensor_test+0)
-MOVT	R2, #hi_addr(_Sensor_test+0)
+MOVW	R2, #lo_addr(_Pressure_test+0)
+MOVT	R2, #hi_addr(_Pressure_test+0)
 LDRH	R2, [R2, #0]
 PUSH	(R4)
 PUSH	(R3)

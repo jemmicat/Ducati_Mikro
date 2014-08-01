@@ -474,15 +474,15 @@ LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _doSettings
-_doSensorTest:
-;Ducati_logger_events_code.c,229 :: 		void doSensorTest() {
+_doAccelerometerTest:
+;Ducati_logger_events_code.c,229 :: 		void doAccelerometerTest() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
 ;Ducati_logger_events_code.c,230 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
-;Ducati_logger_events_code.c,231 :: 		DrawScreen(&Sensor_test);
-MOVW	R0, #lo_addr(_Sensor_test+0)
-MOVT	R0, #hi_addr(_Sensor_test+0)
+;Ducati_logger_events_code.c,231 :: 		DrawScreen(&Accelerometer_test);
+MOVW	R0, #lo_addr(_Accelerometer_test+0)
+MOVT	R0, #hi_addr(_Accelerometer_test+0)
 BL	_DrawScreen+0
 ;Ducati_logger_events_code.c,232 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
@@ -492,11 +492,11 @@ MOVW	R0, #lo_addr(_Logger_State+0)
 MOVT	R0, #hi_addr(_Logger_State+0)
 STRB	R1, [R0, #0]
 ;Ducati_logger_events_code.c,235 :: 		}
-L_end_doSensorTest:
+L_end_doAccelerometerTest:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
-; end of _doSensorTest
+; end of _doAccelerometerTest
 _doGPSTest:
 ;Ducati_logger_events_code.c,237 :: 		void doGPSTest() {
 SUB	SP, SP, #4
@@ -520,12 +520,16 @@ LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _doGPSTest
-_doSensorCalibration:
-;Ducati_logger_events_code.c,244 :: 		void doSensorCalibration() {
+_doGyroTest:
+;Ducati_logger_events_code.c,244 :: 		void doGyroTest() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
 ;Ducati_logger_events_code.c,245 :: 		BLED_Fade_Out();
 BL	_BLED_Fade_Out+0
+;Ducati_logger_events_code.c,246 :: 		DrawScreen(&Gyro_test);
+MOVW	R0, #lo_addr(_Gyro_test+0)
+MOVT	R0, #hi_addr(_Gyro_test+0)
+BL	_DrawScreen+0
 ;Ducati_logger_events_code.c,247 :: 		BLED_Fade_In();
 BL	_BLED_Fade_In+0
 ;Ducati_logger_events_code.c,248 :: 		Logger_State = 6;
@@ -534,8 +538,54 @@ MOVW	R0, #lo_addr(_Logger_State+0)
 MOVT	R0, #hi_addr(_Logger_State+0)
 STRB	R1, [R0, #0]
 ;Ducati_logger_events_code.c,249 :: 		}
-L_end_doSensorCalibration:
+L_end_doGyroTest:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
-; end of _doSensorCalibration
+; end of _doGyroTest
+_doPressureTest:
+;Ducati_logger_events_code.c,252 :: 		void doPressureTest() {
+SUB	SP, SP, #4
+STR	LR, [SP, #0]
+;Ducati_logger_events_code.c,253 :: 		BLED_Fade_Out();
+BL	_BLED_Fade_Out+0
+;Ducati_logger_events_code.c,254 :: 		DrawScreen(&Pressure_test);
+MOVW	R0, #lo_addr(_Pressure_test+0)
+MOVT	R0, #hi_addr(_Pressure_test+0)
+BL	_DrawScreen+0
+;Ducati_logger_events_code.c,255 :: 		BLED_Fade_In();
+BL	_BLED_Fade_In+0
+;Ducati_logger_events_code.c,256 :: 		Logger_State = 6;
+MOVS	R1, #6
+MOVW	R0, #lo_addr(_Logger_State+0)
+MOVT	R0, #hi_addr(_Logger_State+0)
+STRB	R1, [R0, #0]
+;Ducati_logger_events_code.c,258 :: 		}
+L_end_doPressureTest:
+LDR	LR, [SP, #0]
+ADD	SP, SP, #4
+BX	LR
+; end of _doPressureTest
+_doMagnetTest:
+;Ducati_logger_events_code.c,260 :: 		void doMagnetTest() {
+SUB	SP, SP, #4
+STR	LR, [SP, #0]
+;Ducati_logger_events_code.c,261 :: 		BLED_Fade_Out();
+BL	_BLED_Fade_Out+0
+;Ducati_logger_events_code.c,262 :: 		DrawScreen(&Magnetometer_test);
+MOVW	R0, #lo_addr(_Magnetometer_test+0)
+MOVT	R0, #hi_addr(_Magnetometer_test+0)
+BL	_DrawScreen+0
+;Ducati_logger_events_code.c,263 :: 		BLED_Fade_In();
+BL	_BLED_Fade_In+0
+;Ducati_logger_events_code.c,264 :: 		Logger_State = 6;
+MOVS	R1, #6
+MOVW	R0, #lo_addr(_Logger_State+0)
+MOVT	R0, #hi_addr(_Logger_State+0)
+STRB	R1, [R0, #0]
+;Ducati_logger_events_code.c,265 :: 		}
+L_end_doMagnetTest:
+LDR	LR, [SP, #0]
+ADD	SP, SP, #4
+BX	LR
+; end of _doMagnetTest

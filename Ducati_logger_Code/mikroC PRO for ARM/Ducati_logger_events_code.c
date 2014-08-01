@@ -226,9 +226,9 @@ void doSettings() {
 
 }
 
-void doSensorTest() {
+void doAccelerometerTest() {
     BLED_Fade_Out();
-    DrawScreen(&Sensor_test);
+    DrawScreen(&Accelerometer_test);
     BLED_Fade_In();
     Logger_State = 4;
 
@@ -241,9 +241,25 @@ void doGPSTest() {
     Logger_State = 5;
 }
 
-void doSensorCalibration() {
+void doGyroTest() {
     BLED_Fade_Out();
-    //DrawScreen(&GPS_test);
+    DrawScreen(&Gyro_test);
+    BLED_Fade_In();
+    Logger_State = 6;
+}
+
+
+void doPressureTest() {
+    BLED_Fade_Out();
+    DrawScreen(&Pressure_test);
+    BLED_Fade_In();
+    Logger_State = 6;
+
+}
+
+void doMagnetTest() {
+    BLED_Fade_Out();
+    DrawScreen(&Magnetometer_test);
     BLED_Fade_In();
     Logger_State = 6;
 }

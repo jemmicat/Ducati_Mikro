@@ -1,5 +1,5 @@
-#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_driver.c"
-#line 8 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_driver.c"
+#line 1 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_driver.c"
+#line 8 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_driver.c"
 typedef struct Time {
  short ampm;
  short seconds;
@@ -15,7 +15,7 @@ TTime MyTime;
 
 unsigned long RTC_Time, old_RTC_Time;
 unsigned long RTC_Date, old_RTC_Date;
-#line 31 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_driver.c"
+#line 31 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_driver.c"
 void RTC_Init(){
  RCC_APB1ENR.PWREN = 1;
  if (RCC_BDCR.RTCEN == 0){
@@ -34,7 +34,7 @@ void RTC_Init(){
  RTC_WPR = 0xFF;
 
 }
-#line 57 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_driver.c"
+#line 57 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_driver.c"
 void Set_RTC(TTime *RTCC_Time){
 unsigned long temp;
 
@@ -66,7 +66,7 @@ unsigned long temp;
 
  RTC_WPR = 0xFF;
 }
-#line 96 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_driver.c"
+#line 96 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_driver.c"
 char RTCC_Read(TTime *RTCC_Time){
  char temp = 0;
 

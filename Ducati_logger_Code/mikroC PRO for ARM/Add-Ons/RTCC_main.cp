@@ -1,5 +1,5 @@
-#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
-#line 1 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
+#line 1 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
+#line 1 "c:/users/jemmi/desktop/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
 
 typedef struct Screen TScreen;
@@ -368,7 +368,7 @@ extern TLabel * const code Screen5_Labels[3];
 extern TImage * const code Screen5_Images[3];
 extern TBox * const code Screen5_Boxes[7];
 
-extern TScreen Sensor_test;
+extern TScreen Accelerometer_test;
 extern TBox Box23;
 extern TBox Box6;
 extern TImage Image49;
@@ -409,6 +409,42 @@ extern TLabel * const code Screen7_Labels[21];
 extern TImage * const code Screen7_Images[1];
 extern TBox * const code Screen7_Boxes[2];
 
+extern TScreen Gyro_test;
+extern TBox Box13;
+extern TBox Box14;
+extern TImage Image52;
+extern TLabel Label8;
+extern TLabel Label9;
+extern TLabel Label31;
+extern TLabel Label33;
+extern TLabel * const code Screen8_Labels[4];
+extern TImage * const code Screen8_Images[1];
+extern TBox * const code Screen8_Boxes[2];
+
+extern TScreen Magnetometer_test;
+extern TBox Box15;
+extern TBox Box18;
+extern TImage Image53;
+extern TLabel Label34;
+extern TLabel Label35;
+extern TLabel Label36;
+extern TLabel Label37;
+extern TLabel * const code Screen9_Labels[4];
+extern TImage * const code Screen9_Images[1];
+extern TBox * const code Screen9_Boxes[2];
+
+extern TScreen Pressure_test;
+extern TBox Box19;
+extern TBox Box20;
+extern TImage Image54;
+extern TLabel Label38;
+extern TLabel Label39;
+extern TLabel Label40;
+extern TLabel Label41;
+extern TLabel * const code Screen10_Labels[4];
+extern TImage * const code Screen10_Images[1];
+extern TBox * const code Screen10_Boxes[2];
+
 
 
 
@@ -418,17 +454,17 @@ void Box3OnPress();
 void Box4OnPress();
 void Box5OnPress();
 void Box8OnClick();
+void doAccelerometerTest();
 void doCalibration();
 void doGPSTest();
+void doGyroTest();
 void doLog();
+void doMagnetTest();
 void doNextScreen();
-void doO2Test();
+void doPressureTest();
 void doPrevScreen();
-void doSensorCalibration();
-void doSensorTest();
 void doSetClock();
 void doSettings();
-void doShiftLightAdjust();
 void Image18OnPress();
 
 
@@ -564,6 +600,27 @@ extern char Label69_Caption[];
 extern char Label70_Caption[];
 extern char Label71_Caption[];
 extern char Label72_Caption[];
+extern char Box13_Caption[];
+extern char Box14_Caption[];
+extern char Image52_Caption[];
+extern char Label8_Caption[];
+extern char Label9_Caption[];
+extern char Label31_Caption[];
+extern char Label33_Caption[];
+extern char Box15_Caption[];
+extern char Box18_Caption[];
+extern char Image53_Caption[];
+extern char Label34_Caption[];
+extern char Label35_Caption[];
+extern char Label36_Caption[];
+extern char Label37_Caption[];
+extern char Box19_Caption[];
+extern char Box20_Caption[];
+extern char Image54_Caption[];
+extern char Label38_Caption[];
+extern char Label39_Caption[];
+extern char Label40_Caption[];
+extern char Label41_Caption[];
 
 
 void DrawScreen(TScreen *aScreen);
@@ -581,9 +638,9 @@ void Start_TP();
 void Process_TP_Press(unsigned int X, unsigned int Y);
 void Process_TP_Up(unsigned int X, unsigned int Y);
 void Process_TP_Down(unsigned int X, unsigned int Y);
-#line 1 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_resources.h"
-#line 1 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/__time.h"
-#line 27 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/__time.h"
+#line 1 "c:/users/jemmi/desktop/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_resources.h"
+#line 1 "c:/users/jemmi/desktop/ducati_mikro/ducati_logger_code/mikroc pro for arm/__time.h"
+#line 27 "c:/users/jemmi/desktop/ducati_mikro/ducati_logger_code/mikroc pro for arm/__time.h"
 typedef struct
  {
  unsigned char ss ;
@@ -594,13 +651,13 @@ typedef struct
  unsigned char mo ;
  unsigned int yy ;
  } TimeStruct ;
-#line 41 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/__time.h"
+#line 41 "c:/users/jemmi/desktop/ducati_mikro/ducati_logger_code/mikroc pro for arm/__time.h"
 extern long Time_jd1970 ;
-#line 46 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/__time.h"
+#line 46 "c:/users/jemmi/desktop/ducati_mikro/ducati_logger_code/mikroc pro for arm/__time.h"
 long Time_dateToEpoch(TimeStruct *ts) ;
 long Time_dateDiff(TimeStruct *t1, TimeStruct *t2);
 void Time_epochToDate(long e, TimeStruct *ts) ;
-#line 13 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
+#line 13 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
 typedef struct Time {
  short ampm;
  short seconds;
@@ -638,7 +695,7 @@ void Roll_Get_Level(TRoller *Roller);
 char Roll_flag;
 unsigned int OldYcoo, OldDelta;
 extern unsigned int Xcoord, Ycoord;
-#line 58 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
+#line 58 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
 void MyBoxOnPress(TRoller *Roller){
 int delta;
 char dir, step;
@@ -703,7 +760,7 @@ const unsigned int filter[] = {
 };
 
 const unsigned int *pFilter;
-#line 129 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
+#line 129 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
 void DrawPictureLine(TRoller *Image, int line, int xcoo, int ycoo){
  long count;
  unsigned int color;
@@ -721,7 +778,7 @@ void DrawPictureLine(TRoller *Image, int line, int xcoo, int ycoo){
  }
  TFT_CS = 1;
 }
-#line 154 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
+#line 154 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
 void Draw_Picture(TRoller *Image, int line, int xcoo, int ycoo){
 signed short i;
 int temp;
@@ -750,17 +807,17 @@ int temp;
  pFilter --;
  }
 }
-#line 190 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
+#line 190 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
 char Roll_Get_Level(TRoller *Roller){
  Roller->currentlevel = Roller->position / (Roller->ImageHeight / Roller->levels);
  return Roller->currentlevel;
 }
-#line 202 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
+#line 202 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
 void Roll_Set_Level(TRoller *Roller, char level){
  Roller->currentlevel = level;
  Roller->position = Roller->ImageHeight * level / Roller->levels;
 }
-#line 214 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
+#line 214 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
 void Roll_Roller(TRoller *Roller, char dir, char step){
 int temp;
 
@@ -775,7 +832,7 @@ int temp;
  Roller->position = Roller->ImageHeight - 1;
  Draw_Picture(Roller, Roller->position - Roller->Height/2, Roller->Left, Roller->Top);
 }
-#line 236 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
+#line 236 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
 void Set_Roller(TRoller *Roller, int pos, char step){
 int temp;
 char direction;
@@ -793,7 +850,7 @@ char direction;
  }
  Roll_Roller(Roller, direction, temp);
 }
-#line 261 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
+#line 261 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
 void Roller_Deactivate(TRoller *Roller, unsigned int xpos, unsigned int ypos){
 char text[2];
  TFT_Set_Pen(Set_clock.Color, 0);
@@ -811,7 +868,7 @@ char text[2];
  else
  TFT_Write_Text(text, xpos, ypos);
 }
-#line 286 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
+#line 286 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
 void Roller_Init(){
  Hour1Roll.Left = 108;
  Hour1Roll.Top = 42;
@@ -864,7 +921,7 @@ void Roller_Init(){
  AmPm.position = 151 / 2 / 2;
  AmPm.levels = 2;
 }
-#line 346 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
+#line 346 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
 void HoursTens(){
 
  if (Hour1Roll.active == 0){
@@ -891,7 +948,7 @@ void HoursTens(){
  MyBoxOnPress(&Hour1Roll);
  Hour1Roll.active = 1;
 }
-#line 380 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
+#line 380 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
 void HoursOnes(){
 
  if (Hour2Roll.active == 0){
@@ -918,7 +975,7 @@ void HoursOnes(){
  MyBoxOnPress(&Hour2Roll);
  Hour2Roll.active = 1;
 }
-#line 414 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
+#line 414 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
 void MinutesTens(){
 
  if (Minute1Roll.active == 0){
@@ -945,7 +1002,7 @@ void MinutesTens(){
  MyBoxOnPress(&Minute1Roll);
  Minute1Roll.active = 1;
 }
-#line 448 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
+#line 448 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
 void MinutesOnes(){
 
  if (Minute2Roll.active == 0){
@@ -972,7 +1029,7 @@ void MinutesOnes(){
  MyBoxOnPress(&Minute2Roll);
  Minute2Roll.active = 1;
 }
-#line 482 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
+#line 482 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
 void AmPmRun(){
 
  if (AmPm.active == 0){
@@ -999,7 +1056,7 @@ void AmPmRun(){
  MyBoxOnPress(&AmPm);
  AmPm.active = 1;
 }
-#line 516 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
+#line 516 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
 void Deactivate_All_Rollers(){
  if (Hour1Roll.active == 1){
  Roller_Deactivate(&Hour1Roll, 111, 96);
@@ -1022,7 +1079,7 @@ void Deactivate_All_Rollers(){
  AmPm.active = 0;
  }
 }
-#line 546 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
+#line 546 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
 void RTC_Example_init(){
  Roller_Init();
  RTCC_Read(&MyTime);
@@ -1037,7 +1094,7 @@ void RTC_Example_init(){
  Roller_Deactivate(&Minute2Roll, 253, 96);
  Roller_Deactivate(&AmPM, 307, 96);
 }
-#line 568 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
+#line 568 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
 void doRTC_Example(){
 
  Roll_Flag = 0;
@@ -1067,7 +1124,7 @@ void doRTC_Example(){
  Set_Roller(&AmPm, AmPm.currentlevel, 1);
  }
 }
-#line 605 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
+#line 605 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
 char Set_MyRTCC(){
 char temp;
  RTCC_Read(&MyTime);
@@ -1080,7 +1137,7 @@ char temp;
  Set_RTC(&MyTime);
  return 1;
 }
-#line 625 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
+#line 625 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
 void UpdateTime(TTime *RTCC_Time){
  Label19_Caption[0] = (RTCC_Time->hours / 10) + 48;
  Label19_Caption[1] = (RTCC_Time->hours % 10) + 48;
@@ -1104,7 +1161,7 @@ void UpdateTime(TTime *RTCC_Time){
 }
 
 TTime OldMyTime = {0, 0, 0, 0, 0, 0};
-#line 655 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
+#line 655 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/RTCC_main.c"
 void checkRTC(){
  if (RTCC_Read(&MyTime)){
  if ((MyTime.minutes != OldMyTime.minutes) || (MyTime.hours != OldMyTime.hours) || (MyTime.ampm != OldMyTime.ampm)){

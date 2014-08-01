@@ -1,4 +1,4 @@
-#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Init_routines.c"
+#line 1 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Init_routines.c"
 
 
 
@@ -12,14 +12,14 @@ sbit LED_B at GPIOB_ODR.B4;
 
 
 sbit MMC_Card_Detect at GPIOD_IDR.B3;
-#line 27 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Init_routines.c"
+#line 27 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Init_routines.c"
 void Power_Man_Init();
 
 
 char Fat_Initialized_Flag;
 signed short Ext_fhandle;
 char Ext_res_initialized;
-#line 42 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Init_routines.c"
+#line 42 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Init_routines.c"
 void Init_GPIO(){
 
 
@@ -38,7 +38,7 @@ void Init_GPIO(){
 }
 
 char My_Ext_Data_Buffer[512];
-#line 68 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Init_routines.c"
+#line 68 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Init_routines.c"
 char* MyTFT_Get_Data(unsigned long offset, unsigned long count, unsigned long *num) {
 unsigned long start_sector;
 unsigned int pos;
@@ -54,7 +54,7 @@ unsigned int pos;
 
  return My_Ext_Data_Buffer;
 }
-#line 92 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Init_routines.c"
+#line 92 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Init_routines.c"
 char Init_FAT(){
 char FAT_cnt = 0;
  if (MMC_Card_Detect == 0){

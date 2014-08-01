@@ -15,8 +15,8 @@ void Scroll(unsigned int scroll);
 extern sfr sbit TFT_CS;
 
 // we use Scroll feature to display graph
-const _SCROLL_ACCEL_FIRST_LINE = 41, _SCROLL_ACCEL_LAST_LINE = 246;
-int _disp_accel_scroll = _SCROLL_ACCEL_FIRST_LINE;
+const _SCROLL_GYRO_FIRST_LINE = 41, _SCROLL_GYRO_LAST_LINE = 246;
+int _disp_gyro_scroll = _SCROLL_GYRO_FIRST_LINE;
 
 // external TFT write commands
 void TFT_mikromedia_Write_Command(unsigned short cmd);
@@ -72,8 +72,8 @@ char text[7];
 char text1[10];
 char *ptr;
   ptr = label->Caption;
-  TFT_Set_Pen(Sensor_test.Color,  0);
-  TFT_Set_Brush(1, Sensor_test.Color, 0, 0, 0, 0);
+  TFT_Set_Pen(Gyro_test.Color,  0);
+  TFT_Set_Brush(1, Gyro_test.Color, 0, 0, 0, 0);
   IntToStr(val & 0xFE, text);
   strcpy(text1, ptr);
   strcat(text1, text);
@@ -96,8 +96,8 @@ static void Scroll_Gyro(char Adir) {
 unsigned int _temp;
 
 if (Adir == _Gyro_UP) {
-      //if (_disp_gyro_scroll != _SCROLL_GYRO_FIRST_LINE)
-      //  _disp_gyro_scroll--;
+      if (_disp_gyro_scroll != _SCROLL_GYRO_FIRST_LINE)
+        _disp_gyro_scroll--;
       else {
         _disp_gyro_scroll = _SCROLL_GYRO_LAST_LINE - 1;
       }

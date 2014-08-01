@@ -1,5 +1,5 @@
-HMC5883L_main_Accel_Average:
-;HMC5883L_main.c,44 :: 		static void Accel_Average() {
+HMC5883L_main_Magnet_Average:
+;HMC5883L_main.c,44 :: 		static void Magnet_Average() {
 SUB	SP, SP, #20
 STR	LR, [SP, #0]
 ;HMC5883L_main.c,48 :: 		sx = sy = sz = 0;
@@ -20,15 +20,15 @@ SXTH	R3, R3
 ; sy end address is: 20 (R5)
 ; sz end address is: 16 (R4)
 ; i end address is: 12 (R3)
-L_HMC5883L_main_Accel_Average0:
+L_HMC5883L_main_Magnet_Average0:
 ; i start address is: 12 (R3)
 ; sx start address is: 24 (R6)
 ; sy start address is: 20 (R5)
 ; sz start address is: 16 (R4)
 CMP	R3, #16
 IT	GE
-BGE	L_HMC5883L_main_Accel_Average1
-;HMC5883L_main.c,52 :: 		ADXL345_Read(&xx, &yy, &zz);
+BGE	L_HMC5883L_main_Magnet_Average1
+;HMC5883L_main.c,52 :: 		HMC5883L_Read(&xx, &yy, &zz);
 ADD	R2, SP, #16
 ADD	R1, SP, #14
 ADD	R0, SP, #12
@@ -36,7 +36,7 @@ STRH	R4, [SP, #4]
 STRH	R5, [SP, #6]
 STRH	R6, [SP, #8]
 STRH	R3, [SP, #10]
-BL	_ADXL345_Read+0
+BL	_HMC5883L_Read+0
 LDRSH	R3, [SP, #10]
 LDRSH	R6, [SP, #8]
 LDRSH	R5, [SP, #6]
@@ -59,8 +59,8 @@ SXTH	R3, R3
 ;HMC5883L_main.c,56 :: 		}
 ; i end address is: 12 (R3)
 IT	AL
-BAL	L_HMC5883L_main_Accel_Average0
-L_HMC5883L_main_Accel_Average1:
+BAL	L_HMC5883L_main_Magnet_Average0
+L_HMC5883L_main_Magnet_Average1:
 ;HMC5883L_main.c,58 :: 		readings[0] = sx >> 4;
 ASRS	R1, R6, #4
 ; sx end address is: 24 (R6)
@@ -80,11 +80,11 @@ MOVW	R0, #lo_addr(_readings+4)
 MOVT	R0, #hi_addr(_readings+4)
 STRH	R1, [R0, #0]
 ;HMC5883L_main.c,61 :: 		}
-L_end_Accel_Average:
+L_end_Magnet_Average:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #20
 BX	LR
-; end of HMC5883L_main_Accel_Average
+; end of HMC5883L_main_Magnet_Average
 HMC5883L_main_Display_Value:
 ;HMC5883L_main.c,70 :: 		static void Display_Value(TLabel *label, int val) {
 ; val start address is: 4 (R1)
@@ -99,18 +99,18 @@ LDR	R2, [SP, #28]
 ADDS	R2, #16
 LDR	R2, [R2, #0]
 STR	R2, [SP, #24]
-;HMC5883L_main.c,75 :: 		TFT_Set_Pen(Sensor_test.Color,  0);
-MOVW	R2, #lo_addr(_Sensor_test+0)
-MOVT	R2, #hi_addr(_Sensor_test+0)
+;HMC5883L_main.c,75 :: 		TFT_Set_Pen(Magnetometer_test.Color,  0);
+MOVW	R2, #lo_addr(_Magnetometer_test+0)
+MOVT	R2, #hi_addr(_Magnetometer_test+0)
 LDRH	R2, [R2, #0]
 MOVS	R1, #0
 UXTH	R0, R2
 BL	_TFT_Set_Pen+0
-;HMC5883L_main.c,76 :: 		TFT_Set_Brush(1, Sensor_test.Color, 0, 0, 0, 0);
+;HMC5883L_main.c,76 :: 		TFT_Set_Brush(1, Magnetometer_test.Color, 0, 0, 0, 0);
 MOVS	R4, #0
 MOVS	R3, #0
-MOVW	R2, #lo_addr(_Sensor_test+0)
-MOVT	R2, #hi_addr(_Sensor_test+0)
+MOVW	R2, #lo_addr(_Magnetometer_test+0)
+MOVT	R2, #hi_addr(_Magnetometer_test+0)
 LDRH	R2, [R2, #0]
 PUSH	(R4)
 PUSH	(R3)
@@ -173,99 +173,99 @@ LDR	LR, [SP, #0]
 ADD	SP, SP, #32
 BX	LR
 ; end of HMC5883L_main_Display_Value
-HMC5883L_main_Scroll_ACCEL:
-;HMC5883L_main.c,95 :: 		static void Scroll_ACCEL(char Adir) {
+HMC5883L_main_Scroll_MAGNET:
+;HMC5883L_main.c,95 :: 		static void Scroll_MAGNET(char Adir) {
 ; Adir start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
 ; Adir end address is: 0 (R0)
 ; Adir start address is: 0 (R0)
-;HMC5883L_main.c,98 :: 		if (Adir == _ACCEL_UP) {
+;HMC5883L_main.c,98 :: 		if (Adir == _MAGNET_UP) {
 CMP	R0, #1
 IT	NE
-BNE	L_HMC5883L_main_Scroll_ACCEL3
+BNE	L_HMC5883L_main_Scroll_MAGNET3
 ; Adir end address is: 0 (R0)
-;HMC5883L_main.c,99 :: 		if (_disp_accel_scroll != _SCROLL_ACCEL_FIRST_LINE)
-MOVW	R1, #lo_addr(__disp_accel_scroll+0)
-MOVT	R1, #hi_addr(__disp_accel_scroll+0)
+;HMC5883L_main.c,99 :: 		if (_disp_magnet_scroll != _SCROLL_MAGNET_FIRST_LINE)
+MOVW	R1, #lo_addr(__disp_magnet_scroll+0)
+MOVT	R1, #hi_addr(__disp_magnet_scroll+0)
 LDRSH	R1, [R1, #0]
 CMP	R1, #41
 IT	EQ
-BEQ	L_HMC5883L_main_Scroll_ACCEL4
-;HMC5883L_main.c,100 :: 		_disp_accel_scroll--;
-MOVW	R2, #lo_addr(__disp_accel_scroll+0)
-MOVT	R2, #hi_addr(__disp_accel_scroll+0)
+BEQ	L_HMC5883L_main_Scroll_MAGNET4
+;HMC5883L_main.c,100 :: 		_disp_magnet_scroll--;
+MOVW	R2, #lo_addr(__disp_magnet_scroll+0)
+MOVT	R2, #hi_addr(__disp_magnet_scroll+0)
 LDRSH	R1, [R2, #0]
 SUBS	R1, R1, #1
 STRH	R1, [R2, #0]
 IT	AL
-BAL	L_HMC5883L_main_Scroll_ACCEL5
-L_HMC5883L_main_Scroll_ACCEL4:
-;HMC5883L_main.c,102 :: 		_disp_accel_scroll = _SCROLL_ACCEL_LAST_LINE - 1;
+BAL	L_HMC5883L_main_Scroll_MAGNET5
+L_HMC5883L_main_Scroll_MAGNET4:
+;HMC5883L_main.c,102 :: 		_disp_magnet_scroll = _SCROLL_MAGNET_LAST_LINE - 1;
 MOVS	R2, #245
 SXTH	R2, R2
-MOVW	R1, #lo_addr(__disp_accel_scroll+0)
-MOVT	R1, #hi_addr(__disp_accel_scroll+0)
+MOVW	R1, #lo_addr(__disp_magnet_scroll+0)
+MOVT	R1, #hi_addr(__disp_magnet_scroll+0)
 STRH	R2, [R1, #0]
 ;HMC5883L_main.c,103 :: 		}
-L_HMC5883L_main_Scroll_ACCEL5:
+L_HMC5883L_main_Scroll_MAGNET5:
 ;HMC5883L_main.c,104 :: 		}
 IT	AL
-BAL	L_HMC5883L_main_Scroll_ACCEL6
-L_HMC5883L_main_Scroll_ACCEL3:
-;HMC5883L_main.c,106 :: 		if (_disp_accel_scroll != _SCROLL_ACCEL_LAST_LINE - 1)
-MOVW	R1, #lo_addr(__disp_accel_scroll+0)
-MOVT	R1, #hi_addr(__disp_accel_scroll+0)
+BAL	L_HMC5883L_main_Scroll_MAGNET6
+L_HMC5883L_main_Scroll_MAGNET3:
+;HMC5883L_main.c,106 :: 		if (_disp_magnet_scroll != _SCROLL_MAGNET_LAST_LINE - 1)
+MOVW	R1, #lo_addr(__disp_magnet_scroll+0)
+MOVT	R1, #hi_addr(__disp_magnet_scroll+0)
 LDRSH	R1, [R1, #0]
 CMP	R1, #245
 IT	EQ
-BEQ	L_HMC5883L_main_Scroll_ACCEL7
-;HMC5883L_main.c,107 :: 		_disp_accel_scroll++;
-MOVW	R2, #lo_addr(__disp_accel_scroll+0)
-MOVT	R2, #hi_addr(__disp_accel_scroll+0)
+BEQ	L_HMC5883L_main_Scroll_MAGNET7
+;HMC5883L_main.c,107 :: 		_disp_magnet_scroll++;
+MOVW	R2, #lo_addr(__disp_magnet_scroll+0)
+MOVT	R2, #hi_addr(__disp_magnet_scroll+0)
 LDRSH	R1, [R2, #0]
 ADDS	R1, R1, #1
 STRH	R1, [R2, #0]
 IT	AL
-BAL	L_HMC5883L_main_Scroll_ACCEL8
-L_HMC5883L_main_Scroll_ACCEL7:
-;HMC5883L_main.c,109 :: 		_disp_accel_scroll = _SCROLL_ACCEL_FIRST_LINE;
+BAL	L_HMC5883L_main_Scroll_MAGNET8
+L_HMC5883L_main_Scroll_MAGNET7:
+;HMC5883L_main.c,109 :: 		_disp_magnet_scroll = _SCROLL_MAGNET_FIRST_LINE;
 MOVW	R2, #41
 SXTH	R2, R2
-MOVW	R1, #lo_addr(__disp_accel_scroll+0)
-MOVT	R1, #hi_addr(__disp_accel_scroll+0)
+MOVW	R1, #lo_addr(__disp_magnet_scroll+0)
+MOVT	R1, #hi_addr(__disp_magnet_scroll+0)
 STRH	R2, [R1, #0]
 ;HMC5883L_main.c,110 :: 		}
-L_HMC5883L_main_Scroll_ACCEL8:
+L_HMC5883L_main_Scroll_MAGNET8:
 ;HMC5883L_main.c,111 :: 		}
-L_HMC5883L_main_Scroll_ACCEL6:
-;HMC5883L_main.c,113 :: 		Scroll(_disp_accel_scroll);
-MOVW	R1, #lo_addr(__disp_accel_scroll+0)
-MOVT	R1, #hi_addr(__disp_accel_scroll+0)
+L_HMC5883L_main_Scroll_MAGNET6:
+;HMC5883L_main.c,113 :: 		Scroll(_disp_magnet_scroll);
+MOVW	R1, #lo_addr(__disp_magnet_scroll+0)
+MOVT	R1, #hi_addr(__disp_magnet_scroll+0)
 LDRSH	R1, [R1, #0]
 UXTH	R0, R1
 BL	_Scroll+0
 ;HMC5883L_main.c,114 :: 		}
-L_end_Scroll_ACCEL:
+L_end_Scroll_MAGNET:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
-; end of HMC5883L_main_Scroll_ACCEL
+; end of HMC5883L_main_Scroll_MAGNET
 HMC5883L_main_WriteGraph:
-;HMC5883L_main.c,123 :: 		static void WriteGraph(TAccel_values *old, TAccel_values *new){
+;HMC5883L_main.c,123 :: 		static void WriteGraph(Tmagnet_values *old, Tmagnet_values *new){
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
 STR	R0, [SP, #4]
 STR	R1, [SP, #8]
-;HMC5883L_main.c,125 :: 		if ((_disp_accel_scroll < _SCROLL_ACCEL_LAST_LINE - 2) && (_disp_accel_scroll > _SCROLL_ACCEL_FIRST_LINE)){
-MOVW	R2, #lo_addr(__disp_accel_scroll+0)
-MOVT	R2, #hi_addr(__disp_accel_scroll+0)
+;HMC5883L_main.c,125 :: 		if ((_disp_magnet_scroll < _SCROLL_MAGNET_LAST_LINE - 2) && (_disp_magnet_scroll > _SCROLL_MAGNET_FIRST_LINE)){
+MOVW	R2, #lo_addr(__disp_magnet_scroll+0)
+MOVT	R2, #hi_addr(__disp_magnet_scroll+0)
 LDRSH	R2, [R2, #0]
 CMP	R2, #244
 IT	GE
 BGE	L_HMC5883L_main_WriteGraph28
-MOVW	R2, #lo_addr(__disp_accel_scroll+0)
-MOVT	R2, #hi_addr(__disp_accel_scroll+0)
+MOVW	R2, #lo_addr(__disp_magnet_scroll+0)
+MOVT	R2, #hi_addr(__disp_magnet_scroll+0)
 LDRSH	R2, [R2, #0]
 CMP	R2, #41
 IT	LE
@@ -297,9 +297,9 @@ SXTH	R2, R2
 ASRS	R2, R2, #8
 SXTH	R2, R2
 ADDW	R5, R2, #90
-;HMC5883L_main.c,129 :: 		TFT_Line(temp1, _disp_accel_scroll + 2, temp2, _disp_accel_scroll + 1);
-MOVW	R4, #lo_addr(__disp_accel_scroll+0)
-MOVT	R4, #hi_addr(__disp_accel_scroll+0)
+;HMC5883L_main.c,129 :: 		TFT_Line(temp1, _disp_magnet_scroll + 2, temp2, _disp_magnet_scroll + 1);
+MOVW	R4, #lo_addr(__disp_magnet_scroll+0)
+MOVT	R4, #hi_addr(__disp_magnet_scroll+0)
 LDRSH	R2, [R4, #0]
 ADDS	R3, R2, #1
 MOV	R2, R4
@@ -337,9 +337,9 @@ SXTH	R2, R2
 ASRS	R2, R2, #8
 SXTH	R2, R2
 ADDW	R5, R2, #240
-;HMC5883L_main.c,134 :: 		TFT_Line(temp1, _disp_accel_scroll + 2, temp2, _disp_accel_scroll + 1);
-MOVW	R4, #lo_addr(__disp_accel_scroll+0)
-MOVT	R4, #hi_addr(__disp_accel_scroll+0)
+;HMC5883L_main.c,134 :: 		TFT_Line(temp1, _disp_magnet_scroll + 2, temp2, _disp_magnet_scroll + 1);
+MOVW	R4, #lo_addr(__disp_magnet_scroll+0)
+MOVT	R4, #hi_addr(__disp_magnet_scroll+0)
 LDRSH	R2, [R4, #0]
 ADDS	R3, R2, #1
 MOV	R2, R4
@@ -377,9 +377,9 @@ SXTH	R2, R2
 ASRS	R2, R2, #8
 SXTH	R2, R2
 ADD	R5, R2, #390
-;HMC5883L_main.c,139 :: 		TFT_Line(temp1, _disp_accel_scroll + 2, temp2, _disp_accel_scroll + 1);
-MOVW	R4, #lo_addr(__disp_accel_scroll+0)
-MOVT	R4, #hi_addr(__disp_accel_scroll+0)
+;HMC5883L_main.c,139 :: 		TFT_Line(temp1, _disp_magnet_scroll + 2, temp2, _disp_magnet_scroll + 1);
+MOVW	R4, #lo_addr(__disp_magnet_scroll+0)
+MOVT	R4, #hi_addr(__disp_magnet_scroll+0)
 LDRSH	R2, [R4, #0]
 ADDS	R3, R2, #1
 MOV	R2, R4
@@ -389,7 +389,7 @@ SXTH	R1, R2
 SXTH	R2, R5
 ; temp1 end address is: 0 (R0)
 BL	_TFT_Line+0
-;HMC5883L_main.c,125 :: 		if ((_disp_accel_scroll < _SCROLL_ACCEL_LAST_LINE - 2) && (_disp_accel_scroll > _SCROLL_ACCEL_FIRST_LINE)){
+;HMC5883L_main.c,125 :: 		if ((_disp_magnet_scroll < _SCROLL_MAGNET_LAST_LINE - 2) && (_disp_magnet_scroll > _SCROLL_MAGNET_FIRST_LINE)){
 L_HMC5883L_main_WriteGraph28:
 L_HMC5883L_main_WriteGraph27:
 ;HMC5883L_main.c,141 :: 		}
@@ -399,38 +399,38 @@ ADD	SP, SP, #12
 BX	LR
 ; end of HMC5883L_main_WriteGraph
 HMC5883L_main_Scroll_Add_Line:
-;HMC5883L_main.c,150 :: 		static void Scroll_Add_Line(char ScrollDiection){
-; ScrollDiection start address is: 0 (R0)
+;HMC5883L_main.c,150 :: 		static void Scroll_Add_Line(char ScrollDirection){
+; ScrollDirection start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
-; ScrollDiection end address is: 0 (R0)
-; ScrollDiection start address is: 0 (R0)
-;HMC5883L_main.c,152 :: 		if (ScrollDiection > 0){
+; ScrollDirection end address is: 0 (R0)
+; ScrollDirection start address is: 0 (R0)
+;HMC5883L_main.c,152 :: 		if (ScrollDirection > 0){
 CMP	R0, #0
 IT	LS
 BLS	L_HMC5883L_main_Scroll_Add_Line12
-; ScrollDiection end address is: 0 (R0)
-;HMC5883L_main.c,153 :: 		temp = _disp_accel_scroll + 1;
-MOVW	R1, #lo_addr(__disp_accel_scroll+0)
-MOVT	R1, #hi_addr(__disp_accel_scroll+0)
+; ScrollDirection end address is: 0 (R0)
+;HMC5883L_main.c,153 :: 		temp = _disp_magnet_scroll + 1;
+MOVW	R1, #lo_addr(__disp_magnet_scroll+0)
+MOVT	R1, #hi_addr(__disp_magnet_scroll+0)
 LDRSH	R1, [R1, #0]
 ADDS	R1, R1, #1
 SXTH	R1, R1
 ; temp start address is: 0 (R0)
 SXTH	R0, R1
-;HMC5883L_main.c,154 :: 		if (temp > _SCROLL_ACCEL_LAST_LINE - 1)
+;HMC5883L_main.c,154 :: 		if (temp > _SCROLL_MAGNET_LAST_LINE - 1)
 CMP	R1, #245
 IT	LE
 BLE	L_HMC5883L_main_Scroll_Add_Line29
-;HMC5883L_main.c,155 :: 		temp = _SCROLL_ACCEL_FIRST_LINE;
+;HMC5883L_main.c,155 :: 		temp = _SCROLL_MAGNET_FIRST_LINE;
 MOVW	R0, #41
 SXTH	R0, R0
 ; temp end address is: 0 (R0)
 IT	AL
 BAL	L_HMC5883L_main_Scroll_Add_Line13
 L_HMC5883L_main_Scroll_Add_Line29:
-;HMC5883L_main.c,154 :: 		if (temp > _SCROLL_ACCEL_LAST_LINE - 1)
-;HMC5883L_main.c,155 :: 		temp = _SCROLL_ACCEL_FIRST_LINE;
+;HMC5883L_main.c,154 :: 		if (temp > _SCROLL_MAGNET_LAST_LINE - 1)
+;HMC5883L_main.c,155 :: 		temp = _SCROLL_MAGNET_FIRST_LINE;
 L_HMC5883L_main_Scroll_Add_Line13:
 ;HMC5883L_main.c,156 :: 		TFT_CS = 0;
 ; temp start address is: 0 (R0)
@@ -527,22 +527,22 @@ LDR	LR, [SP, #0]
 ADD	SP, SP, #8
 BX	LR
 ; end of HMC5883L_main_Scroll_Add_Line
-_Accel_Stop:
-;HMC5883L_main.c,174 :: 		void Accel_Stop(){
+_MAGNET_Stop:
+;HMC5883L_main.c,174 :: 		void MAGNET_Stop(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;HMC5883L_main.c,175 :: 		Scroll_Undone(_SCROLL_ACCEL_FIRST_LINE, _SCROLL_ACCEL_LAST_LINE);
+;HMC5883L_main.c,175 :: 		Scroll_Undone(_SCROLL_MAGNET_FIRST_LINE, _SCROLL_MAGNET_LAST_LINE);
 MOVW	R1, #246
 MOVW	R0, #41
 BL	_Scroll_Undone+0
 ;HMC5883L_main.c,176 :: 		}
-L_end_Accel_Stop:
+L_end_MAGNET_Stop:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
-; end of _Accel_Stop
-_ACCEL_Start:
-;HMC5883L_main.c,185 :: 		void ACCEL_Start(char *test) {
+; end of _MAGNET_Stop
+_HMC5883L_Start:
+;HMC5883L_main.c,185 :: 		void HMC5883L_Start(char *test) {
 ; test start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
@@ -552,30 +552,30 @@ MOV	R2, R0
 ;HMC5883L_main.c,187 :: 		*test = 0;
 MOVS	R1, #0
 STRB	R1, [R2, #0]
-;HMC5883L_main.c,190 :: 		I2C1_Init_Advanced(400000, &_GPIO_MODULE_I2C1_PB67);
+;HMC5883L_main.c,190 :: 		I2C2_Init_Advanced(400000, &_GPIO_MODULE_I2C1_PB67);
 STR	R2, [SP, #4]
 MOVW	R1, #lo_addr(__GPIO_MODULE_I2C1_PB67+0)
 MOVT	R1, #hi_addr(__GPIO_MODULE_I2C1_PB67+0)
 MOVW	R0, #6784
 MOVT	R0, #6
-BL	_I2C1_Init_Advanced+0
+BL	_I2C2_Init_Advanced+0
 ;HMC5883L_main.c,191 :: 		Delay_ms(100);
 MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_ACCEL_Start19:
+L_HMC5883L_Start19:
 SUBS	R7, R7, #1
-BNE	L_ACCEL_Start19
+BNE	L_HMC5883L_Start19
 NOP
 NOP
 NOP
-;HMC5883L_main.c,193 :: 		if (ADXL345_Init() == 0) {
-BL	_ADXL345_Init+0
+;HMC5883L_main.c,193 :: 		if (HMC5883L_Init() == 0) {
+BL	_HMC5883L_Init+0
 LDR	R2, [SP, #4]
 CMP	R0, #0
 IT	NE
-BNE	L_ACCEL_Start21
+BNE	L_HMC5883L_Start21
 ;HMC5883L_main.c,194 :: 		*test = 1;
 MOVS	R1, #1
 STRB	R1, [R2, #0]
@@ -585,43 +585,43 @@ MOVW	R7, #30782
 MOVT	R7, #381
 NOP
 NOP
-L_ACCEL_Start22:
+L_HMC5883L_Start22:
 SUBS	R7, R7, #1
-BNE	L_ACCEL_Start22
+BNE	L_HMC5883L_Start22
 NOP
 NOP
 NOP
 ;HMC5883L_main.c,196 :: 		}
 IT	AL
-BAL	L_ACCEL_Start24
-L_ACCEL_Start21:
+BAL	L_HMC5883L_Start24
+L_HMC5883L_Start21:
 ;HMC5883L_main.c,198 :: 		*test = 2;
 ; test start address is: 8 (R2)
 MOVS	R1, #2
 STRB	R1, [R2, #0]
 ; test end address is: 8 (R2)
 ;HMC5883L_main.c,199 :: 		}
-L_ACCEL_Start24:
-;HMC5883L_main.c,200 :: 		Scroll_Undone(_SCROLL_ACCEL_FIRST_LINE, _SCROLL_ACCEL_LAST_LINE);
+L_HMC5883L_Start24:
+;HMC5883L_main.c,200 :: 		Scroll_Undone(_SCROLL_MAGNET_FIRST_LINE, _SCROLL_MAGNET_LAST_LINE);
 MOVW	R1, #246
 MOVW	R0, #41
 BL	_Scroll_Undone+0
 ;HMC5883L_main.c,201 :: 		}
-L_end_ACCEL_Start:
+L_end_HMC5883L_Start:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #8
 BX	LR
-; end of _ACCEL_Start
-HMC5883L_main_ACCEL_Test:
-;HMC5883L_main.c,210 :: 		static void ACCEL_Test(TAccel_values *values) {
+; end of _HMC5883L_Start
+HMC5883L_main_HMC5883L_Test:
+;HMC5883L_main.c,210 :: 		static void HMC5883L_Test(TMagnet_values *values) {
 ; values start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
 ; values end address is: 0 (R0)
 ; values start address is: 0 (R0)
-;HMC5883L_main.c,211 :: 		Accel_Average();               // Calculate average X, Y and Z reads
+;HMC5883L_main.c,211 :: 		Magnet_Average();               // Calculate average X, Y and Z reads
 STR	R0, [SP, #4]
-BL	HMC5883L_main_Accel_Average+0
+BL	HMC5883L_main_Magnet_Average+0
 LDR	R0, [SP, #4]
 ;HMC5883L_main.c,213 :: 		values->Xvalue = readings[0];
 MOVW	R1, #lo_addr(_readings+0)
@@ -642,38 +642,38 @@ MOVT	R1, #hi_addr(_readings+4)
 LDRSH	R1, [R1, #0]
 STRH	R1, [R2, #0]
 ;HMC5883L_main.c,216 :: 		}
-L_end_ACCEL_Test:
+L_end_HMC5883L_Test:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #8
 BX	LR
-; end of HMC5883L_main_ACCEL_Test
-_doAccel:
-;HMC5883L_main.c,227 :: 		void doAccel(){
+; end of HMC5883L_main_HMC5883L_Test
+_doMagnet:
+;HMC5883L_main.c,227 :: 		void doMagnet(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;HMC5883L_main.c,228 :: 		ACCEL_Test(&Accel_vals);
-MOVW	R0, #lo_addr(_Accel_vals+0)
-MOVT	R0, #hi_addr(_Accel_vals+0)
-BL	HMC5883L_main_ACCEL_Test+0
-;HMC5883L_main.c,229 :: 		Scroll_ACCEL(_ACCEL_UP);
+;HMC5883L_main.c,228 :: 		HMC5883L_Test(&Magnet_vals);
+MOVW	R0, #lo_addr(_Magnet_vals+0)
+MOVT	R0, #hi_addr(_Magnet_vals+0)
+BL	HMC5883L_main_HMC5883L_Test+0
+;HMC5883L_main.c,229 :: 		Scroll_MAGNET(_MAGNET_UP);
 MOVS	R0, #1
-BL	HMC5883L_main_Scroll_ACCEL+0
-;HMC5883L_main.c,230 :: 		Scroll_Add_Line(_ACCEL_UP);
+BL	HMC5883L_main_Scroll_MAGNET+0
+;HMC5883L_main.c,230 :: 		Scroll_Add_Line(_MAGNET_UP);
 MOVS	R0, #1
 BL	HMC5883L_main_Scroll_Add_Line+0
-;HMC5883L_main.c,231 :: 		WriteGraph(&Old_Accel_vals, &Accel_vals);
-MOVW	R1, #lo_addr(_Accel_vals+0)
-MOVT	R1, #hi_addr(_Accel_vals+0)
-MOVW	R0, #lo_addr(_Old_Accel_vals+0)
-MOVT	R0, #hi_addr(_Old_Accel_vals+0)
+;HMC5883L_main.c,231 :: 		WriteGraph(&Old_Magnet_vals, &Magnet_vals);
+MOVW	R1, #lo_addr(_Magnet_vals+0)
+MOVT	R1, #hi_addr(_Magnet_vals+0)
+MOVW	R0, #lo_addr(_Old_Magnet_vals+0)
+MOVT	R0, #hi_addr(_Old_Magnet_vals+0)
 BL	HMC5883L_main_WriteGraph+0
-;HMC5883L_main.c,232 :: 		Old_accel_vals = Accel_vals;
+;HMC5883L_main.c,232 :: 		Old_magnet_vals = Magnet_vals;
 MOVS	R3, #6
-MOVW	R2, #lo_addr(_Old_Accel_vals+0)
-MOVT	R2, #hi_addr(_Old_Accel_vals+0)
-MOVW	R1, #lo_addr(_Accel_vals+0)
-MOVT	R1, #hi_addr(_Accel_vals+0)
-L_doAccel25:
+MOVW	R2, #lo_addr(_Old_Magnet_vals+0)
+MOVT	R2, #hi_addr(_Old_Magnet_vals+0)
+MOVW	R1, #lo_addr(_Magnet_vals+0)
+MOVT	R1, #hi_addr(_Magnet_vals+0)
+L_doMagnet25:
 LDRB	R0, [R1, #0]
 STRB	R0, [R2, #0]
 SUBS	R3, R3, #1
@@ -682,34 +682,34 @@ ADDS	R1, R1, #1
 ADDS	R2, R2, #1
 CMP	R3, #0
 IT	NE
-BNE	L_doAccel25
-;HMC5883L_main.c,234 :: 		Display_Value(&LAbel2, Accel_vals.Xvalue);
-MOVW	R0, #lo_addr(_Accel_vals+0)
-MOVT	R0, #hi_addr(_Accel_vals+0)
+BNE	L_doMagnet25
+;HMC5883L_main.c,234 :: 		Display_Value(&LAbel2, Magnet_vals.Xvalue);
+MOVW	R0, #lo_addr(_Magnet_vals+0)
+MOVT	R0, #hi_addr(_Magnet_vals+0)
 LDRSH	R0, [R0, #0]
 SXTH	R1, R0
 MOVW	R0, #lo_addr(_Label2+0)
 MOVT	R0, #hi_addr(_Label2+0)
 BL	HMC5883L_main_Display_Value+0
-;HMC5883L_main.c,235 :: 		Display_Value(&LAbel3, Accel_vals.Yvalue);
-MOVW	R0, #lo_addr(_Accel_vals+2)
-MOVT	R0, #hi_addr(_Accel_vals+2)
+;HMC5883L_main.c,235 :: 		Display_Value(&LAbel3, Magnet_vals.Yvalue);
+MOVW	R0, #lo_addr(_Magnet_vals+2)
+MOVT	R0, #hi_addr(_Magnet_vals+2)
 LDRSH	R0, [R0, #0]
 SXTH	R1, R0
 MOVW	R0, #lo_addr(_Label3+0)
 MOVT	R0, #hi_addr(_Label3+0)
 BL	HMC5883L_main_Display_Value+0
-;HMC5883L_main.c,236 :: 		Display_Value(&LAbel4, Accel_vals.Zvalue);
-MOVW	R0, #lo_addr(_Accel_vals+4)
-MOVT	R0, #hi_addr(_Accel_vals+4)
+;HMC5883L_main.c,236 :: 		Display_Value(&LAbel4, Magnet_vals.Zvalue);
+MOVW	R0, #lo_addr(_Magnet_vals+4)
+MOVT	R0, #hi_addr(_Magnet_vals+4)
 LDRSH	R0, [R0, #0]
 SXTH	R1, R0
 MOVW	R0, #lo_addr(_Label4+0)
 MOVT	R0, #hi_addr(_Label4+0)
 BL	HMC5883L_main_Display_Value+0
 ;HMC5883L_main.c,237 :: 		}
-L_end_doAccel:
+L_end_doMagnet:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
-; end of _doAccel
+; end of _doMagnet

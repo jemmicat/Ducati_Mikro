@@ -1,5 +1,5 @@
 #include "built_in.h"
-//#include "ACCEL_driver.h"
+
 
 // ADXL345 Register Definition
 #define _POWER_CTL      0x2D
@@ -16,7 +16,7 @@
 
 #define _ACCEL_ERROR    0x02
                                       // check hardware
-//#define _ACCEL_ADDRESS  0x1D          // if ALT ADDRESS = 1
+                                      
 #define _ACCEL_ADDRESS  0x53          // if ALT ADDRESS = 0
 
 char data_[10];

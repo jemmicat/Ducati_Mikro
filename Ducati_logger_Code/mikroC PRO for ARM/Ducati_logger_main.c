@@ -22,11 +22,15 @@
 void RTC_Init();
 char Init_FAT();
 void Init_GPIO();
+char ADXL345_Init();
+char ITG3200_Init();
 
 
 void main() {
 
   Init_GPIO();
+  ADXL345_Init();
+  ITG3200_Init();
   //Init_FAT();
   RTC_Init();
   Start_TP();

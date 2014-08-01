@@ -1,5 +1,5 @@
-#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
-#line 1 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
+#line 1 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
+#line 1 "c:/users/jemmi/desktop/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
 
 typedef struct Screen TScreen;
@@ -368,7 +368,7 @@ extern TLabel * const code Screen5_Labels[3];
 extern TImage * const code Screen5_Images[3];
 extern TBox * const code Screen5_Boxes[7];
 
-extern TScreen Sensor_test;
+extern TScreen Accelerometer_test;
 extern TBox Box23;
 extern TBox Box6;
 extern TImage Image49;
@@ -409,6 +409,42 @@ extern TLabel * const code Screen7_Labels[21];
 extern TImage * const code Screen7_Images[1];
 extern TBox * const code Screen7_Boxes[2];
 
+extern TScreen Gyro_test;
+extern TBox Box13;
+extern TBox Box14;
+extern TImage Image52;
+extern TLabel Label8;
+extern TLabel Label9;
+extern TLabel Label31;
+extern TLabel Label33;
+extern TLabel * const code Screen8_Labels[4];
+extern TImage * const code Screen8_Images[1];
+extern TBox * const code Screen8_Boxes[2];
+
+extern TScreen Magnetometer_test;
+extern TBox Box15;
+extern TBox Box18;
+extern TImage Image53;
+extern TLabel Label34;
+extern TLabel Label35;
+extern TLabel Label36;
+extern TLabel Label37;
+extern TLabel * const code Screen9_Labels[4];
+extern TImage * const code Screen9_Images[1];
+extern TBox * const code Screen9_Boxes[2];
+
+extern TScreen Pressure_test;
+extern TBox Box19;
+extern TBox Box20;
+extern TImage Image54;
+extern TLabel Label38;
+extern TLabel Label39;
+extern TLabel Label40;
+extern TLabel Label41;
+extern TLabel * const code Screen10_Labels[4];
+extern TImage * const code Screen10_Images[1];
+extern TBox * const code Screen10_Boxes[2];
+
 
 
 
@@ -418,17 +454,17 @@ void Box3OnPress();
 void Box4OnPress();
 void Box5OnPress();
 void Box8OnClick();
+void doAccelerometerTest();
 void doCalibration();
 void doGPSTest();
+void doGyroTest();
 void doLog();
+void doMagnetTest();
 void doNextScreen();
-void doO2Test();
+void doPressureTest();
 void doPrevScreen();
-void doSensorCalibration();
-void doSensorTest();
 void doSetClock();
 void doSettings();
-void doShiftLightAdjust();
 void Image18OnPress();
 
 
@@ -564,6 +600,27 @@ extern char Label69_Caption[];
 extern char Label70_Caption[];
 extern char Label71_Caption[];
 extern char Label72_Caption[];
+extern char Box13_Caption[];
+extern char Box14_Caption[];
+extern char Image52_Caption[];
+extern char Label8_Caption[];
+extern char Label9_Caption[];
+extern char Label31_Caption[];
+extern char Label33_Caption[];
+extern char Box15_Caption[];
+extern char Box18_Caption[];
+extern char Image53_Caption[];
+extern char Label34_Caption[];
+extern char Label35_Caption[];
+extern char Label36_Caption[];
+extern char Label37_Caption[];
+extern char Box19_Caption[];
+extern char Box20_Caption[];
+extern char Image54_Caption[];
+extern char Label38_Caption[];
+extern char Label39_Caption[];
+extern char Label40_Caption[];
+extern char Label41_Caption[];
 
 
 void DrawScreen(TScreen *aScreen);
@@ -581,12 +638,12 @@ void Start_TP();
 void Process_TP_Press(unsigned int X, unsigned int Y);
 void Process_TP_Up(unsigned int X, unsigned int Y);
 void Process_TP_Down(unsigned int X, unsigned int Y);
-#line 9 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
+#line 9 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
 const VREF = 2048 ;
 static int Sensors_counter;
 static short Light_intensity_cnt, FULL_BackLight;
 static char current_intensity;
-#line 21 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
+#line 21 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
 void Sensors_Init(){
  Sensors_counter = 3100;
 
@@ -598,48 +655,14 @@ void Sensors_Init(){
  FULL_BackLight = 1;
  current_intensity = 255;
 }
-#line 40 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
+#line 40 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
 void RedrawLabel(unsigned int BackGround_Color, Tlabel *Label, unsigned int Xoffset, unsigned int Yoffset){
  TFT_Set_Brush(1, BackGround_Color, 0, 0, 0, 0);
  TFT_Set_Pen(BackGround_Color, 0);
  TFT_Rectangle(label->Left, Label->Top, label->Left + Xoffset, Label->Top + Yoffset);
  DrawLabel(Label);
 }
-#line 54 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
-static void Display_Temp(unsigned long temperature, char CF){
- char text1[11], text2[11];
- char *ptr1, *ptr2, temp;
-
- LongWordToStr(temperature, text1);
- ptr1 = text1;
- if (CF == 0)
- ptr2 = Diagram5_Label2.Caption;
- else
- ptr2 = Diagram5_Label5.Caption;
-
- while (*ptr1){
- if (*ptr1 != ' ')
- *ptr2++ = *ptr1;
- ptr1++;
- }
- ptr2--;
- temp = *ptr2;
- *ptr2++ = '.';
- *ptr2++ = temp;
- *ptr2++ = ' ';
- *ptr2++ = 'º';
- if (CF == 0)
- *ptr2++ = 'C';
- else
- *ptr2++ = 'F';
- *ptr2 = 0;
-
- if (CF == 0)
- RedrawLabel(Sensors.Color, &Diagram5_Label2, 135, 50);
- else
- RedrawLabel(Sensors.Color, &Diagram5_Label5, 75, 30);
-}
-#line 95 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
+#line 95 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
 static void Get_Temperature(){
  unsigned long temp;
  float temp2;
@@ -648,14 +671,14 @@ static void Get_Temperature(){
  temp = ADC3_Get_Sample(6);
  temp = (unsigned long)(VREF * temp) / 4100;
  temp = temp - 500;
- Display_Temp(temp, 0);
+
 
 
  temp2 = (float)(temp) / 10 * 1.8 + 32;
  temp2 = temp2 * 10;
- Display_Temp((unsigned long)temp2, 1);
+
 }
-#line 118 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
+#line 118 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
 static void Dim_BackLight(char intensity){
  char intensity_cnt;
  if (intensity < current_intensity)
@@ -670,67 +693,17 @@ static void Dim_BackLight(char intensity){
  }
  current_intensity = intensity;
 }
-#line 140 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
-static unsigned int Get_Light_Intensity(){
- unsigned int Light_Intensity;
- char *ptr1, *ptr2;
- char text[7], temp;
-
- Light_Intensity = ADC3_Get_Sample(7);
- Light_Intensity = Light_Intensity / 4;
-
- if (Light_Intensity >= 1000)
- Light_Intensity = 1000;
- WordToStr(Light_Intensity, text);
- ptr1 = text;
- ptr2 = Diagram5_Label4_Caption;
- while (*ptr1){
- if (*ptr1 != ' ')
- *ptr2++ = *ptr1;
- ptr1++;
- }
- ptr2--;
- temp = *ptr2;
- *ptr2++ = '.';
- *ptr2++ = temp;
- *ptr2++ = ' ';
- *ptr2++ = '%';
- *ptr2 = 0;
- RedrawLabel(Diagram5_Box1.Color, &Diagram5_Label4, 140, 50);
-
- return Light_Intensity;
-}
-#line 177 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
+#line 176 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
 void Sensors_Read(){
 unsigned int Light_temp;
  Sensors_counter++;
  if (Sensors_counter > 2000){
  Get_Temperature();
- Light_temp = Get_Light_Intensity();
-
- if (Light_temp < 200){
- if (Light_intensity_cnt < 5)
- Light_intensity_cnt ++;
- }
- else
- if (Light_intensity_cnt > -5)
- Light_intensity_cnt --;
-
- if ((Light_intensity_cnt > 4) && (FULL_BackLight == 1)){
- Dim_BackLight(70);
- FULL_BackLight = 0;
- Light_intensity_cnt = 0;
- }
- else if ((Light_intensity_cnt < -4) && (FULL_BackLight == 0)){
- Dim_BackLight(255);
- FULL_BackLight = 1;
- Light_intensity_cnt = 0;
- }
-
+#line 202 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
  Sensors_counter = 0;
  }
 }
-#line 214 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
+#line 213 "C:/Users/Jemmi/Desktop/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
 void Stop_sensors(){
  Dim_BackLight(0);
 }
