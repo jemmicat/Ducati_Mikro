@@ -1,28 +1,16 @@
 main
-	Init_GPIO
-		GPIO_Digital_Output
-			GPIO_Config
-				GPIO_Clk_Enable
-		Power_Man_Init
-			GPIO_Analog_Input
-				GPIO_Config
-			ADC3_Init
-				ADCx_Init
-					RCC_GetClocksFrequency
-						Get_Fosc_kHz
-			GPIO_Digital_Input
-				GPIO_Config
-	RTC_Init
 	Start_TP
 		Init_MCU
 			GPIO_Digital_Output
-			GPIO_Digital_Input
+				GPIO_Config
+					GPIO_Clk_Enable
 			I2C1_Init_Advanced
 				I2Cx_Init_Advanced
 					GPIO_Alternate_Function_Enable
 						GPIO_Config_Pin_Alternate_Function
 							GPIO_Config
 					RCC_GetClocksFrequency
+						Get_Fosc_kHz
 			TFT_Set_Default_Mode
 			TFT_Set_MM_Plus
 			STMPE610_SetDefaultMode
@@ -612,7 +600,7 @@ main
 				TFT_Write_Command
 				TFT_SSD1963_8bit_Set_Index
 				TFT_SSD1963YT_8bit_Write_Command
-			TFT_Write_to_16bitPort
+			Write_Data
 				Write_to_Data_Lines
 			SPI1_Write
 				SPIx_Read
@@ -682,7 +670,7 @@ main
 						TFT_Set_Address_ILI9481
 						TFT_Set_Address_ILI9342
 						TFT_Set_Address_ILI9340
-						TFT_Write_to_16bitPort
+						Write_Data
 						SPI1_Write
 						SPI2_Write
 						SPI3_Write
@@ -721,7 +709,7 @@ main
 						TFT_Set_Address_ILI9481
 						TFT_Set_Address_ILI9342
 						TFT_Set_Address_ILI9340
-						TFT_Write_to_16bitPort
+						Write_Data
 						SPI1_Write
 						SPI2_Write
 						SPI3_Write
@@ -782,26 +770,8 @@ main
 		InitializeObjects
 		DrawScreen
 			TFT_Set_Active
-			TFT_Init
-				Is_TFT_Set
-				TFT_Set_Pen
-				TFT_Set_Brush
-				TFT_Move_Cursor
-				TFT_Set_DataPort_Direction
-				TFT_Reset_Device
-					TFT_Set_Pin_Directions
-					Delay_100ms
-					TFT_Set_Reg
-						TFT_mikromedia_Set_Index
-						TFT_mikromedia_Write_Command
-						USBD_USR_DeviceReset
-						TFT_Set_Index
-						TFT_Write_Command
-						TFT_SSD1963_8bit_Set_Index
-						TFT_SSD1963YT_8bit_Write_Command
-					Is_TFT_Rotated_180
-					Delay_5ms
-					Delay_10ms
+			TFT_Init_SSD1963
+			STMPE610_SetSize
 			TFT_Set_Ext_Buffer
 			TFT_Fill_Screen
 			DrawRoundButton
@@ -870,7 +840,7 @@ main
 						TFT_Set_Address_ILI9340
 						TFT_Get_Data
 						MyTFT_Get_Data
-						TFT_Write_to_16bitPort
+						Write_Data
 						SPI1_Write
 						SPI2_Write
 						SPI3_Write
@@ -895,7 +865,7 @@ main
 						TFT_Set_Address_ILI9481
 						TFT_Set_Address_ILI9342
 						TFT_Set_Address_ILI9340
-						TFT_Write_to_16bitPort
+						Write_Data
 						SPI1_Write
 						SPI2_Write
 						SPI3_Write
@@ -920,7 +890,7 @@ main
 						TFT_Set_Address_ILI9481
 						TFT_Set_Address_ILI9342
 						TFT_Set_Address_ILI9340
-						TFT_Write_to_16bitPort
+						Write_Data
 						SPI1_Write
 						SPI2_Write
 						SPI3_Write
@@ -945,7 +915,7 @@ main
 						TFT_Set_Address_ILI9340
 						TFT_Get_Data
 						MyTFT_Get_Data
-						TFT_Write_to_16bitPort
+						Write_Data
 						SPI1_Write
 						SPI2_Write
 						SPI3_Write
@@ -960,6 +930,98 @@ main
 						TFT_SSD1963_8bit_Write_Data
 			DrawCImage
 				TFT_Ext_Image
+	Init_GPIO
+		GPIO_Digital_Output
+		Power_Man_Init
+			GPIO_Analog_Input
+				GPIO_Config
+			ADC3_Init
+				ADCx_Init
+					RCC_GetClocksFrequency
+			GPIO_Digital_Input
+				GPIO_Config
+	Init_SDIO
+		SDIO_Reset
+		SDIO_Init
+		Mmc_Set_Interface
+	Init_FAT
+		FAT32_Init
+			FAT32_Dev_Init
+				Mmc_Init
+			resetFSI
+				alt_memset
+			readFSI
+				readBR
+					readMBR
+						readSector
+						UI16
+						UI8
+						UI32
+					readSector
+					UI16
+					UI32
+					UI8
+					PO2
+				UI16
+				readSector
+				UI32
+		SDIO_Init
+		TFT_Set_Ext_Buffer
+		FAT32_Open
+			FAT32_Status
+				fileNameToName83
+					alt_isalnum
+						alt_isdigit
+						alt_islower
+						alt_isupper
+					alt_memset
+					alt_toupper
+				FAT32_ClustToSect
+				readMStart
+				readMSector
+				alt_memcmp
+				readMStop
+				DE_getDirEnt
+					name83ToFileName
+						alt_isalnum
+					UI8
+					UI32
+					UI16
+				DE_getCTime
+					UI16
+				DE_getMTime
+					UI16
+				FAT_getEntry
+			alt_memset
+			fileNameToName83
+			DE_setNameExt
+				alt_memcpy
+			DE_setAttrib
+			FAT32_MakeNode
+				FAT32_ClustToSect
+				readMStart
+				readMSector
+				readMStop
+				alt_memcpy
+				DE_setClust
+				DE_setCTime
+				DE_setMTime
+				writeSector
+					readMStop
+					FAT32_Dev_Write_Sector
+						Mmc_Write_Sector
+				FAT_getEntry
+				FAT_getFreeClust
+					readMStart
+					readMStop
+					readMSector
+					writeSector
+				FAT_setEntry
+					readSector
+					writeSector
+				alt_memset
+			FAT32_Seek
+	RTC_Init
 	DisableInterrupts
 	Check_TP
 		STMPE610_PressDetect
@@ -1000,24 +1062,42 @@ main
 						TFT_Rectangle
 						TFT_Set_Font
 						TFT_Write_Text
-			doSensorTest
+			doAccelerometerTest
 				BLED_Fade_Out
 				DrawScreen
 				BLED_Fade_In
+				ACCEL_Start
+					I2C2_Init_Advanced
+						I2Cx_Init_Advanced
+					ADXL345_Init
+						ADXL345_Write
+							I2C2_Start
+							I2C2_Write
+						ADXL345_Read_Register
+							I2C2_Start
+							I2C2_Write
+							I2C2_Read
+					Scroll_Undone
+						Scroll_Init_Scroll_area
+							TFT_mikromedia_Set_Index
+							TFT_mikromedia_Write_Command
+						TFT_mikromedia_Set_Index
+						TFT_mikromedia_Write_Command
 			doGPSTest
 				BLED_Fade_Out
 				DrawScreen
 				BLED_Fade_In
-			doO2Test
+			doMagnetTest
 				BLED_Fade_Out
 				DrawScreen
 				BLED_Fade_In
-			doShiftLightAdjust
+			doPressureTest
 				BLED_Fade_Out
 				DrawScreen
 				BLED_Fade_In
-			doSensorCalibration
+			doGyroTest
 				BLED_Fade_Out
+				DrawScreen
 				BLED_Fade_In
 			doCalibration
 				Calibrate
@@ -1049,7 +1129,7 @@ main
 					Draw_Picture
 						DrawPictureLine
 							TFT_Set_Address_SSD1963II
-							TFT_Write_to_16bitPort
+							Write_Data
 							SPI1_Write
 							SPI2_Write
 							SPI3_Write
@@ -1103,11 +1183,11 @@ main
 			doLog
 			doPrevScreen
 			doSetClock
-			doSensorTest
+			doAccelerometerTest
 			doGPSTest
-			doO2Test
-			doShiftLightAdjust
-			doSensorCalibration
+			doMagnetTest
+			doPressureTest
+			doGyroTest
 			doCalibration
 			Image18OnPress
 			Box8OnClick
@@ -1134,11 +1214,11 @@ main
 			doLog
 			doPrevScreen
 			doSetClock
-			doSensorTest
+			doAccelerometerTest
 			doGPSTest
-			doO2Test
-			doShiftLightAdjust
-			doSensorCalibration
+			doMagnetTest
+			doPressureTest
+			doGyroTest
 			doCalibration
 			Image18OnPress
 			Box8OnClick
@@ -1154,4 +1234,58 @@ main
 			USBD_USR_DeviceConnected
 			USBD_USR_DeviceDisconnected
 	EnableInterrupts
+	Run_Logger
+		checkRTC
+			RTCC_Read
+			UpdateTime
+				TFT_Set_Brush
+				TFT_Set_Pen
+				TFT_Rectangle
+				DrawLabel
+		checkPowerM
+		Sensors_Read
+			Get_Temperature
+				ADC3_Get_Sample
+		doRTC_Example
+			Roll_Get_Level
+			Set_Roller
+				Roll_Roller
+		doAccel
+			ACCEL_Test
+				Accel_Average
+					ADXL345_Read
+						I2C2_Start
+						I2C2_Write
+						I2C2_Read
+			Scroll_ACCEL
+				Scroll
+					TFT_mikromedia_Set_Index
+					TFT_mikromedia_Write_Command
+			Scroll_Add_Line
+				TFT_Set_Address_SSD1963II
+				Write_Data
+				SPI1_Write
+				SPI2_Write
+				SPI3_Write
+				UART1_Write
+				UART2_Write
+				UART3_Write
+				UART4_Write
+				UART5_Write
+				UART6_Write
+				TFT_Write_Data
+				TFT_16bit_Write_Data
+				TFT_SSD1963_8bit_Write_Data
+			WriteGraph
+				TFT_Set_Pen
+				TFT_Line
+			Display_Value
+				TFT_Set_Pen
+				TFT_Set_Brush
+				IntToStr
+					WordToStr
+				strcpy
+				strcat
+				TFT_Rectangle
+				DrawLabel
 	__FillZeros

@@ -44,17 +44,17 @@ void TFT_mikromedia_Set_Index(unsigned short index);
 // static void Accel_Average() {
   // int i, sx, sy, sz, xx, yy, zz;
 
-  sum
+ // sum
   // sx = sy = sz = 0;
 
-  average accelerometer reading over last 16 samples
+  //average accelerometer reading over last 16 samples
   // for (i=0; i<16; i++) {
     // ADXL345_Read(&xx, &yy, &zz);
     // sx += xx;
     // sy += yy;
     // sz += zz;
   // }
-  average
+  //average
   // readings[0] = sx >> 4;
   // readings[1] = sy >> 4;
   // readings[2] = sz >> 4;
@@ -183,13 +183,13 @@ char *ptr;
 * Output: test status: 0 - skiped; 1 - pass; 2 - fail
 *******************************************************************************/
 // void ACCEL_Start(char *test) {
-  Reset error flag
+  //Reset error flag
   // *test = 0;
 
-  Initialize I2C communication
+  //Initialize I2C communication
   // I2C1_Init_Advanced(400000, &_GPIO_MODULE_I2C1_PB67);
   // Delay_ms(100);
-  Initialize ADXL345 accelerometer
+  //Initialize ADXL345 accelerometer
   // if (ADXL345_Init() == 0) {
     // *test = 1;
     // Delay_ms(500);

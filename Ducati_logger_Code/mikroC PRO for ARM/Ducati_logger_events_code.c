@@ -68,6 +68,7 @@ char Logger_State;
 void doAccel();
 void ACCEL_Start(char *test);
 void Accel_Stop();
+extern char cACCEL_test_status;
 
 void Run_Logger(){
   switch (Logger_State) {
@@ -113,7 +114,7 @@ extern sfr sbit LED_B;
 extern signed short Ext_fhandle;
 extern char Ext_res_initialized;
 
-extern char cACCEL_test_status;
+
 
 
 void doAccel();
@@ -231,7 +232,7 @@ void doAccelerometerTest() {
     DrawScreen(&Accelerometer_test);
     BLED_Fade_In();
     Logger_State = 4;
-
+    ACCEL_Start(&cACCEL_test_status);
 }
 
 void doGPSTest() {

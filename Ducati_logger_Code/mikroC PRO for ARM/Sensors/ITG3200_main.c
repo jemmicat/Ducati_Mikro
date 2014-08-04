@@ -23,8 +23,8 @@ void TFT_mikromedia_Write_Command(unsigned short cmd);
 void TFT_mikromedia_Set_Index(unsigned short index);
 
 //  globals
-char out[16];
-int readings[3] = {0, 0, 0}; // X, Y and Z buffer
+char gyroout[16];
+int gyroreadings[3] = {0, 0, 0}; // X, Y and Z buffer
 
 typedef struct Gyro_values{
   int GyroXvalue;
@@ -55,9 +55,9 @@ static void Gyro_Average() {
     sz += zz;
   }
   // average
-  readings[0] = sx >> 4;
-  readings[1] = sy >> 4;
-  readings[2] = sz >> 4;
+  gyroreadings[0] = sx >> 4;
+  gyroreadings[1] = sy >> 4;
+  gyroreadings[2] = sz >> 4;
 }
 
 /*******************************************************************************
@@ -187,7 +187,7 @@ void GYRO_Start(char *test) {
   *test = 0;
 
   // Initialize I2C communication
-  I2C2_Init_Advanced(400000, &_GPIO_MODULE_I2C2_PF01);
+  I2C1_Init_Advanced(400000, &_GPIO_MODULE_I2C2_PF01);
   Delay_ms(100);
   // Initialize ITG3200 Gyro
   if (ITG3200_Init() == 0) {
@@ -210,9 +210,9 @@ void GYRO_Start(char *test) {
 static void GYRO_Test(TGyro_values *values) {
   Gyro_Average();               // Calculate average X, Y and Z reads
 
-  values->GyroXvalue = readings[0];
-  values->GyroYvalue = readings[1];
-  values->GyroZvalue = readings[2];
+  values->GyroXvalue = gyroreadings[0];
+  values->GyroYvalue = gyroreadings[1];
+  values->GyroZvalue = gyroreadings[2];
 }
 
 TGyro_values Gyro_vals, Old_Gyro_vals = {0, 0, 0};

@@ -1,5 +1,4 @@
 #include "built_in.h"
-//#include "ACCEL_driver.h"
 
 // ADXL345 Register Definition
 #define _POWER_CTL      0x2D
@@ -19,7 +18,7 @@
 //#define _ACCEL_ADDRESS  0x1D          // if ALT ADDRESS = 1
 #define _ACCEL_ADDRESS  0x53          // if ALT ADDRESS = 0
 
-char data_[10];
+char acceldata_[10];
 /*******************************************************************************
 * Function ADXL345_Write()
 * ------------------------------------------------------------------------------
@@ -28,10 +27,10 @@ char data_[10];
 * Output: Nothing
 *******************************************************************************/
 static void ADXL345_Write(unsigned short address, unsigned short data1) {
-  I2C1_Start();              // issue I2C start signal
-  data_[0] = address;
-  data_[1] = data1;
-  I2C1_Write(_ACCEL_ADDRESS, data_, 2, END_MODE_STOP);
+  I2C2_Start();              // issue I2C start signal
+  acceldata_[0] = address;
+  acceldata_[1] = data1;
+  I2C2_Write(_ACCEL_ADDRESS, acceldata_, 2, END_MODE_STOP);
 }
 
 /*******************************************************************************
@@ -42,14 +41,14 @@ static void ADXL345_Write(unsigned short address, unsigned short data1) {
 * Output: data from addressed register in ADXL345
 *******************************************************************************/
 void ADXL345_Read(int *data_X, int *data_Y, int *data_Z){
-  data_[0] = _DATAX0;
-  I2C1_Start();              // issue I2C start signal
-  I2C1_Write(_ACCEL_ADDRESS, data_, 1, END_MODE_RESTART);
-  I2C1_Read(_ACCEL_ADDRESS, data_, 6, END_MODE_STOP);
+  acceldata_[0] = _DATAX0;
+  I2C2_Start();              // issue I2C start signal
+  I2C2_Write(_ACCEL_ADDRESS, acceldata_, 1, END_MODE_RESTART);
+  I2C2_Read(_ACCEL_ADDRESS, acceldata_, 6, END_MODE_STOP);
 
-  *data_X = data_[0] + (data_[1] << 8);
-  *data_Y = data_[2] + (data_[3] << 8);
-  *data_Z = data_[4] + (data_[5] << 8);
+  *data_X = acceldata_[0] + (acceldata_[1] << 8);
+  *data_Y = acceldata_[2] + (acceldata_[3] << 8);
+  *data_Z = acceldata_[4] + (acceldata_[5] << 8);
 }
 
 /*******************************************************************************
@@ -60,11 +59,11 @@ void ADXL345_Read(int *data_X, int *data_Y, int *data_Z){
 * Output: data from addressed register in ADXL345
 *******************************************************************************/
 static unsigned short ADXL345_Read_Register(unsigned short address) {
-  I2C1_Start();              // issue I2C start signal
-  data_[0] = address;
-  I2C1_Write(_ACCEL_ADDRESS, data_, 1, END_MODE_RESTART);
-  I2C1_Read(_ACCEL_ADDRESS, data_, 1, END_MODE_STOP);
-  return data_[0];
+  I2C2_Start();              // issue I2C start signal
+  acceldata_[0] = address;
+  I2C2_Write(_ACCEL_ADDRESS, acceldata_, 1, END_MODE_RESTART);
+  I2C2_Read(_ACCEL_ADDRESS, acceldata_, 1, END_MODE_STOP);
+  return acceldata_[0];
 }
 
 /*******************************************************************************

@@ -1,4 +1,4 @@
-#line 1 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_resources.c"
+#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_resources.c"
 const unsigned long Arial_Black13x18_Regular = 0x00000007;
 const unsigned long Arial_Black16x23_Regular = 0x00000A23;
 const unsigned long Arial_Black21x30_Regular = 0x000021A1;

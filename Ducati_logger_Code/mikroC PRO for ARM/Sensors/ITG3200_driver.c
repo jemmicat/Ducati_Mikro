@@ -11,9 +11,9 @@
 #define _GURODATAZ0         0x21
 #define _GYRODATAZ1         0x22
 #define _GYRO_ERROR                    0x02
-#define _GYRO_ADDRESS                  0x69          // if ALT ADDRESS = 0
+#define _GYRO_ADDRESS                  0x69
 
-char data_[10];
+char gyrodata_[10];
 /*******************************************************************************
 * Function ITG3200_Write()
 * ------------------------------------------------------------------------------
@@ -22,10 +22,10 @@ char data_[10];
 * Output: Nothing
 *******************************************************************************/
 static void ITG3200_Write(unsigned short address, unsigned short data1) {
-  I2C2_Start();              // issue I2C start signal
-  data_[0] = address;
-  data_[1] = data1;
-  I2C2_Write(_GYRO_ADDRESS, data_, 2, END_MODE_STOP);
+  I2C1_Start();              // issue I2C start signal
+  gyrodata_[0] = address;
+  gyrodata_[1] = data1;
+  I2C1_Write(_GYRO_ADDRESS, gyrodata_, 2, END_MODE_STOP);
 }
 
 /*******************************************************************************
@@ -36,14 +36,14 @@ static void ITG3200_Write(unsigned short address, unsigned short data1) {
 * Output: data from addressed register in ITG3200
 *******************************************************************************/
 void ITG3200_Read(int *data_X, int *data_Y, int *data_Z){
-  data_[0] = _GYRODATAX0;
-  I2C2_Start();              // issue I2C start signal
-  I2C2_Write(_GYRO_ADDRESS, data_, 1, END_MODE_RESTART);
-  I2C2_Read(_GYRO_ADDRESS, data_, 6, END_MODE_STOP);
+  gyrodata_[0] = _GYRODATAX0;
+  I2C1_Start();              // issue I2C start signal
+  I2C1_Write(_GYRO_ADDRESS, gyrodata_, 1, END_MODE_RESTART);
+  I2C1_Read(_GYRO_ADDRESS, gyrodata_, 6, END_MODE_STOP);
 
-  *data_X = data_[0] + (data_[1] << 8);
-  *data_Y = data_[2] + (data_[3] << 8);
-  *data_Z = data_[4] + (data_[5] << 8);
+  *data_X = gyrodata_[0] + (gyrodata_[1] << 8);
+  *data_Y = gyrodata_[2] + (gyrodata_[3] << 8);
+  *data_Z = gyrodata_[4] + (gyrodata_[5] << 8);
 }
 
 /*******************************************************************************
@@ -54,11 +54,11 @@ void ITG3200_Read(int *data_X, int *data_Y, int *data_Z){
 * Output: data from addressed register in ADXL345
 *******************************************************************************/
 static unsigned short ITG3200_Read_Register(unsigned short address) {
-  I2C2_Start();              // issue I2C start signal
-  data_[0] = address;
-  I2C2_Write(_GYRO_ADDRESS, data_, 1, END_MODE_RESTART);
-  I2C2_Read(_GYRO_ADDRESS, data_, 1, END_MODE_STOP);
-  return data_[0];
+  I2C1_Start();              // issue I2C start signal
+  gyrodata_[0] = address;
+  I2C1_Write(_GYRO_ADDRESS, gyrodata_, 1, END_MODE_RESTART);
+  I2C1_Read(_GYRO_ADDRESS, gyrodata_, 1, END_MODE_STOP);
+  return gyrodata_[0];
 }
 
 /*******************************************************************************

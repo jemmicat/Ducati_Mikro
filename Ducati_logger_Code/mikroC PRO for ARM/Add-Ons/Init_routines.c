@@ -25,6 +25,9 @@ sbit MMC_Card_Detect           at GPIOD_IDR.B3;
 
 // extern functions
 void Power_Man_Init();
+char ADXL345_Init();
+void Scroll_Undone(unsigned int first, unsigned int last);
+void Scroll(unsigned int scroll);
 
 // global flags
 char Fat_Initialized_Flag;
@@ -56,8 +59,36 @@ void Init_GPIO(){
   Ext_fhandle = 0xFF;
 }
 
-char My_Ext_Data_Buffer[512];
 
+/*******************************************************************************
+* Function Init_SDIO()
+* ------------------------------------------------------------------------------
+* Overview: Function Initialize SDIO for SD card usage
+* Input: Nothing
+* Output: Nothing
+*******************************************************************************/
+void Init_SDIO(){
+    // Initialize SDIO
+    SDIO_Reset();
+    Ext_res_initialized = 0;
+    Fat_Initialized_Flag = 0;
+    Ext_fhandle = 0xFF;
+
+    SDIO_Init(_SDIO_CFG_POWER_SAVE_DISABLE | _SDIO_CFG_4_WIDE_BUS_MODE | _SDIO_CFG_CLOCK_BYPASS_DISABLE
+            | _SDIO_CFG_CLOCK_RISING_EDGE | _SDIO_CFG_HW_FLOW_DISABLE, 125, &_GPIO_MODULE_SDIO_D0_D3);
+
+    // Set pull-ups on SDIO lines
+    GPIOD_PUPDRbits.PUPDR2 = 1;
+    GPIOC_PUPDRbits.PUPDR8 = 1;
+    GPIOC_PUPDRbits.PUPDR9 = 1;
+    GPIOC_PUPDRbits.PUPDR10 = 1;
+    GPIOC_PUPDRbits.PUPDR11 = 1;
+
+    Mmc_Set_Interface(_MMC_INTERFACE_SDIO);
+}
+
+char My_Ext_Data_Buffer[512];
+//unsigned long currentSector = -1, res_file_size;
 /*******************************************************************************
 * Function MyTFT_Get_Data(unsigned long offset, unsigned long count, unsigned long *num)
 * ------------------------------------------------------------------------------
@@ -110,4 +141,29 @@ char FAT_cnt = 0;
   }
   
   return Ext_res_initialized;
+}
+
+/*******************************************************************************
+* Function ACCEL_Start()
+* ------------------------------------------------------------------------------
+* Overview: Function Initialize I2C bus and accel module
+* Input: Nothing
+* Output: test status: 0 - skiped; 1 - pass; 2 - fail
+*******************************************************************************/
+void I2C2_Set(char *test) {
+  // Reset error flag
+  *test = 0;
+
+  // Initialize I2C communication
+  I2C2_Init_Advanced(400000, &_GPIO_MODULE_I2C1_PB67);
+  Delay_ms(100);
+  // Initialize ADXL345 accelerometer
+  if (ADXL345_Init() == 0) {
+    *test = 1;
+    Delay_ms(500);
+  }
+  else {
+    *test = 2;
+  }
+  //Scroll_Undone(_SCROLL_ACCEL_FIRST_LINE, _SCROLL_ACCEL_LAST_LINE);
 }

@@ -61,23 +61,23 @@ SXTH	R3, R3
 IT	AL
 BAL	L_HMC5883L_main_Magnet_Average0
 L_HMC5883L_main_Magnet_Average1:
-;HMC5883L_main.c,58 :: 		readings[0] = sx >> 4;
+;HMC5883L_main.c,58 :: 		magnetreadings[0] = sx >> 4;
 ASRS	R1, R6, #4
 ; sx end address is: 24 (R6)
-MOVW	R0, #lo_addr(_readings+0)
-MOVT	R0, #hi_addr(_readings+0)
+MOVW	R0, #lo_addr(_magnetreadings+0)
+MOVT	R0, #hi_addr(_magnetreadings+0)
 STRH	R1, [R0, #0]
-;HMC5883L_main.c,59 :: 		readings[1] = sy >> 4;
+;HMC5883L_main.c,59 :: 		magnetreadings[1] = sy >> 4;
 ASRS	R1, R5, #4
 ; sy end address is: 20 (R5)
-MOVW	R0, #lo_addr(_readings+2)
-MOVT	R0, #hi_addr(_readings+2)
+MOVW	R0, #lo_addr(_magnetreadings+2)
+MOVT	R0, #hi_addr(_magnetreadings+2)
 STRH	R1, [R0, #0]
-;HMC5883L_main.c,60 :: 		readings[2] = sz >> 4;
+;HMC5883L_main.c,60 :: 		magnetreadings[2] = sz >> 4;
 ASRS	R1, R4, #4
 ; sz end address is: 16 (R4)
-MOVW	R0, #lo_addr(_readings+4)
-MOVT	R0, #hi_addr(_readings+4)
+MOVW	R0, #lo_addr(_magnetreadings+4)
+MOVT	R0, #hi_addr(_magnetreadings+4)
 STRH	R1, [R0, #0]
 ;HMC5883L_main.c,61 :: 		}
 L_end_Magnet_Average:
@@ -623,22 +623,22 @@ STR	LR, [SP, #0]
 STR	R0, [SP, #4]
 BL	HMC5883L_main_Magnet_Average+0
 LDR	R0, [SP, #4]
-;HMC5883L_main.c,213 :: 		values->Xvalue = readings[0];
-MOVW	R1, #lo_addr(_readings+0)
-MOVT	R1, #hi_addr(_readings+0)
+;HMC5883L_main.c,213 :: 		values->Xvalue = magnetreadings[0];
+MOVW	R1, #lo_addr(_magnetreadings+0)
+MOVT	R1, #hi_addr(_magnetreadings+0)
 LDRSH	R1, [R1, #0]
 STRH	R1, [R0, #0]
-;HMC5883L_main.c,214 :: 		values->Yvalue = readings[1];
+;HMC5883L_main.c,214 :: 		values->Yvalue = magnetreadings[1];
 ADDS	R2, R0, #2
-MOVW	R1, #lo_addr(_readings+2)
-MOVT	R1, #hi_addr(_readings+2)
+MOVW	R1, #lo_addr(_magnetreadings+2)
+MOVT	R1, #hi_addr(_magnetreadings+2)
 LDRSH	R1, [R1, #0]
 STRH	R1, [R2, #0]
-;HMC5883L_main.c,215 :: 		values->Zvalue = readings[2];
+;HMC5883L_main.c,215 :: 		values->Zvalue = magnetreadings[2];
 ADDS	R2, R0, #4
 ; values end address is: 0 (R0)
-MOVW	R1, #lo_addr(_readings+4)
-MOVT	R1, #hi_addr(_readings+4)
+MOVW	R1, #lo_addr(_magnetreadings+4)
+MOVT	R1, #hi_addr(_magnetreadings+4)
 LDRSH	R1, [R1, #0]
 STRH	R1, [R2, #0]
 ;HMC5883L_main.c,216 :: 		}

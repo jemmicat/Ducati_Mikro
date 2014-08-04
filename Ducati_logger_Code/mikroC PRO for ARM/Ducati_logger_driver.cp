@@ -1,5 +1,5 @@
-#line 1 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_driver.c"
-#line 1 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
+#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_driver.c"
+#line 1 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
 
 typedef struct Screen TScreen;
@@ -638,9 +638,9 @@ void Start_TP();
 void Process_TP_Press(unsigned int X, unsigned int Y);
 void Process_TP_Up(unsigned int X, unsigned int Y);
 void Process_TP_Down(unsigned int X, unsigned int Y);
-#line 1 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_resources.h"
-#line 1 "c:/users/jjmcdo1/documents/mikroelektronika/mikroc pro for arm/include/built_in.h"
-#line 7 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_driver.c"
+#line 1 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_resources.h"
+#line 1 "c:/users/jemmi/documents/mikroelektronika/mikroc pro for arm/include/built_in.h"
+#line 7 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_driver.c"
 sbit Mmc_Chip_Select at GPIOD_ODR.B3;
 
 
@@ -708,7 +708,7 @@ void Write_to_Data_Lines(unsigned char _hi, unsigned char _lo) {
  GPIOG_ODR = temp | _lo;
 }
 
-void Set_Index(unsigned short index) {
+ void TFT_mikromedia_Set_Index(unsigned short index) {
  TFT_RS = 0;
  Write_to_Data_Lines(0, index);
  TFT_WR = 0;
@@ -716,7 +716,7 @@ void Set_Index(unsigned short index) {
  TFT_WR = 1;
 }
 
-void Write_Command(unsigned short cmd) {
+void TFT_mikromedia_Write_Command(unsigned short cmd) {
  TFT_RS = 1;
  Write_to_Data_Lines(0, cmd);
  TFT_WR = 0;
@@ -759,7 +759,7 @@ unsigned int fpos;
  return Ext_Data_Buffer+fpos;
 }
 static void InitializeTouchPanel() {
- TFT_Set_Active(Set_Index, Write_Command, Write_Data);
+ TFT_Set_Active(TFT_mikromedia_Set_Index, TFT_mikromedia_Write_Command, Write_Data);
  TFT_Init_SSD1963(480, 272);
  TFT_Set_Ext_Buffer(TFT_Get_Data);
 
@@ -3312,7 +3312,7 @@ static void InitializeObjects() {
  Label6.Order = 10;
  Label6.Left = 15;
  Label6.Top = 235;
- Label6.Width = 0;
+ Label6.Width = 50;
  Label6.Height = 16;
  Label6.Visible = 1;
  Label6.Active = 0;
@@ -4273,7 +4273,7 @@ static char IsInsideObject (unsigned int X, unsigned int Y, unsigned int Left, u
  else
  return 0;
 }
-#line 3652 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_driver.c"
+#line 3652 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_driver.c"
 void DrawRoundButton(TButton_Round *Around_button) {
  if (Around_button->Visible == 1) {
  if (object_pressed == 1) {
@@ -4436,12 +4436,11 @@ void DrawScreen(TScreen *aScreen) {
  if ((display_width != CurrentScreen->Width) || (display_height != CurrentScreen->Height)) {
  save_bled = TFT_BLED;
  TFT_BLED = 0;
- TFT_Set_Active(Set_Index, Write_Command, Write_Data);
+ TFT_Set_Active(TFT_mikromedia_Set_Index, TFT_mikromedia_Write_Command, Write_Data);
  TFT_Init_SSD1963(CurrentScreen->Width, CurrentScreen->Height);
  STMPE610_SetSize(CurrentScreen->Width, CurrentScreen->Height);
  TFT_Set_Ext_Buffer(TFT_Get_Data);
  TFT_Fill_Screen(CurrentScreen->Color);
- TFT_Set_DBC_SSD1963(255);
  display_width = CurrentScreen->Width;
  display_height = CurrentScreen->Height;
  TFT_BLED = save_bled;
@@ -5077,20 +5076,16 @@ void Check_TP() {
 }
 
 void Init_MCU() {
-
-
-
+char _cnt;
  GPIO_Digital_Output(&GPIOB_BASE, _GPIO_PINMASK_6);
- GPIO_Digital_Input(&GPIOB_BASE, _GPIO_PINMASK_7);
- GPIOB_ODR.B6 = 1;
- while (GPIOB_IDR.B7 == 0) {
+ for (_cnt = 0; _cnt < 20; _cnt++) {
  GPIOB_ODR.B6 = 0;
- Delay_us(10);
+ Delay_ms(1);
  GPIOB_ODR.B6 = 1;
- Delay_us(10);
+ Delay_ms(1);
  }
- I2C1_Init_Advanced(400000, &_GPIO_MODULE_I2C1_PB67);
 
+ I2C1_Init_Advanced(400000, &_GPIO_MODULE_I2C1_PB67);
  TFT_Set_Default_Mode();
  GPIO_Digital_Output(&GPIOG_BASE, 0x00FF);
  GPIO_Digital_Output(&GPIOE_BASE, 0xFF00);

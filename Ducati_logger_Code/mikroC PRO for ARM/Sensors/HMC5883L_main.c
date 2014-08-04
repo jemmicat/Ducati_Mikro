@@ -23,8 +23,8 @@ void TFT_mikromedia_Write_Command(unsigned short cmd);
 void TFT_mikromedia_Set_Index(unsigned short index);
 
 //  globals
-char out[16];
-int readings[3] = {0, 0, 0}; // X, Y and Z buffer
+char magnetout[16];
+int magnetreadings[3] = {0, 0, 0}; // X, Y and Z buffer
 
 typedef struct Magnet_values{
   int Xvalue;
@@ -55,9 +55,9 @@ static void Magnet_Average() {
     sz += zz;
   }
   // average
-  readings[0] = sx >> 4;
-  readings[1] = sy >> 4;
-  readings[2] = sz >> 4;
+  magnetreadings[0] = sx >> 4;
+  magnetreadings[1] = sy >> 4;
+  magnetreadings[2] = sz >> 4;
 }
 
 /*******************************************************************************
@@ -210,9 +210,9 @@ void HMC5883L_Start(char *test) {
 static void HMC5883L_Test(TMagnet_values *values) {
   Magnet_Average();               // Calculate average X, Y and Z reads
 
-  values->Xvalue = readings[0];
-  values->Yvalue = readings[1];
-  values->Zvalue = readings[2];
+  values->Xvalue = magnetreadings[0];
+  values->Yvalue = magnetreadings[1];
+  values->Zvalue = magnetreadings[2];
 }
 
 TMagnet_values Magnet_vals, Old_Magnet_vals = {0, 0, 0};

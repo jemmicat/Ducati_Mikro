@@ -1,198 +1,293 @@
-BMP085_driver_ADXL345_Write:
-;BMP085_driver.c,30 :: 		static void ADXL345_Write(unsigned short address, unsigned short data1) {
-; data1 start address is: 4 (R1)
-; address start address is: 0 (R0)
-SUB	SP, SP, #4
-STR	LR, [SP, #0]
-UXTB	R5, R0
-UXTB	R6, R1
-; data1 end address is: 4 (R1)
-; address end address is: 0 (R0)
-; address start address is: 20 (R5)
-; data1 start address is: 24 (R6)
-;BMP085_driver.c,31 :: 		I2C1_Start();              // issue I2C start signal
-BL	_I2C1_Start+0
-;BMP085_driver.c,32 :: 		data_[0] = address;
-MOVW	R2, #lo_addr(_data_+0)
-MOVT	R2, #hi_addr(_data_+0)
-STRB	R5, [R2, #0]
-; address end address is: 20 (R5)
-;BMP085_driver.c,33 :: 		data_[1] = data1;
-MOVW	R2, #lo_addr(_data_+1)
-MOVT	R2, #hi_addr(_data_+1)
-STRB	R6, [R2, #0]
-; data1 end address is: 24 (R6)
-;BMP085_driver.c,34 :: 		I2C1_Write(_ACCEL_ADDRESS, data_, 2, END_MODE_STOP);
-MOVW	R3, #1
-MOVS	R2, #2
-MOVW	R1, #lo_addr(_data_+0)
-MOVT	R1, #hi_addr(_data_+0)
-MOVS	R0, #83
-BL	_I2C1_Write+0
-;BMP085_driver.c,35 :: 		}
-L_end_ADXL345_Write:
-LDR	LR, [SP, #0]
-ADD	SP, SP, #4
-BX	LR
-; end of BMP085_driver_ADXL345_Write
-_ADXL345_Read:
-;BMP085_driver.c,44 :: 		void ADXL345_Read(int *data_X, int *data_Y, int *data_Z){
-; data_Y start address is: 4 (R1)
-; data_X start address is: 0 (R0)
+_bmp085ReadInt:
+;BMP085_driver.c,41 :: 		int bmp085ReadInt(unsigned char address)
 SUB	SP, SP, #8
-STR	LR, [SP, #0]
-MOV	R11, R0
-MOV	R12, R1
-STR	R2, [SP, #4]
-; data_Y end address is: 4 (R1)
-; data_X end address is: 0 (R0)
-; data_X start address is: 44 (R11)
-; data_Y start address is: 48 (R12)
-;BMP085_driver.c,45 :: 		data_[0] = _DATAX0;
-MOVS	R4, #50
-MOVW	R3, #lo_addr(_data_+0)
-MOVT	R3, #hi_addr(_data_+0)
-STRB	R4, [R3, #0]
-;BMP085_driver.c,46 :: 		I2C1_Start();              // issue I2C start signal
-BL	_I2C1_Start+0
-;BMP085_driver.c,47 :: 		I2C1_Write(_ACCEL_ADDRESS, data_, 1, END_MODE_RESTART);
-MOVW	R3, #0
-MOVS	R2, #1
-MOVW	R1, #lo_addr(_data_+0)
-MOVT	R1, #hi_addr(_data_+0)
-MOVS	R0, #83
-BL	_I2C1_Write+0
-;BMP085_driver.c,48 :: 		I2C1_Read(_ACCEL_ADDRESS, data_, 6, END_MODE_STOP);
-MOVW	R3, #1
-MOVS	R2, #6
-MOVW	R1, #lo_addr(_data_+0)
-MOVT	R1, #hi_addr(_data_+0)
-MOVS	R0, #83
-BL	_I2C1_Read+0
-;BMP085_driver.c,50 :: 		*data_X = data_[0] + (data_[1] << 8);
-MOVW	R3, #lo_addr(_data_+1)
-MOVT	R3, #hi_addr(_data_+1)
-LDRB	R3, [R3, #0]
-LSLS	R4, R3, #8
-UXTH	R4, R4
-MOVW	R3, #lo_addr(_data_+0)
-MOVT	R3, #hi_addr(_data_+0)
-LDRB	R3, [R3, #0]
-ADDS	R3, R3, R4
-STRH	R3, [R11, #0]
-; data_X end address is: 44 (R11)
-;BMP085_driver.c,51 :: 		*data_Y = data_[2] + (data_[3] << 8);
-MOVW	R3, #lo_addr(_data_+3)
-MOVT	R3, #hi_addr(_data_+3)
-LDRB	R3, [R3, #0]
-LSLS	R4, R3, #8
-UXTH	R4, R4
-MOVW	R3, #lo_addr(_data_+2)
-MOVT	R3, #hi_addr(_data_+2)
-LDRB	R3, [R3, #0]
-ADDS	R3, R3, R4
-STRH	R3, [R12, #0]
-; data_Y end address is: 48 (R12)
-;BMP085_driver.c,52 :: 		*data_Z = data_[4] + (data_[5] << 8);
-MOVW	R3, #lo_addr(_data_+5)
-MOVT	R3, #hi_addr(_data_+5)
-LDRB	R3, [R3, #0]
-LSLS	R4, R3, #8
-UXTH	R4, R4
-MOVW	R3, #lo_addr(_data_+4)
-MOVT	R3, #hi_addr(_data_+4)
-LDRB	R3, [R3, #0]
-ADDS	R4, R3, R4
-LDR	R3, [SP, #4]
-STRH	R4, [R3, #0]
-;BMP085_driver.c,53 :: 		}
-L_end_ADXL345_Read:
-LDR	LR, [SP, #0]
+;BMP085_driver.c,55 :: 		return (int) msb<<8 | lsb;
+LDRB	R1, [SP, #0]
+LSLS	R2, R1, #8
+SXTH	R2, R2
+LDRB	R1, [SP, #1]
+ORR	R1, R2, R1, LSL #0
+SXTH	R0, R1
+;BMP085_driver.c,56 :: 		}
+L_end_bmp085ReadInt:
 ADD	SP, SP, #8
 BX	LR
-; end of _ADXL345_Read
-BMP085_driver_ADXL345_Read_Register:
-;BMP085_driver.c,62 :: 		static unsigned short ADXL345_Read_Register(unsigned short address) {
-; address start address is: 0 (R0)
+; end of _bmp085ReadInt
+_bmp085Calibration:
+;BMP085_driver.c,64 :: 		void bmp085Calibration()
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-UXTB	R5, R0
-; address end address is: 0 (R0)
-; address start address is: 20 (R5)
-;BMP085_driver.c,63 :: 		I2C1_Start();              // issue I2C start signal
-BL	_I2C1_Start+0
-;BMP085_driver.c,64 :: 		data_[0] = address;
-MOVW	R1, #lo_addr(_data_+0)
-MOVT	R1, #hi_addr(_data_+0)
-STRB	R5, [R1, #0]
-; address end address is: 20 (R5)
-;BMP085_driver.c,65 :: 		I2C1_Write(_ACCEL_ADDRESS, data_, 1, END_MODE_RESTART);
-MOVW	R3, #0
-MOVS	R2, #1
-MOVW	R1, #lo_addr(_data_+0)
-MOVT	R1, #hi_addr(_data_+0)
-MOVS	R0, #83
-BL	_I2C1_Write+0
-;BMP085_driver.c,66 :: 		I2C1_Read(_ACCEL_ADDRESS, data_, 1, END_MODE_STOP);
-MOVW	R3, #1
-MOVS	R2, #1
-MOVW	R1, #lo_addr(_data_+0)
-MOVT	R1, #hi_addr(_data_+0)
-MOVS	R0, #83
-BL	_I2C1_Read+0
-;BMP085_driver.c,67 :: 		return data_[0];
-MOVW	R1, #lo_addr(_data_+0)
-MOVT	R1, #hi_addr(_data_+0)
-LDRB	R0, [R1, #0]
-;BMP085_driver.c,68 :: 		}
-L_end_ADXL345_Read_Register:
+;BMP085_driver.c,66 :: 		ac1 = bmp085ReadInt(0xAA);
+MOVS	R0, #170
+BL	_bmp085ReadInt+0
+MOVW	R1, #lo_addr(_ac1+0)
+MOVT	R1, #hi_addr(_ac1+0)
+STRH	R0, [R1, #0]
+;BMP085_driver.c,67 :: 		ac2 = bmp085ReadInt(0xAC);
+MOVS	R0, #172
+BL	_bmp085ReadInt+0
+MOVW	R1, #lo_addr(_ac2+0)
+MOVT	R1, #hi_addr(_ac2+0)
+STRH	R0, [R1, #0]
+;BMP085_driver.c,68 :: 		ac3 = bmp085ReadInt(0xAE);
+MOVS	R0, #174
+BL	_bmp085ReadInt+0
+MOVW	R1, #lo_addr(_ac3+0)
+MOVT	R1, #hi_addr(_ac3+0)
+STRH	R0, [R1, #0]
+;BMP085_driver.c,69 :: 		ac4 = bmp085ReadInt(0xB0);
+MOVS	R0, #176
+BL	_bmp085ReadInt+0
+MOVW	R1, #lo_addr(_ac4+0)
+MOVT	R1, #hi_addr(_ac4+0)
+STRH	R0, [R1, #0]
+;BMP085_driver.c,70 :: 		ac5 = bmp085ReadInt(0xB2);
+MOVS	R0, #178
+BL	_bmp085ReadInt+0
+MOVW	R1, #lo_addr(_ac5+0)
+MOVT	R1, #hi_addr(_ac5+0)
+STRH	R0, [R1, #0]
+;BMP085_driver.c,71 :: 		ac6 = bmp085ReadInt(0xB4);
+MOVS	R0, #180
+BL	_bmp085ReadInt+0
+MOVW	R1, #lo_addr(_ac6+0)
+MOVT	R1, #hi_addr(_ac6+0)
+STRH	R0, [R1, #0]
+;BMP085_driver.c,72 :: 		bb1 = bmp085ReadInt(0xB6);
+MOVS	R0, #182
+BL	_bmp085ReadInt+0
+MOVW	R1, #lo_addr(_bb1+0)
+MOVT	R1, #hi_addr(_bb1+0)
+STRH	R0, [R1, #0]
+;BMP085_driver.c,73 :: 		bb2 = bmp085ReadInt(0xB8);
+MOVS	R0, #184
+BL	_bmp085ReadInt+0
+MOVW	R1, #lo_addr(_bb2+0)
+MOVT	R1, #hi_addr(_bb2+0)
+STRH	R0, [R1, #0]
+;BMP085_driver.c,74 :: 		mmb = bmp085ReadInt(0xBA);
+MOVS	R0, #186
+BL	_bmp085ReadInt+0
+MOVW	R1, #lo_addr(_mmb+0)
+MOVT	R1, #hi_addr(_mmb+0)
+STRH	R0, [R1, #0]
+;BMP085_driver.c,75 :: 		mmc = bmp085ReadInt(0xBC);
+MOVS	R0, #188
+BL	_bmp085ReadInt+0
+MOVW	R1, #lo_addr(_mmc+0)
+MOVT	R1, #hi_addr(_mmc+0)
+STRH	R0, [R1, #0]
+;BMP085_driver.c,76 :: 		mmd = bmp085ReadInt(0xBE);
+MOVS	R0, #190
+BL	_bmp085ReadInt+0
+MOVW	R1, #lo_addr(_mmd+0)
+MOVT	R1, #hi_addr(_mmd+0)
+STRH	R0, [R1, #0]
+;BMP085_driver.c,77 :: 		}
+L_end_bmp085Calibration:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
-; end of BMP085_driver_ADXL345_Read_Register
-_ADXL345_Init:
-;BMP085_driver.c,77 :: 		char ADXL345_Init() {
-SUB	SP, SP, #4
-STR	LR, [SP, #0]
-;BMP085_driver.c,78 :: 		char id = 0x00;
-;BMP085_driver.c,80 :: 		ADXL345_Write(0x2D, 0x00);
-MOVS	R1, #0
-MOVS	R0, #45
-BL	BMP085_driver_ADXL345_Write+0
-;BMP085_driver.c,81 :: 		id = ADXL345_Read_Register(0x00);
-MOVS	R0, #0
-BL	BMP085_driver_ADXL345_Read_Register+0
-;BMP085_driver.c,82 :: 		if (id != 0xE5) {
-CMP	R0, #229
-IT	EQ
-BEQ	L_ADXL345_Init0
-;BMP085_driver.c,83 :: 		return _ACCEL_ERROR;
-MOVS	R0, #2
+; end of _bmp085Calibration
+_bmp085GetTemperature:
+;BMP085_driver.c,81 :: 		short bmp085GetTemperature(unsigned int ut)
+; ut start address is: 0 (R0)
+; ut end address is: 0 (R0)
+; ut start address is: 0 (R0)
+;BMP085_driver.c,85 :: 		x1 = (((long)ut - (long)ac6)*(long)ac5) >> 15;
+UXTH	R2, R0
+; ut end address is: 0 (R0)
+MOVW	R1, #lo_addr(_ac6+0)
+MOVT	R1, #hi_addr(_ac6+0)
+LDRH	R1, [R1, #0]
+SUB	R2, R2, R1
+MOVW	R1, #lo_addr(_ac5+0)
+MOVT	R1, #hi_addr(_ac5+0)
+LDRH	R1, [R1, #0]
+MULS	R1, R2, R1
+ASRS	R3, R1, #15
+; x1 start address is: 0 (R0)
+MOV	R0, R3
+;BMP085_driver.c,86 :: 		x2 = ((long)mmc << 11)/(x1 + mmd);
+MOVW	R1, #lo_addr(_mmc+0)
+MOVT	R1, #hi_addr(_mmc+0)
+LDRSH	R1, [R1, #0]
+LSLS	R2, R1, #11
+MOVW	R1, #lo_addr(_mmd+0)
+MOVT	R1, #hi_addr(_mmd+0)
+LDRSH	R1, [R1, #0]
+ADDS	R1, R3, R1
+SDIV	R1, R2, R1
+;BMP085_driver.c,87 :: 		bb5 = x1 + x2;
+ADDS	R2, R0, R1
+; x1 end address is: 0 (R0)
+MOVW	R1, #lo_addr(_bb5+0)
+MOVT	R1, #hi_addr(_bb5+0)
+STR	R2, [R1, #0]
+;BMP085_driver.c,89 :: 		return ((bb5 + 8)>>4);
+ADDW	R1, R2, #8
+ASRS	R1, R1, #4
+SXTB	R0, R1
+;BMP085_driver.c,90 :: 		}
+L_end_bmp085GetTemperature:
+BX	LR
+; end of _bmp085GetTemperature
+_bmp085GetPressure:
+;BMP085_driver.c,96 :: 		long bmp085GetPressure(unsigned long up)
+; up start address is: 0 (R0)
+; up end address is: 0 (R0)
+; up start address is: 0 (R0)
+;BMP085_driver.c,103 :: 		x1 = (b2 * (b6 * b6)>>12)>>11;
+MOVW	R1, #4018
+MOVT	R1, #487
+ASRS	R1, R1, #12
+ASRS	R1, R1, #11
+; x1 start address is: 12 (R3)
+MOV	R3, R1
+;BMP085_driver.c,104 :: 		x2 = (ac2 * b6)>>11;
+MOVW	R1, #lo_addr(_ac2+0)
+MOVT	R1, #hi_addr(_ac2+0)
+LDRSH	R2, [R1, #0]
+MOVW	R1, #61541
+MOVT	R1, #65535
+MULS	R1, R2, R1
+ASRS	R1, R1, #11
+;BMP085_driver.c,105 :: 		x3 = x1 + x2;
+ADDS	R2, R3, R1
+; x1 end address is: 12 (R3)
+;BMP085_driver.c,106 :: 		b3 = (((((long)ac1)*4 + x3)<<OSS) + 2)>>2;
+MOVW	R1, #lo_addr(_ac1+0)
+MOVT	R1, #hi_addr(_ac1+0)
+LDRSH	R1, [R1, #0]
+LSLS	R1, R1, #2
+ADDS	R1, R1, R2
+ADDS	R1, R1, #2
+ASRS	R1, R1, #2
+; b3 start address is: 16 (R4)
+MOV	R4, R1
+;BMP085_driver.c,109 :: 		x1 = (ac3 * b6)>>13;
+MOVW	R1, #lo_addr(_ac3+0)
+MOVT	R1, #hi_addr(_ac3+0)
+LDRSH	R2, [R1, #0]
+MOVW	R1, #61541
+MOVT	R1, #65535
+MULS	R1, R2, R1
+ASRS	R2, R1, #13
+;BMP085_driver.c,110 :: 		x2 = (b1 * ((b6 * b6)>>12))>>16;
+MOVW	R1, #34777
+MOVT	R1, #243
+ASRS	R1, R1, #12
+ASRS	R1, R1, #16
+;BMP085_driver.c,111 :: 		x3 = ((x1 + x2) + 2)>>2;
+ADDS	R1, R2, R1
+ADDS	R1, R1, #2
+ASRS	R1, R1, #2
+;BMP085_driver.c,112 :: 		b4 = (ac4 * (unsigned long)(x3 + 32768))>>15;
+ADD	R2, R1, #32768
+MOVW	R1, #lo_addr(_ac4+0)
+MOVT	R1, #hi_addr(_ac4+0)
+LDRH	R1, [R1, #0]
+MULS	R1, R2, R1
+LSRS	R1, R1, #15
+; b4 start address is: 12 (R3)
+MOV	R3, R1
+;BMP085_driver.c,114 :: 		b7 = ((unsigned long)(up - b3) * (50000>>OSS));
+SUB	R2, R0, R4
+; up end address is: 0 (R0)
+; b3 end address is: 16 (R4)
+MOVW	R1, #50000
+MULS	R1, R2, R1
+; b7 start address is: 0 (R0)
+MOV	R0, R1
+;BMP085_driver.c,115 :: 		if (b7 < 0x80000000)
+CMP	R1, #-2147483648
+IT	CS
+BCS	L_bmp085GetPressure0
+;BMP085_driver.c,116 :: 		p = (b7<<1)/b4;
+LSLS	R0, R0, #1
+; b7 end address is: 0 (R0)
+UDIV	R0, R0, R3
+; b4 end address is: 12 (R3)
+; p start address is: 0 (R0)
+; p end address is: 0 (R0)
 IT	AL
-BAL	L_end_ADXL345_Init
-;BMP085_driver.c,84 :: 		}
-L_ADXL345_Init0:
-;BMP085_driver.c,86 :: 		ADXL345_Write(_DATA_FORMAT, 0x08);       // Full resolution, +/-2g, 4mg/LSB, right justified
-MOVS	R1, #8
-MOVS	R0, #49
-BL	BMP085_driver_ADXL345_Write+0
-;BMP085_driver.c,87 :: 		ADXL345_Write(_BW_RATE, 0x0A);           // Set 100 Hz data rate
-MOVS	R1, #10
-MOVS	R0, #44
-BL	BMP085_driver_ADXL345_Write+0
-;BMP085_driver.c,88 :: 		ADXL345_Write(_FIFO_CTL, 0x80);          // stream mode
-MOVS	R1, #128
-MOVS	R0, #56
-BL	BMP085_driver_ADXL345_Write+0
-;BMP085_driver.c,89 :: 		ADXL345_Write(_POWER_CTL, 0x08);         // POWER_CTL reg: measurement mode
-MOVS	R1, #8
-MOVS	R0, #45
-BL	BMP085_driver_ADXL345_Write+0
-;BMP085_driver.c,90 :: 		return 0x00;
-MOVS	R0, #0
-;BMP085_driver.c,92 :: 		}
-L_end_ADXL345_Init:
+BAL	L_bmp085GetPressure1
+L_bmp085GetPressure0:
+;BMP085_driver.c,118 :: 		p = (b7/b4)<<1;
+; b7 start address is: 0 (R0)
+; b4 start address is: 12 (R3)
+UDIV	R0, R0, R3
+; b4 end address is: 12 (R3)
+; b7 end address is: 0 (R0)
+LSLS	R0, R0, #1
+; p start address is: 0 (R0)
+; p end address is: 0 (R0)
+L_bmp085GetPressure1:
+;BMP085_driver.c,120 :: 		x1 = (p>>8) * (p>>8);
+; p start address is: 0 (R0)
+ASRS	R1, R0, #8
+MUL	R2, R1, R1
+;BMP085_driver.c,121 :: 		x1 = (x1 * 3038)>>16;
+MOVW	R1, #3038
+MULS	R1, R2, R1
+ASRS	R1, R1, #16
+; x1 start address is: 8 (R2)
+MOV	R2, R1
+;BMP085_driver.c,122 :: 		x2 = (-7357 * p)>>16;
+MOVW	R1, #58179
+MOVT	R1, #65535
+MULS	R1, R0, R1
+ASRS	R1, R1, #16
+;BMP085_driver.c,123 :: 		p += (x1 + x2 + 3791)>>4;
+ADDS	R1, R2, R1
+; x1 end address is: 8 (R2)
+ADDW	R1, R1, #3791
+ASRS	R1, R1, #4
+ADDS	R1, R0, R1
+; p end address is: 0 (R0)
+;BMP085_driver.c,125 :: 		return p;
+MOV	R0, R1
+;BMP085_driver.c,126 :: 		}
+L_end_bmp085GetPressure:
+BX	LR
+; end of _bmp085GetPressure
+_bmp085Read:
+;BMP085_driver.c,129 :: 		char bmp085Read(unsigned char address)
+;BMP085_driver.c,142 :: 		}
+L_end_bmp085Read:
+BX	LR
+; end of _bmp085Read
+_bmp085ReadUT:
+;BMP085_driver.c,147 :: 		unsigned int bmp085ReadUT()
+SUB	SP, SP, #4
+STR	LR, [SP, #0]
+;BMP085_driver.c,162 :: 		ut = bmp085ReadInt(0xF6);
+MOVS	R0, #246
+BL	_bmp085ReadInt+0
+;BMP085_driver.c,163 :: 		return ut;
+UXTH	R0, R0
+;BMP085_driver.c,164 :: 		}
+L_end_bmp085ReadUT:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
-; end of _ADXL345_Init
+; end of _bmp085ReadUT
+_bmp085ReadUP:
+;BMP085_driver.c,167 :: 		unsigned long bmp085ReadUP()
+SUB	SP, SP, #4
+;BMP085_driver.c,170 :: 		unsigned long up = 0;
+;BMP085_driver.c,194 :: 		up = (((unsigned long) msb << 16) | ((unsigned long) lsb << 8) | (unsigned long) xlsb) >> (8-OSS);
+LDRB	R0, [SP, #0]
+LSLS	R1, R0, #16
+LDRB	R0, [SP, #1]
+LSLS	R0, R0, #8
+ORRS	R1, R0
+LDRB	R0, [SP, #2]
+ORR	R0, R1, R0, LSL #0
+LSRS	R0, R0, #8
+;BMP085_driver.c,196 :: 		return up;
+;BMP085_driver.c,197 :: 		}
+L_end_bmp085ReadUP:
+ADD	SP, SP, #4
+BX	LR
+; end of _bmp085ReadUP

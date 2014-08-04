@@ -1,5 +1,5 @@
-#line 1 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_events_code.c"
-#line 1 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
+#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_events_code.c"
+#line 1 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
 
 typedef struct Screen TScreen;
@@ -638,8 +638,8 @@ void Start_TP();
 void Process_TP_Press(unsigned int X, unsigned int Y);
 void Process_TP_Up(unsigned int X, unsigned int Y);
 void Process_TP_Down(unsigned int X, unsigned int Y);
-#line 1 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_resources.h"
-#line 5 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_events_code.c"
+#line 1 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_resources.h"
+#line 5 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_events_code.c"
 void Calibrate();
 void doRTC_Example();
 void RTC_Example_init();
@@ -706,6 +706,7 @@ char Logger_State;
 void doAccel();
 void ACCEL_Start(char *test);
 void Accel_Stop();
+extern char cACCEL_test_status;
 
 void Run_Logger(){
  switch (Logger_State) {
@@ -743,7 +744,7 @@ void Run_Logger(){
  }; break;
  }
 }
-#line 149 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_events_code.c"
+#line 150 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_events_code.c"
 void doSetClock() {
  BLED_Fade_Out();
  DrawScreen(&Set_clock);
@@ -829,7 +830,7 @@ void doAccelerometerTest() {
  DrawScreen(&Accelerometer_test);
  BLED_Fade_In();
  Logger_State = 4;
-
+ ACCEL_Start(&cACCEL_test_status);
 }
 
 void doGPSTest() {

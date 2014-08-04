@@ -44,8 +44,8 @@ STR	R3, [R2, #0]
 L_end_Write_to_Data_Lines:
 BX	LR
 ; end of _Write_to_Data_Lines
-_Set_Index:
-;Ducati_logger_driver.c,74 :: 		void Set_Index(unsigned short index) {
+_TFT_mikromedia_Set_Index:
+;Ducati_logger_driver.c,74 :: 		void TFT_mikromedia_Set_Index(unsigned short index) {
 ; index start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
@@ -77,13 +77,13 @@ MOVW	R1, #lo_addr(GPIOF_ODR+0)
 MOVT	R1, #hi_addr(GPIOF_ODR+0)
 STR	R2, [R1, #0]
 ;Ducati_logger_driver.c,80 :: 		}
-L_end_Set_Index:
+L_end_TFT_mikromedia_Set_Index:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
-; end of _Set_Index
-_Write_Command:
-;Ducati_logger_driver.c,82 :: 		void Write_Command(unsigned short cmd) {
+; end of _TFT_mikromedia_Set_Index
+_TFT_mikromedia_Write_Command:
+;Ducati_logger_driver.c,82 :: 		void TFT_mikromedia_Write_Command(unsigned short cmd) {
 ; cmd start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
@@ -115,11 +115,11 @@ MOVW	R1, #lo_addr(GPIOF_ODR+0)
 MOVT	R1, #hi_addr(GPIOF_ODR+0)
 STR	R2, [R1, #0]
 ;Ducati_logger_driver.c,88 :: 		}
-L_end_Write_Command:
+L_end_TFT_mikromedia_Write_Command:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
-; end of _Write_Command
+; end of _TFT_mikromedia_Write_Command
 _Write_Data:
 ;Ducati_logger_driver.c,90 :: 		void Write_Data(unsigned int _data) {
 SUB	SP, SP, #8
@@ -271,13 +271,13 @@ Ducati_logger_driver_InitializeTouchPanel:
 ;Ducati_logger_driver.c,124 :: 		static void InitializeTouchPanel() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Ducati_logger_driver.c,125 :: 		TFT_Set_Active(Set_Index, Write_Command, Write_Data);
+;Ducati_logger_driver.c,125 :: 		TFT_Set_Active(TFT_mikromedia_Set_Index, TFT_mikromedia_Write_Command, Write_Data);
 MOVW	R2, #lo_addr(_Write_Data+0)
 MOVT	R2, #hi_addr(_Write_Data+0)
-MOVW	R1, #lo_addr(_Write_Command+0)
-MOVT	R1, #hi_addr(_Write_Command+0)
-MOVW	R0, #lo_addr(_Set_Index+0)
-MOVT	R0, #hi_addr(_Set_Index+0)
+MOVW	R1, #lo_addr(_TFT_mikromedia_Write_Command+0)
+MOVT	R1, #hi_addr(_TFT_mikromedia_Write_Command+0)
+MOVW	R0, #lo_addr(_TFT_mikromedia_Set_Index+0)
+MOVT	R0, #hi_addr(_TFT_mikromedia_Set_Index+0)
 BL	_TFT_Set_Active+0
 ;Ducati_logger_driver.c,126 :: 		TFT_Init_SSD1963(480, 272);
 MOVW	R1, #272
@@ -9599,8 +9599,8 @@ MOVS	R1, #235
 MOVW	R0, #lo_addr(_Label6+8)
 MOVT	R0, #hi_addr(_Label6+8)
 STRH	R1, [R0, #0]
-;Ducati_logger_driver.c,2678 :: 		Label6.Width           = 0;
-MOVS	R1, #0
+;Ducati_logger_driver.c,2678 :: 		Label6.Width           = 50;
+MOVS	R1, #50
 MOVW	R0, #lo_addr(_Label6+10)
 MOVT	R0, #hi_addr(_Label6+10)
 STRH	R1, [R0, #0]
@@ -14229,7 +14229,7 @@ LDRH	R6, [SP, #4]
 ;Ducati_logger_driver.c,3633 :: 		if ( (Left<= X) && (Left+ Width - 1 >= X) &&
 CMP	R2, R0
 IT	HI
-BHI	L_Ducati_logger_driver_IsInsideObject265
+BHI	L_Ducati_logger_driver_IsInsideObject266
 ADDS	R4, R2, R5
 UXTH	R4, R4
 ; Left end address is: 8 (R2)
@@ -14238,12 +14238,12 @@ SUBS	R4, R4, #1
 UXTH	R4, R4
 CMP	R4, R0
 IT	CC
-BCC	L_Ducati_logger_driver_IsInsideObject264
+BCC	L_Ducati_logger_driver_IsInsideObject265
 ; X end address is: 0 (R0)
 ;Ducati_logger_driver.c,3634 :: 		(Top <= Y)  && (Top + Height - 1 >= Y) )
 CMP	R3, R1
 IT	HI
-BHI	L_Ducati_logger_driver_IsInsideObject263
+BHI	L_Ducati_logger_driver_IsInsideObject264
 ADDS	R4, R3, R6
 UXTH	R4, R4
 ; Top end address is: 12 (R3)
@@ -14252,19 +14252,19 @@ SUBS	R4, R4, #1
 UXTH	R4, R4
 CMP	R4, R1
 IT	CC
-BCC	L_Ducati_logger_driver_IsInsideObject262
+BCC	L_Ducati_logger_driver_IsInsideObject263
 ; Y end address is: 4 (R1)
-L_Ducati_logger_driver_IsInsideObject261:
+L_Ducati_logger_driver_IsInsideObject262:
 ;Ducati_logger_driver.c,3635 :: 		return 1;
 MOVS	R0, #1
 IT	AL
 BAL	L_end_IsInsideObject
 ;Ducati_logger_driver.c,3633 :: 		if ( (Left<= X) && (Left+ Width - 1 >= X) &&
+L_Ducati_logger_driver_IsInsideObject266:
 L_Ducati_logger_driver_IsInsideObject265:
-L_Ducati_logger_driver_IsInsideObject264:
 ;Ducati_logger_driver.c,3634 :: 		(Top <= Y)  && (Top + Height - 1 >= Y) )
+L_Ducati_logger_driver_IsInsideObject264:
 L_Ducati_logger_driver_IsInsideObject263:
-L_Ducati_logger_driver_IsInsideObject262:
 ;Ducati_logger_driver.c,3637 :: 		return 0;
 MOVS	R0, #0
 ;Ducati_logger_driver.c,3638 :: 		}
@@ -15457,7 +15457,7 @@ MOVT	R1, #hi_addr(_display_width+0)
 LDRH	R1, [R1, #0]
 CMP	R1, R2
 IT	NE
-BNE	L__DrawScreen268
+BNE	L__DrawScreen269
 MOVW	R1, #lo_addr(_CurrentScreen+0)
 MOVT	R1, #hi_addr(_CurrentScreen+0)
 LDR	R1, [R1, #0]
@@ -15468,11 +15468,11 @@ MOVT	R1, #hi_addr(_display_height+0)
 LDRH	R1, [R1, #0]
 CMP	R1, R2
 IT	NE
-BNE	L__DrawScreen267
+BNE	L__DrawScreen268
 IT	AL
 BAL	L_DrawScreen49
+L__DrawScreen269:
 L__DrawScreen268:
-L__DrawScreen267:
 ;Ducati_logger_driver.c,3812 :: 		save_bled = TFT_BLED;
 MOVW	R2, #lo_addr(GPIOF_ODR+0)
 MOVT	R2, #hi_addr(GPIOF_ODR+0)
@@ -15483,13 +15483,13 @@ STRB	R1, [SP, #76]
 MOVS	R1, #0
 SXTB	R1, R1
 STR	R1, [R2, #0]
-;Ducati_logger_driver.c,3814 :: 		TFT_Set_Active(Set_Index, Write_Command, Write_Data);
+;Ducati_logger_driver.c,3814 :: 		TFT_Set_Active(TFT_mikromedia_Set_Index, TFT_mikromedia_Write_Command, Write_Data);
 MOVW	R3, #lo_addr(_Write_Data+0)
 MOVT	R3, #hi_addr(_Write_Data+0)
-MOVW	R2, #lo_addr(_Write_Command+0)
-MOVT	R2, #hi_addr(_Write_Command+0)
-MOVW	R1, #lo_addr(_Set_Index+0)
-MOVT	R1, #hi_addr(_Set_Index+0)
+MOVW	R2, #lo_addr(_TFT_mikromedia_Write_Command+0)
+MOVT	R2, #hi_addr(_TFT_mikromedia_Write_Command+0)
+MOVW	R1, #lo_addr(_TFT_mikromedia_Set_Index+0)
+MOVT	R1, #hi_addr(_TFT_mikromedia_Set_Index+0)
 MOV	R0, R1
 MOV	R1, R2
 MOV	R2, R3
@@ -15535,10 +15535,7 @@ LDR	R1, [R1, #0]
 LDRH	R1, [R1, #0]
 UXTH	R0, R1
 BL	_TFT_Fill_Screen+0
-;Ducati_logger_driver.c,3819 :: 		TFT_Set_DBC_SSD1963(255);
-MOVS	R0, #255
-BL	_TFT_Set_DBC_SSD1963+0
-;Ducati_logger_driver.c,3820 :: 		display_width = CurrentScreen->Width;
+;Ducati_logger_driver.c,3819 :: 		display_width = CurrentScreen->Width;
 MOVW	R1, #lo_addr(_CurrentScreen+0)
 MOVT	R1, #hi_addr(_CurrentScreen+0)
 LDR	R1, [R1, #0]
@@ -15547,7 +15544,7 @@ LDRH	R2, [R1, #0]
 MOVW	R1, #lo_addr(_display_width+0)
 MOVT	R1, #hi_addr(_display_width+0)
 STRH	R2, [R1, #0]
-;Ducati_logger_driver.c,3821 :: 		display_height = CurrentScreen->Height;
+;Ducati_logger_driver.c,3820 :: 		display_height = CurrentScreen->Height;
 LDR	R1, [SP, #112]
 LDR	R1, [R1, #0]
 ADDS	R1, R1, #4
@@ -15555,15 +15552,15 @@ LDRH	R2, [R1, #0]
 MOVW	R1, #lo_addr(_display_height+0)
 MOVT	R1, #hi_addr(_display_height+0)
 STRH	R2, [R1, #0]
-;Ducati_logger_driver.c,3822 :: 		TFT_BLED           = save_bled;
+;Ducati_logger_driver.c,3821 :: 		TFT_BLED           = save_bled;
 LDRB	R2, [SP, #76]
 LDR	R1, [SP, #116]
 STR	R2, [R1, #0]
-;Ducati_logger_driver.c,3823 :: 		}
+;Ducati_logger_driver.c,3822 :: 		}
 IT	AL
 BAL	L_DrawScreen50
 L_DrawScreen49:
-;Ducati_logger_driver.c,3825 :: 		TFT_Fill_Screen(CurrentScreen->Color);
+;Ducati_logger_driver.c,3824 :: 		TFT_Fill_Screen(CurrentScreen->Color);
 MOVW	R1, #lo_addr(_CurrentScreen+0)
 MOVT	R1, #hi_addr(_CurrentScreen+0)
 LDR	R1, [R1, #0]
@@ -15571,7 +15568,7 @@ LDRH	R1, [R1, #0]
 UXTH	R0, R1
 BL	_TFT_Fill_Screen+0
 L_DrawScreen50:
-;Ducati_logger_driver.c,3828 :: 		while (order < CurrentScreen->ObjectsCount) {
+;Ducati_logger_driver.c,3827 :: 		while (order < CurrentScreen->ObjectsCount) {
 L_DrawScreen51:
 MOVW	R1, #lo_addr(_CurrentScreen+0)
 MOVT	R1, #hi_addr(_CurrentScreen+0)
@@ -15582,7 +15579,7 @@ LDRH	R1, [SP, #4]
 CMP	R1, R2
 IT	CS
 BCS	L_DrawScreen52
-;Ducati_logger_driver.c,3829 :: 		if (round_button_idx < CurrentScreen->Buttons_RoundCount) {
+;Ducati_logger_driver.c,3828 :: 		if (round_button_idx < CurrentScreen->Buttons_RoundCount) {
 MOVW	R1, #lo_addr(_CurrentScreen+0)
 MOVT	R1, #hi_addr(_CurrentScreen+0)
 LDR	R1, [R1, #0]
@@ -15592,7 +15589,7 @@ LDRB	R1, [SP, #6]
 CMP	R1, R2
 IT	CS
 BCS	L_DrawScreen53
-;Ducati_logger_driver.c,3830 :: 		local_round_button = GetRoundButton(round_button_idx);
+;Ducati_logger_driver.c,3829 :: 		local_round_button = GetRoundButton(round_button_idx);
 MOVW	R1, #lo_addr(_CurrentScreen+0)
 MOVT	R1, #hi_addr(_CurrentScreen+0)
 LDR	R1, [R1, #0]
@@ -15603,29 +15600,29 @@ LSLS	R1, R1, #2
 ADDS	R1, R2, R1
 LDR	R1, [R1, #0]
 STR	R1, [SP, #8]
-;Ducati_logger_driver.c,3831 :: 		if (order == local_round_button->Order) {
+;Ducati_logger_driver.c,3830 :: 		if (order == local_round_button->Order) {
 ADDS	R1, R1, #4
 LDRB	R2, [R1, #0]
 LDRH	R1, [SP, #4]
 CMP	R1, R2
 IT	NE
 BNE	L_DrawScreen54
-;Ducati_logger_driver.c,3832 :: 		round_button_idx++;
+;Ducati_logger_driver.c,3831 :: 		round_button_idx++;
 LDRB	R1, [SP, #6]
 ADDS	R1, R1, #1
 STRB	R1, [SP, #6]
-;Ducati_logger_driver.c,3833 :: 		order++;
+;Ducati_logger_driver.c,3832 :: 		order++;
 LDRH	R1, [SP, #4]
 ADDS	R1, R1, #1
 STRH	R1, [SP, #4]
-;Ducati_logger_driver.c,3834 :: 		DrawRoundButton(local_round_button);
+;Ducati_logger_driver.c,3833 :: 		DrawRoundButton(local_round_button);
 LDR	R0, [SP, #8]
 BL	_DrawRoundButton+0
-;Ducati_logger_driver.c,3835 :: 		}
+;Ducati_logger_driver.c,3834 :: 		}
 L_DrawScreen54:
-;Ducati_logger_driver.c,3836 :: 		}
+;Ducati_logger_driver.c,3835 :: 		}
 L_DrawScreen53:
-;Ducati_logger_driver.c,3838 :: 		if (label_idx < CurrentScreen->LabelsCount) {
+;Ducati_logger_driver.c,3837 :: 		if (label_idx < CurrentScreen->LabelsCount) {
 MOVW	R1, #lo_addr(_CurrentScreen+0)
 MOVT	R1, #hi_addr(_CurrentScreen+0)
 LDR	R1, [R1, #0]
@@ -15635,7 +15632,7 @@ LDRB	R1, [SP, #12]
 CMP	R1, R2
 IT	CS
 BCS	L_DrawScreen55
-;Ducati_logger_driver.c,3839 :: 		local_label = GetLabel(label_idx);
+;Ducati_logger_driver.c,3838 :: 		local_label = GetLabel(label_idx);
 MOVW	R1, #lo_addr(_CurrentScreen+0)
 MOVT	R1, #hi_addr(_CurrentScreen+0)
 LDR	R1, [R1, #0]
@@ -15646,29 +15643,29 @@ LSLS	R1, R1, #2
 ADDS	R1, R2, R1
 LDR	R1, [R1, #0]
 STR	R1, [SP, #16]
-;Ducati_logger_driver.c,3840 :: 		if (order == local_label->Order) {
+;Ducati_logger_driver.c,3839 :: 		if (order == local_label->Order) {
 ADDS	R1, R1, #4
 LDRB	R2, [R1, #0]
 LDRH	R1, [SP, #4]
 CMP	R1, R2
 IT	NE
 BNE	L_DrawScreen56
-;Ducati_logger_driver.c,3841 :: 		label_idx++;
+;Ducati_logger_driver.c,3840 :: 		label_idx++;
 LDRB	R1, [SP, #12]
 ADDS	R1, R1, #1
 STRB	R1, [SP, #12]
-;Ducati_logger_driver.c,3842 :: 		order++;
+;Ducati_logger_driver.c,3841 :: 		order++;
 LDRH	R1, [SP, #4]
 ADDS	R1, R1, #1
 STRH	R1, [SP, #4]
-;Ducati_logger_driver.c,3843 :: 		DrawLabel(local_label);
+;Ducati_logger_driver.c,3842 :: 		DrawLabel(local_label);
 LDR	R0, [SP, #16]
 BL	_DrawLabel+0
-;Ducati_logger_driver.c,3844 :: 		}
+;Ducati_logger_driver.c,3843 :: 		}
 L_DrawScreen56:
-;Ducati_logger_driver.c,3845 :: 		}
+;Ducati_logger_driver.c,3844 :: 		}
 L_DrawScreen55:
-;Ducati_logger_driver.c,3847 :: 		if (circle_idx < CurrentScreen->CirclesCount) {
+;Ducati_logger_driver.c,3846 :: 		if (circle_idx < CurrentScreen->CirclesCount) {
 MOVW	R1, #lo_addr(_CurrentScreen+0)
 MOVT	R1, #hi_addr(_CurrentScreen+0)
 LDR	R1, [R1, #0]
@@ -15678,7 +15675,7 @@ LDRB	R1, [SP, #36]
 CMP	R1, R2
 IT	CS
 BCS	L_DrawScreen57
-;Ducati_logger_driver.c,3848 :: 		local_circle = GetCircle(circle_idx);
+;Ducati_logger_driver.c,3847 :: 		local_circle = GetCircle(circle_idx);
 MOVW	R1, #lo_addr(_CurrentScreen+0)
 MOVT	R1, #hi_addr(_CurrentScreen+0)
 LDR	R1, [R1, #0]
@@ -15689,29 +15686,29 @@ LSLS	R1, R1, #2
 ADDS	R1, R2, R1
 LDR	R1, [R1, #0]
 STR	R1, [SP, #40]
-;Ducati_logger_driver.c,3849 :: 		if (order == local_circle->Order) {
+;Ducati_logger_driver.c,3848 :: 		if (order == local_circle->Order) {
 ADDS	R1, R1, #4
 LDRB	R2, [R1, #0]
 LDRH	R1, [SP, #4]
 CMP	R1, R2
 IT	NE
 BNE	L_DrawScreen58
-;Ducati_logger_driver.c,3850 :: 		circle_idx++;
+;Ducati_logger_driver.c,3849 :: 		circle_idx++;
 LDRB	R1, [SP, #36]
 ADDS	R1, R1, #1
 STRB	R1, [SP, #36]
-;Ducati_logger_driver.c,3851 :: 		order++;
+;Ducati_logger_driver.c,3850 :: 		order++;
 LDRH	R1, [SP, #4]
 ADDS	R1, R1, #1
 STRH	R1, [SP, #4]
-;Ducati_logger_driver.c,3852 :: 		DrawCircle(local_circle);
+;Ducati_logger_driver.c,3851 :: 		DrawCircle(local_circle);
 LDR	R0, [SP, #40]
 BL	_DrawCircle+0
-;Ducati_logger_driver.c,3853 :: 		}
+;Ducati_logger_driver.c,3852 :: 		}
 L_DrawScreen58:
-;Ducati_logger_driver.c,3854 :: 		}
+;Ducati_logger_driver.c,3853 :: 		}
 L_DrawScreen57:
-;Ducati_logger_driver.c,3856 :: 		if (circle_button_idx < CurrentScreen->CircleButtonsCount) {
+;Ducati_logger_driver.c,3855 :: 		if (circle_button_idx < CurrentScreen->CircleButtonsCount) {
 MOVW	R1, #lo_addr(_CurrentScreen+0)
 MOVT	R1, #hi_addr(_CurrentScreen+0)
 LDR	R1, [R1, #0]
@@ -15721,7 +15718,7 @@ LDRB	R1, [SP, #44]
 CMP	R1, R2
 IT	CS
 BCS	L_DrawScreen59
-;Ducati_logger_driver.c,3857 :: 		local_circle_button = GetCircleButton(circle_button_idx);
+;Ducati_logger_driver.c,3856 :: 		local_circle_button = GetCircleButton(circle_button_idx);
 MOVW	R1, #lo_addr(_CurrentScreen+0)
 MOVT	R1, #hi_addr(_CurrentScreen+0)
 LDR	R1, [R1, #0]
@@ -15732,29 +15729,29 @@ LSLS	R1, R1, #2
 ADDS	R1, R2, R1
 LDR	R1, [R1, #0]
 STR	R1, [SP, #48]
-;Ducati_logger_driver.c,3858 :: 		if (order == local_circle_button->Order) {
+;Ducati_logger_driver.c,3857 :: 		if (order == local_circle_button->Order) {
 ADDS	R1, R1, #4
 LDRB	R2, [R1, #0]
 LDRH	R1, [SP, #4]
 CMP	R1, R2
 IT	NE
 BNE	L_DrawScreen60
-;Ducati_logger_driver.c,3859 :: 		circle_button_idx++;
+;Ducati_logger_driver.c,3858 :: 		circle_button_idx++;
 LDRB	R1, [SP, #44]
 ADDS	R1, R1, #1
 STRB	R1, [SP, #44]
-;Ducati_logger_driver.c,3860 :: 		order++;
+;Ducati_logger_driver.c,3859 :: 		order++;
 LDRH	R1, [SP, #4]
 ADDS	R1, R1, #1
 STRH	R1, [SP, #4]
-;Ducati_logger_driver.c,3861 :: 		DrawCircleButton(local_circle_button);
+;Ducati_logger_driver.c,3860 :: 		DrawCircleButton(local_circle_button);
 LDR	R0, [SP, #48]
 BL	_DrawCircleButton+0
-;Ducati_logger_driver.c,3862 :: 		}
+;Ducati_logger_driver.c,3861 :: 		}
 L_DrawScreen60:
-;Ducati_logger_driver.c,3863 :: 		}
+;Ducati_logger_driver.c,3862 :: 		}
 L_DrawScreen59:
-;Ducati_logger_driver.c,3865 :: 		if (box_idx < CurrentScreen->BoxesCount) {
+;Ducati_logger_driver.c,3864 :: 		if (box_idx < CurrentScreen->BoxesCount) {
 MOVW	R1, #lo_addr(_CurrentScreen+0)
 MOVT	R1, #hi_addr(_CurrentScreen+0)
 LDR	R1, [R1, #0]
@@ -15764,7 +15761,7 @@ LDRB	R1, [SP, #52]
 CMP	R1, R2
 IT	CS
 BCS	L_DrawScreen61
-;Ducati_logger_driver.c,3866 :: 		local_box = GetBox(box_idx);
+;Ducati_logger_driver.c,3865 :: 		local_box = GetBox(box_idx);
 MOVW	R1, #lo_addr(_CurrentScreen+0)
 MOVT	R1, #hi_addr(_CurrentScreen+0)
 LDR	R1, [R1, #0]
@@ -15775,29 +15772,29 @@ LSLS	R1, R1, #2
 ADDS	R1, R2, R1
 LDR	R1, [R1, #0]
 STR	R1, [SP, #56]
-;Ducati_logger_driver.c,3867 :: 		if (order == local_box->Order) {
+;Ducati_logger_driver.c,3866 :: 		if (order == local_box->Order) {
 ADDS	R1, R1, #4
 LDRB	R2, [R1, #0]
 LDRH	R1, [SP, #4]
 CMP	R1, R2
 IT	NE
 BNE	L_DrawScreen62
-;Ducati_logger_driver.c,3868 :: 		box_idx++;
+;Ducati_logger_driver.c,3867 :: 		box_idx++;
 LDRB	R1, [SP, #52]
 ADDS	R1, R1, #1
 STRB	R1, [SP, #52]
-;Ducati_logger_driver.c,3869 :: 		order++;
+;Ducati_logger_driver.c,3868 :: 		order++;
 LDRH	R1, [SP, #4]
 ADDS	R1, R1, #1
 STRH	R1, [SP, #4]
-;Ducati_logger_driver.c,3870 :: 		DrawBox(local_box);
+;Ducati_logger_driver.c,3869 :: 		DrawBox(local_box);
 LDR	R0, [SP, #56]
 BL	_DrawBox+0
-;Ducati_logger_driver.c,3871 :: 		}
+;Ducati_logger_driver.c,3870 :: 		}
 L_DrawScreen62:
-;Ducati_logger_driver.c,3872 :: 		}
+;Ducati_logger_driver.c,3871 :: 		}
 L_DrawScreen61:
-;Ducati_logger_driver.c,3874 :: 		if (cbox_idx < CurrentScreen->CBoxesCount) {
+;Ducati_logger_driver.c,3873 :: 		if (cbox_idx < CurrentScreen->CBoxesCount) {
 MOVW	R1, #lo_addr(_CurrentScreen+0)
 MOVT	R1, #hi_addr(_CurrentScreen+0)
 LDR	R1, [R1, #0]
@@ -15807,7 +15804,7 @@ LDRB	R1, [SP, #60]
 CMP	R1, R2
 IT	CS
 BCS	L_DrawScreen63
-;Ducati_logger_driver.c,3875 :: 		local_cbox = GetCBox(cbox_idx);
+;Ducati_logger_driver.c,3874 :: 		local_cbox = GetCBox(cbox_idx);
 MOVW	R1, #lo_addr(_CurrentScreen+0)
 MOVT	R1, #hi_addr(_CurrentScreen+0)
 LDR	R1, [R1, #0]
@@ -15818,29 +15815,29 @@ LSLS	R1, R1, #2
 ADDS	R1, R2, R1
 LDR	R1, [R1, #0]
 STR	R1, [SP, #64]
-;Ducati_logger_driver.c,3876 :: 		if (order == local_cbox->Order) {
+;Ducati_logger_driver.c,3875 :: 		if (order == local_cbox->Order) {
 ADDS	R1, R1, #4
 LDRB	R2, [R1, #0]
 LDRH	R1, [SP, #4]
 CMP	R1, R2
 IT	NE
 BNE	L_DrawScreen64
-;Ducati_logger_driver.c,3877 :: 		cbox_idx++;
+;Ducati_logger_driver.c,3876 :: 		cbox_idx++;
 LDRB	R1, [SP, #60]
 ADDS	R1, R1, #1
 STRB	R1, [SP, #60]
-;Ducati_logger_driver.c,3878 :: 		order++;
+;Ducati_logger_driver.c,3877 :: 		order++;
 LDRH	R1, [SP, #4]
 ADDS	R1, R1, #1
 STRH	R1, [SP, #4]
-;Ducati_logger_driver.c,3879 :: 		DrawCBox(local_cbox);
+;Ducati_logger_driver.c,3878 :: 		DrawCBox(local_cbox);
 LDR	R0, [SP, #64]
 BL	_DrawCBox+0
-;Ducati_logger_driver.c,3880 :: 		}
+;Ducati_logger_driver.c,3879 :: 		}
 L_DrawScreen64:
-;Ducati_logger_driver.c,3881 :: 		}
+;Ducati_logger_driver.c,3880 :: 		}
 L_DrawScreen63:
-;Ducati_logger_driver.c,3883 :: 		if (line_idx < CurrentScreen->LinesCount) {
+;Ducati_logger_driver.c,3882 :: 		if (line_idx < CurrentScreen->LinesCount) {
 MOVW	R1, #lo_addr(_CurrentScreen+0)
 MOVT	R1, #hi_addr(_CurrentScreen+0)
 LDR	R1, [R1, #0]
@@ -15850,7 +15847,7 @@ LDRB	R1, [SP, #68]
 CMP	R1, R2
 IT	CS
 BCS	L_DrawScreen65
-;Ducati_logger_driver.c,3884 :: 		local_line = GetLine(line_idx);
+;Ducati_logger_driver.c,3883 :: 		local_line = GetLine(line_idx);
 MOVW	R1, #lo_addr(_CurrentScreen+0)
 MOVT	R1, #hi_addr(_CurrentScreen+0)
 LDR	R1, [R1, #0]
@@ -15861,29 +15858,29 @@ LSLS	R1, R1, #2
 ADDS	R1, R2, R1
 LDR	R1, [R1, #0]
 STR	R1, [SP, #72]
-;Ducati_logger_driver.c,3885 :: 		if (order == local_line->Order) {
+;Ducati_logger_driver.c,3884 :: 		if (order == local_line->Order) {
 ADDS	R1, R1, #4
 LDRB	R2, [R1, #0]
 LDRH	R1, [SP, #4]
 CMP	R1, R2
 IT	NE
 BNE	L_DrawScreen66
-;Ducati_logger_driver.c,3886 :: 		line_idx++;
+;Ducati_logger_driver.c,3885 :: 		line_idx++;
 LDRB	R1, [SP, #68]
 ADDS	R1, R1, #1
 STRB	R1, [SP, #68]
-;Ducati_logger_driver.c,3887 :: 		order++;
+;Ducati_logger_driver.c,3886 :: 		order++;
 LDRH	R1, [SP, #4]
 ADDS	R1, R1, #1
 STRH	R1, [SP, #4]
-;Ducati_logger_driver.c,3888 :: 		DrawLine(local_line);
+;Ducati_logger_driver.c,3887 :: 		DrawLine(local_line);
 LDR	R0, [SP, #72]
 BL	_DrawLine+0
-;Ducati_logger_driver.c,3889 :: 		}
+;Ducati_logger_driver.c,3888 :: 		}
 L_DrawScreen66:
-;Ducati_logger_driver.c,3890 :: 		}
+;Ducati_logger_driver.c,3889 :: 		}
 L_DrawScreen65:
-;Ducati_logger_driver.c,3892 :: 		if (image_idx < CurrentScreen->ImagesCount) {
+;Ducati_logger_driver.c,3891 :: 		if (image_idx < CurrentScreen->ImagesCount) {
 MOVW	R1, #lo_addr(_CurrentScreen+0)
 MOVT	R1, #hi_addr(_CurrentScreen+0)
 LDR	R1, [R1, #0]
@@ -15893,7 +15890,7 @@ LDRB	R1, [SP, #20]
 CMP	R1, R2
 IT	CS
 BCS	L_DrawScreen67
-;Ducati_logger_driver.c,3893 :: 		local_image = GetImage(image_idx);
+;Ducati_logger_driver.c,3892 :: 		local_image = GetImage(image_idx);
 MOVW	R1, #lo_addr(_CurrentScreen+0)
 MOVT	R1, #hi_addr(_CurrentScreen+0)
 LDR	R1, [R1, #0]
@@ -15904,29 +15901,29 @@ LSLS	R1, R1, #2
 ADDS	R1, R2, R1
 LDR	R1, [R1, #0]
 STR	R1, [SP, #24]
-;Ducati_logger_driver.c,3894 :: 		if (order == local_image->Order) {
+;Ducati_logger_driver.c,3893 :: 		if (order == local_image->Order) {
 ADDS	R1, R1, #4
 LDRB	R2, [R1, #0]
 LDRH	R1, [SP, #4]
 CMP	R1, R2
 IT	NE
 BNE	L_DrawScreen68
-;Ducati_logger_driver.c,3895 :: 		image_idx++;
+;Ducati_logger_driver.c,3894 :: 		image_idx++;
 LDRB	R1, [SP, #20]
 ADDS	R1, R1, #1
 STRB	R1, [SP, #20]
-;Ducati_logger_driver.c,3896 :: 		order++;
+;Ducati_logger_driver.c,3895 :: 		order++;
 LDRH	R1, [SP, #4]
 ADDS	R1, R1, #1
 STRH	R1, [SP, #4]
-;Ducati_logger_driver.c,3897 :: 		DrawImage(local_image);
+;Ducati_logger_driver.c,3896 :: 		DrawImage(local_image);
 LDR	R0, [SP, #24]
 BL	_DrawImage+0
-;Ducati_logger_driver.c,3898 :: 		}
+;Ducati_logger_driver.c,3897 :: 		}
 L_DrawScreen68:
-;Ducati_logger_driver.c,3899 :: 		}
+;Ducati_logger_driver.c,3898 :: 		}
 L_DrawScreen67:
-;Ducati_logger_driver.c,3901 :: 		if (cimage_idx < CurrentScreen->CImagesCount) {
+;Ducati_logger_driver.c,3900 :: 		if (cimage_idx < CurrentScreen->CImagesCount) {
 MOVW	R1, #lo_addr(_CurrentScreen+0)
 MOVT	R1, #hi_addr(_CurrentScreen+0)
 LDR	R1, [R1, #0]
@@ -15936,7 +15933,7 @@ LDRB	R1, [SP, #28]
 CMP	R1, R2
 IT	CS
 BCS	L_DrawScreen69
-;Ducati_logger_driver.c,3902 :: 		local_cimage = GetCImage(cimage_idx);
+;Ducati_logger_driver.c,3901 :: 		local_cimage = GetCImage(cimage_idx);
 MOVW	R1, #lo_addr(_CurrentScreen+0)
 MOVT	R1, #hi_addr(_CurrentScreen+0)
 LDR	R1, [R1, #0]
@@ -15947,40 +15944,40 @@ LSLS	R1, R1, #2
 ADDS	R1, R2, R1
 LDR	R1, [R1, #0]
 STR	R1, [SP, #32]
-;Ducati_logger_driver.c,3903 :: 		if (order == local_cimage->Order) {
+;Ducati_logger_driver.c,3902 :: 		if (order == local_cimage->Order) {
 ADDS	R1, R1, #4
 LDRB	R2, [R1, #0]
 LDRH	R1, [SP, #4]
 CMP	R1, R2
 IT	NE
 BNE	L_DrawScreen70
-;Ducati_logger_driver.c,3904 :: 		cimage_idx++;
+;Ducati_logger_driver.c,3903 :: 		cimage_idx++;
 LDRB	R1, [SP, #28]
 ADDS	R1, R1, #1
 STRB	R1, [SP, #28]
-;Ducati_logger_driver.c,3905 :: 		order++;
+;Ducati_logger_driver.c,3904 :: 		order++;
 LDRH	R1, [SP, #4]
 ADDS	R1, R1, #1
 STRH	R1, [SP, #4]
-;Ducati_logger_driver.c,3906 :: 		DrawCImage(local_cimage);
+;Ducati_logger_driver.c,3905 :: 		DrawCImage(local_cimage);
 LDR	R0, [SP, #32]
 BL	_DrawCImage+0
-;Ducati_logger_driver.c,3907 :: 		}
+;Ducati_logger_driver.c,3906 :: 		}
 L_DrawScreen70:
-;Ducati_logger_driver.c,3908 :: 		}
+;Ducati_logger_driver.c,3907 :: 		}
 L_DrawScreen69:
-;Ducati_logger_driver.c,3910 :: 		}
+;Ducati_logger_driver.c,3909 :: 		}
 IT	AL
 BAL	L_DrawScreen51
 L_DrawScreen52:
-;Ducati_logger_driver.c,3911 :: 		}
+;Ducati_logger_driver.c,3910 :: 		}
 L_end_DrawScreen:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #120
 BX	LR
 ; end of _DrawScreen
 _Get_Object:
-;Ducati_logger_driver.c,3913 :: 		void Get_Object(unsigned int X, unsigned int Y) {
+;Ducati_logger_driver.c,3912 :: 		void Get_Object(unsigned int X, unsigned int Y) {
 ; Y start address is: 4 (R1)
 ; X start address is: 0 (R0)
 SUB	SP, SP, #8
@@ -15989,55 +15986,55 @@ STR	LR, [SP, #0]
 ; X end address is: 0 (R0)
 ; X start address is: 0 (R0)
 ; Y start address is: 4 (R1)
-;Ducati_logger_driver.c,3914 :: 		round_button_order  = -1;
+;Ducati_logger_driver.c,3913 :: 		round_button_order  = -1;
 MOVW	R3, #65535
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_round_button_order+0)
 MOVT	R2, #hi_addr(_round_button_order+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,3915 :: 		label_order         = -1;
+;Ducati_logger_driver.c,3914 :: 		label_order         = -1;
 MOVW	R3, #65535
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_label_order+0)
 MOVT	R2, #hi_addr(_label_order+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,3916 :: 		image_order         = -1;
+;Ducati_logger_driver.c,3915 :: 		image_order         = -1;
 MOVW	R3, #65535
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_image_order+0)
 MOVT	R2, #hi_addr(_image_order+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,3917 :: 		cimage_order        = -1;
+;Ducati_logger_driver.c,3916 :: 		cimage_order        = -1;
 MOVW	R3, #65535
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_cimage_order+0)
 MOVT	R2, #hi_addr(_cimage_order+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,3918 :: 		circle_order        = -1;
+;Ducati_logger_driver.c,3917 :: 		circle_order        = -1;
 MOVW	R3, #65535
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_circle_order+0)
 MOVT	R2, #hi_addr(_circle_order+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,3919 :: 		circle_button_order = -1;
+;Ducati_logger_driver.c,3918 :: 		circle_button_order = -1;
 MOVW	R3, #65535
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_circle_button_order+0)
 MOVT	R2, #hi_addr(_circle_button_order+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,3920 :: 		box_order           = -1;
+;Ducati_logger_driver.c,3919 :: 		box_order           = -1;
 MOVW	R3, #65535
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_box_order+0)
 MOVT	R2, #hi_addr(_box_order+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,3921 :: 		cbox_order          = -1;
+;Ducati_logger_driver.c,3920 :: 		cbox_order          = -1;
 MOVW	R3, #65535
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_cbox_order+0)
 MOVT	R2, #hi_addr(_cbox_order+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,3923 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->Buttons_RoundCount ; _object_count++ ) {
+;Ducati_logger_driver.c,3922 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->Buttons_RoundCount ; _object_count++ ) {
 MOVS	R3, #0
 SXTH	R3, R3
 MOVW	R2, #lo_addr(__object_count+0)
@@ -16061,7 +16058,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	CS
 BCS	L_Get_Object72
-;Ducati_logger_driver.c,3924 :: 		local_round_button = GetRoundButton(_object_count);
+;Ducati_logger_driver.c,3923 :: 		local_round_button = GetRoundButton(_object_count);
 MOVW	R2, #lo_addr(_CurrentScreen+0)
 MOVT	R2, #hi_addr(_CurrentScreen+0)
 LDR	R2, [R2, #0]
@@ -16076,13 +16073,13 @@ LDR	R3, [R2, #0]
 MOVW	R2, #lo_addr(_local_round_button+0)
 MOVT	R2, #hi_addr(_local_round_button+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,3925 :: 		if (local_round_button->Active == 1) {
+;Ducati_logger_driver.c,3924 :: 		if (local_round_button->Active == 1) {
 ADDW	R2, R3, #19
 LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Get_Object74
-;Ducati_logger_driver.c,3927 :: 		local_round_button->Width, local_round_button->Height) == 1) {
+;Ducati_logger_driver.c,3926 :: 		local_round_button->Width, local_round_button->Height) == 1) {
 MOVW	R6, #lo_addr(_local_round_button+0)
 MOVT	R6, #hi_addr(_local_round_button+0)
 LDR	R2, [R6, #0]
@@ -16094,7 +16091,7 @@ LDR	R2, [R2, #0]
 ADDS	R2, #10
 LDRH	R2, [R2, #0]
 UXTH	R4, R2
-;Ducati_logger_driver.c,3926 :: 		if (IsInsideObject(X, Y, local_round_button->Left, local_round_button->Top,
+;Ducati_logger_driver.c,3925 :: 		if (IsInsideObject(X, Y, local_round_button->Left, local_round_button->Top,
 MOV	R2, R6
 LDR	R2, [R2, #0]
 ADDS	R2, #8
@@ -16106,7 +16103,7 @@ ADDS	R2, R2, #6
 LDRH	R2, [R2, #0]
 UXTH	R1, R7
 UXTH	R0, R8
-;Ducati_logger_driver.c,3927 :: 		local_round_button->Width, local_round_button->Height) == 1) {
+;Ducati_logger_driver.c,3926 :: 		local_round_button->Width, local_round_button->Height) == 1) {
 PUSH	(R5)
 PUSH	(R4)
 BL	Ducati_logger_driver_IsInsideObject+0
@@ -16114,7 +16111,7 @@ ADD	SP, SP, #8
 CMP	R0, #1
 IT	NE
 BNE	L_Get_Object75
-;Ducati_logger_driver.c,3928 :: 		round_button_order = local_round_button->Order;
+;Ducati_logger_driver.c,3927 :: 		round_button_order = local_round_button->Order;
 MOVW	R4, #lo_addr(_local_round_button+0)
 MOVT	R4, #hi_addr(_local_round_button+0)
 LDR	R2, [R4, #0]
@@ -16123,27 +16120,27 @@ LDRB	R3, [R2, #0]
 MOVW	R2, #lo_addr(_round_button_order+0)
 MOVT	R2, #hi_addr(_round_button_order+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,3929 :: 		exec_round_button = local_round_button;
+;Ducati_logger_driver.c,3928 :: 		exec_round_button = local_round_button;
 MOV	R2, R4
 LDR	R3, [R2, #0]
 MOVW	R2, #lo_addr(_exec_round_button+0)
 MOVT	R2, #hi_addr(_exec_round_button+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,3930 :: 		}
+;Ducati_logger_driver.c,3929 :: 		}
 L_Get_Object75:
-;Ducati_logger_driver.c,3931 :: 		}
+;Ducati_logger_driver.c,3930 :: 		}
 L_Get_Object74:
-;Ducati_logger_driver.c,3923 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->Buttons_RoundCount ; _object_count++ ) {
+;Ducati_logger_driver.c,3922 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->Buttons_RoundCount ; _object_count++ ) {
 MOVW	R3, #lo_addr(__object_count+0)
 MOVT	R3, #hi_addr(__object_count+0)
 LDRSH	R2, [R3, #0]
 ADDS	R2, R2, #1
 STRH	R2, [R3, #0]
-;Ducati_logger_driver.c,3932 :: 		}
+;Ducati_logger_driver.c,3931 :: 		}
 IT	AL
 BAL	L_Get_Object71
 L_Get_Object72:
-;Ducati_logger_driver.c,3935 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->LabelsCount ; _object_count++ ) {
+;Ducati_logger_driver.c,3934 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->LabelsCount ; _object_count++ ) {
 MOVS	R3, #0
 SXTH	R3, R3
 MOVW	R2, #lo_addr(__object_count+0)
@@ -16168,7 +16165,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	CS
 BCS	L_Get_Object77
-;Ducati_logger_driver.c,3936 :: 		local_label = GetLabel(_object_count);
+;Ducati_logger_driver.c,3935 :: 		local_label = GetLabel(_object_count);
 MOVW	R2, #lo_addr(_CurrentScreen+0)
 MOVT	R2, #hi_addr(_CurrentScreen+0)
 LDR	R2, [R2, #0]
@@ -16183,13 +16180,13 @@ LDR	R3, [R2, #0]
 MOVW	R2, #lo_addr(_local_label+0)
 MOVT	R2, #hi_addr(_local_label+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,3937 :: 		if (local_label->Active == 1) {
+;Ducati_logger_driver.c,3936 :: 		if (local_label->Active == 1) {
 ADDW	R2, R3, #27
 LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Get_Object79
-;Ducati_logger_driver.c,3939 :: 		local_label->Width, local_label->Height) == 1) {
+;Ducati_logger_driver.c,3938 :: 		local_label->Width, local_label->Height) == 1) {
 MOVW	R6, #lo_addr(_local_label+0)
 MOVT	R6, #hi_addr(_local_label+0)
 LDR	R2, [R6, #0]
@@ -16201,7 +16198,7 @@ LDR	R2, [R2, #0]
 ADDS	R2, #10
 LDRH	R2, [R2, #0]
 UXTH	R4, R2
-;Ducati_logger_driver.c,3938 :: 		if (IsInsideObject(X, Y, local_label->Left, local_label->Top,
+;Ducati_logger_driver.c,3937 :: 		if (IsInsideObject(X, Y, local_label->Left, local_label->Top,
 MOV	R2, R6
 LDR	R2, [R2, #0]
 ADDS	R2, #8
@@ -16213,7 +16210,7 @@ ADDS	R2, R2, #6
 LDRH	R2, [R2, #0]
 UXTH	R1, R8
 UXTH	R0, R7
-;Ducati_logger_driver.c,3939 :: 		local_label->Width, local_label->Height) == 1) {
+;Ducati_logger_driver.c,3938 :: 		local_label->Width, local_label->Height) == 1) {
 PUSH	(R5)
 PUSH	(R4)
 BL	Ducati_logger_driver_IsInsideObject+0
@@ -16221,7 +16218,7 @@ ADD	SP, SP, #8
 CMP	R0, #1
 IT	NE
 BNE	L_Get_Object80
-;Ducati_logger_driver.c,3940 :: 		label_order = local_label->Order;
+;Ducati_logger_driver.c,3939 :: 		label_order = local_label->Order;
 MOVW	R4, #lo_addr(_local_label+0)
 MOVT	R4, #hi_addr(_local_label+0)
 LDR	R2, [R4, #0]
@@ -16230,27 +16227,27 @@ LDRB	R3, [R2, #0]
 MOVW	R2, #lo_addr(_label_order+0)
 MOVT	R2, #hi_addr(_label_order+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,3941 :: 		exec_label = local_label;
+;Ducati_logger_driver.c,3940 :: 		exec_label = local_label;
 MOV	R2, R4
 LDR	R3, [R2, #0]
 MOVW	R2, #lo_addr(_exec_label+0)
 MOVT	R2, #hi_addr(_exec_label+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,3942 :: 		}
+;Ducati_logger_driver.c,3941 :: 		}
 L_Get_Object80:
-;Ducati_logger_driver.c,3943 :: 		}
+;Ducati_logger_driver.c,3942 :: 		}
 L_Get_Object79:
-;Ducati_logger_driver.c,3935 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->LabelsCount ; _object_count++ ) {
+;Ducati_logger_driver.c,3934 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->LabelsCount ; _object_count++ ) {
 MOVW	R3, #lo_addr(__object_count+0)
 MOVT	R3, #hi_addr(__object_count+0)
 LDRSH	R2, [R3, #0]
 ADDS	R2, R2, #1
 STRH	R2, [R3, #0]
-;Ducati_logger_driver.c,3944 :: 		}
+;Ducati_logger_driver.c,3943 :: 		}
 IT	AL
 BAL	L_Get_Object76
 L_Get_Object77:
-;Ducati_logger_driver.c,3947 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->ImagesCount ; _object_count++ ) {
+;Ducati_logger_driver.c,3946 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->ImagesCount ; _object_count++ ) {
 MOVS	R3, #0
 SXTH	R3, R3
 MOVW	R2, #lo_addr(__object_count+0)
@@ -16275,7 +16272,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	CS
 BCS	L_Get_Object82
-;Ducati_logger_driver.c,3948 :: 		local_image = GetImage(_object_count);
+;Ducati_logger_driver.c,3947 :: 		local_image = GetImage(_object_count);
 MOVW	R2, #lo_addr(_CurrentScreen+0)
 MOVT	R2, #hi_addr(_CurrentScreen+0)
 LDR	R2, [R2, #0]
@@ -16290,13 +16287,13 @@ LDR	R3, [R2, #0]
 MOVW	R2, #lo_addr(_local_image+0)
 MOVT	R2, #hi_addr(_local_image+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,3949 :: 		if (local_image->Active == 1) {
+;Ducati_logger_driver.c,3948 :: 		if (local_image->Active == 1) {
 ADDW	R2, R3, #21
 LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Get_Object84
-;Ducati_logger_driver.c,3951 :: 		local_image->Width, local_image->Height) == 1) {
+;Ducati_logger_driver.c,3950 :: 		local_image->Width, local_image->Height) == 1) {
 MOVW	R6, #lo_addr(_local_image+0)
 MOVT	R6, #hi_addr(_local_image+0)
 LDR	R2, [R6, #0]
@@ -16308,7 +16305,7 @@ LDR	R2, [R2, #0]
 ADDS	R2, #10
 LDRH	R2, [R2, #0]
 UXTH	R4, R2
-;Ducati_logger_driver.c,3950 :: 		if (IsInsideObject(X, Y, local_image->Left, local_image->Top,
+;Ducati_logger_driver.c,3949 :: 		if (IsInsideObject(X, Y, local_image->Left, local_image->Top,
 MOV	R2, R6
 LDR	R2, [R2, #0]
 ADDS	R2, #8
@@ -16320,7 +16317,7 @@ ADDS	R2, R2, #6
 LDRH	R2, [R2, #0]
 UXTH	R1, R7
 UXTH	R0, R8
-;Ducati_logger_driver.c,3951 :: 		local_image->Width, local_image->Height) == 1) {
+;Ducati_logger_driver.c,3950 :: 		local_image->Width, local_image->Height) == 1) {
 PUSH	(R5)
 PUSH	(R4)
 BL	Ducati_logger_driver_IsInsideObject+0
@@ -16328,7 +16325,7 @@ ADD	SP, SP, #8
 CMP	R0, #1
 IT	NE
 BNE	L_Get_Object85
-;Ducati_logger_driver.c,3952 :: 		image_order = local_image->Order;
+;Ducati_logger_driver.c,3951 :: 		image_order = local_image->Order;
 MOVW	R4, #lo_addr(_local_image+0)
 MOVT	R4, #hi_addr(_local_image+0)
 LDR	R2, [R4, #0]
@@ -16337,27 +16334,27 @@ LDRB	R3, [R2, #0]
 MOVW	R2, #lo_addr(_image_order+0)
 MOVT	R2, #hi_addr(_image_order+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,3953 :: 		exec_image = local_image;
+;Ducati_logger_driver.c,3952 :: 		exec_image = local_image;
 MOV	R2, R4
 LDR	R3, [R2, #0]
 MOVW	R2, #lo_addr(_exec_image+0)
 MOVT	R2, #hi_addr(_exec_image+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,3954 :: 		}
+;Ducati_logger_driver.c,3953 :: 		}
 L_Get_Object85:
-;Ducati_logger_driver.c,3955 :: 		}
+;Ducati_logger_driver.c,3954 :: 		}
 L_Get_Object84:
-;Ducati_logger_driver.c,3947 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->ImagesCount ; _object_count++ ) {
+;Ducati_logger_driver.c,3946 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->ImagesCount ; _object_count++ ) {
 MOVW	R3, #lo_addr(__object_count+0)
 MOVT	R3, #hi_addr(__object_count+0)
 LDRSH	R2, [R3, #0]
 ADDS	R2, R2, #1
 STRH	R2, [R3, #0]
-;Ducati_logger_driver.c,3956 :: 		}
+;Ducati_logger_driver.c,3955 :: 		}
 IT	AL
 BAL	L_Get_Object81
 L_Get_Object82:
-;Ducati_logger_driver.c,3959 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->CImagesCount ; _object_count++ ) {
+;Ducati_logger_driver.c,3958 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->CImagesCount ; _object_count++ ) {
 MOVS	R3, #0
 SXTH	R3, R3
 MOVW	R2, #lo_addr(__object_count+0)
@@ -16382,7 +16379,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	CS
 BCS	L_Get_Object87
-;Ducati_logger_driver.c,3960 :: 		local_cimage = GetCImage(_object_count);
+;Ducati_logger_driver.c,3959 :: 		local_cimage = GetCImage(_object_count);
 MOVW	R2, #lo_addr(_CurrentScreen+0)
 MOVT	R2, #hi_addr(_CurrentScreen+0)
 LDR	R2, [R2, #0]
@@ -16397,13 +16394,13 @@ LDR	R3, [R2, #0]
 MOVW	R2, #lo_addr(_local_cimage+0)
 MOVT	R2, #hi_addr(_local_cimage+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,3961 :: 		if (local_cimage->Active == 1) {
+;Ducati_logger_driver.c,3960 :: 		if (local_cimage->Active == 1) {
 ADDW	R2, R3, #21
 LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Get_Object89
-;Ducati_logger_driver.c,3963 :: 		local_cimage->Width, local_cimage->Height) == 1) {
+;Ducati_logger_driver.c,3962 :: 		local_cimage->Width, local_cimage->Height) == 1) {
 MOVW	R6, #lo_addr(_local_cimage+0)
 MOVT	R6, #hi_addr(_local_cimage+0)
 LDR	R2, [R6, #0]
@@ -16415,7 +16412,7 @@ LDR	R2, [R2, #0]
 ADDS	R2, #10
 LDRH	R2, [R2, #0]
 UXTH	R4, R2
-;Ducati_logger_driver.c,3962 :: 		if (IsInsideObject(X, Y, local_cimage->Left, local_cimage->Top,
+;Ducati_logger_driver.c,3961 :: 		if (IsInsideObject(X, Y, local_cimage->Left, local_cimage->Top,
 MOV	R2, R6
 LDR	R2, [R2, #0]
 ADDS	R2, #8
@@ -16427,7 +16424,7 @@ ADDS	R2, R2, #6
 LDRH	R2, [R2, #0]
 UXTH	R1, R8
 UXTH	R0, R7
-;Ducati_logger_driver.c,3963 :: 		local_cimage->Width, local_cimage->Height) == 1) {
+;Ducati_logger_driver.c,3962 :: 		local_cimage->Width, local_cimage->Height) == 1) {
 PUSH	(R5)
 PUSH	(R4)
 BL	Ducati_logger_driver_IsInsideObject+0
@@ -16435,7 +16432,7 @@ ADD	SP, SP, #8
 CMP	R0, #1
 IT	NE
 BNE	L_Get_Object90
-;Ducati_logger_driver.c,3964 :: 		cimage_order = local_cimage->Order;
+;Ducati_logger_driver.c,3963 :: 		cimage_order = local_cimage->Order;
 MOVW	R4, #lo_addr(_local_cimage+0)
 MOVT	R4, #hi_addr(_local_cimage+0)
 LDR	R2, [R4, #0]
@@ -16444,27 +16441,27 @@ LDRB	R3, [R2, #0]
 MOVW	R2, #lo_addr(_cimage_order+0)
 MOVT	R2, #hi_addr(_cimage_order+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,3965 :: 		exec_cimage = local_cimage;
+;Ducati_logger_driver.c,3964 :: 		exec_cimage = local_cimage;
 MOV	R2, R4
 LDR	R3, [R2, #0]
 MOVW	R2, #lo_addr(_exec_cimage+0)
 MOVT	R2, #hi_addr(_exec_cimage+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,3966 :: 		}
+;Ducati_logger_driver.c,3965 :: 		}
 L_Get_Object90:
-;Ducati_logger_driver.c,3967 :: 		}
+;Ducati_logger_driver.c,3966 :: 		}
 L_Get_Object89:
-;Ducati_logger_driver.c,3959 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->CImagesCount ; _object_count++ ) {
+;Ducati_logger_driver.c,3958 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->CImagesCount ; _object_count++ ) {
 MOVW	R3, #lo_addr(__object_count+0)
 MOVT	R3, #hi_addr(__object_count+0)
 LDRSH	R2, [R3, #0]
 ADDS	R2, R2, #1
 STRH	R2, [R3, #0]
-;Ducati_logger_driver.c,3968 :: 		}
+;Ducati_logger_driver.c,3967 :: 		}
 IT	AL
 BAL	L_Get_Object86
 L_Get_Object87:
-;Ducati_logger_driver.c,3971 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->CirclesCount ; _object_count++ ) {
+;Ducati_logger_driver.c,3970 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->CirclesCount ; _object_count++ ) {
 MOVS	R3, #0
 SXTH	R3, R3
 MOVW	R2, #lo_addr(__object_count+0)
@@ -16489,7 +16486,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	CS
 BCS	L_Get_Object92
-;Ducati_logger_driver.c,3972 :: 		local_circle = GetCircle(_object_count);
+;Ducati_logger_driver.c,3971 :: 		local_circle = GetCircle(_object_count);
 MOVW	R2, #lo_addr(_CurrentScreen+0)
 MOVT	R2, #hi_addr(_CurrentScreen+0)
 LDR	R2, [R2, #0]
@@ -16504,13 +16501,13 @@ LDR	R3, [R2, #0]
 MOVW	R2, #lo_addr(_local_circle+0)
 MOVT	R2, #hi_addr(_local_circle+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,3973 :: 		if (local_circle->Active == 1) {
+;Ducati_logger_driver.c,3972 :: 		if (local_circle->Active == 1) {
 ADDW	R2, R3, #17
 LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Get_Object94
-;Ducati_logger_driver.c,3975 :: 		(local_circle->Radius * 2), (local_circle->Radius * 2)) == 1) {
+;Ducati_logger_driver.c,3974 :: 		(local_circle->Radius * 2), (local_circle->Radius * 2)) == 1) {
 MOVW	R5, #lo_addr(_local_circle+0)
 MOVT	R5, #hi_addr(_local_circle+0)
 LDR	R2, [R5, #0]
@@ -16518,7 +16515,7 @@ ADDS	R2, #10
 LDRH	R2, [R2, #0]
 LSLS	R4, R2, #1
 UXTH	R4, R4
-;Ducati_logger_driver.c,3974 :: 		if (IsInsideObject(X, Y, local_circle->Left, local_circle->Top,
+;Ducati_logger_driver.c,3973 :: 		if (IsInsideObject(X, Y, local_circle->Left, local_circle->Top,
 MOV	R2, R5
 LDR	R2, [R2, #0]
 ADDS	R2, #8
@@ -16530,7 +16527,7 @@ ADDS	R2, R2, #6
 LDRH	R2, [R2, #0]
 UXTH	R1, R7
 UXTH	R0, R8
-;Ducati_logger_driver.c,3975 :: 		(local_circle->Radius * 2), (local_circle->Radius * 2)) == 1) {
+;Ducati_logger_driver.c,3974 :: 		(local_circle->Radius * 2), (local_circle->Radius * 2)) == 1) {
 PUSH	(R4)
 PUSH	(R4)
 BL	Ducati_logger_driver_IsInsideObject+0
@@ -16538,7 +16535,7 @@ ADD	SP, SP, #8
 CMP	R0, #1
 IT	NE
 BNE	L_Get_Object95
-;Ducati_logger_driver.c,3976 :: 		circle_order = local_circle->Order;
+;Ducati_logger_driver.c,3975 :: 		circle_order = local_circle->Order;
 MOVW	R4, #lo_addr(_local_circle+0)
 MOVT	R4, #hi_addr(_local_circle+0)
 LDR	R2, [R4, #0]
@@ -16547,27 +16544,27 @@ LDRB	R3, [R2, #0]
 MOVW	R2, #lo_addr(_circle_order+0)
 MOVT	R2, #hi_addr(_circle_order+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,3977 :: 		exec_circle = local_circle;
+;Ducati_logger_driver.c,3976 :: 		exec_circle = local_circle;
 MOV	R2, R4
 LDR	R3, [R2, #0]
 MOVW	R2, #lo_addr(_exec_circle+0)
 MOVT	R2, #hi_addr(_exec_circle+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,3978 :: 		}
+;Ducati_logger_driver.c,3977 :: 		}
 L_Get_Object95:
-;Ducati_logger_driver.c,3979 :: 		}
+;Ducati_logger_driver.c,3978 :: 		}
 L_Get_Object94:
-;Ducati_logger_driver.c,3971 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->CirclesCount ; _object_count++ ) {
+;Ducati_logger_driver.c,3970 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->CirclesCount ; _object_count++ ) {
 MOVW	R3, #lo_addr(__object_count+0)
 MOVT	R3, #hi_addr(__object_count+0)
 LDRSH	R2, [R3, #0]
 ADDS	R2, R2, #1
 STRH	R2, [R3, #0]
-;Ducati_logger_driver.c,3980 :: 		}
+;Ducati_logger_driver.c,3979 :: 		}
 IT	AL
 BAL	L_Get_Object91
 L_Get_Object92:
-;Ducati_logger_driver.c,3983 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->CircleButtonsCount ; _object_count++ ) {
+;Ducati_logger_driver.c,3982 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->CircleButtonsCount ; _object_count++ ) {
 MOVS	R3, #0
 SXTH	R3, R3
 MOVW	R2, #lo_addr(__object_count+0)
@@ -16589,7 +16586,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	CS
 BCS	L_Get_Object97
-;Ducati_logger_driver.c,3984 :: 		local_circle_button = GetCircleButton(_object_count);
+;Ducati_logger_driver.c,3983 :: 		local_circle_button = GetCircleButton(_object_count);
 MOVW	R2, #lo_addr(_CurrentScreen+0)
 MOVT	R2, #hi_addr(_CurrentScreen+0)
 LDR	R2, [R2, #0]
@@ -16604,13 +16601,13 @@ LDR	R3, [R2, #0]
 MOVW	R2, #lo_addr(_local_circle_button+0)
 MOVT	R2, #hi_addr(_local_circle_button+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,3985 :: 		if (local_circle_button->Active == 1) {
+;Ducati_logger_driver.c,3984 :: 		if (local_circle_button->Active == 1) {
 ADDW	R2, R3, #17
 LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Get_Object99
-;Ducati_logger_driver.c,3987 :: 		(local_circle_button->Radius * 2), (local_circle_button->Radius * 2)) == 1) {
+;Ducati_logger_driver.c,3986 :: 		(local_circle_button->Radius * 2), (local_circle_button->Radius * 2)) == 1) {
 MOVW	R5, #lo_addr(_local_circle_button+0)
 MOVT	R5, #hi_addr(_local_circle_button+0)
 LDR	R2, [R5, #0]
@@ -16618,7 +16615,7 @@ ADDS	R2, #10
 LDRH	R2, [R2, #0]
 LSLS	R4, R2, #1
 UXTH	R4, R4
-;Ducati_logger_driver.c,3986 :: 		if (IsInsideObject(X, Y, local_circle_button->Left, local_circle_button->Top,
+;Ducati_logger_driver.c,3985 :: 		if (IsInsideObject(X, Y, local_circle_button->Left, local_circle_button->Top,
 MOV	R2, R5
 LDR	R2, [R2, #0]
 ADDS	R2, #8
@@ -16630,7 +16627,7 @@ ADDS	R2, R2, #6
 LDRH	R2, [R2, #0]
 UXTH	R1, R7
 UXTH	R0, R8
-;Ducati_logger_driver.c,3987 :: 		(local_circle_button->Radius * 2), (local_circle_button->Radius * 2)) == 1) {
+;Ducati_logger_driver.c,3986 :: 		(local_circle_button->Radius * 2), (local_circle_button->Radius * 2)) == 1) {
 PUSH	(R4)
 PUSH	(R4)
 BL	Ducati_logger_driver_IsInsideObject+0
@@ -16638,7 +16635,7 @@ ADD	SP, SP, #8
 CMP	R0, #1
 IT	NE
 BNE	L_Get_Object100
-;Ducati_logger_driver.c,3988 :: 		circle_button_order = local_circle_button->Order;
+;Ducati_logger_driver.c,3987 :: 		circle_button_order = local_circle_button->Order;
 MOVW	R4, #lo_addr(_local_circle_button+0)
 MOVT	R4, #hi_addr(_local_circle_button+0)
 LDR	R2, [R4, #0]
@@ -16647,27 +16644,27 @@ LDRB	R3, [R2, #0]
 MOVW	R2, #lo_addr(_circle_button_order+0)
 MOVT	R2, #hi_addr(_circle_button_order+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,3989 :: 		exec_circle_button = local_circle_button;
+;Ducati_logger_driver.c,3988 :: 		exec_circle_button = local_circle_button;
 MOV	R2, R4
 LDR	R3, [R2, #0]
 MOVW	R2, #lo_addr(_exec_circle_button+0)
 MOVT	R2, #hi_addr(_exec_circle_button+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,3990 :: 		}
+;Ducati_logger_driver.c,3989 :: 		}
 L_Get_Object100:
-;Ducati_logger_driver.c,3991 :: 		}
+;Ducati_logger_driver.c,3990 :: 		}
 L_Get_Object99:
-;Ducati_logger_driver.c,3983 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->CircleButtonsCount ; _object_count++ ) {
+;Ducati_logger_driver.c,3982 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->CircleButtonsCount ; _object_count++ ) {
 MOVW	R3, #lo_addr(__object_count+0)
 MOVT	R3, #hi_addr(__object_count+0)
 LDRSH	R2, [R3, #0]
 ADDS	R2, R2, #1
 STRH	R2, [R3, #0]
-;Ducati_logger_driver.c,3992 :: 		}
+;Ducati_logger_driver.c,3991 :: 		}
 IT	AL
 BAL	L_Get_Object96
 L_Get_Object97:
-;Ducati_logger_driver.c,3995 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->BoxesCount ; _object_count++ ) {
+;Ducati_logger_driver.c,3994 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->BoxesCount ; _object_count++ ) {
 MOVS	R3, #0
 SXTH	R3, R3
 MOVW	R2, #lo_addr(__object_count+0)
@@ -16689,7 +16686,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	CS
 BCS	L_Get_Object102
-;Ducati_logger_driver.c,3996 :: 		local_box = GetBox(_object_count);
+;Ducati_logger_driver.c,3995 :: 		local_box = GetBox(_object_count);
 MOVW	R2, #lo_addr(_CurrentScreen+0)
 MOVT	R2, #hi_addr(_CurrentScreen+0)
 LDR	R2, [R2, #0]
@@ -16704,13 +16701,13 @@ LDR	R3, [R2, #0]
 MOVW	R2, #lo_addr(_local_box+0)
 MOVT	R2, #hi_addr(_local_box+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,3997 :: 		if (local_box->Active == 1) {
+;Ducati_logger_driver.c,3996 :: 		if (local_box->Active == 1) {
 ADDW	R2, R3, #19
 LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Get_Object104
-;Ducati_logger_driver.c,3999 :: 		local_box->Width, local_box->Height) == 1) {
+;Ducati_logger_driver.c,3998 :: 		local_box->Width, local_box->Height) == 1) {
 MOVW	R6, #lo_addr(_local_box+0)
 MOVT	R6, #hi_addr(_local_box+0)
 LDR	R2, [R6, #0]
@@ -16722,7 +16719,7 @@ LDR	R2, [R2, #0]
 ADDS	R2, #10
 LDRH	R2, [R2, #0]
 UXTH	R4, R2
-;Ducati_logger_driver.c,3998 :: 		if (IsInsideObject(X, Y, local_box->Left, local_box->Top,
+;Ducati_logger_driver.c,3997 :: 		if (IsInsideObject(X, Y, local_box->Left, local_box->Top,
 MOV	R2, R6
 LDR	R2, [R2, #0]
 ADDS	R2, #8
@@ -16734,7 +16731,7 @@ ADDS	R2, R2, #6
 LDRH	R2, [R2, #0]
 UXTH	R1, R7
 UXTH	R0, R8
-;Ducati_logger_driver.c,3999 :: 		local_box->Width, local_box->Height) == 1) {
+;Ducati_logger_driver.c,3998 :: 		local_box->Width, local_box->Height) == 1) {
 PUSH	(R5)
 PUSH	(R4)
 BL	Ducati_logger_driver_IsInsideObject+0
@@ -16742,7 +16739,7 @@ ADD	SP, SP, #8
 CMP	R0, #1
 IT	NE
 BNE	L_Get_Object105
-;Ducati_logger_driver.c,4000 :: 		box_order = local_box->Order;
+;Ducati_logger_driver.c,3999 :: 		box_order = local_box->Order;
 MOVW	R4, #lo_addr(_local_box+0)
 MOVT	R4, #hi_addr(_local_box+0)
 LDR	R2, [R4, #0]
@@ -16751,27 +16748,27 @@ LDRB	R3, [R2, #0]
 MOVW	R2, #lo_addr(_box_order+0)
 MOVT	R2, #hi_addr(_box_order+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,4001 :: 		exec_box = local_box;
+;Ducati_logger_driver.c,4000 :: 		exec_box = local_box;
 MOV	R2, R4
 LDR	R3, [R2, #0]
 MOVW	R2, #lo_addr(_exec_box+0)
 MOVT	R2, #hi_addr(_exec_box+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4002 :: 		}
+;Ducati_logger_driver.c,4001 :: 		}
 L_Get_Object105:
-;Ducati_logger_driver.c,4003 :: 		}
+;Ducati_logger_driver.c,4002 :: 		}
 L_Get_Object104:
-;Ducati_logger_driver.c,3995 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->BoxesCount ; _object_count++ ) {
+;Ducati_logger_driver.c,3994 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->BoxesCount ; _object_count++ ) {
 MOVW	R3, #lo_addr(__object_count+0)
 MOVT	R3, #hi_addr(__object_count+0)
 LDRSH	R2, [R3, #0]
 ADDS	R2, R2, #1
 STRH	R2, [R3, #0]
-;Ducati_logger_driver.c,4004 :: 		}
+;Ducati_logger_driver.c,4003 :: 		}
 IT	AL
 BAL	L_Get_Object101
 L_Get_Object102:
-;Ducati_logger_driver.c,4007 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->CBoxesCount ; _object_count++ ) {
+;Ducati_logger_driver.c,4006 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->CBoxesCount ; _object_count++ ) {
 MOVS	R3, #0
 SXTH	R3, R3
 MOVW	R2, #lo_addr(__object_count+0)
@@ -16802,7 +16799,7 @@ IT	CS
 BCS	L_Get_Object107
 ; X end address is: 28 (R7)
 ; Y end address is: 32 (R8)
-;Ducati_logger_driver.c,4008 :: 		local_cbox = GetCBox(_object_count);
+;Ducati_logger_driver.c,4007 :: 		local_cbox = GetCBox(_object_count);
 ; Y start address is: 32 (R8)
 ; X start address is: 28 (R7)
 MOVW	R2, #lo_addr(_CurrentScreen+0)
@@ -16819,13 +16816,13 @@ LDR	R3, [R2, #0]
 MOVW	R2, #lo_addr(_local_cbox+0)
 MOVT	R2, #hi_addr(_local_cbox+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4009 :: 		if (local_cbox->Active == 1) {
+;Ducati_logger_driver.c,4008 :: 		if (local_cbox->Active == 1) {
 ADDW	R2, R3, #19
 LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Get_Object109
-;Ducati_logger_driver.c,4011 :: 		local_cbox->Width, local_cbox->Height) == 1) {
+;Ducati_logger_driver.c,4010 :: 		local_cbox->Width, local_cbox->Height) == 1) {
 MOVW	R6, #lo_addr(_local_cbox+0)
 MOVT	R6, #hi_addr(_local_cbox+0)
 LDR	R2, [R6, #0]
@@ -16837,7 +16834,7 @@ LDR	R2, [R2, #0]
 ADDS	R2, #10
 LDRH	R2, [R2, #0]
 UXTH	R4, R2
-;Ducati_logger_driver.c,4010 :: 		if (IsInsideObject(X, Y, local_cbox->Left, local_cbox->Top,
+;Ducati_logger_driver.c,4009 :: 		if (IsInsideObject(X, Y, local_cbox->Left, local_cbox->Top,
 MOV	R2, R6
 LDR	R2, [R2, #0]
 ADDS	R2, #8
@@ -16849,7 +16846,7 @@ ADDS	R2, R2, #6
 LDRH	R2, [R2, #0]
 UXTH	R1, R8
 UXTH	R0, R7
-;Ducati_logger_driver.c,4011 :: 		local_cbox->Width, local_cbox->Height) == 1) {
+;Ducati_logger_driver.c,4010 :: 		local_cbox->Width, local_cbox->Height) == 1) {
 PUSH	(R5)
 PUSH	(R4)
 BL	Ducati_logger_driver_IsInsideObject+0
@@ -16857,7 +16854,7 @@ ADD	SP, SP, #8
 CMP	R0, #1
 IT	NE
 BNE	L_Get_Object110
-;Ducati_logger_driver.c,4012 :: 		cbox_order = local_cbox->Order;
+;Ducati_logger_driver.c,4011 :: 		cbox_order = local_cbox->Order;
 MOVW	R4, #lo_addr(_local_cbox+0)
 MOVT	R4, #hi_addr(_local_cbox+0)
 LDR	R2, [R4, #0]
@@ -16866,42 +16863,42 @@ LDRB	R3, [R2, #0]
 MOVW	R2, #lo_addr(_cbox_order+0)
 MOVT	R2, #hi_addr(_cbox_order+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,4013 :: 		exec_cbox = local_cbox;
+;Ducati_logger_driver.c,4012 :: 		exec_cbox = local_cbox;
 MOV	R2, R4
 LDR	R3, [R2, #0]
 MOVW	R2, #lo_addr(_exec_cbox+0)
 MOVT	R2, #hi_addr(_exec_cbox+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4014 :: 		}
+;Ducati_logger_driver.c,4013 :: 		}
 L_Get_Object110:
-;Ducati_logger_driver.c,4015 :: 		}
+;Ducati_logger_driver.c,4014 :: 		}
 L_Get_Object109:
-;Ducati_logger_driver.c,4007 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->CBoxesCount ; _object_count++ ) {
+;Ducati_logger_driver.c,4006 :: 		for ( _object_count = 0 ; _object_count < CurrentScreen->CBoxesCount ; _object_count++ ) {
 MOVW	R3, #lo_addr(__object_count+0)
 MOVT	R3, #hi_addr(__object_count+0)
 LDRSH	R2, [R3, #0]
 ADDS	R2, R2, #1
 STRH	R2, [R3, #0]
-;Ducati_logger_driver.c,4016 :: 		}
+;Ducati_logger_driver.c,4015 :: 		}
 ; X end address is: 28 (R7)
 ; Y end address is: 32 (R8)
 IT	AL
 BAL	L_Get_Object106
 L_Get_Object107:
-;Ducati_logger_driver.c,4018 :: 		_object_count = -1;
+;Ducati_logger_driver.c,4017 :: 		_object_count = -1;
 MOVW	R3, #65535
 SXTH	R3, R3
 MOVW	R2, #lo_addr(__object_count+0)
 MOVT	R2, #hi_addr(__object_count+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,4019 :: 		if (round_button_order >  _object_count )
+;Ducati_logger_driver.c,4018 :: 		if (round_button_order >  _object_count )
 MOVW	R2, #lo_addr(_round_button_order+0)
 MOVT	R2, #hi_addr(_round_button_order+0)
 LDRSH	R2, [R2, #0]
 CMP	R2, #-1
 IT	LE
 BLE	L_Get_Object111
-;Ducati_logger_driver.c,4020 :: 		_object_count = round_button_order;
+;Ducati_logger_driver.c,4019 :: 		_object_count = round_button_order;
 MOVW	R2, #lo_addr(_round_button_order+0)
 MOVT	R2, #hi_addr(_round_button_order+0)
 LDRSH	R3, [R2, #0]
@@ -16909,7 +16906,7 @@ MOVW	R2, #lo_addr(__object_count+0)
 MOVT	R2, #hi_addr(__object_count+0)
 STRH	R3, [R2, #0]
 L_Get_Object111:
-;Ducati_logger_driver.c,4021 :: 		if (label_order >  _object_count )
+;Ducati_logger_driver.c,4020 :: 		if (label_order >  _object_count )
 MOVW	R2, #lo_addr(__object_count+0)
 MOVT	R2, #hi_addr(__object_count+0)
 LDRSH	R3, [R2, #0]
@@ -16919,7 +16916,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	LE
 BLE	L_Get_Object112
-;Ducati_logger_driver.c,4022 :: 		_object_count = label_order;
+;Ducati_logger_driver.c,4021 :: 		_object_count = label_order;
 MOVW	R2, #lo_addr(_label_order+0)
 MOVT	R2, #hi_addr(_label_order+0)
 LDRSH	R3, [R2, #0]
@@ -16927,7 +16924,7 @@ MOVW	R2, #lo_addr(__object_count+0)
 MOVT	R2, #hi_addr(__object_count+0)
 STRH	R3, [R2, #0]
 L_Get_Object112:
-;Ducati_logger_driver.c,4023 :: 		if (image_order >  _object_count )
+;Ducati_logger_driver.c,4022 :: 		if (image_order >  _object_count )
 MOVW	R2, #lo_addr(__object_count+0)
 MOVT	R2, #hi_addr(__object_count+0)
 LDRSH	R3, [R2, #0]
@@ -16937,7 +16934,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	LE
 BLE	L_Get_Object113
-;Ducati_logger_driver.c,4024 :: 		_object_count = image_order;
+;Ducati_logger_driver.c,4023 :: 		_object_count = image_order;
 MOVW	R2, #lo_addr(_image_order+0)
 MOVT	R2, #hi_addr(_image_order+0)
 LDRSH	R3, [R2, #0]
@@ -16945,7 +16942,7 @@ MOVW	R2, #lo_addr(__object_count+0)
 MOVT	R2, #hi_addr(__object_count+0)
 STRH	R3, [R2, #0]
 L_Get_Object113:
-;Ducati_logger_driver.c,4025 :: 		if (cimage_order >  _object_count )
+;Ducati_logger_driver.c,4024 :: 		if (cimage_order >  _object_count )
 MOVW	R2, #lo_addr(__object_count+0)
 MOVT	R2, #hi_addr(__object_count+0)
 LDRSH	R3, [R2, #0]
@@ -16955,7 +16952,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	LE
 BLE	L_Get_Object114
-;Ducati_logger_driver.c,4026 :: 		_object_count = cimage_order;
+;Ducati_logger_driver.c,4025 :: 		_object_count = cimage_order;
 MOVW	R2, #lo_addr(_cimage_order+0)
 MOVT	R2, #hi_addr(_cimage_order+0)
 LDRSH	R3, [R2, #0]
@@ -16963,7 +16960,7 @@ MOVW	R2, #lo_addr(__object_count+0)
 MOVT	R2, #hi_addr(__object_count+0)
 STRH	R3, [R2, #0]
 L_Get_Object114:
-;Ducati_logger_driver.c,4027 :: 		if (circle_order >  _object_count )
+;Ducati_logger_driver.c,4026 :: 		if (circle_order >  _object_count )
 MOVW	R2, #lo_addr(__object_count+0)
 MOVT	R2, #hi_addr(__object_count+0)
 LDRSH	R3, [R2, #0]
@@ -16973,7 +16970,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	LE
 BLE	L_Get_Object115
-;Ducati_logger_driver.c,4028 :: 		_object_count = circle_order;
+;Ducati_logger_driver.c,4027 :: 		_object_count = circle_order;
 MOVW	R2, #lo_addr(_circle_order+0)
 MOVT	R2, #hi_addr(_circle_order+0)
 LDRSH	R3, [R2, #0]
@@ -16981,7 +16978,7 @@ MOVW	R2, #lo_addr(__object_count+0)
 MOVT	R2, #hi_addr(__object_count+0)
 STRH	R3, [R2, #0]
 L_Get_Object115:
-;Ducati_logger_driver.c,4029 :: 		if (circle_button_order >  _object_count )
+;Ducati_logger_driver.c,4028 :: 		if (circle_button_order >  _object_count )
 MOVW	R2, #lo_addr(__object_count+0)
 MOVT	R2, #hi_addr(__object_count+0)
 LDRSH	R3, [R2, #0]
@@ -16991,7 +16988,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	LE
 BLE	L_Get_Object116
-;Ducati_logger_driver.c,4030 :: 		_object_count = circle_button_order;
+;Ducati_logger_driver.c,4029 :: 		_object_count = circle_button_order;
 MOVW	R2, #lo_addr(_circle_button_order+0)
 MOVT	R2, #hi_addr(_circle_button_order+0)
 LDRSH	R3, [R2, #0]
@@ -16999,7 +16996,7 @@ MOVW	R2, #lo_addr(__object_count+0)
 MOVT	R2, #hi_addr(__object_count+0)
 STRH	R3, [R2, #0]
 L_Get_Object116:
-;Ducati_logger_driver.c,4031 :: 		if (box_order >  _object_count )
+;Ducati_logger_driver.c,4030 :: 		if (box_order >  _object_count )
 MOVW	R2, #lo_addr(__object_count+0)
 MOVT	R2, #hi_addr(__object_count+0)
 LDRSH	R3, [R2, #0]
@@ -17009,7 +17006,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	LE
 BLE	L_Get_Object117
-;Ducati_logger_driver.c,4032 :: 		_object_count = box_order;
+;Ducati_logger_driver.c,4031 :: 		_object_count = box_order;
 MOVW	R2, #lo_addr(_box_order+0)
 MOVT	R2, #hi_addr(_box_order+0)
 LDRSH	R3, [R2, #0]
@@ -17017,7 +17014,7 @@ MOVW	R2, #lo_addr(__object_count+0)
 MOVT	R2, #hi_addr(__object_count+0)
 STRH	R3, [R2, #0]
 L_Get_Object117:
-;Ducati_logger_driver.c,4033 :: 		if (cbox_order >  _object_count )
+;Ducati_logger_driver.c,4032 :: 		if (cbox_order >  _object_count )
 MOVW	R2, #lo_addr(__object_count+0)
 MOVT	R2, #hi_addr(__object_count+0)
 LDRSH	R3, [R2, #0]
@@ -17027,7 +17024,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	LE
 BLE	L_Get_Object118
-;Ducati_logger_driver.c,4034 :: 		_object_count = cbox_order;
+;Ducati_logger_driver.c,4033 :: 		_object_count = cbox_order;
 MOVW	R2, #lo_addr(_cbox_order+0)
 MOVT	R2, #hi_addr(_cbox_order+0)
 LDRSH	R3, [R2, #0]
@@ -17035,14 +17032,14 @@ MOVW	R2, #lo_addr(__object_count+0)
 MOVT	R2, #hi_addr(__object_count+0)
 STRH	R3, [R2, #0]
 L_Get_Object118:
-;Ducati_logger_driver.c,4035 :: 		}
+;Ducati_logger_driver.c,4034 :: 		}
 L_end_Get_Object:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #8
 BX	LR
 ; end of _Get_Object
 _Process_TP_Press:
-;Ducati_logger_driver.c,4038 :: 		void Process_TP_Press(unsigned int X, unsigned int Y) {
+;Ducati_logger_driver.c,4037 :: 		void Process_TP_Press(unsigned int X, unsigned int Y) {
 ; Y start address is: 4 (R1)
 ; X start address is: 0 (R0)
 SUB	SP, SP, #4
@@ -17051,58 +17048,58 @@ STR	LR, [SP, #0]
 ; X end address is: 0 (R0)
 ; X start address is: 0 (R0)
 ; Y start address is: 4 (R1)
-;Ducati_logger_driver.c,4039 :: 		exec_round_button   = 0;
+;Ducati_logger_driver.c,4038 :: 		exec_round_button   = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_exec_round_button+0)
 MOVT	R2, #hi_addr(_exec_round_button+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4040 :: 		exec_label          = 0;
+;Ducati_logger_driver.c,4039 :: 		exec_label          = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_exec_label+0)
 MOVT	R2, #hi_addr(_exec_label+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4041 :: 		exec_image          = 0;
+;Ducati_logger_driver.c,4040 :: 		exec_image          = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_exec_image+0)
 MOVT	R2, #hi_addr(_exec_image+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4042 :: 		exec_cimage         = 0;
+;Ducati_logger_driver.c,4041 :: 		exec_cimage         = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_exec_cimage+0)
 MOVT	R2, #hi_addr(_exec_cimage+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4043 :: 		exec_circle         = 0;
+;Ducati_logger_driver.c,4042 :: 		exec_circle         = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_exec_circle+0)
 MOVT	R2, #hi_addr(_exec_circle+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4044 :: 		exec_circle_button  = 0;
+;Ducati_logger_driver.c,4043 :: 		exec_circle_button  = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_exec_circle_button+0)
 MOVT	R2, #hi_addr(_exec_circle_button+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4045 :: 		exec_box            = 0;
+;Ducati_logger_driver.c,4044 :: 		exec_box            = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_exec_box+0)
 MOVT	R2, #hi_addr(_exec_box+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4046 :: 		exec_cbox           = 0;
+;Ducati_logger_driver.c,4045 :: 		exec_cbox           = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_exec_cbox+0)
 MOVT	R2, #hi_addr(_exec_cbox+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4048 :: 		Get_Object(X, Y);
+;Ducati_logger_driver.c,4047 :: 		Get_Object(X, Y);
 ; Y end address is: 4 (R1)
 ; X end address is: 0 (R0)
 BL	_Get_Object+0
-;Ducati_logger_driver.c,4050 :: 		if (_object_count != -1) {
+;Ducati_logger_driver.c,4049 :: 		if (_object_count != -1) {
 MOVW	R2, #lo_addr(__object_count+0)
 MOVT	R2, #hi_addr(__object_count+0)
 LDRSH	R2, [R2, #0]
 CMP	R2, #-1
 IT	EQ
 BEQ	L_Process_TP_Press119
-;Ducati_logger_driver.c,4051 :: 		if (_object_count == round_button_order) {
+;Ducati_logger_driver.c,4050 :: 		if (_object_count == round_button_order) {
 MOVW	R2, #lo_addr(_round_button_order+0)
 MOVT	R2, #hi_addr(_round_button_order+0)
 LDRSH	R3, [R2, #0]
@@ -17112,7 +17109,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Press120
-;Ducati_logger_driver.c,4052 :: 		if (exec_round_button->Active == 1) {
+;Ducati_logger_driver.c,4051 :: 		if (exec_round_button->Active == 1) {
 MOVW	R2, #lo_addr(_exec_round_button+0)
 MOVT	R2, #hi_addr(_exec_round_button+0)
 LDR	R2, [R2, #0]
@@ -17121,7 +17118,7 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Press121
-;Ducati_logger_driver.c,4053 :: 		if (exec_round_button->OnPressPtr != 0) {
+;Ducati_logger_driver.c,4052 :: 		if (exec_round_button->OnPressPtr != 0) {
 MOVW	R4, #lo_addr(_exec_round_button+0)
 MOVT	R4, #hi_addr(_exec_round_button+0)
 LDR	R4, [R4, #0]
@@ -17130,23 +17127,23 @@ LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Press122
-;Ducati_logger_driver.c,4054 :: 		exec_round_button->OnPressPtr();
+;Ducati_logger_driver.c,4053 :: 		exec_round_button->OnPressPtr();
 MOVW	R4, #lo_addr(_exec_round_button+0)
 MOVT	R4, #hi_addr(_exec_round_button+0)
 LDR	R4, [R4, #0]
 ADDS	R4, #64
 LDR	R2, [R4, #0]
 BLX	R2
-;Ducati_logger_driver.c,4055 :: 		return;
+;Ducati_logger_driver.c,4054 :: 		return;
 IT	AL
 BAL	L_end_Process_TP_Press
-;Ducati_logger_driver.c,4056 :: 		}
+;Ducati_logger_driver.c,4055 :: 		}
 L_Process_TP_Press122:
-;Ducati_logger_driver.c,4057 :: 		}
+;Ducati_logger_driver.c,4056 :: 		}
 L_Process_TP_Press121:
-;Ducati_logger_driver.c,4058 :: 		}
+;Ducati_logger_driver.c,4057 :: 		}
 L_Process_TP_Press120:
-;Ducati_logger_driver.c,4060 :: 		if (_object_count == label_order) {
+;Ducati_logger_driver.c,4059 :: 		if (_object_count == label_order) {
 MOVW	R2, #lo_addr(_label_order+0)
 MOVT	R2, #hi_addr(_label_order+0)
 LDRSH	R3, [R2, #0]
@@ -17156,7 +17153,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Press123
-;Ducati_logger_driver.c,4061 :: 		if (exec_label->Active == 1) {
+;Ducati_logger_driver.c,4060 :: 		if (exec_label->Active == 1) {
 MOVW	R2, #lo_addr(_exec_label+0)
 MOVT	R2, #hi_addr(_exec_label+0)
 LDR	R2, [R2, #0]
@@ -17165,7 +17162,7 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Press124
-;Ducati_logger_driver.c,4062 :: 		if (exec_label->OnPressPtr != 0) {
+;Ducati_logger_driver.c,4061 :: 		if (exec_label->OnPressPtr != 0) {
 MOVW	R4, #lo_addr(_exec_label+0)
 MOVT	R4, #hi_addr(_exec_label+0)
 LDR	R4, [R4, #0]
@@ -17174,23 +17171,23 @@ LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Press125
-;Ducati_logger_driver.c,4063 :: 		exec_label->OnPressPtr();
+;Ducati_logger_driver.c,4062 :: 		exec_label->OnPressPtr();
 MOVW	R4, #lo_addr(_exec_label+0)
 MOVT	R4, #hi_addr(_exec_label+0)
 LDR	R4, [R4, #0]
 ADDS	R4, #40
 LDR	R2, [R4, #0]
 BLX	R2
-;Ducati_logger_driver.c,4064 :: 		return;
+;Ducati_logger_driver.c,4063 :: 		return;
 IT	AL
 BAL	L_end_Process_TP_Press
-;Ducati_logger_driver.c,4065 :: 		}
+;Ducati_logger_driver.c,4064 :: 		}
 L_Process_TP_Press125:
-;Ducati_logger_driver.c,4066 :: 		}
+;Ducati_logger_driver.c,4065 :: 		}
 L_Process_TP_Press124:
-;Ducati_logger_driver.c,4067 :: 		}
+;Ducati_logger_driver.c,4066 :: 		}
 L_Process_TP_Press123:
-;Ducati_logger_driver.c,4069 :: 		if (_object_count == image_order) {
+;Ducati_logger_driver.c,4068 :: 		if (_object_count == image_order) {
 MOVW	R2, #lo_addr(_image_order+0)
 MOVT	R2, #hi_addr(_image_order+0)
 LDRSH	R3, [R2, #0]
@@ -17200,7 +17197,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Press126
-;Ducati_logger_driver.c,4070 :: 		if (exec_image->Active == 1) {
+;Ducati_logger_driver.c,4069 :: 		if (exec_image->Active == 1) {
 MOVW	R2, #lo_addr(_exec_image+0)
 MOVT	R2, #hi_addr(_exec_image+0)
 LDR	R2, [R2, #0]
@@ -17209,7 +17206,7 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Press127
-;Ducati_logger_driver.c,4071 :: 		if (exec_image->OnPressPtr != 0) {
+;Ducati_logger_driver.c,4070 :: 		if (exec_image->OnPressPtr != 0) {
 MOVW	R4, #lo_addr(_exec_image+0)
 MOVT	R4, #hi_addr(_exec_image+0)
 LDR	R4, [R4, #0]
@@ -17218,23 +17215,23 @@ LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Press128
-;Ducati_logger_driver.c,4072 :: 		exec_image->OnPressPtr();
+;Ducati_logger_driver.c,4071 :: 		exec_image->OnPressPtr();
 MOVW	R4, #lo_addr(_exec_image+0)
 MOVT	R4, #hi_addr(_exec_image+0)
 LDR	R4, [R4, #0]
 ADDS	R4, #36
 LDR	R2, [R4, #0]
 BLX	R2
-;Ducati_logger_driver.c,4073 :: 		return;
+;Ducati_logger_driver.c,4072 :: 		return;
 IT	AL
 BAL	L_end_Process_TP_Press
-;Ducati_logger_driver.c,4074 :: 		}
+;Ducati_logger_driver.c,4073 :: 		}
 L_Process_TP_Press128:
-;Ducati_logger_driver.c,4075 :: 		}
+;Ducati_logger_driver.c,4074 :: 		}
 L_Process_TP_Press127:
-;Ducati_logger_driver.c,4076 :: 		}
+;Ducati_logger_driver.c,4075 :: 		}
 L_Process_TP_Press126:
-;Ducati_logger_driver.c,4078 :: 		if (_object_count == cimage_order) {
+;Ducati_logger_driver.c,4077 :: 		if (_object_count == cimage_order) {
 MOVW	R2, #lo_addr(_cimage_order+0)
 MOVT	R2, #hi_addr(_cimage_order+0)
 LDRSH	R3, [R2, #0]
@@ -17244,7 +17241,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Press129
-;Ducati_logger_driver.c,4079 :: 		if (exec_cimage->Active == 1) {
+;Ducati_logger_driver.c,4078 :: 		if (exec_cimage->Active == 1) {
 MOVW	R2, #lo_addr(_exec_cimage+0)
 MOVT	R2, #hi_addr(_exec_cimage+0)
 LDR	R2, [R2, #0]
@@ -17253,7 +17250,7 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Press130
-;Ducati_logger_driver.c,4080 :: 		if (exec_cimage->OnPressPtr != 0) {
+;Ducati_logger_driver.c,4079 :: 		if (exec_cimage->OnPressPtr != 0) {
 MOVW	R4, #lo_addr(_exec_cimage+0)
 MOVT	R4, #hi_addr(_exec_cimage+0)
 LDR	R4, [R4, #0]
@@ -17262,23 +17259,23 @@ LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Press131
-;Ducati_logger_driver.c,4081 :: 		exec_cimage->OnPressPtr();
+;Ducati_logger_driver.c,4080 :: 		exec_cimage->OnPressPtr();
 MOVW	R4, #lo_addr(_exec_cimage+0)
 MOVT	R4, #hi_addr(_exec_cimage+0)
 LDR	R4, [R4, #0]
 ADDS	R4, #36
 LDR	R2, [R4, #0]
 BLX	R2
-;Ducati_logger_driver.c,4082 :: 		return;
+;Ducati_logger_driver.c,4081 :: 		return;
 IT	AL
 BAL	L_end_Process_TP_Press
-;Ducati_logger_driver.c,4083 :: 		}
+;Ducati_logger_driver.c,4082 :: 		}
 L_Process_TP_Press131:
-;Ducati_logger_driver.c,4084 :: 		}
+;Ducati_logger_driver.c,4083 :: 		}
 L_Process_TP_Press130:
-;Ducati_logger_driver.c,4085 :: 		}
+;Ducati_logger_driver.c,4084 :: 		}
 L_Process_TP_Press129:
-;Ducati_logger_driver.c,4087 :: 		if (_object_count == circle_order) {
+;Ducati_logger_driver.c,4086 :: 		if (_object_count == circle_order) {
 MOVW	R2, #lo_addr(_circle_order+0)
 MOVT	R2, #hi_addr(_circle_order+0)
 LDRSH	R3, [R2, #0]
@@ -17288,7 +17285,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Press132
-;Ducati_logger_driver.c,4088 :: 		if (exec_circle->Active == 1) {
+;Ducati_logger_driver.c,4087 :: 		if (exec_circle->Active == 1) {
 MOVW	R2, #lo_addr(_exec_circle+0)
 MOVT	R2, #hi_addr(_exec_circle+0)
 LDR	R2, [R2, #0]
@@ -17297,7 +17294,7 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Press133
-;Ducati_logger_driver.c,4089 :: 		if (exec_circle->OnPressPtr != 0) {
+;Ducati_logger_driver.c,4088 :: 		if (exec_circle->OnPressPtr != 0) {
 MOVW	R4, #lo_addr(_exec_circle+0)
 MOVT	R4, #hi_addr(_exec_circle+0)
 LDR	R4, [R4, #0]
@@ -17306,23 +17303,23 @@ LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Press134
-;Ducati_logger_driver.c,4090 :: 		exec_circle->OnPressPtr();
+;Ducati_logger_driver.c,4089 :: 		exec_circle->OnPressPtr();
 MOVW	R4, #lo_addr(_exec_circle+0)
 MOVT	R4, #hi_addr(_exec_circle+0)
 LDR	R4, [R4, #0]
 ADDS	R4, #44
 LDR	R2, [R4, #0]
 BLX	R2
-;Ducati_logger_driver.c,4091 :: 		return;
+;Ducati_logger_driver.c,4090 :: 		return;
 IT	AL
 BAL	L_end_Process_TP_Press
-;Ducati_logger_driver.c,4092 :: 		}
+;Ducati_logger_driver.c,4091 :: 		}
 L_Process_TP_Press134:
-;Ducati_logger_driver.c,4093 :: 		}
+;Ducati_logger_driver.c,4092 :: 		}
 L_Process_TP_Press133:
-;Ducati_logger_driver.c,4094 :: 		}
+;Ducati_logger_driver.c,4093 :: 		}
 L_Process_TP_Press132:
-;Ducati_logger_driver.c,4096 :: 		if (_object_count == circle_button_order) {
+;Ducati_logger_driver.c,4095 :: 		if (_object_count == circle_button_order) {
 MOVW	R2, #lo_addr(_circle_button_order+0)
 MOVT	R2, #hi_addr(_circle_button_order+0)
 LDRSH	R3, [R2, #0]
@@ -17332,7 +17329,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Press135
-;Ducati_logger_driver.c,4097 :: 		if (exec_circle_button->Active == 1) {
+;Ducati_logger_driver.c,4096 :: 		if (exec_circle_button->Active == 1) {
 MOVW	R2, #lo_addr(_exec_circle_button+0)
 MOVT	R2, #hi_addr(_exec_circle_button+0)
 LDR	R2, [R2, #0]
@@ -17341,7 +17338,7 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Press136
-;Ducati_logger_driver.c,4098 :: 		if (exec_circle_button->OnPressPtr != 0) {
+;Ducati_logger_driver.c,4097 :: 		if (exec_circle_button->OnPressPtr != 0) {
 MOVW	R4, #lo_addr(_exec_circle_button+0)
 MOVT	R4, #hi_addr(_exec_circle_button+0)
 LDR	R4, [R4, #0]
@@ -17350,23 +17347,23 @@ LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Press137
-;Ducati_logger_driver.c,4099 :: 		exec_circle_button->OnPressPtr();
+;Ducati_logger_driver.c,4098 :: 		exec_circle_button->OnPressPtr();
 MOVW	R4, #lo_addr(_exec_circle_button+0)
 MOVT	R4, #hi_addr(_exec_circle_button+0)
 LDR	R4, [R4, #0]
 ADDS	R4, #60
 LDR	R2, [R4, #0]
 BLX	R2
-;Ducati_logger_driver.c,4100 :: 		return;
+;Ducati_logger_driver.c,4099 :: 		return;
 IT	AL
 BAL	L_end_Process_TP_Press
-;Ducati_logger_driver.c,4101 :: 		}
+;Ducati_logger_driver.c,4100 :: 		}
 L_Process_TP_Press137:
-;Ducati_logger_driver.c,4102 :: 		}
+;Ducati_logger_driver.c,4101 :: 		}
 L_Process_TP_Press136:
-;Ducati_logger_driver.c,4103 :: 		}
+;Ducati_logger_driver.c,4102 :: 		}
 L_Process_TP_Press135:
-;Ducati_logger_driver.c,4105 :: 		if (_object_count == box_order) {
+;Ducati_logger_driver.c,4104 :: 		if (_object_count == box_order) {
 MOVW	R2, #lo_addr(_box_order+0)
 MOVT	R2, #hi_addr(_box_order+0)
 LDRSH	R3, [R2, #0]
@@ -17376,7 +17373,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Press138
-;Ducati_logger_driver.c,4106 :: 		if (exec_box->Active == 1) {
+;Ducati_logger_driver.c,4105 :: 		if (exec_box->Active == 1) {
 MOVW	R2, #lo_addr(_exec_box+0)
 MOVT	R2, #hi_addr(_exec_box+0)
 LDR	R2, [R2, #0]
@@ -17385,7 +17382,7 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Press139
-;Ducati_logger_driver.c,4107 :: 		if (exec_box->OnPressPtr != 0) {
+;Ducati_logger_driver.c,4106 :: 		if (exec_box->OnPressPtr != 0) {
 MOVW	R4, #lo_addr(_exec_box+0)
 MOVT	R4, #hi_addr(_exec_box+0)
 LDR	R4, [R4, #0]
@@ -17394,23 +17391,23 @@ LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Press140
-;Ducati_logger_driver.c,4108 :: 		exec_box->OnPressPtr();
+;Ducati_logger_driver.c,4107 :: 		exec_box->OnPressPtr();
 MOVW	R4, #lo_addr(_exec_box+0)
 MOVT	R4, #hi_addr(_exec_box+0)
 LDR	R4, [R4, #0]
 ADDS	R4, #48
 LDR	R2, [R4, #0]
 BLX	R2
-;Ducati_logger_driver.c,4109 :: 		return;
+;Ducati_logger_driver.c,4108 :: 		return;
 IT	AL
 BAL	L_end_Process_TP_Press
-;Ducati_logger_driver.c,4110 :: 		}
+;Ducati_logger_driver.c,4109 :: 		}
 L_Process_TP_Press140:
-;Ducati_logger_driver.c,4111 :: 		}
+;Ducati_logger_driver.c,4110 :: 		}
 L_Process_TP_Press139:
-;Ducati_logger_driver.c,4112 :: 		}
+;Ducati_logger_driver.c,4111 :: 		}
 L_Process_TP_Press138:
-;Ducati_logger_driver.c,4114 :: 		if (_object_count == cbox_order) {
+;Ducati_logger_driver.c,4113 :: 		if (_object_count == cbox_order) {
 MOVW	R2, #lo_addr(_cbox_order+0)
 MOVT	R2, #hi_addr(_cbox_order+0)
 LDRSH	R3, [R2, #0]
@@ -17420,7 +17417,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Press141
-;Ducati_logger_driver.c,4115 :: 		if (exec_cbox->Active == 1) {
+;Ducati_logger_driver.c,4114 :: 		if (exec_cbox->Active == 1) {
 MOVW	R2, #lo_addr(_exec_cbox+0)
 MOVT	R2, #hi_addr(_exec_cbox+0)
 LDR	R2, [R2, #0]
@@ -17429,7 +17426,7 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Press142
-;Ducati_logger_driver.c,4116 :: 		if (exec_cbox->OnPressPtr != 0) {
+;Ducati_logger_driver.c,4115 :: 		if (exec_cbox->OnPressPtr != 0) {
 MOVW	R4, #lo_addr(_exec_cbox+0)
 MOVT	R4, #hi_addr(_exec_cbox+0)
 LDR	R4, [R4, #0]
@@ -17438,32 +17435,32 @@ LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Press143
-;Ducati_logger_driver.c,4117 :: 		exec_cbox->OnPressPtr();
+;Ducati_logger_driver.c,4116 :: 		exec_cbox->OnPressPtr();
 MOVW	R4, #lo_addr(_exec_cbox+0)
 MOVT	R4, #hi_addr(_exec_cbox+0)
 LDR	R4, [R4, #0]
 ADDS	R4, #48
 LDR	R2, [R4, #0]
 BLX	R2
-;Ducati_logger_driver.c,4118 :: 		return;
+;Ducati_logger_driver.c,4117 :: 		return;
 IT	AL
 BAL	L_end_Process_TP_Press
-;Ducati_logger_driver.c,4119 :: 		}
+;Ducati_logger_driver.c,4118 :: 		}
 L_Process_TP_Press143:
-;Ducati_logger_driver.c,4120 :: 		}
+;Ducati_logger_driver.c,4119 :: 		}
 L_Process_TP_Press142:
-;Ducati_logger_driver.c,4121 :: 		}
+;Ducati_logger_driver.c,4120 :: 		}
 L_Process_TP_Press141:
-;Ducati_logger_driver.c,4123 :: 		}
+;Ducati_logger_driver.c,4122 :: 		}
 L_Process_TP_Press119:
-;Ducati_logger_driver.c,4124 :: 		}
+;Ducati_logger_driver.c,4123 :: 		}
 L_end_Process_TP_Press:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Process_TP_Press
 _Process_TP_Up:
-;Ducati_logger_driver.c,4126 :: 		void Process_TP_Up(unsigned int X, unsigned int Y) {
+;Ducati_logger_driver.c,4125 :: 		void Process_TP_Up(unsigned int X, unsigned int Y) {
 ; Y start address is: 4 (R1)
 ; X start address is: 0 (R0)
 SUB	SP, SP, #12
@@ -17472,33 +17469,33 @@ STR	LR, [SP, #0]
 ; X end address is: 0 (R0)
 ; X start address is: 0 (R0)
 ; Y start address is: 4 (R1)
-;Ducati_logger_driver.c,4128 :: 		switch (PressedObjectType) {
+;Ducati_logger_driver.c,4127 :: 		switch (PressedObjectType) {
 IT	AL
 BAL	L_Process_TP_Up144
-;Ducati_logger_driver.c,4130 :: 		case 1: {
+;Ducati_logger_driver.c,4129 :: 		case 1: {
 L_Process_TP_Up146:
-;Ducati_logger_driver.c,4131 :: 		if (PressedObject != 0) {
+;Ducati_logger_driver.c,4130 :: 		if (PressedObject != 0) {
 MOVW	R2, #lo_addr(_PressedObject+0)
 MOVT	R2, #hi_addr(_PressedObject+0)
 LDR	R2, [R2, #0]
 CMP	R2, #0
 IT	EQ
 BEQ	L_Process_TP_Up147
-;Ducati_logger_driver.c,4132 :: 		exec_round_button = (TButton_Round*)PressedObject;
+;Ducati_logger_driver.c,4131 :: 		exec_round_button = (TButton_Round*)PressedObject;
 MOVW	R4, #lo_addr(_PressedObject+0)
 MOVT	R4, #hi_addr(_PressedObject+0)
 LDR	R3, [R4, #0]
 MOVW	R2, #lo_addr(_exec_round_button+0)
 MOVT	R2, #hi_addr(_exec_round_button+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4133 :: 		if ((exec_round_button->PressColEnabled == 1) && (exec_round_button->OwnerScreen == CurrentScreen)) {
+;Ducati_logger_driver.c,4132 :: 		if ((exec_round_button->PressColEnabled == 1) && (exec_round_button->OwnerScreen == CurrentScreen)) {
 MOV	R2, R4
 LDR	R2, [R2, #0]
 ADDS	R2, #47
 LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
-BNE	L__Process_TP_Up275
+BNE	L__Process_TP_Up276
 MOVW	R2, #lo_addr(_exec_round_button+0)
 MOVT	R2, #hi_addr(_exec_round_button+0)
 LDR	R2, [R2, #0]
@@ -17508,9 +17505,9 @@ MOVT	R2, #hi_addr(_CurrentScreen+0)
 LDR	R2, [R2, #0]
 CMP	R3, R2
 IT	NE
-BNE	L__Process_TP_Up274
-L__Process_TP_Up273:
-;Ducati_logger_driver.c,4134 :: 		DrawRoundButton(exec_round_button);
+BNE	L__Process_TP_Up275
+L__Process_TP_Up274:
+;Ducati_logger_driver.c,4133 :: 		DrawRoundButton(exec_round_button);
 MOVW	R2, #lo_addr(_exec_round_button+0)
 MOVT	R2, #hi_addr(_exec_round_button+0)
 LDR	R2, [R2, #0]
@@ -17520,41 +17517,41 @@ MOV	R0, R2
 BL	_DrawRoundButton+0
 LDRH	R0, [SP, #8]
 LDRH	R1, [SP, #4]
-;Ducati_logger_driver.c,4133 :: 		if ((exec_round_button->PressColEnabled == 1) && (exec_round_button->OwnerScreen == CurrentScreen)) {
+;Ducati_logger_driver.c,4132 :: 		if ((exec_round_button->PressColEnabled == 1) && (exec_round_button->OwnerScreen == CurrentScreen)) {
+L__Process_TP_Up276:
 L__Process_TP_Up275:
-L__Process_TP_Up274:
-;Ducati_logger_driver.c,4136 :: 		break;
+;Ducati_logger_driver.c,4135 :: 		break;
 IT	AL
 BAL	L_Process_TP_Up145
-;Ducati_logger_driver.c,4137 :: 		}
+;Ducati_logger_driver.c,4136 :: 		}
 L_Process_TP_Up147:
-;Ducati_logger_driver.c,4138 :: 		break;
+;Ducati_logger_driver.c,4137 :: 		break;
 IT	AL
 BAL	L_Process_TP_Up145
-;Ducati_logger_driver.c,4141 :: 		case 4: {
+;Ducati_logger_driver.c,4140 :: 		case 4: {
 L_Process_TP_Up151:
-;Ducati_logger_driver.c,4142 :: 		if (PressedObject != 0) {
+;Ducati_logger_driver.c,4141 :: 		if (PressedObject != 0) {
 MOVW	R2, #lo_addr(_PressedObject+0)
 MOVT	R2, #hi_addr(_PressedObject+0)
 LDR	R2, [R2, #0]
 CMP	R2, #0
 IT	EQ
 BEQ	L_Process_TP_Up152
-;Ducati_logger_driver.c,4143 :: 		exec_circle = (TCircle*)PressedObject;
+;Ducati_logger_driver.c,4142 :: 		exec_circle = (TCircle*)PressedObject;
 MOVW	R4, #lo_addr(_PressedObject+0)
 MOVT	R4, #hi_addr(_PressedObject+0)
 LDR	R3, [R4, #0]
 MOVW	R2, #lo_addr(_exec_circle+0)
 MOVT	R2, #hi_addr(_exec_circle+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4144 :: 		if ((exec_circle->PressColEnabled == 1) && (exec_circle->OwnerScreen == CurrentScreen)) {
+;Ducati_logger_driver.c,4143 :: 		if ((exec_circle->PressColEnabled == 1) && (exec_circle->OwnerScreen == CurrentScreen)) {
 MOV	R2, R4
 LDR	R2, [R2, #0]
 ADDS	R2, #28
 LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
-BNE	L__Process_TP_Up277
+BNE	L__Process_TP_Up278
 MOVW	R2, #lo_addr(_exec_circle+0)
 MOVT	R2, #hi_addr(_exec_circle+0)
 LDR	R2, [R2, #0]
@@ -17564,9 +17561,9 @@ MOVT	R2, #hi_addr(_CurrentScreen+0)
 LDR	R2, [R2, #0]
 CMP	R3, R2
 IT	NE
-BNE	L__Process_TP_Up276
-L__Process_TP_Up272:
-;Ducati_logger_driver.c,4145 :: 		DrawCircle(exec_circle);
+BNE	L__Process_TP_Up277
+L__Process_TP_Up273:
+;Ducati_logger_driver.c,4144 :: 		DrawCircle(exec_circle);
 MOVW	R2, #lo_addr(_exec_circle+0)
 MOVT	R2, #hi_addr(_exec_circle+0)
 LDR	R2, [R2, #0]
@@ -17576,41 +17573,41 @@ MOV	R0, R2
 BL	_DrawCircle+0
 LDRH	R0, [SP, #8]
 LDRH	R1, [SP, #4]
-;Ducati_logger_driver.c,4144 :: 		if ((exec_circle->PressColEnabled == 1) && (exec_circle->OwnerScreen == CurrentScreen)) {
+;Ducati_logger_driver.c,4143 :: 		if ((exec_circle->PressColEnabled == 1) && (exec_circle->OwnerScreen == CurrentScreen)) {
+L__Process_TP_Up278:
 L__Process_TP_Up277:
-L__Process_TP_Up276:
-;Ducati_logger_driver.c,4147 :: 		break;
+;Ducati_logger_driver.c,4146 :: 		break;
 IT	AL
 BAL	L_Process_TP_Up145
-;Ducati_logger_driver.c,4148 :: 		}
+;Ducati_logger_driver.c,4147 :: 		}
 L_Process_TP_Up152:
-;Ducati_logger_driver.c,4149 :: 		break;
+;Ducati_logger_driver.c,4148 :: 		break;
 IT	AL
 BAL	L_Process_TP_Up145
-;Ducati_logger_driver.c,4152 :: 		case 5: {
+;Ducati_logger_driver.c,4151 :: 		case 5: {
 L_Process_TP_Up156:
-;Ducati_logger_driver.c,4153 :: 		if (PressedObject != 0) {
+;Ducati_logger_driver.c,4152 :: 		if (PressedObject != 0) {
 MOVW	R2, #lo_addr(_PressedObject+0)
 MOVT	R2, #hi_addr(_PressedObject+0)
 LDR	R2, [R2, #0]
 CMP	R2, #0
 IT	EQ
 BEQ	L_Process_TP_Up157
-;Ducati_logger_driver.c,4154 :: 		exec_circle_button = (TCircleButton*)PressedObject;
+;Ducati_logger_driver.c,4153 :: 		exec_circle_button = (TCircleButton*)PressedObject;
 MOVW	R4, #lo_addr(_PressedObject+0)
 MOVT	R4, #hi_addr(_PressedObject+0)
 LDR	R3, [R4, #0]
 MOVW	R2, #lo_addr(_exec_circle_button+0)
 MOVT	R2, #hi_addr(_exec_circle_button+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4155 :: 		if ((exec_circle_button->PressColEnabled == 1) && (exec_circle_button->OwnerScreen == CurrentScreen)) {
+;Ducati_logger_driver.c,4154 :: 		if ((exec_circle_button->PressColEnabled == 1) && (exec_circle_button->OwnerScreen == CurrentScreen)) {
 MOV	R2, R4
 LDR	R2, [R2, #0]
 ADDS	R2, #42
 LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
-BNE	L__Process_TP_Up279
+BNE	L__Process_TP_Up280
 MOVW	R2, #lo_addr(_exec_circle_button+0)
 MOVT	R2, #hi_addr(_exec_circle_button+0)
 LDR	R2, [R2, #0]
@@ -17620,9 +17617,9 @@ MOVT	R2, #hi_addr(_CurrentScreen+0)
 LDR	R2, [R2, #0]
 CMP	R3, R2
 IT	NE
-BNE	L__Process_TP_Up278
-L__Process_TP_Up271:
-;Ducati_logger_driver.c,4156 :: 		DrawCircleButton(exec_circle_button);
+BNE	L__Process_TP_Up279
+L__Process_TP_Up272:
+;Ducati_logger_driver.c,4155 :: 		DrawCircleButton(exec_circle_button);
 MOVW	R2, #lo_addr(_exec_circle_button+0)
 MOVT	R2, #hi_addr(_exec_circle_button+0)
 LDR	R2, [R2, #0]
@@ -17632,41 +17629,41 @@ MOV	R0, R2
 BL	_DrawCircleButton+0
 LDRH	R0, [SP, #8]
 LDRH	R1, [SP, #4]
-;Ducati_logger_driver.c,4155 :: 		if ((exec_circle_button->PressColEnabled == 1) && (exec_circle_button->OwnerScreen == CurrentScreen)) {
+;Ducati_logger_driver.c,4154 :: 		if ((exec_circle_button->PressColEnabled == 1) && (exec_circle_button->OwnerScreen == CurrentScreen)) {
+L__Process_TP_Up280:
 L__Process_TP_Up279:
-L__Process_TP_Up278:
-;Ducati_logger_driver.c,4158 :: 		break;
+;Ducati_logger_driver.c,4157 :: 		break;
 IT	AL
 BAL	L_Process_TP_Up145
-;Ducati_logger_driver.c,4159 :: 		}
+;Ducati_logger_driver.c,4158 :: 		}
 L_Process_TP_Up157:
-;Ducati_logger_driver.c,4160 :: 		break;
+;Ducati_logger_driver.c,4159 :: 		break;
 IT	AL
 BAL	L_Process_TP_Up145
-;Ducati_logger_driver.c,4163 :: 		case 6: {
+;Ducati_logger_driver.c,4162 :: 		case 6: {
 L_Process_TP_Up161:
-;Ducati_logger_driver.c,4164 :: 		if (PressedObject != 0) {
+;Ducati_logger_driver.c,4163 :: 		if (PressedObject != 0) {
 MOVW	R2, #lo_addr(_PressedObject+0)
 MOVT	R2, #hi_addr(_PressedObject+0)
 LDR	R2, [R2, #0]
 CMP	R2, #0
 IT	EQ
 BEQ	L_Process_TP_Up162
-;Ducati_logger_driver.c,4165 :: 		exec_box = (TBox*)PressedObject;
+;Ducati_logger_driver.c,4164 :: 		exec_box = (TBox*)PressedObject;
 MOVW	R4, #lo_addr(_PressedObject+0)
 MOVT	R4, #hi_addr(_PressedObject+0)
 LDR	R3, [R4, #0]
 MOVW	R2, #lo_addr(_exec_box+0)
 MOVT	R2, #hi_addr(_exec_box+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4166 :: 		if ((exec_box->PressColEnabled == 1) && (exec_box->OwnerScreen == CurrentScreen)) {
+;Ducati_logger_driver.c,4165 :: 		if ((exec_box->PressColEnabled == 1) && (exec_box->OwnerScreen == CurrentScreen)) {
 MOV	R2, R4
 LDR	R2, [R2, #0]
 ADDS	R2, #30
 LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
-BNE	L__Process_TP_Up281
+BNE	L__Process_TP_Up282
 MOVW	R2, #lo_addr(_exec_box+0)
 MOVT	R2, #hi_addr(_exec_box+0)
 LDR	R2, [R2, #0]
@@ -17676,9 +17673,9 @@ MOVT	R2, #hi_addr(_CurrentScreen+0)
 LDR	R2, [R2, #0]
 CMP	R3, R2
 IT	NE
-BNE	L__Process_TP_Up280
-L__Process_TP_Up270:
-;Ducati_logger_driver.c,4167 :: 		DrawBox(exec_box);
+BNE	L__Process_TP_Up281
+L__Process_TP_Up271:
+;Ducati_logger_driver.c,4166 :: 		DrawBox(exec_box);
 MOVW	R2, #lo_addr(_exec_box+0)
 MOVT	R2, #hi_addr(_exec_box+0)
 LDR	R2, [R2, #0]
@@ -17688,41 +17685,41 @@ MOV	R0, R2
 BL	_DrawBox+0
 LDRH	R0, [SP, #8]
 LDRH	R1, [SP, #4]
-;Ducati_logger_driver.c,4166 :: 		if ((exec_box->PressColEnabled == 1) && (exec_box->OwnerScreen == CurrentScreen)) {
+;Ducati_logger_driver.c,4165 :: 		if ((exec_box->PressColEnabled == 1) && (exec_box->OwnerScreen == CurrentScreen)) {
+L__Process_TP_Up282:
 L__Process_TP_Up281:
-L__Process_TP_Up280:
-;Ducati_logger_driver.c,4169 :: 		break;
+;Ducati_logger_driver.c,4168 :: 		break;
 IT	AL
 BAL	L_Process_TP_Up145
-;Ducati_logger_driver.c,4170 :: 		}
+;Ducati_logger_driver.c,4169 :: 		}
 L_Process_TP_Up162:
-;Ducati_logger_driver.c,4171 :: 		break;
+;Ducati_logger_driver.c,4170 :: 		break;
 IT	AL
 BAL	L_Process_TP_Up145
-;Ducati_logger_driver.c,4174 :: 		case 14: {
+;Ducati_logger_driver.c,4173 :: 		case 14: {
 L_Process_TP_Up166:
-;Ducati_logger_driver.c,4175 :: 		if (PressedObject != 0) {
+;Ducati_logger_driver.c,4174 :: 		if (PressedObject != 0) {
 MOVW	R2, #lo_addr(_PressedObject+0)
 MOVT	R2, #hi_addr(_PressedObject+0)
 LDR	R2, [R2, #0]
 CMP	R2, #0
 IT	EQ
 BEQ	L_Process_TP_Up167
-;Ducati_logger_driver.c,4176 :: 		exec_cbox = (TCBox*)PressedObject;
+;Ducati_logger_driver.c,4175 :: 		exec_cbox = (TCBox*)PressedObject;
 MOVW	R4, #lo_addr(_PressedObject+0)
 MOVT	R4, #hi_addr(_PressedObject+0)
 LDR	R3, [R4, #0]
 MOVW	R2, #lo_addr(_exec_cbox+0)
 MOVT	R2, #hi_addr(_exec_cbox+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4177 :: 		if ((exec_cbox->PressColEnabled == 1) && (exec_cbox->OwnerScreen == CurrentScreen)) {
+;Ducati_logger_driver.c,4176 :: 		if ((exec_cbox->PressColEnabled == 1) && (exec_cbox->OwnerScreen == CurrentScreen)) {
 MOV	R2, R4
 LDR	R2, [R2, #0]
 ADDS	R2, #30
 LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
-BNE	L__Process_TP_Up283
+BNE	L__Process_TP_Up284
 MOVW	R2, #lo_addr(_exec_cbox+0)
 MOVT	R2, #hi_addr(_exec_cbox+0)
 LDR	R2, [R2, #0]
@@ -17732,9 +17729,9 @@ MOVT	R2, #hi_addr(_CurrentScreen+0)
 LDR	R2, [R2, #0]
 CMP	R3, R2
 IT	NE
-BNE	L__Process_TP_Up282
-L__Process_TP_Up269:
-;Ducati_logger_driver.c,4178 :: 		DrawCBox(exec_cbox);
+BNE	L__Process_TP_Up283
+L__Process_TP_Up270:
+;Ducati_logger_driver.c,4177 :: 		DrawCBox(exec_cbox);
 MOVW	R2, #lo_addr(_exec_cbox+0)
 MOVT	R2, #hi_addr(_exec_cbox+0)
 LDR	R2, [R2, #0]
@@ -17744,18 +17741,18 @@ MOV	R0, R2
 BL	_DrawCBox+0
 LDRH	R0, [SP, #8]
 LDRH	R1, [SP, #4]
-;Ducati_logger_driver.c,4177 :: 		if ((exec_cbox->PressColEnabled == 1) && (exec_cbox->OwnerScreen == CurrentScreen)) {
+;Ducati_logger_driver.c,4176 :: 		if ((exec_cbox->PressColEnabled == 1) && (exec_cbox->OwnerScreen == CurrentScreen)) {
+L__Process_TP_Up284:
 L__Process_TP_Up283:
-L__Process_TP_Up282:
-;Ducati_logger_driver.c,4180 :: 		break;
+;Ducati_logger_driver.c,4179 :: 		break;
 IT	AL
 BAL	L_Process_TP_Up145
-;Ducati_logger_driver.c,4181 :: 		}
+;Ducati_logger_driver.c,4180 :: 		}
 L_Process_TP_Up167:
-;Ducati_logger_driver.c,4182 :: 		break;
+;Ducati_logger_driver.c,4181 :: 		break;
 IT	AL
 BAL	L_Process_TP_Up145
-;Ducati_logger_driver.c,4184 :: 		}
+;Ducati_logger_driver.c,4183 :: 		}
 L_Process_TP_Up144:
 MOVW	R2, #lo_addr(_PressedObjectType+0)
 MOVT	R2, #hi_addr(_PressedObjectType+0)
@@ -17790,35 +17787,35 @@ BEQ	L_Process_TP_Up166
 ; Y end address is: 4 (R1)
 ; X end address is: 0 (R0)
 L_Process_TP_Up145:
-;Ducati_logger_driver.c,4186 :: 		exec_label          = 0;
+;Ducati_logger_driver.c,4185 :: 		exec_label          = 0;
 ; Y start address is: 4 (R1)
 ; X start address is: 0 (R0)
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_exec_label+0)
 MOVT	R2, #hi_addr(_exec_label+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4187 :: 		exec_image          = 0;
+;Ducati_logger_driver.c,4186 :: 		exec_image          = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_exec_image+0)
 MOVT	R2, #hi_addr(_exec_image+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4188 :: 		exec_cimage          = 0;
+;Ducati_logger_driver.c,4187 :: 		exec_cimage          = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_exec_cimage+0)
 MOVT	R2, #hi_addr(_exec_cimage+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4190 :: 		Get_Object(X, Y);
+;Ducati_logger_driver.c,4189 :: 		Get_Object(X, Y);
 ; Y end address is: 4 (R1)
 ; X end address is: 0 (R0)
 BL	_Get_Object+0
-;Ducati_logger_driver.c,4193 :: 		if (_object_count != -1) {
+;Ducati_logger_driver.c,4192 :: 		if (_object_count != -1) {
 MOVW	R2, #lo_addr(__object_count+0)
 MOVT	R2, #hi_addr(__object_count+0)
 LDRSH	R2, [R2, #0]
 CMP	R2, #-1
 IT	EQ
 BEQ	L_Process_TP_Up171
-;Ducati_logger_driver.c,4195 :: 		if (_object_count == round_button_order) {
+;Ducati_logger_driver.c,4194 :: 		if (_object_count == round_button_order) {
 MOVW	R2, #lo_addr(_round_button_order+0)
 MOVT	R2, #hi_addr(_round_button_order+0)
 LDRSH	R3, [R2, #0]
@@ -17828,7 +17825,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Up172
-;Ducati_logger_driver.c,4196 :: 		if (exec_round_button->Active == 1) {
+;Ducati_logger_driver.c,4195 :: 		if (exec_round_button->Active == 1) {
 MOVW	R2, #lo_addr(_exec_round_button+0)
 MOVT	R2, #hi_addr(_exec_round_button+0)
 LDR	R2, [R2, #0]
@@ -17837,7 +17834,7 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Up173
-;Ducati_logger_driver.c,4197 :: 		if (exec_round_button->OnUpPtr != 0)
+;Ducati_logger_driver.c,4196 :: 		if (exec_round_button->OnUpPtr != 0)
 MOVW	R4, #lo_addr(_exec_round_button+0)
 MOVT	R4, #hi_addr(_exec_round_button+0)
 LDR	R4, [R4, #0]
@@ -17846,7 +17843,7 @@ LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Up174
-;Ducati_logger_driver.c,4198 :: 		exec_round_button->OnUpPtr();
+;Ducati_logger_driver.c,4197 :: 		exec_round_button->OnUpPtr();
 MOVW	R4, #lo_addr(_exec_round_button+0)
 MOVT	R4, #hi_addr(_exec_round_button+0)
 LDR	R4, [R4, #0]
@@ -17854,7 +17851,7 @@ ADDS	R4, #52
 LDR	R2, [R4, #0]
 BLX	R2
 L_Process_TP_Up174:
-;Ducati_logger_driver.c,4199 :: 		if (PressedObject == (TPointer)exec_round_button)
+;Ducati_logger_driver.c,4198 :: 		if (PressedObject == (TPointer)exec_round_button)
 MOVW	R2, #lo_addr(_exec_round_button+0)
 MOVT	R2, #hi_addr(_exec_round_button+0)
 LDR	R3, [R2, #0]
@@ -17864,7 +17861,7 @@ LDR	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Up175
-;Ducati_logger_driver.c,4200 :: 		if (exec_round_button->OnClickPtr != 0)
+;Ducati_logger_driver.c,4199 :: 		if (exec_round_button->OnClickPtr != 0)
 MOVW	R4, #lo_addr(_exec_round_button+0)
 MOVT	R4, #hi_addr(_exec_round_button+0)
 LDR	R4, [R4, #0]
@@ -17873,7 +17870,7 @@ LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Up176
-;Ducati_logger_driver.c,4201 :: 		exec_round_button->OnClickPtr();
+;Ducati_logger_driver.c,4200 :: 		exec_round_button->OnClickPtr();
 MOVW	R4, #lo_addr(_exec_round_button+0)
 MOVT	R4, #hi_addr(_exec_round_button+0)
 LDR	R4, [R4, #0]
@@ -17882,25 +17879,25 @@ LDR	R2, [R4, #0]
 BLX	R2
 L_Process_TP_Up176:
 L_Process_TP_Up175:
-;Ducati_logger_driver.c,4202 :: 		PressedObject = 0;
+;Ducati_logger_driver.c,4201 :: 		PressedObject = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_PressedObject+0)
 MOVT	R2, #hi_addr(_PressedObject+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4203 :: 		PressedObjectType = -1;
+;Ducati_logger_driver.c,4202 :: 		PressedObjectType = -1;
 MOVW	R3, #65535
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_PressedObjectType+0)
 MOVT	R2, #hi_addr(_PressedObjectType+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,4204 :: 		return;
+;Ducati_logger_driver.c,4203 :: 		return;
 IT	AL
 BAL	L_end_Process_TP_Up
-;Ducati_logger_driver.c,4205 :: 		}
+;Ducati_logger_driver.c,4204 :: 		}
 L_Process_TP_Up173:
-;Ducati_logger_driver.c,4206 :: 		}
+;Ducati_logger_driver.c,4205 :: 		}
 L_Process_TP_Up172:
-;Ducati_logger_driver.c,4209 :: 		if (_object_count == label_order) {
+;Ducati_logger_driver.c,4208 :: 		if (_object_count == label_order) {
 MOVW	R2, #lo_addr(_label_order+0)
 MOVT	R2, #hi_addr(_label_order+0)
 LDRSH	R3, [R2, #0]
@@ -17910,7 +17907,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Up177
-;Ducati_logger_driver.c,4210 :: 		if (exec_label->Active == 1) {
+;Ducati_logger_driver.c,4209 :: 		if (exec_label->Active == 1) {
 MOVW	R2, #lo_addr(_exec_label+0)
 MOVT	R2, #hi_addr(_exec_label+0)
 LDR	R2, [R2, #0]
@@ -17919,7 +17916,7 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Up178
-;Ducati_logger_driver.c,4211 :: 		if (exec_label->OnUpPtr != 0)
+;Ducati_logger_driver.c,4210 :: 		if (exec_label->OnUpPtr != 0)
 MOVW	R4, #lo_addr(_exec_label+0)
 MOVT	R4, #hi_addr(_exec_label+0)
 LDR	R4, [R4, #0]
@@ -17928,7 +17925,7 @@ LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Up179
-;Ducati_logger_driver.c,4212 :: 		exec_label->OnUpPtr();
+;Ducati_logger_driver.c,4211 :: 		exec_label->OnUpPtr();
 MOVW	R4, #lo_addr(_exec_label+0)
 MOVT	R4, #hi_addr(_exec_label+0)
 LDR	R4, [R4, #0]
@@ -17936,7 +17933,7 @@ ADDS	R4, #28
 LDR	R2, [R4, #0]
 BLX	R2
 L_Process_TP_Up179:
-;Ducati_logger_driver.c,4213 :: 		if (PressedObject == (TPointer)exec_label)
+;Ducati_logger_driver.c,4212 :: 		if (PressedObject == (TPointer)exec_label)
 MOVW	R2, #lo_addr(_exec_label+0)
 MOVT	R2, #hi_addr(_exec_label+0)
 LDR	R3, [R2, #0]
@@ -17946,7 +17943,7 @@ LDR	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Up180
-;Ducati_logger_driver.c,4214 :: 		if (exec_label->OnClickPtr != 0)
+;Ducati_logger_driver.c,4213 :: 		if (exec_label->OnClickPtr != 0)
 MOVW	R4, #lo_addr(_exec_label+0)
 MOVT	R4, #hi_addr(_exec_label+0)
 LDR	R4, [R4, #0]
@@ -17955,7 +17952,7 @@ LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Up181
-;Ducati_logger_driver.c,4215 :: 		exec_label->OnClickPtr();
+;Ducati_logger_driver.c,4214 :: 		exec_label->OnClickPtr();
 MOVW	R4, #lo_addr(_exec_label+0)
 MOVT	R4, #hi_addr(_exec_label+0)
 LDR	R4, [R4, #0]
@@ -17964,25 +17961,25 @@ LDR	R2, [R4, #0]
 BLX	R2
 L_Process_TP_Up181:
 L_Process_TP_Up180:
-;Ducati_logger_driver.c,4216 :: 		PressedObject = 0;
+;Ducati_logger_driver.c,4215 :: 		PressedObject = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_PressedObject+0)
 MOVT	R2, #hi_addr(_PressedObject+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4217 :: 		PressedObjectType = -1;
+;Ducati_logger_driver.c,4216 :: 		PressedObjectType = -1;
 MOVW	R3, #65535
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_PressedObjectType+0)
 MOVT	R2, #hi_addr(_PressedObjectType+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,4218 :: 		return;
+;Ducati_logger_driver.c,4217 :: 		return;
 IT	AL
 BAL	L_end_Process_TP_Up
-;Ducati_logger_driver.c,4219 :: 		}
+;Ducati_logger_driver.c,4218 :: 		}
 L_Process_TP_Up178:
-;Ducati_logger_driver.c,4220 :: 		}
+;Ducati_logger_driver.c,4219 :: 		}
 L_Process_TP_Up177:
-;Ducati_logger_driver.c,4223 :: 		if (_object_count == image_order) {
+;Ducati_logger_driver.c,4222 :: 		if (_object_count == image_order) {
 MOVW	R2, #lo_addr(_image_order+0)
 MOVT	R2, #hi_addr(_image_order+0)
 LDRSH	R3, [R2, #0]
@@ -17992,7 +17989,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Up182
-;Ducati_logger_driver.c,4224 :: 		if (exec_image->Active == 1) {
+;Ducati_logger_driver.c,4223 :: 		if (exec_image->Active == 1) {
 MOVW	R2, #lo_addr(_exec_image+0)
 MOVT	R2, #hi_addr(_exec_image+0)
 LDR	R2, [R2, #0]
@@ -18001,7 +17998,7 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Up183
-;Ducati_logger_driver.c,4225 :: 		if (exec_image->OnUpPtr != 0)
+;Ducati_logger_driver.c,4224 :: 		if (exec_image->OnUpPtr != 0)
 MOVW	R4, #lo_addr(_exec_image+0)
 MOVT	R4, #hi_addr(_exec_image+0)
 LDR	R4, [R4, #0]
@@ -18010,7 +18007,7 @@ LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Up184
-;Ducati_logger_driver.c,4226 :: 		exec_image->OnUpPtr();
+;Ducati_logger_driver.c,4225 :: 		exec_image->OnUpPtr();
 MOVW	R4, #lo_addr(_exec_image+0)
 MOVT	R4, #hi_addr(_exec_image+0)
 LDR	R4, [R4, #0]
@@ -18018,7 +18015,7 @@ ADDS	R4, #24
 LDR	R2, [R4, #0]
 BLX	R2
 L_Process_TP_Up184:
-;Ducati_logger_driver.c,4227 :: 		if (PressedObject == (TPointer)exec_image)
+;Ducati_logger_driver.c,4226 :: 		if (PressedObject == (TPointer)exec_image)
 MOVW	R2, #lo_addr(_exec_image+0)
 MOVT	R2, #hi_addr(_exec_image+0)
 LDR	R3, [R2, #0]
@@ -18028,7 +18025,7 @@ LDR	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Up185
-;Ducati_logger_driver.c,4228 :: 		if (exec_image->OnClickPtr != 0)
+;Ducati_logger_driver.c,4227 :: 		if (exec_image->OnClickPtr != 0)
 MOVW	R4, #lo_addr(_exec_image+0)
 MOVT	R4, #hi_addr(_exec_image+0)
 LDR	R4, [R4, #0]
@@ -18037,7 +18034,7 @@ LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Up186
-;Ducati_logger_driver.c,4229 :: 		exec_image->OnClickPtr();
+;Ducati_logger_driver.c,4228 :: 		exec_image->OnClickPtr();
 MOVW	R4, #lo_addr(_exec_image+0)
 MOVT	R4, #hi_addr(_exec_image+0)
 LDR	R4, [R4, #0]
@@ -18046,25 +18043,25 @@ LDR	R2, [R4, #0]
 BLX	R2
 L_Process_TP_Up186:
 L_Process_TP_Up185:
-;Ducati_logger_driver.c,4230 :: 		PressedObject = 0;
+;Ducati_logger_driver.c,4229 :: 		PressedObject = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_PressedObject+0)
 MOVT	R2, #hi_addr(_PressedObject+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4231 :: 		PressedObjectType = -1;
+;Ducati_logger_driver.c,4230 :: 		PressedObjectType = -1;
 MOVW	R3, #65535
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_PressedObjectType+0)
 MOVT	R2, #hi_addr(_PressedObjectType+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,4232 :: 		return;
+;Ducati_logger_driver.c,4231 :: 		return;
 IT	AL
 BAL	L_end_Process_TP_Up
-;Ducati_logger_driver.c,4233 :: 		}
+;Ducati_logger_driver.c,4232 :: 		}
 L_Process_TP_Up183:
-;Ducati_logger_driver.c,4234 :: 		}
+;Ducati_logger_driver.c,4233 :: 		}
 L_Process_TP_Up182:
-;Ducati_logger_driver.c,4237 :: 		if (_object_count == cimage_order) {
+;Ducati_logger_driver.c,4236 :: 		if (_object_count == cimage_order) {
 MOVW	R2, #lo_addr(_cimage_order+0)
 MOVT	R2, #hi_addr(_cimage_order+0)
 LDRSH	R3, [R2, #0]
@@ -18074,7 +18071,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Up187
-;Ducati_logger_driver.c,4238 :: 		if (exec_cimage->Active == 1) {
+;Ducati_logger_driver.c,4237 :: 		if (exec_cimage->Active == 1) {
 MOVW	R2, #lo_addr(_exec_cimage+0)
 MOVT	R2, #hi_addr(_exec_cimage+0)
 LDR	R2, [R2, #0]
@@ -18083,7 +18080,7 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Up188
-;Ducati_logger_driver.c,4239 :: 		if (exec_cimage->OnUpPtr != 0)
+;Ducati_logger_driver.c,4238 :: 		if (exec_cimage->OnUpPtr != 0)
 MOVW	R4, #lo_addr(_exec_cimage+0)
 MOVT	R4, #hi_addr(_exec_cimage+0)
 LDR	R4, [R4, #0]
@@ -18092,7 +18089,7 @@ LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Up189
-;Ducati_logger_driver.c,4240 :: 		exec_cimage->OnUpPtr();
+;Ducati_logger_driver.c,4239 :: 		exec_cimage->OnUpPtr();
 MOVW	R4, #lo_addr(_exec_cimage+0)
 MOVT	R4, #hi_addr(_exec_cimage+0)
 LDR	R4, [R4, #0]
@@ -18100,7 +18097,7 @@ ADDS	R4, #24
 LDR	R2, [R4, #0]
 BLX	R2
 L_Process_TP_Up189:
-;Ducati_logger_driver.c,4241 :: 		if (PressedObject == (TPointer)exec_cimage)
+;Ducati_logger_driver.c,4240 :: 		if (PressedObject == (TPointer)exec_cimage)
 MOVW	R2, #lo_addr(_exec_cimage+0)
 MOVT	R2, #hi_addr(_exec_cimage+0)
 LDR	R3, [R2, #0]
@@ -18110,7 +18107,7 @@ LDR	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Up190
-;Ducati_logger_driver.c,4242 :: 		if (exec_cimage->OnClickPtr != 0)
+;Ducati_logger_driver.c,4241 :: 		if (exec_cimage->OnClickPtr != 0)
 MOVW	R4, #lo_addr(_exec_cimage+0)
 MOVT	R4, #hi_addr(_exec_cimage+0)
 LDR	R4, [R4, #0]
@@ -18119,7 +18116,7 @@ LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Up191
-;Ducati_logger_driver.c,4243 :: 		exec_cimage->OnClickPtr();
+;Ducati_logger_driver.c,4242 :: 		exec_cimage->OnClickPtr();
 MOVW	R4, #lo_addr(_exec_cimage+0)
 MOVT	R4, #hi_addr(_exec_cimage+0)
 LDR	R4, [R4, #0]
@@ -18128,25 +18125,25 @@ LDR	R2, [R4, #0]
 BLX	R2
 L_Process_TP_Up191:
 L_Process_TP_Up190:
-;Ducati_logger_driver.c,4244 :: 		PressedObject = 0;
+;Ducati_logger_driver.c,4243 :: 		PressedObject = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_PressedObject+0)
 MOVT	R2, #hi_addr(_PressedObject+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4245 :: 		PressedObjectType = -1;
+;Ducati_logger_driver.c,4244 :: 		PressedObjectType = -1;
 MOVW	R3, #65535
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_PressedObjectType+0)
 MOVT	R2, #hi_addr(_PressedObjectType+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,4246 :: 		return;
+;Ducati_logger_driver.c,4245 :: 		return;
 IT	AL
 BAL	L_end_Process_TP_Up
-;Ducati_logger_driver.c,4247 :: 		}
+;Ducati_logger_driver.c,4246 :: 		}
 L_Process_TP_Up188:
-;Ducati_logger_driver.c,4248 :: 		}
+;Ducati_logger_driver.c,4247 :: 		}
 L_Process_TP_Up187:
-;Ducati_logger_driver.c,4251 :: 		if (_object_count == circle_order) {
+;Ducati_logger_driver.c,4250 :: 		if (_object_count == circle_order) {
 MOVW	R2, #lo_addr(_circle_order+0)
 MOVT	R2, #hi_addr(_circle_order+0)
 LDRSH	R3, [R2, #0]
@@ -18156,7 +18153,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Up192
-;Ducati_logger_driver.c,4252 :: 		if (exec_circle->Active == 1) {
+;Ducati_logger_driver.c,4251 :: 		if (exec_circle->Active == 1) {
 MOVW	R2, #lo_addr(_exec_circle+0)
 MOVT	R2, #hi_addr(_exec_circle+0)
 LDR	R2, [R2, #0]
@@ -18165,7 +18162,7 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Up193
-;Ducati_logger_driver.c,4253 :: 		if (exec_circle->OnUpPtr != 0)
+;Ducati_logger_driver.c,4252 :: 		if (exec_circle->OnUpPtr != 0)
 MOVW	R4, #lo_addr(_exec_circle+0)
 MOVT	R4, #hi_addr(_exec_circle+0)
 LDR	R4, [R4, #0]
@@ -18174,7 +18171,7 @@ LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Up194
-;Ducati_logger_driver.c,4254 :: 		exec_circle->OnUpPtr();
+;Ducati_logger_driver.c,4253 :: 		exec_circle->OnUpPtr();
 MOVW	R4, #lo_addr(_exec_circle+0)
 MOVT	R4, #hi_addr(_exec_circle+0)
 LDR	R4, [R4, #0]
@@ -18182,7 +18179,7 @@ ADDS	R4, #32
 LDR	R2, [R4, #0]
 BLX	R2
 L_Process_TP_Up194:
-;Ducati_logger_driver.c,4255 :: 		if (PressedObject == (TPointer)exec_circle)
+;Ducati_logger_driver.c,4254 :: 		if (PressedObject == (TPointer)exec_circle)
 MOVW	R2, #lo_addr(_exec_circle+0)
 MOVT	R2, #hi_addr(_exec_circle+0)
 LDR	R3, [R2, #0]
@@ -18192,7 +18189,7 @@ LDR	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Up195
-;Ducati_logger_driver.c,4256 :: 		if (exec_circle->OnClickPtr != 0)
+;Ducati_logger_driver.c,4255 :: 		if (exec_circle->OnClickPtr != 0)
 MOVW	R4, #lo_addr(_exec_circle+0)
 MOVT	R4, #hi_addr(_exec_circle+0)
 LDR	R4, [R4, #0]
@@ -18201,7 +18198,7 @@ LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Up196
-;Ducati_logger_driver.c,4257 :: 		exec_circle->OnClickPtr();
+;Ducati_logger_driver.c,4256 :: 		exec_circle->OnClickPtr();
 MOVW	R4, #lo_addr(_exec_circle+0)
 MOVT	R4, #hi_addr(_exec_circle+0)
 LDR	R4, [R4, #0]
@@ -18210,25 +18207,25 @@ LDR	R2, [R4, #0]
 BLX	R2
 L_Process_TP_Up196:
 L_Process_TP_Up195:
-;Ducati_logger_driver.c,4258 :: 		PressedObject = 0;
+;Ducati_logger_driver.c,4257 :: 		PressedObject = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_PressedObject+0)
 MOVT	R2, #hi_addr(_PressedObject+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4259 :: 		PressedObjectType = -1;
+;Ducati_logger_driver.c,4258 :: 		PressedObjectType = -1;
 MOVW	R3, #65535
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_PressedObjectType+0)
 MOVT	R2, #hi_addr(_PressedObjectType+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,4260 :: 		return;
+;Ducati_logger_driver.c,4259 :: 		return;
 IT	AL
 BAL	L_end_Process_TP_Up
-;Ducati_logger_driver.c,4261 :: 		}
+;Ducati_logger_driver.c,4260 :: 		}
 L_Process_TP_Up193:
-;Ducati_logger_driver.c,4262 :: 		}
+;Ducati_logger_driver.c,4261 :: 		}
 L_Process_TP_Up192:
-;Ducati_logger_driver.c,4265 :: 		if (_object_count == circle_button_order) {
+;Ducati_logger_driver.c,4264 :: 		if (_object_count == circle_button_order) {
 MOVW	R2, #lo_addr(_circle_button_order+0)
 MOVT	R2, #hi_addr(_circle_button_order+0)
 LDRSH	R3, [R2, #0]
@@ -18238,7 +18235,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Up197
-;Ducati_logger_driver.c,4266 :: 		if (exec_circle_button->Active == 1) {
+;Ducati_logger_driver.c,4265 :: 		if (exec_circle_button->Active == 1) {
 MOVW	R2, #lo_addr(_exec_circle_button+0)
 MOVT	R2, #hi_addr(_exec_circle_button+0)
 LDR	R2, [R2, #0]
@@ -18247,7 +18244,7 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Up198
-;Ducati_logger_driver.c,4267 :: 		if (exec_circle_button->OnUpPtr != 0)
+;Ducati_logger_driver.c,4266 :: 		if (exec_circle_button->OnUpPtr != 0)
 MOVW	R4, #lo_addr(_exec_circle_button+0)
 MOVT	R4, #hi_addr(_exec_circle_button+0)
 LDR	R4, [R4, #0]
@@ -18256,7 +18253,7 @@ LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Up199
-;Ducati_logger_driver.c,4268 :: 		exec_circle_button->OnUpPtr();
+;Ducati_logger_driver.c,4267 :: 		exec_circle_button->OnUpPtr();
 MOVW	R4, #lo_addr(_exec_circle_button+0)
 MOVT	R4, #hi_addr(_exec_circle_button+0)
 LDR	R4, [R4, #0]
@@ -18264,7 +18261,7 @@ ADDS	R4, #48
 LDR	R2, [R4, #0]
 BLX	R2
 L_Process_TP_Up199:
-;Ducati_logger_driver.c,4269 :: 		if (PressedObject == (TPointer)exec_circle_button)
+;Ducati_logger_driver.c,4268 :: 		if (PressedObject == (TPointer)exec_circle_button)
 MOVW	R2, #lo_addr(_exec_circle_button+0)
 MOVT	R2, #hi_addr(_exec_circle_button+0)
 LDR	R3, [R2, #0]
@@ -18274,7 +18271,7 @@ LDR	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Up200
-;Ducati_logger_driver.c,4270 :: 		if (exec_circle_button->OnClickPtr != 0)
+;Ducati_logger_driver.c,4269 :: 		if (exec_circle_button->OnClickPtr != 0)
 MOVW	R4, #lo_addr(_exec_circle_button+0)
 MOVT	R4, #hi_addr(_exec_circle_button+0)
 LDR	R4, [R4, #0]
@@ -18283,7 +18280,7 @@ LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Up201
-;Ducati_logger_driver.c,4271 :: 		exec_circle_button->OnClickPtr();
+;Ducati_logger_driver.c,4270 :: 		exec_circle_button->OnClickPtr();
 MOVW	R4, #lo_addr(_exec_circle_button+0)
 MOVT	R4, #hi_addr(_exec_circle_button+0)
 LDR	R4, [R4, #0]
@@ -18292,25 +18289,25 @@ LDR	R2, [R4, #0]
 BLX	R2
 L_Process_TP_Up201:
 L_Process_TP_Up200:
-;Ducati_logger_driver.c,4272 :: 		PressedObject = 0;
+;Ducati_logger_driver.c,4271 :: 		PressedObject = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_PressedObject+0)
 MOVT	R2, #hi_addr(_PressedObject+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4273 :: 		PressedObjectType = -1;
+;Ducati_logger_driver.c,4272 :: 		PressedObjectType = -1;
 MOVW	R3, #65535
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_PressedObjectType+0)
 MOVT	R2, #hi_addr(_PressedObjectType+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,4274 :: 		return;
+;Ducati_logger_driver.c,4273 :: 		return;
 IT	AL
 BAL	L_end_Process_TP_Up
-;Ducati_logger_driver.c,4275 :: 		}
+;Ducati_logger_driver.c,4274 :: 		}
 L_Process_TP_Up198:
-;Ducati_logger_driver.c,4276 :: 		}
+;Ducati_logger_driver.c,4275 :: 		}
 L_Process_TP_Up197:
-;Ducati_logger_driver.c,4279 :: 		if (_object_count == box_order) {
+;Ducati_logger_driver.c,4278 :: 		if (_object_count == box_order) {
 MOVW	R2, #lo_addr(_box_order+0)
 MOVT	R2, #hi_addr(_box_order+0)
 LDRSH	R3, [R2, #0]
@@ -18320,7 +18317,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Up202
-;Ducati_logger_driver.c,4280 :: 		if (exec_box->Active == 1) {
+;Ducati_logger_driver.c,4279 :: 		if (exec_box->Active == 1) {
 MOVW	R2, #lo_addr(_exec_box+0)
 MOVT	R2, #hi_addr(_exec_box+0)
 LDR	R2, [R2, #0]
@@ -18329,7 +18326,7 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Up203
-;Ducati_logger_driver.c,4281 :: 		if (exec_box->OnUpPtr != 0)
+;Ducati_logger_driver.c,4280 :: 		if (exec_box->OnUpPtr != 0)
 MOVW	R4, #lo_addr(_exec_box+0)
 MOVT	R4, #hi_addr(_exec_box+0)
 LDR	R4, [R4, #0]
@@ -18338,7 +18335,7 @@ LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Up204
-;Ducati_logger_driver.c,4282 :: 		exec_box->OnUpPtr();
+;Ducati_logger_driver.c,4281 :: 		exec_box->OnUpPtr();
 MOVW	R4, #lo_addr(_exec_box+0)
 MOVT	R4, #hi_addr(_exec_box+0)
 LDR	R4, [R4, #0]
@@ -18346,7 +18343,7 @@ ADDS	R4, #36
 LDR	R2, [R4, #0]
 BLX	R2
 L_Process_TP_Up204:
-;Ducati_logger_driver.c,4283 :: 		if (PressedObject == (TPointer)exec_box)
+;Ducati_logger_driver.c,4282 :: 		if (PressedObject == (TPointer)exec_box)
 MOVW	R2, #lo_addr(_exec_box+0)
 MOVT	R2, #hi_addr(_exec_box+0)
 LDR	R3, [R2, #0]
@@ -18356,7 +18353,7 @@ LDR	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Up205
-;Ducati_logger_driver.c,4284 :: 		if (exec_box->OnClickPtr != 0)
+;Ducati_logger_driver.c,4283 :: 		if (exec_box->OnClickPtr != 0)
 MOVW	R4, #lo_addr(_exec_box+0)
 MOVT	R4, #hi_addr(_exec_box+0)
 LDR	R4, [R4, #0]
@@ -18365,7 +18362,7 @@ LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Up206
-;Ducati_logger_driver.c,4285 :: 		exec_box->OnClickPtr();
+;Ducati_logger_driver.c,4284 :: 		exec_box->OnClickPtr();
 MOVW	R4, #lo_addr(_exec_box+0)
 MOVT	R4, #hi_addr(_exec_box+0)
 LDR	R4, [R4, #0]
@@ -18374,25 +18371,25 @@ LDR	R2, [R4, #0]
 BLX	R2
 L_Process_TP_Up206:
 L_Process_TP_Up205:
-;Ducati_logger_driver.c,4286 :: 		PressedObject = 0;
+;Ducati_logger_driver.c,4285 :: 		PressedObject = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_PressedObject+0)
 MOVT	R2, #hi_addr(_PressedObject+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4287 :: 		PressedObjectType = -1;
+;Ducati_logger_driver.c,4286 :: 		PressedObjectType = -1;
 MOVW	R3, #65535
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_PressedObjectType+0)
 MOVT	R2, #hi_addr(_PressedObjectType+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,4288 :: 		return;
+;Ducati_logger_driver.c,4287 :: 		return;
 IT	AL
 BAL	L_end_Process_TP_Up
-;Ducati_logger_driver.c,4289 :: 		}
+;Ducati_logger_driver.c,4288 :: 		}
 L_Process_TP_Up203:
-;Ducati_logger_driver.c,4290 :: 		}
+;Ducati_logger_driver.c,4289 :: 		}
 L_Process_TP_Up202:
-;Ducati_logger_driver.c,4293 :: 		if (_object_count == cbox_order) {
+;Ducati_logger_driver.c,4292 :: 		if (_object_count == cbox_order) {
 MOVW	R2, #lo_addr(_cbox_order+0)
 MOVT	R2, #hi_addr(_cbox_order+0)
 LDRSH	R3, [R2, #0]
@@ -18402,7 +18399,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Up207
-;Ducati_logger_driver.c,4294 :: 		if (exec_cbox->Active == 1) {
+;Ducati_logger_driver.c,4293 :: 		if (exec_cbox->Active == 1) {
 MOVW	R2, #lo_addr(_exec_cbox+0)
 MOVT	R2, #hi_addr(_exec_cbox+0)
 LDR	R2, [R2, #0]
@@ -18411,7 +18408,7 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Up208
-;Ducati_logger_driver.c,4295 :: 		if (exec_cbox->OnUpPtr != 0)
+;Ducati_logger_driver.c,4294 :: 		if (exec_cbox->OnUpPtr != 0)
 MOVW	R4, #lo_addr(_exec_cbox+0)
 MOVT	R4, #hi_addr(_exec_cbox+0)
 LDR	R4, [R4, #0]
@@ -18420,7 +18417,7 @@ LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Up209
-;Ducati_logger_driver.c,4296 :: 		exec_cbox->OnUpPtr();
+;Ducati_logger_driver.c,4295 :: 		exec_cbox->OnUpPtr();
 MOVW	R4, #lo_addr(_exec_cbox+0)
 MOVT	R4, #hi_addr(_exec_cbox+0)
 LDR	R4, [R4, #0]
@@ -18428,7 +18425,7 @@ ADDS	R4, #36
 LDR	R2, [R4, #0]
 BLX	R2
 L_Process_TP_Up209:
-;Ducati_logger_driver.c,4297 :: 		if (PressedObject == (TPointer)exec_cbox)
+;Ducati_logger_driver.c,4296 :: 		if (PressedObject == (TPointer)exec_cbox)
 MOVW	R2, #lo_addr(_exec_cbox+0)
 MOVT	R2, #hi_addr(_exec_cbox+0)
 LDR	R3, [R2, #0]
@@ -18438,7 +18435,7 @@ LDR	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Up210
-;Ducati_logger_driver.c,4298 :: 		if (exec_cbox->OnClickPtr != 0)
+;Ducati_logger_driver.c,4297 :: 		if (exec_cbox->OnClickPtr != 0)
 MOVW	R4, #lo_addr(_exec_cbox+0)
 MOVT	R4, #hi_addr(_exec_cbox+0)
 LDR	R4, [R4, #0]
@@ -18447,7 +18444,7 @@ LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Up211
-;Ducati_logger_driver.c,4299 :: 		exec_cbox->OnClickPtr();
+;Ducati_logger_driver.c,4298 :: 		exec_cbox->OnClickPtr();
 MOVW	R4, #lo_addr(_exec_cbox+0)
 MOVT	R4, #hi_addr(_exec_cbox+0)
 LDR	R4, [R4, #0]
@@ -18456,45 +18453,45 @@ LDR	R2, [R4, #0]
 BLX	R2
 L_Process_TP_Up211:
 L_Process_TP_Up210:
-;Ducati_logger_driver.c,4300 :: 		PressedObject = 0;
+;Ducati_logger_driver.c,4299 :: 		PressedObject = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_PressedObject+0)
 MOVT	R2, #hi_addr(_PressedObject+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4301 :: 		PressedObjectType = -1;
+;Ducati_logger_driver.c,4300 :: 		PressedObjectType = -1;
 MOVW	R3, #65535
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_PressedObjectType+0)
 MOVT	R2, #hi_addr(_PressedObjectType+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,4302 :: 		return;
+;Ducati_logger_driver.c,4301 :: 		return;
 IT	AL
 BAL	L_end_Process_TP_Up
-;Ducati_logger_driver.c,4303 :: 		}
+;Ducati_logger_driver.c,4302 :: 		}
 L_Process_TP_Up208:
-;Ducati_logger_driver.c,4304 :: 		}
+;Ducati_logger_driver.c,4303 :: 		}
 L_Process_TP_Up207:
-;Ducati_logger_driver.c,4306 :: 		}
+;Ducati_logger_driver.c,4305 :: 		}
 L_Process_TP_Up171:
-;Ducati_logger_driver.c,4307 :: 		PressedObject = 0;
+;Ducati_logger_driver.c,4306 :: 		PressedObject = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_PressedObject+0)
 MOVT	R2, #hi_addr(_PressedObject+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4308 :: 		PressedObjectType = -1;
+;Ducati_logger_driver.c,4307 :: 		PressedObjectType = -1;
 MOVW	R3, #65535
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_PressedObjectType+0)
 MOVT	R2, #hi_addr(_PressedObjectType+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,4309 :: 		}
+;Ducati_logger_driver.c,4308 :: 		}
 L_end_Process_TP_Up:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #12
 BX	LR
 ; end of _Process_TP_Up
 _Process_TP_Down:
-;Ducati_logger_driver.c,4311 :: 		void Process_TP_Down(unsigned int X, unsigned int Y) {
+;Ducati_logger_driver.c,4310 :: 		void Process_TP_Down(unsigned int X, unsigned int Y) {
 ; Y start address is: 4 (R1)
 ; X start address is: 0 (R0)
 SUB	SP, SP, #4
@@ -18503,63 +18500,63 @@ STR	LR, [SP, #0]
 ; X end address is: 0 (R0)
 ; X start address is: 0 (R0)
 ; Y start address is: 4 (R1)
-;Ducati_logger_driver.c,4313 :: 		object_pressed      = 0;
+;Ducati_logger_driver.c,4312 :: 		object_pressed      = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_object_pressed+0)
 MOVT	R2, #hi_addr(_object_pressed+0)
 STRB	R3, [R2, #0]
-;Ducati_logger_driver.c,4314 :: 		exec_round_button   = 0;
+;Ducati_logger_driver.c,4313 :: 		exec_round_button   = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_exec_round_button+0)
 MOVT	R2, #hi_addr(_exec_round_button+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4315 :: 		exec_label          = 0;
+;Ducati_logger_driver.c,4314 :: 		exec_label          = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_exec_label+0)
 MOVT	R2, #hi_addr(_exec_label+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4316 :: 		exec_image          = 0;
+;Ducati_logger_driver.c,4315 :: 		exec_image          = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_exec_image+0)
 MOVT	R2, #hi_addr(_exec_image+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4317 :: 		exec_cimage         = 0;
+;Ducati_logger_driver.c,4316 :: 		exec_cimage         = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_exec_cimage+0)
 MOVT	R2, #hi_addr(_exec_cimage+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4318 :: 		exec_circle         = 0;
+;Ducati_logger_driver.c,4317 :: 		exec_circle         = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_exec_circle+0)
 MOVT	R2, #hi_addr(_exec_circle+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4319 :: 		exec_circle_button  = 0;
+;Ducati_logger_driver.c,4318 :: 		exec_circle_button  = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_exec_circle_button+0)
 MOVT	R2, #hi_addr(_exec_circle_button+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4320 :: 		exec_box            = 0;
+;Ducati_logger_driver.c,4319 :: 		exec_box            = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_exec_box+0)
 MOVT	R2, #hi_addr(_exec_box+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4321 :: 		exec_cbox           = 0;
+;Ducati_logger_driver.c,4320 :: 		exec_cbox           = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_exec_cbox+0)
 MOVT	R2, #hi_addr(_exec_cbox+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4323 :: 		Get_Object(X, Y);
+;Ducati_logger_driver.c,4322 :: 		Get_Object(X, Y);
 ; Y end address is: 4 (R1)
 ; X end address is: 0 (R0)
 BL	_Get_Object+0
-;Ducati_logger_driver.c,4325 :: 		if (_object_count != -1) {
+;Ducati_logger_driver.c,4324 :: 		if (_object_count != -1) {
 MOVW	R2, #lo_addr(__object_count+0)
 MOVT	R2, #hi_addr(__object_count+0)
 LDRSH	R2, [R2, #0]
 CMP	R2, #-1
 IT	EQ
 BEQ	L_Process_TP_Down212
-;Ducati_logger_driver.c,4326 :: 		if (_object_count == round_button_order) {
+;Ducati_logger_driver.c,4325 :: 		if (_object_count == round_button_order) {
 MOVW	R2, #lo_addr(_round_button_order+0)
 MOVT	R2, #hi_addr(_round_button_order+0)
 LDRSH	R3, [R2, #0]
@@ -18569,7 +18566,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Down213
-;Ducati_logger_driver.c,4327 :: 		if (exec_round_button->Active == 1) {
+;Ducati_logger_driver.c,4326 :: 		if (exec_round_button->Active == 1) {
 MOVW	R2, #lo_addr(_exec_round_button+0)
 MOVT	R2, #hi_addr(_exec_round_button+0)
 LDR	R2, [R2, #0]
@@ -18578,7 +18575,7 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Down214
-;Ducati_logger_driver.c,4328 :: 		if (exec_round_button->PressColEnabled == 1) {
+;Ducati_logger_driver.c,4327 :: 		if (exec_round_button->PressColEnabled == 1) {
 MOVW	R2, #lo_addr(_exec_round_button+0)
 MOVT	R2, #hi_addr(_exec_round_button+0)
 LDR	R2, [R2, #0]
@@ -18587,56 +18584,56 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Down215
-;Ducati_logger_driver.c,4329 :: 		object_pressed = 1;
+;Ducati_logger_driver.c,4328 :: 		object_pressed = 1;
 MOVS	R3, #1
 MOVW	R2, #lo_addr(_object_pressed+0)
 MOVT	R2, #hi_addr(_object_pressed+0)
 STRB	R3, [R2, #0]
-;Ducati_logger_driver.c,4330 :: 		DrawRoundButton(exec_round_button);
+;Ducati_logger_driver.c,4329 :: 		DrawRoundButton(exec_round_button);
 MOVW	R2, #lo_addr(_exec_round_button+0)
 MOVT	R2, #hi_addr(_exec_round_button+0)
 LDR	R2, [R2, #0]
 MOV	R0, R2
 BL	_DrawRoundButton+0
-;Ducati_logger_driver.c,4331 :: 		}
+;Ducati_logger_driver.c,4330 :: 		}
 L_Process_TP_Down215:
-;Ducati_logger_driver.c,4332 :: 		PressedObject = (TPointer)exec_round_button;
+;Ducati_logger_driver.c,4331 :: 		PressedObject = (TPointer)exec_round_button;
 MOVW	R4, #lo_addr(_exec_round_button+0)
 MOVT	R4, #hi_addr(_exec_round_button+0)
 LDR	R3, [R4, #0]
 MOVW	R2, #lo_addr(_PressedObject+0)
 MOVT	R2, #hi_addr(_PressedObject+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4333 :: 		PressedObjectType = 1;
+;Ducati_logger_driver.c,4332 :: 		PressedObjectType = 1;
 MOVS	R3, #1
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_PressedObjectType+0)
 MOVT	R2, #hi_addr(_PressedObjectType+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,4334 :: 		if (exec_round_button->OnDownPtr != 0) {
+;Ducati_logger_driver.c,4333 :: 		if (exec_round_button->OnDownPtr != 0) {
 LDR	R4, [R4, #0]
 ADDS	R4, #56
 LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Down216
-;Ducati_logger_driver.c,4335 :: 		exec_round_button->OnDownPtr();
+;Ducati_logger_driver.c,4334 :: 		exec_round_button->OnDownPtr();
 MOVW	R4, #lo_addr(_exec_round_button+0)
 MOVT	R4, #hi_addr(_exec_round_button+0)
 LDR	R4, [R4, #0]
 ADDS	R4, #56
 LDR	R2, [R4, #0]
 BLX	R2
-;Ducati_logger_driver.c,4336 :: 		return;
+;Ducati_logger_driver.c,4335 :: 		return;
 IT	AL
 BAL	L_end_Process_TP_Down
-;Ducati_logger_driver.c,4337 :: 		}
+;Ducati_logger_driver.c,4336 :: 		}
 L_Process_TP_Down216:
-;Ducati_logger_driver.c,4338 :: 		}
+;Ducati_logger_driver.c,4337 :: 		}
 L_Process_TP_Down214:
-;Ducati_logger_driver.c,4339 :: 		}
+;Ducati_logger_driver.c,4338 :: 		}
 L_Process_TP_Down213:
-;Ducati_logger_driver.c,4341 :: 		if (_object_count == label_order) {
+;Ducati_logger_driver.c,4340 :: 		if (_object_count == label_order) {
 MOVW	R2, #lo_addr(_label_order+0)
 MOVT	R2, #hi_addr(_label_order+0)
 LDRSH	R3, [R2, #0]
@@ -18646,7 +18643,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Down217
-;Ducati_logger_driver.c,4342 :: 		if (exec_label->Active == 1) {
+;Ducati_logger_driver.c,4341 :: 		if (exec_label->Active == 1) {
 MOVW	R2, #lo_addr(_exec_label+0)
 MOVT	R2, #hi_addr(_exec_label+0)
 LDR	R2, [R2, #0]
@@ -18655,43 +18652,43 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Down218
-;Ducati_logger_driver.c,4343 :: 		PressedObject = (TPointer)exec_label;
+;Ducati_logger_driver.c,4342 :: 		PressedObject = (TPointer)exec_label;
 MOVW	R4, #lo_addr(_exec_label+0)
 MOVT	R4, #hi_addr(_exec_label+0)
 LDR	R3, [R4, #0]
 MOVW	R2, #lo_addr(_PressedObject+0)
 MOVT	R2, #hi_addr(_PressedObject+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4344 :: 		PressedObjectType = 2;
+;Ducati_logger_driver.c,4343 :: 		PressedObjectType = 2;
 MOVS	R3, #2
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_PressedObjectType+0)
 MOVT	R2, #hi_addr(_PressedObjectType+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,4345 :: 		if (exec_label->OnDownPtr != 0) {
+;Ducati_logger_driver.c,4344 :: 		if (exec_label->OnDownPtr != 0) {
 LDR	R4, [R4, #0]
 ADDS	R4, #32
 LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Down219
-;Ducati_logger_driver.c,4346 :: 		exec_label->OnDownPtr();
+;Ducati_logger_driver.c,4345 :: 		exec_label->OnDownPtr();
 MOVW	R4, #lo_addr(_exec_label+0)
 MOVT	R4, #hi_addr(_exec_label+0)
 LDR	R4, [R4, #0]
 ADDS	R4, #32
 LDR	R2, [R4, #0]
 BLX	R2
-;Ducati_logger_driver.c,4347 :: 		return;
+;Ducati_logger_driver.c,4346 :: 		return;
 IT	AL
 BAL	L_end_Process_TP_Down
-;Ducati_logger_driver.c,4348 :: 		}
+;Ducati_logger_driver.c,4347 :: 		}
 L_Process_TP_Down219:
-;Ducati_logger_driver.c,4349 :: 		}
+;Ducati_logger_driver.c,4348 :: 		}
 L_Process_TP_Down218:
-;Ducati_logger_driver.c,4350 :: 		}
+;Ducati_logger_driver.c,4349 :: 		}
 L_Process_TP_Down217:
-;Ducati_logger_driver.c,4352 :: 		if (_object_count == image_order) {
+;Ducati_logger_driver.c,4351 :: 		if (_object_count == image_order) {
 MOVW	R2, #lo_addr(_image_order+0)
 MOVT	R2, #hi_addr(_image_order+0)
 LDRSH	R3, [R2, #0]
@@ -18701,7 +18698,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Down220
-;Ducati_logger_driver.c,4353 :: 		if (exec_image->Active == 1) {
+;Ducati_logger_driver.c,4352 :: 		if (exec_image->Active == 1) {
 MOVW	R2, #lo_addr(_exec_image+0)
 MOVT	R2, #hi_addr(_exec_image+0)
 LDR	R2, [R2, #0]
@@ -18710,43 +18707,43 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Down221
-;Ducati_logger_driver.c,4354 :: 		PressedObject = (TPointer)exec_image;
+;Ducati_logger_driver.c,4353 :: 		PressedObject = (TPointer)exec_image;
 MOVW	R4, #lo_addr(_exec_image+0)
 MOVT	R4, #hi_addr(_exec_image+0)
 LDR	R3, [R4, #0]
 MOVW	R2, #lo_addr(_PressedObject+0)
 MOVT	R2, #hi_addr(_PressedObject+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4355 :: 		PressedObjectType = 3;
+;Ducati_logger_driver.c,4354 :: 		PressedObjectType = 3;
 MOVS	R3, #3
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_PressedObjectType+0)
 MOVT	R2, #hi_addr(_PressedObjectType+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,4356 :: 		if (exec_image->OnDownPtr != 0) {
+;Ducati_logger_driver.c,4355 :: 		if (exec_image->OnDownPtr != 0) {
 LDR	R4, [R4, #0]
 ADDS	R4, #28
 LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Down222
-;Ducati_logger_driver.c,4357 :: 		exec_image->OnDownPtr();
+;Ducati_logger_driver.c,4356 :: 		exec_image->OnDownPtr();
 MOVW	R4, #lo_addr(_exec_image+0)
 MOVT	R4, #hi_addr(_exec_image+0)
 LDR	R4, [R4, #0]
 ADDS	R4, #28
 LDR	R2, [R4, #0]
 BLX	R2
-;Ducati_logger_driver.c,4358 :: 		return;
+;Ducati_logger_driver.c,4357 :: 		return;
 IT	AL
 BAL	L_end_Process_TP_Down
-;Ducati_logger_driver.c,4359 :: 		}
+;Ducati_logger_driver.c,4358 :: 		}
 L_Process_TP_Down222:
-;Ducati_logger_driver.c,4360 :: 		}
+;Ducati_logger_driver.c,4359 :: 		}
 L_Process_TP_Down221:
-;Ducati_logger_driver.c,4361 :: 		}
+;Ducati_logger_driver.c,4360 :: 		}
 L_Process_TP_Down220:
-;Ducati_logger_driver.c,4363 :: 		if (_object_count == cimage_order) {
+;Ducati_logger_driver.c,4362 :: 		if (_object_count == cimage_order) {
 MOVW	R2, #lo_addr(_cimage_order+0)
 MOVT	R2, #hi_addr(_cimage_order+0)
 LDRSH	R3, [R2, #0]
@@ -18756,7 +18753,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Down223
-;Ducati_logger_driver.c,4364 :: 		if (exec_cimage->Active == 1) {
+;Ducati_logger_driver.c,4363 :: 		if (exec_cimage->Active == 1) {
 MOVW	R2, #lo_addr(_exec_cimage+0)
 MOVT	R2, #hi_addr(_exec_cimage+0)
 LDR	R2, [R2, #0]
@@ -18765,43 +18762,43 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Down224
-;Ducati_logger_driver.c,4365 :: 		PressedObject = (TPointer)exec_cimage;
+;Ducati_logger_driver.c,4364 :: 		PressedObject = (TPointer)exec_cimage;
 MOVW	R4, #lo_addr(_exec_cimage+0)
 MOVT	R4, #hi_addr(_exec_cimage+0)
 LDR	R3, [R4, #0]
 MOVW	R2, #lo_addr(_PressedObject+0)
 MOVT	R2, #hi_addr(_PressedObject+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4366 :: 		PressedObjectType = 11;
+;Ducati_logger_driver.c,4365 :: 		PressedObjectType = 11;
 MOVS	R3, #11
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_PressedObjectType+0)
 MOVT	R2, #hi_addr(_PressedObjectType+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,4367 :: 		if (exec_cimage->OnDownPtr != 0) {
+;Ducati_logger_driver.c,4366 :: 		if (exec_cimage->OnDownPtr != 0) {
 LDR	R4, [R4, #0]
 ADDS	R4, #28
 LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Down225
-;Ducati_logger_driver.c,4368 :: 		exec_cimage->OnDownPtr();
+;Ducati_logger_driver.c,4367 :: 		exec_cimage->OnDownPtr();
 MOVW	R4, #lo_addr(_exec_cimage+0)
 MOVT	R4, #hi_addr(_exec_cimage+0)
 LDR	R4, [R4, #0]
 ADDS	R4, #28
 LDR	R2, [R4, #0]
 BLX	R2
-;Ducati_logger_driver.c,4369 :: 		return;
+;Ducati_logger_driver.c,4368 :: 		return;
 IT	AL
 BAL	L_end_Process_TP_Down
-;Ducati_logger_driver.c,4370 :: 		}
+;Ducati_logger_driver.c,4369 :: 		}
 L_Process_TP_Down225:
-;Ducati_logger_driver.c,4371 :: 		}
+;Ducati_logger_driver.c,4370 :: 		}
 L_Process_TP_Down224:
-;Ducati_logger_driver.c,4372 :: 		}
+;Ducati_logger_driver.c,4371 :: 		}
 L_Process_TP_Down223:
-;Ducati_logger_driver.c,4374 :: 		if (_object_count == circle_order) {
+;Ducati_logger_driver.c,4373 :: 		if (_object_count == circle_order) {
 MOVW	R2, #lo_addr(_circle_order+0)
 MOVT	R2, #hi_addr(_circle_order+0)
 LDRSH	R3, [R2, #0]
@@ -18811,7 +18808,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Down226
-;Ducati_logger_driver.c,4375 :: 		if (exec_circle->Active == 1) {
+;Ducati_logger_driver.c,4374 :: 		if (exec_circle->Active == 1) {
 MOVW	R2, #lo_addr(_exec_circle+0)
 MOVT	R2, #hi_addr(_exec_circle+0)
 LDR	R2, [R2, #0]
@@ -18820,7 +18817,7 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Down227
-;Ducati_logger_driver.c,4376 :: 		if (exec_circle->PressColEnabled == 1) {
+;Ducati_logger_driver.c,4375 :: 		if (exec_circle->PressColEnabled == 1) {
 MOVW	R2, #lo_addr(_exec_circle+0)
 MOVT	R2, #hi_addr(_exec_circle+0)
 LDR	R2, [R2, #0]
@@ -18829,56 +18826,56 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Down228
-;Ducati_logger_driver.c,4377 :: 		object_pressed = 1;
+;Ducati_logger_driver.c,4376 :: 		object_pressed = 1;
 MOVS	R3, #1
 MOVW	R2, #lo_addr(_object_pressed+0)
 MOVT	R2, #hi_addr(_object_pressed+0)
 STRB	R3, [R2, #0]
-;Ducati_logger_driver.c,4378 :: 		DrawCircle(exec_circle);
+;Ducati_logger_driver.c,4377 :: 		DrawCircle(exec_circle);
 MOVW	R2, #lo_addr(_exec_circle+0)
 MOVT	R2, #hi_addr(_exec_circle+0)
 LDR	R2, [R2, #0]
 MOV	R0, R2
 BL	_DrawCircle+0
-;Ducati_logger_driver.c,4379 :: 		}
+;Ducati_logger_driver.c,4378 :: 		}
 L_Process_TP_Down228:
-;Ducati_logger_driver.c,4380 :: 		PressedObject = (TPointer)exec_circle;
+;Ducati_logger_driver.c,4379 :: 		PressedObject = (TPointer)exec_circle;
 MOVW	R4, #lo_addr(_exec_circle+0)
 MOVT	R4, #hi_addr(_exec_circle+0)
 LDR	R3, [R4, #0]
 MOVW	R2, #lo_addr(_PressedObject+0)
 MOVT	R2, #hi_addr(_PressedObject+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4381 :: 		PressedObjectType = 4;
+;Ducati_logger_driver.c,4380 :: 		PressedObjectType = 4;
 MOVS	R3, #4
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_PressedObjectType+0)
 MOVT	R2, #hi_addr(_PressedObjectType+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,4382 :: 		if (exec_circle->OnDownPtr != 0) {
+;Ducati_logger_driver.c,4381 :: 		if (exec_circle->OnDownPtr != 0) {
 LDR	R4, [R4, #0]
 ADDS	R4, #36
 LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Down229
-;Ducati_logger_driver.c,4383 :: 		exec_circle->OnDownPtr();
+;Ducati_logger_driver.c,4382 :: 		exec_circle->OnDownPtr();
 MOVW	R4, #lo_addr(_exec_circle+0)
 MOVT	R4, #hi_addr(_exec_circle+0)
 LDR	R4, [R4, #0]
 ADDS	R4, #36
 LDR	R2, [R4, #0]
 BLX	R2
-;Ducati_logger_driver.c,4384 :: 		return;
+;Ducati_logger_driver.c,4383 :: 		return;
 IT	AL
 BAL	L_end_Process_TP_Down
-;Ducati_logger_driver.c,4385 :: 		}
+;Ducati_logger_driver.c,4384 :: 		}
 L_Process_TP_Down229:
-;Ducati_logger_driver.c,4386 :: 		}
+;Ducati_logger_driver.c,4385 :: 		}
 L_Process_TP_Down227:
-;Ducati_logger_driver.c,4387 :: 		}
+;Ducati_logger_driver.c,4386 :: 		}
 L_Process_TP_Down226:
-;Ducati_logger_driver.c,4389 :: 		if (_object_count == circle_button_order) {
+;Ducati_logger_driver.c,4388 :: 		if (_object_count == circle_button_order) {
 MOVW	R2, #lo_addr(_circle_button_order+0)
 MOVT	R2, #hi_addr(_circle_button_order+0)
 LDRSH	R3, [R2, #0]
@@ -18888,7 +18885,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Down230
-;Ducati_logger_driver.c,4390 :: 		if (exec_circle_button->Active == 1) {
+;Ducati_logger_driver.c,4389 :: 		if (exec_circle_button->Active == 1) {
 MOVW	R2, #lo_addr(_exec_circle_button+0)
 MOVT	R2, #hi_addr(_exec_circle_button+0)
 LDR	R2, [R2, #0]
@@ -18897,7 +18894,7 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Down231
-;Ducati_logger_driver.c,4391 :: 		if (exec_circle_button->PressColEnabled == 1) {
+;Ducati_logger_driver.c,4390 :: 		if (exec_circle_button->PressColEnabled == 1) {
 MOVW	R2, #lo_addr(_exec_circle_button+0)
 MOVT	R2, #hi_addr(_exec_circle_button+0)
 LDR	R2, [R2, #0]
@@ -18906,56 +18903,56 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Down232
-;Ducati_logger_driver.c,4392 :: 		object_pressed = 1;
+;Ducati_logger_driver.c,4391 :: 		object_pressed = 1;
 MOVS	R3, #1
 MOVW	R2, #lo_addr(_object_pressed+0)
 MOVT	R2, #hi_addr(_object_pressed+0)
 STRB	R3, [R2, #0]
-;Ducati_logger_driver.c,4393 :: 		DrawCircleButton(exec_circle_button);
+;Ducati_logger_driver.c,4392 :: 		DrawCircleButton(exec_circle_button);
 MOVW	R2, #lo_addr(_exec_circle_button+0)
 MOVT	R2, #hi_addr(_exec_circle_button+0)
 LDR	R2, [R2, #0]
 MOV	R0, R2
 BL	_DrawCircleButton+0
-;Ducati_logger_driver.c,4394 :: 		}
+;Ducati_logger_driver.c,4393 :: 		}
 L_Process_TP_Down232:
-;Ducati_logger_driver.c,4395 :: 		PressedObject = (TPointer)exec_circle_button;
+;Ducati_logger_driver.c,4394 :: 		PressedObject = (TPointer)exec_circle_button;
 MOVW	R4, #lo_addr(_exec_circle_button+0)
 MOVT	R4, #hi_addr(_exec_circle_button+0)
 LDR	R3, [R4, #0]
 MOVW	R2, #lo_addr(_PressedObject+0)
 MOVT	R2, #hi_addr(_PressedObject+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4396 :: 		PressedObjectType = 5;
+;Ducati_logger_driver.c,4395 :: 		PressedObjectType = 5;
 MOVS	R3, #5
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_PressedObjectType+0)
 MOVT	R2, #hi_addr(_PressedObjectType+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,4397 :: 		if (exec_circle_button->OnDownPtr != 0) {
+;Ducati_logger_driver.c,4396 :: 		if (exec_circle_button->OnDownPtr != 0) {
 LDR	R4, [R4, #0]
 ADDS	R4, #52
 LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Down233
-;Ducati_logger_driver.c,4398 :: 		exec_circle_button->OnDownPtr();
+;Ducati_logger_driver.c,4397 :: 		exec_circle_button->OnDownPtr();
 MOVW	R4, #lo_addr(_exec_circle_button+0)
 MOVT	R4, #hi_addr(_exec_circle_button+0)
 LDR	R4, [R4, #0]
 ADDS	R4, #52
 LDR	R2, [R4, #0]
 BLX	R2
-;Ducati_logger_driver.c,4399 :: 		return;
+;Ducati_logger_driver.c,4398 :: 		return;
 IT	AL
 BAL	L_end_Process_TP_Down
-;Ducati_logger_driver.c,4400 :: 		}
+;Ducati_logger_driver.c,4399 :: 		}
 L_Process_TP_Down233:
-;Ducati_logger_driver.c,4401 :: 		}
+;Ducati_logger_driver.c,4400 :: 		}
 L_Process_TP_Down231:
-;Ducati_logger_driver.c,4402 :: 		}
+;Ducati_logger_driver.c,4401 :: 		}
 L_Process_TP_Down230:
-;Ducati_logger_driver.c,4404 :: 		if (_object_count == box_order) {
+;Ducati_logger_driver.c,4403 :: 		if (_object_count == box_order) {
 MOVW	R2, #lo_addr(_box_order+0)
 MOVT	R2, #hi_addr(_box_order+0)
 LDRSH	R3, [R2, #0]
@@ -18965,7 +18962,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Down234
-;Ducati_logger_driver.c,4405 :: 		if (exec_box->Active == 1) {
+;Ducati_logger_driver.c,4404 :: 		if (exec_box->Active == 1) {
 MOVW	R2, #lo_addr(_exec_box+0)
 MOVT	R2, #hi_addr(_exec_box+0)
 LDR	R2, [R2, #0]
@@ -18974,7 +18971,7 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Down235
-;Ducati_logger_driver.c,4406 :: 		if (exec_box->PressColEnabled == 1) {
+;Ducati_logger_driver.c,4405 :: 		if (exec_box->PressColEnabled == 1) {
 MOVW	R2, #lo_addr(_exec_box+0)
 MOVT	R2, #hi_addr(_exec_box+0)
 LDR	R2, [R2, #0]
@@ -18983,56 +18980,56 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Down236
-;Ducati_logger_driver.c,4407 :: 		object_pressed = 1;
+;Ducati_logger_driver.c,4406 :: 		object_pressed = 1;
 MOVS	R3, #1
 MOVW	R2, #lo_addr(_object_pressed+0)
 MOVT	R2, #hi_addr(_object_pressed+0)
 STRB	R3, [R2, #0]
-;Ducati_logger_driver.c,4408 :: 		DrawBox(exec_box);
+;Ducati_logger_driver.c,4407 :: 		DrawBox(exec_box);
 MOVW	R2, #lo_addr(_exec_box+0)
 MOVT	R2, #hi_addr(_exec_box+0)
 LDR	R2, [R2, #0]
 MOV	R0, R2
 BL	_DrawBox+0
-;Ducati_logger_driver.c,4409 :: 		}
+;Ducati_logger_driver.c,4408 :: 		}
 L_Process_TP_Down236:
-;Ducati_logger_driver.c,4410 :: 		PressedObject = (TPointer)exec_box;
+;Ducati_logger_driver.c,4409 :: 		PressedObject = (TPointer)exec_box;
 MOVW	R4, #lo_addr(_exec_box+0)
 MOVT	R4, #hi_addr(_exec_box+0)
 LDR	R3, [R4, #0]
 MOVW	R2, #lo_addr(_PressedObject+0)
 MOVT	R2, #hi_addr(_PressedObject+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4411 :: 		PressedObjectType = 6;
+;Ducati_logger_driver.c,4410 :: 		PressedObjectType = 6;
 MOVS	R3, #6
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_PressedObjectType+0)
 MOVT	R2, #hi_addr(_PressedObjectType+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,4412 :: 		if (exec_box->OnDownPtr != 0) {
+;Ducati_logger_driver.c,4411 :: 		if (exec_box->OnDownPtr != 0) {
 LDR	R4, [R4, #0]
 ADDS	R4, #40
 LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Down237
-;Ducati_logger_driver.c,4413 :: 		exec_box->OnDownPtr();
+;Ducati_logger_driver.c,4412 :: 		exec_box->OnDownPtr();
 MOVW	R4, #lo_addr(_exec_box+0)
 MOVT	R4, #hi_addr(_exec_box+0)
 LDR	R4, [R4, #0]
 ADDS	R4, #40
 LDR	R2, [R4, #0]
 BLX	R2
-;Ducati_logger_driver.c,4414 :: 		return;
+;Ducati_logger_driver.c,4413 :: 		return;
 IT	AL
 BAL	L_end_Process_TP_Down
-;Ducati_logger_driver.c,4415 :: 		}
+;Ducati_logger_driver.c,4414 :: 		}
 L_Process_TP_Down237:
-;Ducati_logger_driver.c,4416 :: 		}
+;Ducati_logger_driver.c,4415 :: 		}
 L_Process_TP_Down235:
-;Ducati_logger_driver.c,4417 :: 		}
+;Ducati_logger_driver.c,4416 :: 		}
 L_Process_TP_Down234:
-;Ducati_logger_driver.c,4419 :: 		if (_object_count == cbox_order) {
+;Ducati_logger_driver.c,4418 :: 		if (_object_count == cbox_order) {
 MOVW	R2, #lo_addr(_cbox_order+0)
 MOVT	R2, #hi_addr(_cbox_order+0)
 LDRSH	R3, [R2, #0]
@@ -19042,7 +19039,7 @@ LDRSH	R2, [R2, #0]
 CMP	R2, R3
 IT	NE
 BNE	L_Process_TP_Down238
-;Ducati_logger_driver.c,4420 :: 		if (exec_cbox->Active == 1) {
+;Ducati_logger_driver.c,4419 :: 		if (exec_cbox->Active == 1) {
 MOVW	R2, #lo_addr(_exec_cbox+0)
 MOVT	R2, #hi_addr(_exec_cbox+0)
 LDR	R2, [R2, #0]
@@ -19051,7 +19048,7 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Down239
-;Ducati_logger_driver.c,4421 :: 		if (exec_cbox->PressColEnabled == 1) {
+;Ducati_logger_driver.c,4420 :: 		if (exec_cbox->PressColEnabled == 1) {
 MOVW	R2, #lo_addr(_exec_cbox+0)
 MOVT	R2, #hi_addr(_exec_cbox+0)
 LDR	R2, [R2, #0]
@@ -19060,73 +19057,73 @@ LDRB	R2, [R2, #0]
 CMP	R2, #1
 IT	NE
 BNE	L_Process_TP_Down240
-;Ducati_logger_driver.c,4422 :: 		object_pressed = 1;
+;Ducati_logger_driver.c,4421 :: 		object_pressed = 1;
 MOVS	R3, #1
 MOVW	R2, #lo_addr(_object_pressed+0)
 MOVT	R2, #hi_addr(_object_pressed+0)
 STRB	R3, [R2, #0]
-;Ducati_logger_driver.c,4423 :: 		DrawCBox(exec_cbox);
+;Ducati_logger_driver.c,4422 :: 		DrawCBox(exec_cbox);
 MOVW	R2, #lo_addr(_exec_cbox+0)
 MOVT	R2, #hi_addr(_exec_cbox+0)
 LDR	R2, [R2, #0]
 MOV	R0, R2
 BL	_DrawCBox+0
-;Ducati_logger_driver.c,4424 :: 		}
+;Ducati_logger_driver.c,4423 :: 		}
 L_Process_TP_Down240:
-;Ducati_logger_driver.c,4425 :: 		PressedObject = (TPointer)exec_cbox;
+;Ducati_logger_driver.c,4424 :: 		PressedObject = (TPointer)exec_cbox;
 MOVW	R4, #lo_addr(_exec_cbox+0)
 MOVT	R4, #hi_addr(_exec_cbox+0)
 LDR	R3, [R4, #0]
 MOVW	R2, #lo_addr(_PressedObject+0)
 MOVT	R2, #hi_addr(_PressedObject+0)
 STR	R3, [R2, #0]
-;Ducati_logger_driver.c,4426 :: 		PressedObjectType = 14;
+;Ducati_logger_driver.c,4425 :: 		PressedObjectType = 14;
 MOVS	R3, #14
 SXTH	R3, R3
 MOVW	R2, #lo_addr(_PressedObjectType+0)
 MOVT	R2, #hi_addr(_PressedObjectType+0)
 STRH	R3, [R2, #0]
-;Ducati_logger_driver.c,4427 :: 		if (exec_cbox->OnDownPtr != 0) {
+;Ducati_logger_driver.c,4426 :: 		if (exec_cbox->OnDownPtr != 0) {
 LDR	R4, [R4, #0]
 ADDS	R4, #40
 LDR	R4, [R4, #0]
 CMP	R4, #0
 IT	EQ
 BEQ	L_Process_TP_Down241
-;Ducati_logger_driver.c,4428 :: 		exec_cbox->OnDownPtr();
+;Ducati_logger_driver.c,4427 :: 		exec_cbox->OnDownPtr();
 MOVW	R4, #lo_addr(_exec_cbox+0)
 MOVT	R4, #hi_addr(_exec_cbox+0)
 LDR	R4, [R4, #0]
 ADDS	R4, #40
 LDR	R2, [R4, #0]
 BLX	R2
-;Ducati_logger_driver.c,4429 :: 		return;
+;Ducati_logger_driver.c,4428 :: 		return;
 IT	AL
 BAL	L_end_Process_TP_Down
-;Ducati_logger_driver.c,4430 :: 		}
+;Ducati_logger_driver.c,4429 :: 		}
 L_Process_TP_Down241:
-;Ducati_logger_driver.c,4431 :: 		}
+;Ducati_logger_driver.c,4430 :: 		}
 L_Process_TP_Down239:
-;Ducati_logger_driver.c,4432 :: 		}
+;Ducati_logger_driver.c,4431 :: 		}
 L_Process_TP_Down238:
-;Ducati_logger_driver.c,4434 :: 		}
+;Ducati_logger_driver.c,4433 :: 		}
 L_Process_TP_Down212:
-;Ducati_logger_driver.c,4435 :: 		}
+;Ducati_logger_driver.c,4434 :: 		}
 L_end_Process_TP_Down:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Process_TP_Down
 _Check_TP:
-;Ducati_logger_driver.c,4437 :: 		void Check_TP() {
+;Ducati_logger_driver.c,4436 :: 		void Check_TP() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Ducati_logger_driver.c,4438 :: 		if (STMPE610_PressDetect()) {
+;Ducati_logger_driver.c,4437 :: 		if (STMPE610_PressDetect()) {
 BL	_STMPE610_PressDetect+0
 CMP	R0, #0
 IT	EQ
 BEQ	L_Check_TP242
-;Ducati_logger_driver.c,4439 :: 		if (STMPE610_GetLastCoordinates(&Xcoord, &Ycoord) == 0) {
+;Ducati_logger_driver.c,4438 :: 		if (STMPE610_GetLastCoordinates(&Xcoord, &Ycoord) == 0) {
 MOVW	R1, #lo_addr(_Ycoord+0)
 MOVT	R1, #hi_addr(_Ycoord+0)
 MOVW	R0, #lo_addr(_Xcoord+0)
@@ -19135,7 +19132,7 @@ BL	_STMPE610_GetLastCoordinates+0
 CMP	R0, #0
 IT	NE
 BNE	L_Check_TP243
-;Ducati_logger_driver.c,4441 :: 		Process_TP_Press(Xcoord, Ycoord);
+;Ducati_logger_driver.c,4440 :: 		Process_TP_Press(Xcoord, Ycoord);
 MOVW	R0, #lo_addr(_Ycoord+0)
 MOVT	R0, #hi_addr(_Ycoord+0)
 LDRH	R1, [R0, #0]
@@ -19143,19 +19140,19 @@ MOVW	R0, #lo_addr(_Xcoord+0)
 MOVT	R0, #hi_addr(_Xcoord+0)
 LDRH	R0, [R0, #0]
 BL	_Process_TP_Press+0
-;Ducati_logger_driver.c,4442 :: 		if (PenDown == 0) {
+;Ducati_logger_driver.c,4441 :: 		if (PenDown == 0) {
 MOVW	R0, #lo_addr(_PenDown+0)
 MOVT	R0, #hi_addr(_PenDown+0)
 LDRB	R0, [R0, #0]
 CMP	R0, #0
 IT	NE
 BNE	L_Check_TP244
-;Ducati_logger_driver.c,4443 :: 		PenDown = 1;
+;Ducati_logger_driver.c,4442 :: 		PenDown = 1;
 MOVS	R1, #1
 MOVW	R0, #lo_addr(_PenDown+0)
 MOVT	R0, #hi_addr(_PenDown+0)
 STRB	R1, [R0, #0]
-;Ducati_logger_driver.c,4444 :: 		Process_TP_Down(Xcoord, Ycoord);
+;Ducati_logger_driver.c,4443 :: 		Process_TP_Down(Xcoord, Ycoord);
 MOVW	R0, #lo_addr(_Ycoord+0)
 MOVT	R0, #hi_addr(_Ycoord+0)
 LDRH	R1, [R0, #0]
@@ -19163,27 +19160,27 @@ MOVW	R0, #lo_addr(_Xcoord+0)
 MOVT	R0, #hi_addr(_Xcoord+0)
 LDRH	R0, [R0, #0]
 BL	_Process_TP_Down+0
-;Ducati_logger_driver.c,4445 :: 		}
+;Ducati_logger_driver.c,4444 :: 		}
 L_Check_TP244:
-;Ducati_logger_driver.c,4446 :: 		}
+;Ducati_logger_driver.c,4445 :: 		}
 L_Check_TP243:
-;Ducati_logger_driver.c,4447 :: 		}
+;Ducati_logger_driver.c,4446 :: 		}
 IT	AL
 BAL	L_Check_TP245
 L_Check_TP242:
-;Ducati_logger_driver.c,4448 :: 		else if (PenDown == 1) {
+;Ducati_logger_driver.c,4447 :: 		else if (PenDown == 1) {
 MOVW	R0, #lo_addr(_PenDown+0)
 MOVT	R0, #hi_addr(_PenDown+0)
 LDRB	R0, [R0, #0]
 CMP	R0, #1
 IT	NE
 BNE	L_Check_TP246
-;Ducati_logger_driver.c,4449 :: 		PenDown = 0;
+;Ducati_logger_driver.c,4448 :: 		PenDown = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_PenDown+0)
 MOVT	R0, #hi_addr(_PenDown+0)
 STRB	R1, [R0, #0]
-;Ducati_logger_driver.c,4450 :: 		Process_TP_Up(Xcoord, Ycoord);
+;Ducati_logger_driver.c,4449 :: 		Process_TP_Up(Xcoord, Ycoord);
 MOVW	R0, #lo_addr(_Ycoord+0)
 MOVT	R0, #hi_addr(_Ycoord+0)
 LDRH	R1, [R0, #0]
@@ -19191,361 +19188,355 @@ MOVW	R0, #lo_addr(_Xcoord+0)
 MOVT	R0, #hi_addr(_Xcoord+0)
 LDRH	R0, [R0, #0]
 BL	_Process_TP_Up+0
-;Ducati_logger_driver.c,4451 :: 		}
+;Ducati_logger_driver.c,4450 :: 		}
 L_Check_TP246:
 L_Check_TP245:
-;Ducati_logger_driver.c,4452 :: 		}
+;Ducati_logger_driver.c,4451 :: 		}
 L_end_Check_TP:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Check_TP
 _Init_MCU:
-;Ducati_logger_driver.c,4454 :: 		void Init_MCU() {
+;Ducati_logger_driver.c,4453 :: 		void Init_MCU() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Ducati_logger_driver.c,4458 :: 		GPIO_Digital_Output(&GPIOB_BASE, _GPIO_PINMASK_6);
+;Ducati_logger_driver.c,4455 :: 		GPIO_Digital_Output(&GPIOB_BASE, _GPIO_PINMASK_6);
 MOVW	R1, #64
 MOVW	R0, #lo_addr(GPIOB_BASE+0)
 MOVT	R0, #hi_addr(GPIOB_BASE+0)
 BL	_GPIO_Digital_Output+0
-;Ducati_logger_driver.c,4459 :: 		GPIO_Digital_Input(&GPIOB_BASE, _GPIO_PINMASK_7);
-MOVW	R1, #128
-MOVW	R0, #lo_addr(GPIOB_BASE+0)
-MOVT	R0, #hi_addr(GPIOB_BASE+0)
-BL	_GPIO_Digital_Input+0
-;Ducati_logger_driver.c,4460 :: 		GPIOB_ODR.B6 = 1;
-MOVS	R1, #1
-SXTB	R1, R1
-MOVW	R0, #lo_addr(GPIOB_ODR+0)
-MOVT	R0, #hi_addr(GPIOB_ODR+0)
-STR	R1, [R0, #0]
-;Ducati_logger_driver.c,4461 :: 		while (GPIOB_IDR.B7 == 0) {
+;Ducati_logger_driver.c,4456 :: 		for (_cnt = 0; _cnt < 20; _cnt++) {
+; _cnt start address is: 8 (R2)
+MOVS	R2, #0
+; _cnt end address is: 8 (R2)
 L_Init_MCU247:
-MOVW	R1, #lo_addr(GPIOB_IDR+0)
-MOVT	R1, #hi_addr(GPIOB_IDR+0)
-LDR	R0, [R1, #0]
-CMP	R0, #0
-IT	NE
-BNE	L_Init_MCU248
-;Ducati_logger_driver.c,4462 :: 		GPIOB_ODR.B6 = 0;
+; _cnt start address is: 8 (R2)
+CMP	R2, #20
+IT	CS
+BCS	L_Init_MCU248
+;Ducati_logger_driver.c,4457 :: 		GPIOB_ODR.B6 = 0;
 MOVS	R1, #0
 SXTB	R1, R1
 MOVW	R0, #lo_addr(GPIOB_ODR+0)
 MOVT	R0, #hi_addr(GPIOB_ODR+0)
 STR	R1, [R0, #0]
-;Ducati_logger_driver.c,4463 :: 		Delay_us(10);
-MOVW	R7, #498
+;Ducati_logger_driver.c,4458 :: 		Delay_ms(1);
+MOVW	R7, #49998
 MOVT	R7, #0
 NOP
 NOP
-L_Init_MCU249:
+L_Init_MCU250:
 SUBS	R7, R7, #1
-BNE	L_Init_MCU249
+BNE	L_Init_MCU250
 NOP
 NOP
 NOP
-;Ducati_logger_driver.c,4464 :: 		GPIOB_ODR.B6 = 1;
+;Ducati_logger_driver.c,4459 :: 		GPIOB_ODR.B6 = 1;
 MOVS	R1, #1
 SXTB	R1, R1
 MOVW	R0, #lo_addr(GPIOB_ODR+0)
 MOVT	R0, #hi_addr(GPIOB_ODR+0)
 STR	R1, [R0, #0]
-;Ducati_logger_driver.c,4465 :: 		Delay_us(10);
-MOVW	R7, #498
+;Ducati_logger_driver.c,4460 :: 		Delay_ms(1);
+MOVW	R7, #49998
 MOVT	R7, #0
 NOP
 NOP
-L_Init_MCU251:
+L_Init_MCU252:
 SUBS	R7, R7, #1
-BNE	L_Init_MCU251
+BNE	L_Init_MCU252
 NOP
 NOP
 NOP
-;Ducati_logger_driver.c,4466 :: 		}
+;Ducati_logger_driver.c,4456 :: 		for (_cnt = 0; _cnt < 20; _cnt++) {
+ADDS	R2, R2, #1
+UXTB	R2, R2
+;Ducati_logger_driver.c,4461 :: 		}
+; _cnt end address is: 8 (R2)
 IT	AL
 BAL	L_Init_MCU247
 L_Init_MCU248:
-;Ducati_logger_driver.c,4467 :: 		I2C1_Init_Advanced(400000, &_GPIO_MODULE_I2C1_PB67);
+;Ducati_logger_driver.c,4463 :: 		I2C1_Init_Advanced(400000, &_GPIO_MODULE_I2C1_PB67);
 MOVW	R1, #lo_addr(__GPIO_MODULE_I2C1_PB67+0)
 MOVT	R1, #hi_addr(__GPIO_MODULE_I2C1_PB67+0)
 MOVW	R0, #6784
 MOVT	R0, #6
 BL	_I2C1_Init_Advanced+0
-;Ducati_logger_driver.c,4469 :: 		TFT_Set_Default_Mode();
+;Ducati_logger_driver.c,4464 :: 		TFT_Set_Default_Mode();
 BL	_TFT_Set_Default_Mode+0
-;Ducati_logger_driver.c,4470 :: 		GPIO_Digital_Output(&GPIOG_BASE, 0x00FF);
+;Ducati_logger_driver.c,4465 :: 		GPIO_Digital_Output(&GPIOG_BASE, 0x00FF);
 MOVS	R1, #255
 MOVW	R0, #lo_addr(GPIOG_BASE+0)
 MOVT	R0, #hi_addr(GPIOG_BASE+0)
 BL	_GPIO_Digital_Output+0
-;Ducati_logger_driver.c,4471 :: 		GPIO_Digital_Output(&GPIOE_BASE, 0xFF00);
+;Ducati_logger_driver.c,4466 :: 		GPIO_Digital_Output(&GPIOE_BASE, 0xFF00);
 MOVW	R1, #65280
 MOVW	R0, #lo_addr(GPIOE_BASE+0)
 MOVT	R0, #hi_addr(GPIOE_BASE+0)
 BL	_GPIO_Digital_Output+0
-;Ducati_logger_driver.c,4472 :: 		GPIO_Digital_Output(&GPIOB_BASE, _GPIO_PINMASK_4);
+;Ducati_logger_driver.c,4467 :: 		GPIO_Digital_Output(&GPIOB_BASE, _GPIO_PINMASK_4);
 MOVW	R1, #16
 MOVW	R0, #lo_addr(GPIOB_BASE+0)
 MOVT	R0, #hi_addr(GPIOB_BASE+0)
 BL	_GPIO_Digital_Output+0
-;Ducati_logger_driver.c,4473 :: 		GPIOB_ODR.B4 = 0;
+;Ducati_logger_driver.c,4468 :: 		GPIOB_ODR.B4 = 0;
 MOVS	R1, #0
 SXTB	R1, R1
 MOVW	R0, #lo_addr(GPIOB_ODR+0)
 MOVT	R0, #hi_addr(GPIOB_ODR+0)
 STR	R1, [R0, #0]
-;Ducati_logger_driver.c,4474 :: 		TFT_Set_Default_Mode();
+;Ducati_logger_driver.c,4469 :: 		TFT_Set_Default_Mode();
 BL	_TFT_Set_Default_Mode+0
-;Ducati_logger_driver.c,4475 :: 		TFT_Set_MM_Plus();
+;Ducati_logger_driver.c,4470 :: 		TFT_Set_MM_Plus();
 BL	_TFT_Set_MM_Plus+0
-;Ducati_logger_driver.c,4476 :: 		STMPE610_SetDefaultMode();
+;Ducati_logger_driver.c,4471 :: 		STMPE610_SetDefaultMode();
 BL	_STMPE610_SetDefaultMode+0
-;Ducati_logger_driver.c,4477 :: 		}
+;Ducati_logger_driver.c,4472 :: 		}
 L_end_Init_MCU:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Init_MCU
 _Init_Ext_Mem:
-;Ducati_logger_driver.c,4479 :: 		void Init_Ext_Mem() {
+;Ducati_logger_driver.c,4474 :: 		void Init_Ext_Mem() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Ducati_logger_driver.c,4481 :: 		SDIO_Reset();
+;Ducati_logger_driver.c,4476 :: 		SDIO_Reset();
 BL	_SDIO_Reset+0
-;Ducati_logger_driver.c,4484 :: 		| _SDIO_CFG_CLOCK_RISING_EDGE | _SDIO_CFG_HW_FLOW_DISABLE, 125, &_GPIO_MODULE_SDIO_D0_D3);
+;Ducati_logger_driver.c,4479 :: 		| _SDIO_CFG_CLOCK_RISING_EDGE | _SDIO_CFG_HW_FLOW_DISABLE, 125, &_GPIO_MODULE_SDIO_D0_D3);
 MOVW	R2, #lo_addr(__GPIO_MODULE_SDIO_D0_D3+0)
 MOVT	R2, #hi_addr(__GPIO_MODULE_SDIO_D0_D3+0)
 MOVS	R1, #125
 MOVW	R0, #2048
 BL	_SDIO_Init+0
-;Ducati_logger_driver.c,4487 :: 		GPIOD_PUPDRbits.PUPDR2 = 1;
+;Ducati_logger_driver.c,4482 :: 		GPIOD_PUPDRbits.PUPDR2 = 1;
 MOVS	R2, #1
 MOVW	R1, #lo_addr(GPIOD_PUPDRbits+0)
 MOVT	R1, #hi_addr(GPIOD_PUPDRbits+0)
 LDRB	R0, [R1, #0]
 BFI	R0, R2, #4, #2
 STRB	R0, [R1, #0]
-;Ducati_logger_driver.c,4488 :: 		GPIOC_PUPDRbits.PUPDR8 = 1;
+;Ducati_logger_driver.c,4483 :: 		GPIOC_PUPDRbits.PUPDR8 = 1;
 MOVS	R2, #1
 MOVW	R1, #lo_addr(GPIOC_PUPDRbits+0)
 MOVT	R1, #hi_addr(GPIOC_PUPDRbits+0)
 LDR	R0, [R1, #0]
 BFI	R0, R2, #16, #2
 STR	R0, [R1, #0]
-;Ducati_logger_driver.c,4489 :: 		GPIOC_PUPDRbits.PUPDR9 = 1;
+;Ducati_logger_driver.c,4484 :: 		GPIOC_PUPDRbits.PUPDR9 = 1;
 MOVS	R2, #1
 MOVW	R1, #lo_addr(GPIOC_PUPDRbits+0)
 MOVT	R1, #hi_addr(GPIOC_PUPDRbits+0)
 LDR	R0, [R1, #0]
 BFI	R0, R2, #18, #2
 STR	R0, [R1, #0]
-;Ducati_logger_driver.c,4490 :: 		GPIOC_PUPDRbits.PUPDR10 = 1;
+;Ducati_logger_driver.c,4485 :: 		GPIOC_PUPDRbits.PUPDR10 = 1;
 MOVS	R2, #1
 MOVW	R1, #lo_addr(GPIOC_PUPDRbits+0)
 MOVT	R1, #hi_addr(GPIOC_PUPDRbits+0)
 LDR	R0, [R1, #0]
 BFI	R0, R2, #20, #2
 STR	R0, [R1, #0]
-;Ducati_logger_driver.c,4491 :: 		GPIOC_PUPDRbits.PUPDR11 = 1;
+;Ducati_logger_driver.c,4486 :: 		GPIOC_PUPDRbits.PUPDR11 = 1;
 MOVS	R2, #1
 MOVW	R1, #lo_addr(GPIOC_PUPDRbits+0)
 MOVT	R1, #hi_addr(GPIOC_PUPDRbits+0)
 LDR	R0, [R1, #0]
 BFI	R0, R2, #22, #2
 STR	R0, [R1, #0]
-;Ducati_logger_driver.c,4493 :: 		Mmc_Set_Interface(_MMC_INTERFACE_SDIO);
+;Ducati_logger_driver.c,4488 :: 		Mmc_Set_Interface(_MMC_INTERFACE_SDIO);
 MOVS	R0, #1
 BL	_Mmc_Set_Interface+0
-;Ducati_logger_driver.c,4496 :: 		if (!Mmc_Fat_Init()) {
+;Ducati_logger_driver.c,4491 :: 		if (!Mmc_Fat_Init()) {
 BL	_Mmc_Fat_Init+0
 CMP	R0, #0
 IT	NE
-BNE	L_Init_Ext_Mem253
-;Ducati_logger_driver.c,4499 :: 		| _SDIO_CFG_CLOCK_RISING_EDGE | _SDIO_CFG_HW_FLOW_DISABLE, 1, &_GPIO_MODULE_SDIO_D0_D3);
+BNE	L_Init_Ext_Mem254
+;Ducati_logger_driver.c,4494 :: 		| _SDIO_CFG_CLOCK_RISING_EDGE | _SDIO_CFG_HW_FLOW_DISABLE, 1, &_GPIO_MODULE_SDIO_D0_D3);
 MOVW	R2, #lo_addr(__GPIO_MODULE_SDIO_D0_D3+0)
 MOVT	R2, #hi_addr(__GPIO_MODULE_SDIO_D0_D3+0)
 MOVS	R1, #1
 MOVW	R0, #2048
 BL	_SDIO_Init+0
-;Ducati_logger_driver.c,4502 :: 		Mmc_Fat_Assign("Ducati_l.RES", 0);
+;Ducati_logger_driver.c,4497 :: 		Mmc_Fat_Assign("Ducati_l.RES", 0);
 MOVW	R0, #lo_addr(?lstr3_Ducati_logger_driver+0)
 MOVT	R0, #hi_addr(?lstr3_Ducati_logger_driver+0)
 MOVS	R1, #0
 BL	_Mmc_Fat_Assign+0
-;Ducati_logger_driver.c,4503 :: 		Mmc_Fat_Reset(&res_file_size);
+;Ducati_logger_driver.c,4498 :: 		Mmc_Fat_Reset(&res_file_size);
 MOVW	R0, #lo_addr(_res_file_size+0)
 MOVT	R0, #hi_addr(_res_file_size+0)
 BL	_Mmc_Fat_Reset+0
-;Ducati_logger_driver.c,4504 :: 		}
-L_Init_Ext_Mem253:
-;Ducati_logger_driver.c,4505 :: 		}
+;Ducati_logger_driver.c,4499 :: 		}
+L_Init_Ext_Mem254:
+;Ducati_logger_driver.c,4500 :: 		}
 L_end_Init_Ext_Mem:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _Init_Ext_Mem
 _STMPE610_Config:
-;Ducati_logger_driver.c,4507 :: 		char STMPE610_Config()  {
+;Ducati_logger_driver.c,4502 :: 		char STMPE610_Config()  {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Ducati_logger_driver.c,4508 :: 		STMPE610_SetI2CAddress(STMPE610_I2C_ADDR1);
+;Ducati_logger_driver.c,4503 :: 		STMPE610_SetI2CAddress(STMPE610_I2C_ADDR1);
 MOVS	R0, #136
 BL	_STMPE610_SetI2CAddress+0
-;Ducati_logger_driver.c,4509 :: 		if (STMPE610_IsOperational() != 0){
+;Ducati_logger_driver.c,4504 :: 		if (STMPE610_IsOperational() != 0){
 BL	_STMPE610_IsOperational+0
 CMP	R0, #0
 IT	EQ
-BEQ	L_STMPE610_Config254
-;Ducati_logger_driver.c,4510 :: 		return STMPE610_IO_NOT_OPERATIONAL;
+BEQ	L_STMPE610_Config255
+;Ducati_logger_driver.c,4505 :: 		return STMPE610_IO_NOT_OPERATIONAL;
 MOVS	R0, #4
 IT	AL
 BAL	L_end_STMPE610_Config
-;Ducati_logger_driver.c,4511 :: 		}
-L_STMPE610_Config254:
-;Ducati_logger_driver.c,4513 :: 		STMPE610_Reset();
+;Ducati_logger_driver.c,4506 :: 		}
+L_STMPE610_Config255:
+;Ducati_logger_driver.c,4508 :: 		STMPE610_Reset();
 BL	_STMPE610_Reset+0
-;Ducati_logger_driver.c,4514 :: 		STMPE610_Module(STMPE610_MODULE_TS | STMPE610_MODULE_ADC, STMPE610_ENABLE);
+;Ducati_logger_driver.c,4509 :: 		STMPE610_Module(STMPE610_MODULE_TS | STMPE610_MODULE_ADC, STMPE610_ENABLE);
 MOVS	R1, #1
 MOVS	R0, #3
 BL	_STMPE610_Module+0
-;Ducati_logger_driver.c,4515 :: 		STMPE610_AlternateFunction(STMPE610_GPIO_PIN1, STMPE610_ENABLE);
+;Ducati_logger_driver.c,4510 :: 		STMPE610_AlternateFunction(STMPE610_GPIO_PIN1, STMPE610_ENABLE);
 MOVS	R1, #1
 MOVS	R0, #2
 BL	_STMPE610_AlternateFunction+0
-;Ducati_logger_driver.c,4516 :: 		STMPE610_SetGPIOPin(STMPE610_GPIO_PIN1, 0);   // IN1 to "0" -> I2C communication
+;Ducati_logger_driver.c,4511 :: 		STMPE610_SetGPIOPin(STMPE610_GPIO_PIN1, 0);   // IN1 to "0" -> I2C communication
 MOVS	R1, #0
 MOVS	R0, #2
 BL	_STMPE610_SetGPIOPin+0
-;Ducati_logger_driver.c,4517 :: 		STMPE610_SetSize(480,272);
+;Ducati_logger_driver.c,4512 :: 		STMPE610_SetSize(480,272);
 MOVW	R1, #272
 MOVW	R0, #480
 BL	_STMPE610_SetSize+0
-;Ducati_logger_driver.c,4518 :: 		STMPE610_Module(STMPE610_MODULE_TS | STMPE610_MODULE_ADC, STMPE610_ENABLE);
+;Ducati_logger_driver.c,4513 :: 		STMPE610_Module(STMPE610_MODULE_TS | STMPE610_MODULE_ADC, STMPE610_ENABLE);
 MOVS	R1, #1
 MOVS	R0, #3
 BL	_STMPE610_Module+0
-;Ducati_logger_driver.c,4519 :: 		STMPE610_EnableInterrupt(STMPE610_IE_TOUCH_DET | STMPE610_IE_FIFO_TH | STMPE610_IE_FIFO_0FLOW, STMPE610_ENABLE);
+;Ducati_logger_driver.c,4514 :: 		STMPE610_EnableInterrupt(STMPE610_IE_TOUCH_DET | STMPE610_IE_FIFO_TH | STMPE610_IE_FIFO_0FLOW, STMPE610_ENABLE);
 MOVS	R1, #1
 MOVS	R0, #7
 BL	_STMPE610_EnableInterrupt+0
-;Ducati_logger_driver.c,4520 :: 		STMPE610_ConfigureInterrupt(STMPE610_INT_POLARITY_ACTIVE_HIGH | STMPE610_INT_TYPE_EDGE | STMPE610_INT_ENABLE_ALL);
+;Ducati_logger_driver.c,4515 :: 		STMPE610_ConfigureInterrupt(STMPE610_INT_POLARITY_ACTIVE_HIGH | STMPE610_INT_TYPE_EDGE | STMPE610_INT_ENABLE_ALL);
 MOVS	R0, #7
 BL	_STMPE610_ConfigureInterrupt+0
-;Ducati_logger_driver.c,4521 :: 		STMPE610_SetADC(STMPE610_ADC_CTRL1_SAMPLETIME_44 | STMPE610_ADC_CTRL1_ADC_12BIT | STMPE610_ADC_CTRL1_INT_REFERENCE);
+;Ducati_logger_driver.c,4516 :: 		STMPE610_SetADC(STMPE610_ADC_CTRL1_SAMPLETIME_44 | STMPE610_ADC_CTRL1_ADC_12BIT | STMPE610_ADC_CTRL1_INT_REFERENCE);
 MOVS	R0, #20
 BL	_STMPE610_SetADC+0
-;Ducati_logger_driver.c,4522 :: 		Delay_10ms(); Delay_10ms();
+;Ducati_logger_driver.c,4517 :: 		Delay_10ms(); Delay_10ms();
 BL	_Delay_10ms+0
 BL	_Delay_10ms+0
-;Ducati_logger_driver.c,4523 :: 		STMPE610_SetADCClock(STMPE610_ADC_CTRL2_3250_kHZ);
+;Ducati_logger_driver.c,4518 :: 		STMPE610_SetADCClock(STMPE610_ADC_CTRL2_3250_kHZ);
 MOVS	R0, #1
 BL	_STMPE610_SetADCClock+0
-;Ducati_logger_driver.c,4524 :: 		STMPE610_AlternateFunction(STMPE610_GPIO_PIN4 | STMPE610_GPIO_PIN5 | STMPE610_GPIO_PIN6 | STMPE610_GPIO_PIN7, STMPE610_DISABLE);
+;Ducati_logger_driver.c,4519 :: 		STMPE610_AlternateFunction(STMPE610_GPIO_PIN4 | STMPE610_GPIO_PIN5 | STMPE610_GPIO_PIN6 | STMPE610_GPIO_PIN7, STMPE610_DISABLE);
 MOVS	R1, #0
 MOVS	R0, #240
 BL	_STMPE610_AlternateFunction+0
-;Ducati_logger_driver.c,4525 :: 		STMPE610_ConfigureTSC(STMPE610_TSC_CFG_AVE_CTRL_4S, STMPE610_TSC_CFG_TOUCH_DET_DELAY_500uS, STMPE610_TSC_CFG_TOUCH_SETTLING_500uS);
+;Ducati_logger_driver.c,4520 :: 		STMPE610_ConfigureTSC(STMPE610_TSC_CFG_AVE_CTRL_4S, STMPE610_TSC_CFG_TOUCH_DET_DELAY_500uS, STMPE610_TSC_CFG_TOUCH_SETTLING_500uS);
 MOVS	R2, #2
 MOVS	R1, #24
 MOVS	R0, #128
 BL	_STMPE610_ConfigureTSC+0
-;Ducati_logger_driver.c,4526 :: 		STMPE610_SetFIFOThreshold(1);
+;Ducati_logger_driver.c,4521 :: 		STMPE610_SetFIFOThreshold(1);
 MOVS	R0, #1
 BL	_STMPE610_SetFIFOThreshold+0
-;Ducati_logger_driver.c,4527 :: 		STMPE610_ResetFIFO();
+;Ducati_logger_driver.c,4522 :: 		STMPE610_ResetFIFO();
 BL	_STMPE610_ResetFIFO+0
-;Ducati_logger_driver.c,4528 :: 		STMPE610_TSIDrive(STMPE610_TSC_I_DRIVE_20mA);
+;Ducati_logger_driver.c,4523 :: 		STMPE610_TSIDrive(STMPE610_TSC_I_DRIVE_20mA);
 MOVS	R0, #0
 BL	_STMPE610_TSIDrive+0
-;Ducati_logger_driver.c,4529 :: 		STMPE610_TSControl(STMPE610_TSC_CTRL_TRACK0 | STMPE610_TSC_CTRL_ACQU_XYZ | STMPE610_TSC_CTRL_ENABLE);
+;Ducati_logger_driver.c,4524 :: 		STMPE610_TSControl(STMPE610_TSC_CTRL_TRACK0 | STMPE610_TSC_CTRL_ACQU_XYZ | STMPE610_TSC_CTRL_ENABLE);
 MOVS	R0, #1
 BL	_STMPE610_TSControl+0
-;Ducati_logger_driver.c,4530 :: 		STMPE610_ZDataFraction(STMPE610_FRACP4_WHOLP4);
+;Ducati_logger_driver.c,4525 :: 		STMPE610_ZDataFraction(STMPE610_FRACP4_WHOLP4);
 MOVS	R0, #4
 BL	_STMPE610_ZDataFraction+0
-;Ducati_logger_driver.c,4531 :: 		STMPE610_SetTouchPressureThreshold(70);
+;Ducati_logger_driver.c,4526 :: 		STMPE610_SetTouchPressureThreshold(70);
 MOVS	R0, #70
 BL	_STMPE610_SetTouchPressureThreshold+0
-;Ducati_logger_driver.c,4532 :: 		STMPE610_ClearInterrupts();
+;Ducati_logger_driver.c,4527 :: 		STMPE610_ClearInterrupts();
 BL	_STMPE610_ClearInterrupts+0
-;Ducati_logger_driver.c,4533 :: 		STMPE610_WriteReg(STMPE610_INT_CTRL_REG, 0x01);
+;Ducati_logger_driver.c,4528 :: 		STMPE610_WriteReg(STMPE610_INT_CTRL_REG, 0x01);
 MOVS	R1, #1
 MOVS	R0, #9
 BL	_STMPE610_WriteReg+0
-;Ducati_logger_driver.c,4534 :: 		return STMPE610_OK;
+;Ducati_logger_driver.c,4529 :: 		return STMPE610_OK;
 MOVS	R0, #0
-;Ducati_logger_driver.c,4535 :: 		}
+;Ducati_logger_driver.c,4530 :: 		}
 L_end_STMPE610_Config:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _STMPE610_Config
 _Start_TP:
-;Ducati_logger_driver.c,4538 :: 		void Start_TP() {
+;Ducati_logger_driver.c,4533 :: 		void Start_TP() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;Ducati_logger_driver.c,4539 :: 		Init_MCU();
+;Ducati_logger_driver.c,4534 :: 		Init_MCU();
 BL	_Init_MCU+0
-;Ducati_logger_driver.c,4541 :: 		Init_Ext_Mem();
+;Ducati_logger_driver.c,4536 :: 		Init_Ext_Mem();
 BL	_Init_Ext_Mem+0
-;Ducati_logger_driver.c,4543 :: 		InitializeTouchPanel();
+;Ducati_logger_driver.c,4538 :: 		InitializeTouchPanel();
 BL	Ducati_logger_driver_InitializeTouchPanel+0
-;Ducati_logger_driver.c,4544 :: 		if (STMPE610_Config() == STMPE610_OK) {
+;Ducati_logger_driver.c,4539 :: 		if (STMPE610_Config() == STMPE610_OK) {
 BL	_STMPE610_Config+0
 CMP	R0, #0
 IT	NE
-BNE	L_Start_TP255
-;Ducati_logger_driver.c,4545 :: 		} else {
-IT	AL
-BAL	L_Start_TP256
-L_Start_TP255:
-;Ducati_logger_driver.c,4546 :: 		while(1);
-L_Start_TP257:
+BNE	L_Start_TP256
+;Ducati_logger_driver.c,4540 :: 		} else {
 IT	AL
 BAL	L_Start_TP257
-;Ducati_logger_driver.c,4547 :: 		}
 L_Start_TP256:
-;Ducati_logger_driver.c,4550 :: 		Delay_ms(1000);
+;Ducati_logger_driver.c,4541 :: 		while(1);
+L_Start_TP258:
+IT	AL
+BAL	L_Start_TP258
+;Ducati_logger_driver.c,4542 :: 		}
+L_Start_TP257:
+;Ducati_logger_driver.c,4545 :: 		Delay_ms(1000);
 MOVW	R7, #61566
 MOVT	R7, #762
 NOP
 NOP
-L_Start_TP259:
+L_Start_TP260:
 SUBS	R7, R7, #1
-BNE	L_Start_TP259
+BNE	L_Start_TP260
 NOP
 NOP
 NOP
-;Ducati_logger_driver.c,4551 :: 		TFT_Fill_Screen(0);
+;Ducati_logger_driver.c,4546 :: 		TFT_Fill_Screen(0);
 MOVS	R0, #0
 BL	_TFT_Fill_Screen+0
-;Ducati_logger_driver.c,4552 :: 		Calibrate();
+;Ducati_logger_driver.c,4547 :: 		Calibrate();
 BL	_Calibrate+0
-;Ducati_logger_driver.c,4553 :: 		TFT_Fill_Screen(0);
+;Ducati_logger_driver.c,4548 :: 		TFT_Fill_Screen(0);
 MOVS	R0, #0
 BL	_TFT_Fill_Screen+0
-;Ducati_logger_driver.c,4555 :: 		InitializeObjects();
+;Ducati_logger_driver.c,4550 :: 		InitializeObjects();
 BL	Ducati_logger_driver_InitializeObjects+0
-;Ducati_logger_driver.c,4556 :: 		display_width = Tachometer_graphics.Width;
+;Ducati_logger_driver.c,4551 :: 		display_width = Tachometer_graphics.Width;
 MOVW	R0, #lo_addr(_Tachometer_graphics+2)
 MOVT	R0, #hi_addr(_Tachometer_graphics+2)
 LDRH	R1, [R0, #0]
 MOVW	R0, #lo_addr(_display_width+0)
 MOVT	R0, #hi_addr(_display_width+0)
 STRH	R1, [R0, #0]
-;Ducati_logger_driver.c,4557 :: 		display_height = Tachometer_graphics.Height;
+;Ducati_logger_driver.c,4552 :: 		display_height = Tachometer_graphics.Height;
 MOVW	R0, #lo_addr(_Tachometer_graphics+4)
 MOVT	R0, #hi_addr(_Tachometer_graphics+4)
 LDRH	R1, [R0, #0]
 MOVW	R0, #lo_addr(_display_height+0)
 MOVT	R0, #hi_addr(_display_height+0)
 STRH	R1, [R0, #0]
-;Ducati_logger_driver.c,4558 :: 		DrawScreen(&Tachometer_graphics);
+;Ducati_logger_driver.c,4553 :: 		DrawScreen(&Tachometer_graphics);
 MOVW	R0, #lo_addr(_Tachometer_graphics+0)
 MOVT	R0, #hi_addr(_Tachometer_graphics+0)
 BL	_DrawScreen+0
-;Ducati_logger_driver.c,4559 :: 		}
+;Ducati_logger_driver.c,4554 :: 		}
 L_end_Start_TP:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #4

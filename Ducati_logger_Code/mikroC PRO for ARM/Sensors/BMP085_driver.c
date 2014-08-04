@@ -2,7 +2,7 @@
 
                                       
 
-									  
+                                                                          
 #define BMP085_ADDRESS 0x77  // I2C address of BMP085
 
 const unsigned char OSS = 0;  // Oversampling Setting
@@ -14,11 +14,11 @@ int ac3;
 unsigned int ac4;
 unsigned int ac5;
 unsigned int ac6;
-int b1; 
-int b2;
-int mb;
-int mc;
-int md;
+int bb1;
+int bb2;
+int mmb;
+int mmc;
+int mmd;
 
 
 char Pressuredata_[10];
@@ -26,14 +26,37 @@ char Pressuredata_[10];
 
 // b5 is calculated in bmp085GetTemperature(...), this variable is also used in bmp085GetPressure(...)
 // so ...Temperature(...) must be called before ...Pressure(...).
-long b5; 
+long bb5;
 
 short temperature;
 long pressure;
 
 // Use these for altitude conversions
 const float p0 = 101325;     // Pressure at sea level (Pa)
-float altitude;
+//float altitude;
+
+// Read 2 bytes from the BMP085
+// First byte will be from 'address'
+// Second byte will be from 'address'+1
+int bmp085ReadInt(unsigned char address)
+{
+  unsigned char msb, lsb;
+
+  /*Wire.beginTransmission(BMP085_ADDRESS);
+  Wire.write(address);
+  Wire.endTransmission();
+
+  Wire.requestFrom(BMP085_ADDRESS, 2);
+  while(Wire.available()<2)
+    ;
+  msb = Wire.read();
+  lsb = Wire.read();*/
+
+  return (int) msb<<8 | lsb;
+}
+
+
+
 
 // Stores all of the bmp085's calibration values into global variables
 // Calibration values are required to calculate temp and pressure
@@ -46,11 +69,11 @@ void bmp085Calibration()
   ac4 = bmp085ReadInt(0xB0);
   ac5 = bmp085ReadInt(0xB2);
   ac6 = bmp085ReadInt(0xB4);
-  b1 = bmp085ReadInt(0xB6);
-  b2 = bmp085ReadInt(0xB8);
-  mb = bmp085ReadInt(0xBA);
-  mc = bmp085ReadInt(0xBC);
-  md = bmp085ReadInt(0xBE);
+  bb1 = bmp085ReadInt(0xB6);
+  bb2 = bmp085ReadInt(0xB8);
+  mmb = bmp085ReadInt(0xBA);
+  mmc = bmp085ReadInt(0xBC);
+  mmd = bmp085ReadInt(0xBE);
 }
 
 // Calculate temperature given ut.
@@ -60,10 +83,10 @@ short bmp085GetTemperature(unsigned int ut)
   long x1, x2;
   
   x1 = (((long)ut - (long)ac6)*(long)ac5) >> 15;
-  x2 = ((long)mc << 11)/(x1 + md);
-  b5 = x1 + x2;
+  x2 = ((long)mmc << 11)/(x1 + mmd);
+  bb5 = x1 + x2;
 
-  return ((b5 + 8)>>4);  
+  return ((bb5 + 8)>>4);
 }
 
 // Calculate pressure given up
@@ -107,36 +130,18 @@ char bmp085Read(unsigned char address)
 {
   unsigned char data;
   
-  Wire.beginTransmission(BMP085_ADDRESS);
+ /*Wire.beginTransmission(BMP085_ADDRESS);
   Wire.write(address);
   Wire.endTransmission();
-  
+
   Wire.requestFrom(BMP085_ADDRESS, 1);
   while(!Wire.available())
     ;
-    
-  return Wire.read();
+
+  return Wire.read();*/
 }
 
-// Read 2 bytes from the BMP085
-// First byte will be from 'address'
-// Second byte will be from 'address'+1
-int bmp085ReadInt(unsigned char address)
-{
-  unsigned char msb, lsb;
-  
-  Wire.beginTransmission(BMP085_ADDRESS);
-  Wire.write(address);
-  Wire.endTransmission();
-  
-  Wire.requestFrom(BMP085_ADDRESS, 2);
-  while(Wire.available()<2)
-    ;
-  msb = Wire.read();
-  lsb = Wire.read();
-  
-  return (int) msb<<8 | lsb;
-}
+
 
 // Read the uncompensated temperature value
 unsigned int bmp085ReadUT()
@@ -145,13 +150,13 @@ unsigned int bmp085ReadUT()
   
   // Write 0x2E into Register 0xF4
   // This requests a temperature reading
-  Wire.beginTransmission(BMP085_ADDRESS);
+  /*Wire.beginTransmission(BMP085_ADDRESS);
   Wire.write(0xF4);
   Wire.write(0x2E);
-  Wire.endTransmission();
+  Wire.endTransmission();*/
   
   // Wait at least 4.5ms
-  delay(5);
+  //delay(5);
   
   // Read two bytes from registers 0xF6 and 0xF7
   ut = bmp085ReadInt(0xF6);
@@ -166,26 +171,25 @@ unsigned long bmp085ReadUP()
   
   // Write 0x34+(OSS<<6) into register 0xF4
   // Request a pressure reading w/ oversampling setting
-  Wire.beginTransmission(BMP085_ADDRESS);
+  /*Wire.beginTransmission(BMP085_ADDRESS);
   Wire.write(0xF4);
   Wire.write(0x34 + (OSS<<6));
-  Wire.endTransmission();
+  Wire.endTransmission();*/
   
   // Wait for conversion, delay time dependent on OSS
-  delay(2 + (3<<OSS));
+  //delay(2 + (3<<OSS));
   
   // Read register 0xF6 (MSB), 0xF7 (LSB), and 0xF8 (XLSB)
-  Wire.beginTransmission(BMP085_ADDRESS);
+  /*Wire.beginTransmission(BMP085_ADDRESS);
   Wire.write(0xF6);
   Wire.endTransmission();
-  Wire.requestFrom(BMP085_ADDRESS, 3);
-  
+  Wire.requestFrom(BMP085_ADDRESS, 3);*/
   // Wait for data to become available
-  while(Wire.available() < 3)
+  /*while(Wire.available() < 3)
     ;
   msb = Wire.read();
   lsb = Wire.read();
-  xlsb = Wire.read();
+  xlsb = Wire.read();*/
   
   up = (((unsigned long) msb << 16) | ((unsigned long) lsb << 8) | (unsigned long) xlsb) >> (8-OSS);
   

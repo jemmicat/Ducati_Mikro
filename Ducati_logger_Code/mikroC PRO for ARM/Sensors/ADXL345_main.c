@@ -23,7 +23,7 @@ void TFT_mikromedia_Write_Command(unsigned short cmd);
 void TFT_mikromedia_Set_Index(unsigned short index);
 
 //  globals
-char out[16];
+char accelout[16];
 int readings[3] = {0, 0, 0}; // X, Y and Z buffer
 
 typedef struct Accel_values{
@@ -187,7 +187,7 @@ void ACCEL_Start(char *test) {
   *test = 0;
 
   // Initialize I2C communication
-  I2C1_Init_Advanced(400000, &_GPIO_MODULE_I2C1_PB67);
+  I2C2_Init_Advanced(400000, &_GPIO_MODULE_I2C2_PF01);
   Delay_ms(100);
   // Initialize ADXL345 accelerometer
   if (ADXL345_Init() == 0) {

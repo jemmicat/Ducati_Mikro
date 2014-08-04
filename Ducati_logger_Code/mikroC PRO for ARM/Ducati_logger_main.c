@@ -19,26 +19,41 @@
 #include "Ducati_logger_objects.h"
 
 // external declarations
+//void Run_Example();
 void RTC_Init();
+void Init_SDIO();
 char Init_FAT();
 void Init_GPIO();
+//void Timer4_SoftPWM_ISR();
 char ADXL345_Init();
 char ITG3200_Init();
+void doCalibration();
+void Run_logger();
 
+//******************************************************************************
+// Timer interrupt - Timer4 (62.5us)
+// Used to drive soft PWM on RGB diode
+//******************************************************************************
+/*void Timer4_interrupt() iv IVT_INT_TIM4{
+  TIM4_SR.UIF = 0;
+  //Enter your code here
+  Timer4_SoftPWM_ISR();
+}*/
 
 void main() {
 
-  Init_GPIO();
-  ADXL345_Init();
-  ITG3200_Init();
-  //Init_FAT();
-  RTC_Init();
   Start_TP();
 
+  Init_GPIO();
+  Init_SDIO();
+  Init_FAT();
+  RTC_Init();
 
   while (1) {
     DisableInterrupts();
     Check_TP();
     EnableInterrupts();
+    Run_logger();
+
   }
 }

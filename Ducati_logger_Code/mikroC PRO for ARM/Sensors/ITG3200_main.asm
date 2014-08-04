@@ -61,23 +61,23 @@ SXTH	R3, R3
 IT	AL
 BAL	L_ITG3200_main_Gyro_Average0
 L_ITG3200_main_Gyro_Average1:
-;ITG3200_main.c,58 :: 		readings[0] = sx >> 4;
+;ITG3200_main.c,58 :: 		gyroreadings[0] = sx >> 4;
 ASRS	R1, R6, #4
 ; sx end address is: 24 (R6)
-MOVW	R0, #lo_addr(_readings+0)
-MOVT	R0, #hi_addr(_readings+0)
+MOVW	R0, #lo_addr(_gyroreadings+0)
+MOVT	R0, #hi_addr(_gyroreadings+0)
 STRH	R1, [R0, #0]
-;ITG3200_main.c,59 :: 		readings[1] = sy >> 4;
+;ITG3200_main.c,59 :: 		gyroreadings[1] = sy >> 4;
 ASRS	R1, R5, #4
 ; sy end address is: 20 (R5)
-MOVW	R0, #lo_addr(_readings+2)
-MOVT	R0, #hi_addr(_readings+2)
+MOVW	R0, #lo_addr(_gyroreadings+2)
+MOVT	R0, #hi_addr(_gyroreadings+2)
 STRH	R1, [R0, #0]
-;ITG3200_main.c,60 :: 		readings[2] = sz >> 4;
+;ITG3200_main.c,60 :: 		gyroreadings[2] = sz >> 4;
 ASRS	R1, R4, #4
 ; sz end address is: 16 (R4)
-MOVW	R0, #lo_addr(_readings+4)
-MOVT	R0, #hi_addr(_readings+4)
+MOVW	R0, #lo_addr(_gyroreadings+4)
+MOVT	R0, #hi_addr(_gyroreadings+4)
 STRH	R1, [R0, #0]
 ;ITG3200_main.c,61 :: 		}
 L_end_Gyro_Average:
@@ -552,13 +552,13 @@ MOV	R2, R0
 ;ITG3200_main.c,187 :: 		*test = 0;
 MOVS	R1, #0
 STRB	R1, [R2, #0]
-;ITG3200_main.c,190 :: 		I2C2_Init_Advanced(400000, &_GPIO_MODULE_I2C2_PF01);
+;ITG3200_main.c,190 :: 		I2C1_Init_Advanced(400000, &_GPIO_MODULE_I2C2_PF01);
 STR	R2, [SP, #4]
 MOVW	R1, #lo_addr(__GPIO_MODULE_I2C2_PF01+0)
 MOVT	R1, #hi_addr(__GPIO_MODULE_I2C2_PF01+0)
 MOVW	R0, #6784
 MOVT	R0, #6
-BL	_I2C2_Init_Advanced+0
+BL	_I2C1_Init_Advanced+0
 ;ITG3200_main.c,191 :: 		Delay_ms(100);
 MOVW	R7, #19262
 MOVT	R7, #76
@@ -623,22 +623,22 @@ STR	LR, [SP, #0]
 STR	R0, [SP, #4]
 BL	ITG3200_main_Gyro_Average+0
 LDR	R0, [SP, #4]
-;ITG3200_main.c,213 :: 		values->GyroXvalue = readings[0];
-MOVW	R1, #lo_addr(_readings+0)
-MOVT	R1, #hi_addr(_readings+0)
+;ITG3200_main.c,213 :: 		values->GyroXvalue = gyroreadings[0];
+MOVW	R1, #lo_addr(_gyroreadings+0)
+MOVT	R1, #hi_addr(_gyroreadings+0)
 LDRSH	R1, [R1, #0]
 STRH	R1, [R0, #0]
-;ITG3200_main.c,214 :: 		values->GyroYvalue = readings[1];
+;ITG3200_main.c,214 :: 		values->GyroYvalue = gyroreadings[1];
 ADDS	R2, R0, #2
-MOVW	R1, #lo_addr(_readings+2)
-MOVT	R1, #hi_addr(_readings+2)
+MOVW	R1, #lo_addr(_gyroreadings+2)
+MOVT	R1, #hi_addr(_gyroreadings+2)
 LDRSH	R1, [R1, #0]
 STRH	R1, [R2, #0]
-;ITG3200_main.c,215 :: 		values->GyroZvalue = readings[2];
+;ITG3200_main.c,215 :: 		values->GyroZvalue = gyroreadings[2];
 ADDS	R2, R0, #4
 ; values end address is: 0 (R0)
-MOVW	R1, #lo_addr(_readings+4)
-MOVT	R1, #hi_addr(_readings+4)
+MOVW	R1, #lo_addr(_gyroreadings+4)
+MOVT	R1, #hi_addr(_gyroreadings+4)
 LDRSH	R1, [R1, #0]
 STRH	R1, [R2, #0]
 ;ITG3200_main.c,216 :: 		}

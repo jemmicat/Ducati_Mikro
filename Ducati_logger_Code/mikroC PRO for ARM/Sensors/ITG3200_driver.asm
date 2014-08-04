@@ -10,25 +10,25 @@ UXTB	R6, R1
 ; address end address is: 0 (R0)
 ; address start address is: 20 (R5)
 ; data1 start address is: 24 (R6)
-;ITG3200_driver.c,25 :: 		I2C2_Start();              // issue I2C start signal
-BL	_I2C2_Start+0
-;ITG3200_driver.c,26 :: 		data_[0] = address;
-MOVW	R2, #lo_addr(_data_+0)
-MOVT	R2, #hi_addr(_data_+0)
+;ITG3200_driver.c,25 :: 		I2C1_Start();              // issue I2C start signal
+BL	_I2C1_Start+0
+;ITG3200_driver.c,26 :: 		gyrodata_[0] = address;
+MOVW	R2, #lo_addr(_gyrodata_+0)
+MOVT	R2, #hi_addr(_gyrodata_+0)
 STRB	R5, [R2, #0]
 ; address end address is: 20 (R5)
-;ITG3200_driver.c,27 :: 		data_[1] = data1;
-MOVW	R2, #lo_addr(_data_+1)
-MOVT	R2, #hi_addr(_data_+1)
+;ITG3200_driver.c,27 :: 		gyrodata_[1] = data1;
+MOVW	R2, #lo_addr(_gyrodata_+1)
+MOVT	R2, #hi_addr(_gyrodata_+1)
 STRB	R6, [R2, #0]
 ; data1 end address is: 24 (R6)
-;ITG3200_driver.c,28 :: 		I2C2_Write(_GYRO_ADDRESS, data_, 2, END_MODE_STOP);
+;ITG3200_driver.c,28 :: 		I2C1_Write(_GYRO_ADDRESS, gyrodata_, 2, END_MODE_STOP);
 MOVW	R3, #1
 MOVS	R2, #2
-MOVW	R1, #lo_addr(_data_+0)
-MOVT	R1, #hi_addr(_data_+0)
+MOVW	R1, #lo_addr(_gyrodata_+0)
+MOVT	R1, #hi_addr(_gyrodata_+0)
 MOVS	R0, #105
-BL	_I2C2_Write+0
+BL	_I2C1_Write+0
 ;ITG3200_driver.c,29 :: 		}
 L_end_ITG3200_Write:
 LDR	LR, [SP, #0]
@@ -48,59 +48,59 @@ STR	R2, [SP, #4]
 ; data_X end address is: 0 (R0)
 ; data_X start address is: 44 (R11)
 ; data_Y start address is: 48 (R12)
-;ITG3200_driver.c,39 :: 		data_[0] = _GYRODATAX0;
+;ITG3200_driver.c,39 :: 		gyrodata_[0] = _GYRODATAX0;
 MOVS	R4, #29
-MOVW	R3, #lo_addr(_data_+0)
-MOVT	R3, #hi_addr(_data_+0)
+MOVW	R3, #lo_addr(_gyrodata_+0)
+MOVT	R3, #hi_addr(_gyrodata_+0)
 STRB	R4, [R3, #0]
-;ITG3200_driver.c,40 :: 		I2C2_Start();              // issue I2C start signal
-BL	_I2C2_Start+0
-;ITG3200_driver.c,41 :: 		I2C2_Write(_GYRO_ADDRESS, data_, 1, END_MODE_RESTART);
+;ITG3200_driver.c,40 :: 		I2C1_Start();              // issue I2C start signal
+BL	_I2C1_Start+0
+;ITG3200_driver.c,41 :: 		I2C1_Write(_GYRO_ADDRESS, gyrodata_, 1, END_MODE_RESTART);
 MOVW	R3, #0
 MOVS	R2, #1
-MOVW	R1, #lo_addr(_data_+0)
-MOVT	R1, #hi_addr(_data_+0)
+MOVW	R1, #lo_addr(_gyrodata_+0)
+MOVT	R1, #hi_addr(_gyrodata_+0)
 MOVS	R0, #105
-BL	_I2C2_Write+0
-;ITG3200_driver.c,42 :: 		I2C2_Read(_GYRO_ADDRESS, data_, 6, END_MODE_STOP);
+BL	_I2C1_Write+0
+;ITG3200_driver.c,42 :: 		I2C1_Read(_GYRO_ADDRESS, gyrodata_, 6, END_MODE_STOP);
 MOVW	R3, #1
 MOVS	R2, #6
-MOVW	R1, #lo_addr(_data_+0)
-MOVT	R1, #hi_addr(_data_+0)
+MOVW	R1, #lo_addr(_gyrodata_+0)
+MOVT	R1, #hi_addr(_gyrodata_+0)
 MOVS	R0, #105
-BL	_I2C2_Read+0
-;ITG3200_driver.c,44 :: 		*data_X = data_[0] + (data_[1] << 8);
-MOVW	R3, #lo_addr(_data_+1)
-MOVT	R3, #hi_addr(_data_+1)
+BL	_I2C1_Read+0
+;ITG3200_driver.c,44 :: 		*data_X = gyrodata_[0] + (gyrodata_[1] << 8);
+MOVW	R3, #lo_addr(_gyrodata_+1)
+MOVT	R3, #hi_addr(_gyrodata_+1)
 LDRB	R3, [R3, #0]
 LSLS	R4, R3, #8
 UXTH	R4, R4
-MOVW	R3, #lo_addr(_data_+0)
-MOVT	R3, #hi_addr(_data_+0)
+MOVW	R3, #lo_addr(_gyrodata_+0)
+MOVT	R3, #hi_addr(_gyrodata_+0)
 LDRB	R3, [R3, #0]
 ADDS	R3, R3, R4
 STRH	R3, [R11, #0]
 ; data_X end address is: 44 (R11)
-;ITG3200_driver.c,45 :: 		*data_Y = data_[2] + (data_[3] << 8);
-MOVW	R3, #lo_addr(_data_+3)
-MOVT	R3, #hi_addr(_data_+3)
+;ITG3200_driver.c,45 :: 		*data_Y = gyrodata_[2] + (gyrodata_[3] << 8);
+MOVW	R3, #lo_addr(_gyrodata_+3)
+MOVT	R3, #hi_addr(_gyrodata_+3)
 LDRB	R3, [R3, #0]
 LSLS	R4, R3, #8
 UXTH	R4, R4
-MOVW	R3, #lo_addr(_data_+2)
-MOVT	R3, #hi_addr(_data_+2)
+MOVW	R3, #lo_addr(_gyrodata_+2)
+MOVT	R3, #hi_addr(_gyrodata_+2)
 LDRB	R3, [R3, #0]
 ADDS	R3, R3, R4
 STRH	R3, [R12, #0]
 ; data_Y end address is: 48 (R12)
-;ITG3200_driver.c,46 :: 		*data_Z = data_[4] + (data_[5] << 8);
-MOVW	R3, #lo_addr(_data_+5)
-MOVT	R3, #hi_addr(_data_+5)
+;ITG3200_driver.c,46 :: 		*data_Z = gyrodata_[4] + (gyrodata_[5] << 8);
+MOVW	R3, #lo_addr(_gyrodata_+5)
+MOVT	R3, #hi_addr(_gyrodata_+5)
 LDRB	R3, [R3, #0]
 LSLS	R4, R3, #8
 UXTH	R4, R4
-MOVW	R3, #lo_addr(_data_+4)
-MOVT	R3, #hi_addr(_data_+4)
+MOVW	R3, #lo_addr(_gyrodata_+4)
+MOVT	R3, #hi_addr(_gyrodata_+4)
 LDRB	R3, [R3, #0]
 ADDS	R4, R3, R4
 LDR	R3, [SP, #4]
@@ -119,30 +119,30 @@ STR	LR, [SP, #0]
 UXTB	R5, R0
 ; address end address is: 0 (R0)
 ; address start address is: 20 (R5)
-;ITG3200_driver.c,57 :: 		I2C2_Start();              // issue I2C start signal
-BL	_I2C2_Start+0
-;ITG3200_driver.c,58 :: 		data_[0] = address;
-MOVW	R1, #lo_addr(_data_+0)
-MOVT	R1, #hi_addr(_data_+0)
+;ITG3200_driver.c,57 :: 		I2C1_Start();              // issue I2C start signal
+BL	_I2C1_Start+0
+;ITG3200_driver.c,58 :: 		gyrodata_[0] = address;
+MOVW	R1, #lo_addr(_gyrodata_+0)
+MOVT	R1, #hi_addr(_gyrodata_+0)
 STRB	R5, [R1, #0]
 ; address end address is: 20 (R5)
-;ITG3200_driver.c,59 :: 		I2C2_Write(_GYRO_ADDRESS, data_, 1, END_MODE_RESTART);
+;ITG3200_driver.c,59 :: 		I2C1_Write(_GYRO_ADDRESS, gyrodata_, 1, END_MODE_RESTART);
 MOVW	R3, #0
 MOVS	R2, #1
-MOVW	R1, #lo_addr(_data_+0)
-MOVT	R1, #hi_addr(_data_+0)
+MOVW	R1, #lo_addr(_gyrodata_+0)
+MOVT	R1, #hi_addr(_gyrodata_+0)
 MOVS	R0, #105
-BL	_I2C2_Write+0
-;ITG3200_driver.c,60 :: 		I2C2_Read(_GYRO_ADDRESS, data_, 1, END_MODE_STOP);
+BL	_I2C1_Write+0
+;ITG3200_driver.c,60 :: 		I2C1_Read(_GYRO_ADDRESS, gyrodata_, 1, END_MODE_STOP);
 MOVW	R3, #1
 MOVS	R2, #1
-MOVW	R1, #lo_addr(_data_+0)
-MOVT	R1, #hi_addr(_data_+0)
+MOVW	R1, #lo_addr(_gyrodata_+0)
+MOVT	R1, #hi_addr(_gyrodata_+0)
 MOVS	R0, #105
-BL	_I2C2_Read+0
-;ITG3200_driver.c,61 :: 		return data_[0];
-MOVW	R1, #lo_addr(_data_+0)
-MOVT	R1, #hi_addr(_data_+0)
+BL	_I2C1_Read+0
+;ITG3200_driver.c,61 :: 		return gyrodata_[0];
+MOVW	R1, #lo_addr(_gyrodata_+0)
+MOVT	R1, #hi_addr(_gyrodata_+0)
 LDRB	R0, [R1, #0]
 ;ITG3200_driver.c,62 :: 		}
 L_end_ITG3200_Read_Register:

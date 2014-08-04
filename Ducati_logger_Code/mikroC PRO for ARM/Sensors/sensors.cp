@@ -1,5 +1,5 @@
-#line 1 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
-#line 1 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
+#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
+#line 1 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
 
 typedef struct Screen TScreen;
@@ -638,12 +638,12 @@ void Start_TP();
 void Process_TP_Press(unsigned int X, unsigned int Y);
 void Process_TP_Up(unsigned int X, unsigned int Y);
 void Process_TP_Down(unsigned int X, unsigned int Y);
-#line 9 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
+#line 9 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
 const VREF = 2048 ;
 static int Sensors_counter;
 static short Light_intensity_cnt, FULL_BackLight;
 static char current_intensity;
-#line 21 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
+#line 21 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
 void Sensors_Init(){
  Sensors_counter = 3100;
 
@@ -655,14 +655,14 @@ void Sensors_Init(){
  FULL_BackLight = 1;
  current_intensity = 255;
 }
-#line 40 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
+#line 40 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
 void RedrawLabel(unsigned int BackGround_Color, Tlabel *Label, unsigned int Xoffset, unsigned int Yoffset){
  TFT_Set_Brush(1, BackGround_Color, 0, 0, 0, 0);
  TFT_Set_Pen(BackGround_Color, 0);
  TFT_Rectangle(label->Left, Label->Top, label->Left + Xoffset, Label->Top + Yoffset);
  DrawLabel(Label);
 }
-#line 95 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
+#line 95 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
 static void Get_Temperature(){
  unsigned long temp;
  float temp2;
@@ -678,7 +678,7 @@ static void Get_Temperature(){
  temp2 = temp2 * 10;
 
 }
-#line 118 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
+#line 118 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
 static void Dim_BackLight(char intensity){
  char intensity_cnt;
  if (intensity < current_intensity)
@@ -693,17 +693,17 @@ static void Dim_BackLight(char intensity){
  }
  current_intensity = intensity;
 }
-#line 176 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
+#line 176 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
 void Sensors_Read(){
 unsigned int Light_temp;
  Sensors_counter++;
  if (Sensors_counter > 2000){
  Get_Temperature();
-#line 202 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
+#line 202 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
  Sensors_counter = 0;
  }
 }
-#line 213 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
+#line 213 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/sensors.c"
 void Stop_sensors(){
  Dim_BackLight(0);
 }
