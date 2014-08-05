@@ -552,13 +552,13 @@ MOV	R2, R0
 ;ITG3200_main.c,187 :: 		*test = 0;
 MOVS	R1, #0
 STRB	R1, [R2, #0]
-;ITG3200_main.c,190 :: 		I2C1_Init_Advanced(400000, &_GPIO_MODULE_I2C2_PF01);
+;ITG3200_main.c,190 :: 		I2C2_Init_Advanced(400000, &_GPIO_MODULE_I2C2_PF01);
 STR	R2, [SP, #4]
 MOVW	R1, #lo_addr(__GPIO_MODULE_I2C2_PF01+0)
 MOVT	R1, #hi_addr(__GPIO_MODULE_I2C2_PF01+0)
 MOVW	R0, #6784
 MOVT	R0, #6
-BL	_I2C1_Init_Advanced+0
+BL	_I2C2_Init_Advanced+0
 ;ITG3200_main.c,191 :: 		Delay_ms(100);
 MOVW	R7, #19262
 MOVT	R7, #76

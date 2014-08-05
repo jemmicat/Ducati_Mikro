@@ -187,7 +187,7 @@ void GYRO_Start(char *test) {
   *test = 0;
 
   // Initialize I2C communication
-  I2C1_Init_Advanced(400000, &_GPIO_MODULE_I2C2_PF01);
+  I2C2_Init_Advanced(400000, &_GPIO_MODULE_I2C2_PF01);
   Delay_ms(100);
   // Initialize ITG3200 Gyro
   if (ITG3200_Init() == 0) {

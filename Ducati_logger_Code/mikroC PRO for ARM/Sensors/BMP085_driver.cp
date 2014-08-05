@@ -1,6 +1,6 @@
-#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/BMP085_driver.c"
-#line 1 "c:/users/jemmi/documents/mikroelektronika/mikroc pro for arm/include/built_in.h"
-#line 8 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/BMP085_driver.c"
+#line 1 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/BMP085_driver.c"
+#line 1 "c:/users/jjmcdo1/documents/mikroelektronika/mikroc pro for arm/include/built_in.h"
+#line 8 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/BMP085_driver.c"
 const unsigned char OSS = 0;
 
 
@@ -37,7 +37,7 @@ const float p0 = 101325;
 int bmp085ReadInt(unsigned char address)
 {
  unsigned char msb, lsb;
-#line 55 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/BMP085_driver.c"
+#line 55 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/BMP085_driver.c"
  return (int) msb<<8 | lsb;
 }
 
@@ -115,7 +115,7 @@ long bmp085GetPressure(unsigned long up)
 char bmp085Read(unsigned char address)
 {
  unsigned char data;
-#line 142 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/BMP085_driver.c"
+#line 142 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/BMP085_driver.c"
 }
 
 
@@ -124,7 +124,7 @@ char bmp085Read(unsigned char address)
 unsigned int bmp085ReadUT()
 {
  unsigned int ut;
-#line 162 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/BMP085_driver.c"
+#line 162 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/BMP085_driver.c"
  ut = bmp085ReadInt(0xF6);
  return ut;
 }
@@ -134,7 +134,7 @@ unsigned long bmp085ReadUP()
 {
  unsigned char msb, lsb, xlsb;
  unsigned long up = 0;
-#line 194 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/BMP085_driver.c"
+#line 194 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/BMP085_driver.c"
  up = (((unsigned long) msb << 16) | ((unsigned long) lsb << 8) | (unsigned long) xlsb) >> (8-OSS);
 
  return up;

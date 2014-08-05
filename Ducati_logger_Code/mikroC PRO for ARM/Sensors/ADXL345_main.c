@@ -23,7 +23,7 @@ void TFT_mikromedia_Write_Command(unsigned short cmd);
 void TFT_mikromedia_Set_Index(unsigned short index);
 
 //  globals
-char accelout[16];
+char out[16];
 int readings[3] = {0, 0, 0}; // X, Y and Z buffer
 
 typedef struct Accel_values{
