@@ -7,8 +7,8 @@
 #include "ducati_logger_objects.h"
 
 // externals
-void HMC5883L_Read(int *data_X, int *data_Y, int *data_Z);
-char HMC5883L_Init();
+void MAGNET_Read(int *data_X, int *data_Y, int *data_Z);
+char MAGNET_Init();
 void Scroll_Undone(unsigned int first, unsigned int last);
 void Scroll(unsigned int scroll);
 
@@ -19,8 +19,8 @@ const _SCROLL_MAGNET_FIRST_LINE = 41, _SCROLL_MAGNET_LAST_LINE = 246;
 int _disp_magnet_scroll = _SCROLL_MAGNET_FIRST_LINE;
 
 // external TFT write commands
-void TFT_mikromedia_Write_Command(unsigned short cmd);
-void TFT_mikromedia_Set_Index(unsigned short index);
+void Write_Command(unsigned short cmd);
+void Set_Index(unsigned short index);
 
 //  globals
 char magnetout[16];
@@ -49,7 +49,7 @@ static void Magnet_Average() {
 
   // average accelerometer reading over last 16 samples
   for (i=0; i<16; i++) {
-    HMC5883L_Read(&xx, &yy, &zz);
+    MAGNET_Read(&xx, &yy, &zz);
     sx += xx;
     sy += yy;
     sz += zz;
@@ -176,13 +176,13 @@ void MAGNET_Stop(){
 }
 
 /*******************************************************************************
-* Function ACCEL_Start()
+* Function MAGNET_Start()
 * ------------------------------------------------------------------------------
 * Overview: Function Initialize I2C bus and magnet module
 * Input: Nothing
 * Output: test status: 0 - skiped; 1 - pass; 2 - fail
 *******************************************************************************/
-void HMC5883L_Start(char *test) {
+void MAGNET_Start(char *test) {
   // Reset error flag
   *test = 0;
 
@@ -190,7 +190,7 @@ void HMC5883L_Start(char *test) {
   I2C2_Init_Advanced(400000, &_GPIO_MODULE_I2C1_PB67);
   Delay_ms(100);
   // Initialize HMC5883L accelerometer
-  if (HMC5883L_Init() == 0) {
+  if (MAGNET_Init() == 0) {
     *test = 1;
     Delay_ms(500);
   }
@@ -207,7 +207,7 @@ void HMC5883L_Start(char *test) {
 * Input: Nothing
 * Output: Nothing
 *******************************************************************************/
-static void HMC5883L_Test(TMagnet_values *values) {
+static void MAGNET_Test(TMagnet_values *values) {
   Magnet_Average();               // Calculate average X, Y and Z reads
 
   values->Xvalue = magnetreadings[0];
@@ -225,15 +225,15 @@ TMagnet_values Magnet_vals, Old_Magnet_vals = {0, 0, 0};
 * Output: Nothing
 *******************************************************************************/
 void doMagnet(){
-  HMC5883L_Test(&Magnet_vals);
+  MAGNET_Test(&Magnet_vals);
   Scroll_MAGNET(_MAGNET_UP);
   Scroll_Add_Line(_MAGNET_UP);
   WriteGraph(&Old_Magnet_vals, &Magnet_vals);
   Old_magnet_vals = Magnet_vals;
   
-  Display_Value(&LAbel2, Magnet_vals.Xvalue);
-  Display_Value(&LAbel3, Magnet_vals.Yvalue);
-  Display_Value(&LAbel4, Magnet_vals.Zvalue);
+  Display_Value(&Label35, Magnet_vals.Xvalue);
+  Display_Value(&Label36, Magnet_vals.Yvalue);
+  Display_Value(&Label37, Magnet_vals.Zvalue);
 }
 
 /*******************************************************************************

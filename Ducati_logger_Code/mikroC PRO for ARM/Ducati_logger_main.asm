@@ -18,12 +18,20 @@ BL	_DisableInterrupts+0
 BL	_Check_TP+0
 ;Ducati_logger_main.c,55 :: 		EnableInterrupts();
 BL	_EnableInterrupts+0
-;Ducati_logger_main.c,56 :: 		Run_logger();
+;Ducati_logger_main.c,56 :: 		DrawScreen(&Boot);
+MOVW	R0, #lo_addr(_Boot+0)
+MOVT	R0, #hi_addr(_Boot+0)
+BL	_DrawScreen+0
+;Ducati_logger_main.c,57 :: 		DrawScreen(&Speedometer_graphics);
+MOVW	R0, #lo_addr(_Speedometer_graphics+0)
+MOVT	R0, #hi_addr(_Speedometer_graphics+0)
+BL	_DrawScreen+0
+;Ducati_logger_main.c,58 :: 		Run_logger();
 BL	_Run_logger+0
-;Ducati_logger_main.c,58 :: 		}
+;Ducati_logger_main.c,60 :: 		}
 IT	AL
 BAL	L_main0
-;Ducati_logger_main.c,59 :: 		}
+;Ducati_logger_main.c,61 :: 		}
 L_end_main:
 L__main_end_loop:
 B	L__main_end_loop

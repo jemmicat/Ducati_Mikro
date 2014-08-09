@@ -1,6 +1,6 @@
-#line 1 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/HMC5883L_main.c"
-#line 1 "c:/users/jjmcdo1/documents/mikroelektronika/mikroc pro for arm/include/built_in.h"
-#line 1 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
+#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/HMC5883L_main.c"
+#line 1 "c:/users/jemmi/documents/mikroelektronika/mikroc pro for arm/include/built_in.h"
+#line 1 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
 
 typedef struct Screen TScreen;
@@ -446,6 +446,18 @@ extern TLabel * const code Screen10_Labels[4];
 extern TImage * const code Screen10_Images[1];
 extern TBox * const code Screen10_Boxes[2];
 
+extern TScreen Humidity_test;
+extern TBox Box21;
+extern TBox Box22;
+extern TImage Image55;
+extern TLabel Label42;
+extern TLabel Label43;
+extern TLabel Label44;
+extern TLabel Label45;
+extern TLabel * const code Screen11_Labels[4];
+extern TImage * const code Screen11_Images[1];
+extern TBox * const code Screen11_Boxes[2];
+
 
 
 
@@ -622,6 +634,13 @@ extern char Label38_Caption[];
 extern char Label39_Caption[];
 extern char Label40_Caption[];
 extern char Label41_Caption[];
+extern char Box21_Caption[];
+extern char Box22_Caption[];
+extern char Image55_Caption[];
+extern char Label42_Caption[];
+extern char Label43_Caption[];
+extern char Label44_Caption[];
+extern char Label45_Caption[];
 
 
 void DrawScreen(TScreen *aScreen);
@@ -639,9 +658,9 @@ void Start_TP();
 void Process_TP_Press(unsigned int X, unsigned int Y);
 void Process_TP_Up(unsigned int X, unsigned int Y);
 void Process_TP_Down(unsigned int X, unsigned int Y);
-#line 10 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/HMC5883L_main.c"
-void HMC5883L_Read(int *data_X, int *data_Y, int *data_Z);
-char HMC5883L_Init();
+#line 10 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/HMC5883L_main.c"
+void MAGNET_Read(int *data_X, int *data_Y, int *data_Z);
+char MAGNET_Init();
 void Scroll_Undone(unsigned int first, unsigned int last);
 void Scroll(unsigned int scroll);
 
@@ -652,8 +671,8 @@ const _SCROLL_MAGNET_FIRST_LINE = 41, _SCROLL_MAGNET_LAST_LINE = 246;
 int _disp_magnet_scroll = _SCROLL_MAGNET_FIRST_LINE;
 
 
-void TFT_mikromedia_Write_Command(unsigned short cmd);
-void TFT_mikromedia_Set_Index(unsigned short index);
+void Write_Command(unsigned short cmd);
+void Set_Index(unsigned short index);
 
 
 char magnetout[16];
@@ -666,7 +685,7 @@ typedef struct Magnet_values{
 } TMagnet_values;
 
 char cMAGNET_test_status;
-#line 44 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/HMC5883L_main.c"
+#line 44 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/HMC5883L_main.c"
 static void Magnet_Average() {
  int i, sx, sy, sz, xx, yy, zz;
 
@@ -675,7 +694,7 @@ static void Magnet_Average() {
 
 
  for (i=0; i<16; i++) {
- HMC5883L_Read(&xx, &yy, &zz);
+ MAGNET_Read(&xx, &yy, &zz);
  sx += xx;
  sy += yy;
  sz += zz;
@@ -685,7 +704,7 @@ static void Magnet_Average() {
  magnetreadings[1] = sy >> 4;
  magnetreadings[2] = sz >> 4;
 }
-#line 70 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/HMC5883L_main.c"
+#line 70 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/HMC5883L_main.c"
 static void Display_Value(TLabel *label, int val) {
 char text[7];
 char text1[10];
@@ -703,7 +722,7 @@ char *ptr;
 }
 
 const _MAGNET_UP = 1, _MAGNET_DOWN = 0;
-#line 95 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/HMC5883L_main.c"
+#line 95 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/HMC5883L_main.c"
 static void Scroll_MAGNET(char Adir) {
 unsigned int _temp;
 
@@ -724,7 +743,7 @@ if (Adir == _MAGNET_UP) {
 
  Scroll(_disp_magnet_scroll);
 }
-#line 123 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/HMC5883L_main.c"
+#line 123 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/HMC5883L_main.c"
 static void WriteGraph(Tmagnet_values *old, Tmagnet_values *new){
 int temp1, temp2;
  if ((_disp_magnet_scroll < _SCROLL_MAGNET_LAST_LINE - 2) && (_disp_magnet_scroll > _SCROLL_MAGNET_FIRST_LINE)){
@@ -744,7 +763,7 @@ int temp1, temp2;
  TFT_Line(temp1, _disp_magnet_scroll + 2, temp2, _disp_magnet_scroll + 1);
  }
 }
-#line 150 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/HMC5883L_main.c"
+#line 150 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/HMC5883L_main.c"
 static void Scroll_Add_Line(char ScrollDirection){
 int i, temp;
  if (ScrollDirection > 0){
@@ -761,12 +780,12 @@ int i, temp;
  TFT_CS = 1;
  }
 }
-#line 174 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/HMC5883L_main.c"
+#line 174 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/HMC5883L_main.c"
 void MAGNET_Stop(){
  Scroll_Undone(_SCROLL_MAGNET_FIRST_LINE, _SCROLL_MAGNET_LAST_LINE);
 }
-#line 185 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/HMC5883L_main.c"
-void HMC5883L_Start(char *test) {
+#line 185 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/HMC5883L_main.c"
+void MAGNET_Start(char *test) {
 
  *test = 0;
 
@@ -774,7 +793,7 @@ void HMC5883L_Start(char *test) {
  I2C2_Init_Advanced(400000, &_GPIO_MODULE_I2C1_PB67);
  Delay_ms(100);
 
- if (HMC5883L_Init() == 0) {
+ if (MAGNET_Init() == 0) {
  *test = 1;
  Delay_ms(500);
  }
@@ -783,8 +802,8 @@ void HMC5883L_Start(char *test) {
  }
  Scroll_Undone(_SCROLL_MAGNET_FIRST_LINE, _SCROLL_MAGNET_LAST_LINE);
 }
-#line 210 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/HMC5883L_main.c"
-static void HMC5883L_Test(TMagnet_values *values) {
+#line 210 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/HMC5883L_main.c"
+static void MAGNET_Test(TMagnet_values *values) {
  Magnet_Average();
 
  values->Xvalue = magnetreadings[0];
@@ -793,15 +812,15 @@ static void HMC5883L_Test(TMagnet_values *values) {
 }
 
 TMagnet_values Magnet_vals, Old_Magnet_vals = {0, 0, 0};
-#line 227 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/HMC5883L_main.c"
+#line 227 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/HMC5883L_main.c"
 void doMagnet(){
- HMC5883L_Test(&Magnet_vals);
+ MAGNET_Test(&Magnet_vals);
  Scroll_MAGNET(_MAGNET_UP);
  Scroll_Add_Line(_MAGNET_UP);
  WriteGraph(&Old_Magnet_vals, &Magnet_vals);
  Old_magnet_vals = Magnet_vals;
 
- Display_Value(&LAbel2, Magnet_vals.Xvalue);
- Display_Value(&LAbel3, Magnet_vals.Yvalue);
- Display_Value(&LAbel4, Magnet_vals.Zvalue);
+ Display_Value(&Label35, Magnet_vals.Xvalue);
+ Display_Value(&Label36, Magnet_vals.Yvalue);
+ Display_Value(&Label37, Magnet_vals.Zvalue);
 }

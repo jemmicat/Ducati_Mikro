@@ -53,6 +53,8 @@ void main() {
     DisableInterrupts();
     Check_TP();
     EnableInterrupts();
+    DrawScreen(&Boot);
+    DrawScreen(&Speedometer_graphics);
     Run_logger();
 
   }

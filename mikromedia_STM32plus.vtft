@@ -92,8 +92,6 @@ object TatDiagram
   BorderStyle = bsSingle
   Color = 10134825
   ParentColor = False
-  ExplicitWidth = 200
-  ExplicitHeight = 200
   object Image1: TDgrImage
     Tag = 255
     Left = 46.000000000000000000
@@ -717,6 +715,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 76
+    OriginalHeight = 76
     Collapsed = False
   end
   object Image3: TDgrImage
@@ -1342,6 +1342,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 76
+    OriginalHeight = 76
     Collapsed = False
   end
   object Label5: TDgrLabel
@@ -2216,6 +2218,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 76
+    OriginalHeight = 76
     Collapsed = False
   end
   object Label14: TDgrLabel
@@ -2427,6 +2431,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 23
+    OriginalHeight = 20
     Collapsed = False
   end
   object Label19: TDgrLabel
@@ -3135,6 +3141,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 76
+    OriginalHeight = 76
     Collapsed = False
   end
   object Label20: TDgrLabel
@@ -3843,6 +3851,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 76
+    OriginalHeight = 76
     Collapsed = False
   end
   object Label25: TDgrLabel
@@ -4553,6 +4563,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 76
+    OriginalHeight = 76
     Collapsed = False
   end
   object Label30: TDgrLabel
@@ -5263,6 +5275,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 76
+    OriginalHeight = 76
     Collapsed = False
   end
   object Label34: TDgrLabel
@@ -5973,6 +5987,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 76
+    OriginalHeight = 76
     Collapsed = False
   end
   object Label40: TDgrLabel
@@ -6223,11 +6239,13 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 44
+    OriginalHeight = 20
     Collapsed = False
   end
 end
 object TatDiagram
-  LastSelControl = 'Box23'
+  LastSelControl = 'Label2'
   NettoExportOffset = 1
   AutomaticNodes = False
   AutoScroll = True
@@ -6320,8 +6338,6 @@ object TatDiagram
   BorderStyle = bsSingle
   Color = 5063744
   ParentColor = False
-  ExplicitWidth = 200
-  ExplicitHeight = 200
   object Box23: TDgrBox
     Tag = 255
     Left = 4.000000000000000000
@@ -6597,6 +6613,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clBlack
+    OriginalWidth = 22
+    OriginalHeight = 22
     Collapsed = False
   end
   object Label1: TDgrLabel
@@ -7313,6 +7331,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 22
+    OriginalHeight = 22
     Collapsed = False
   end
   object Label10: TDgrLabel
@@ -7892,6 +7912,8 @@ object TatDiagram
   BorderStyle = bsSingle
   Color = 1743186
   ParentColor = False
+  ExplicitWidth = 200
+  ExplicitHeight = 200
   object Box16: TDgrBox
     Tag = 255
     Left = 5.000000000000000000
@@ -8635,6 +8657,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 22
+    OriginalHeight = 22
     Collapsed = False
   end
   object Label17: TDgrLabel
@@ -8930,6 +8954,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 22
+    OriginalHeight = 22
     Collapsed = False
   end
   object Image8: TDgrImage
@@ -9060,6 +9086,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 22
+    OriginalHeight = 22
     Collapsed = False
   end
   object Box4: TDgrBox
@@ -11794,12 +11822,15 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 36
+    OriginalHeight = 740
     Collapsed = False
   end
   object Label42: TDgrLabel
     Tag = 255
     Left = 15.000000000000000000
     Top = 235.000000000000000000
+    Width = 50.000000000000000000
     Height = 19.328613281250000000
     Brush.Style = bsClear
     SelBrush.Style = bsClear
@@ -13244,6 +13275,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 90
+    OriginalHeight = 151
     Collapsed = False
   end
   object Box14: TDgrBox
@@ -13862,6 +13895,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 45
+    OriginalHeight = 50
     Collapsed = False
   end
   object LightIcon: TDgrImage
@@ -14157,6 +14192,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 45
+    OriginalHeight = 50
     Collapsed = False
   end
   object Diagram5_Label1: TDgrLabel
@@ -14702,6 +14739,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 22
+    OriginalHeight = 22
     Collapsed = False
   end
   object Diagram5_Label6: TDgrLabel
@@ -14792,7 +14831,7 @@ object TatDiagram
     Tag = 255
     Left = 192.000000000000000000
     Top = 161.000000000000000000
-    Width = 7.372558593750001000
+    Width = 7.372558593750000000
     Height = 31.223144531250000000
     Brush.Style = bsClear
     SelBrush.Style = bsClear
@@ -14873,7 +14912,7 @@ object TatDiagram
   end
 end
 object TatDiagram
-  LastSelControl = 'mp3_back_icon'
+  LastSelControl = 'Label23'
   NettoExportOffset = 1
   AutomaticNodes = False
   AutoScroll = True
@@ -15046,8 +15085,8 @@ object TatDiagram
     Tag = 255
     Left = 32.000000000000000000
     Top = 2.000000000000000000
-    Width = 108.506835937500000000
-    Height = 31.223144531250000000
+    Width = 111.644531250000000000
+    Height = 26.393554687500000000
     Brush.Style = bsClear
     SelBrush.Style = bsClear
     Color = clWhite
@@ -15130,8 +15169,8 @@ object TatDiagram
     Tag = 255
     Left = 160.000000000000000000
     Top = 128.000000000000000000
-    Width = 146.664058685302700000
-    Height = 23.789062500000000000
+    Width = 145.281246185302700000
+    Height = 20.109375000000000000
     Brush.Style = bsClear
     SelBrush.Style = bsClear
     Color = clWhite
@@ -15434,6 +15473,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 45
+    OriginalHeight = 34
     Collapsed = False
   end
   object Image12: TDgrImage
@@ -15544,6 +15585,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 23
+    OriginalHeight = 12
     Collapsed = False
   end
   object Image13: TDgrImage
@@ -15654,6 +15697,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 23
+    OriginalHeight = 12
     Collapsed = False
   end
   object Image14: TDgrImage
@@ -15764,6 +15809,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 23
+    OriginalHeight = 12
     Collapsed = False
   end
   object mp3_back_icon: TDgrImage
@@ -15894,6 +15941,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 22
+    OriginalHeight = 22
     Collapsed = False
   end
 end
@@ -15991,8 +16040,6 @@ object TatDiagram
   BorderStyle = bsSingle
   Color = 12552256
   ParentColor = False
-  ExplicitWidth = 200
-  ExplicitHeight = 200
   object Box19: TDgrBox
     Tag = 255
     Left = 4.000000000000000000
@@ -16355,6 +16402,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 22
+    OriginalHeight = 22
     Collapsed = False
   end
   object Label26: TDgrLabel
@@ -16533,6 +16582,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 13
+    OriginalHeight = 10
     Collapsed = False
   end
   object file_icon: TDgrImage
@@ -16626,6 +16677,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 10
+    OriginalHeight = 10
     Collapsed = False
   end
 end
@@ -16681,7 +16734,7 @@ object TatDiagram
   TopRuler.Size = 16
   TopRuler.AutoFactor = False
   TopRuler.GridColor = clBlack
-  Zoom = 209
+  Zoom = 208
   BorderColor = clGray
   VertScrollBar.Smooth = True
   MouseWheelMode = mwOff
@@ -17014,6 +17067,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 22
+    OriginalHeight = 22
     Collapsed = False
   end
   object VolmeBar: TDgrBox
@@ -17197,6 +17252,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 19
+    OriginalHeight = 13
     Collapsed = False
   end
   object ProgressBar: TDgrBox
@@ -17460,6 +17517,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 13
+    OriginalHeight = 13
     Collapsed = False
   end
   object pause_icon: TDgrImage
@@ -17563,6 +17622,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 13
+    OriginalHeight = 13
     Collapsed = False
   end
   object Play_icon: TDgrImage
@@ -17665,6 +17726,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 13
+    OriginalHeight = 13
     Collapsed = False
   end
   object stop_icon: TDgrImage
@@ -17767,6 +17830,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 13
+    OriginalHeight = 13
     Collapsed = False
   end
   object next_icon: TDgrImage
@@ -17869,6 +17934,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 13
+    OriginalHeight = 13
     Collapsed = False
   end
   object songlist_icon: TDgrImage
@@ -17991,6 +18058,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 19
+    OriginalHeight = 19
     Collapsed = False
   end
   object Label6: TDgrLabel
@@ -18423,6 +18492,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 32
+    OriginalHeight = 32
     Collapsed = False
   end
   object NewScreen: TDgrImage
@@ -18602,6 +18673,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 32
+    OriginalHeight = 32
     Collapsed = False
   end
   object Image25: TDgrImage
@@ -18780,6 +18853,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 32
+    OriginalHeight = 32
     Collapsed = False
   end
   object Pen: TDgrImage
@@ -18959,6 +19034,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 32
+    OriginalHeight = 32
     Collapsed = False
   end
   object Image27: TDgrImage
@@ -19137,6 +19214,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 32
+    OriginalHeight = 32
     Collapsed = False
   end
   object Eraser: TDgrImage
@@ -19316,6 +19395,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 32
+    OriginalHeight = 32
     Collapsed = False
   end
   object Image29: TDgrImage
@@ -19494,6 +19575,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 32
+    OriginalHeight = 32
     Collapsed = False
   end
   object DrawingArea: TDgrBox
@@ -19702,6 +19785,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 22
+    OriginalHeight = 22
     Collapsed = False
   end
   object Label29: TDgrLabel
@@ -19938,7 +20023,7 @@ object TatDiagram
   object Color03: TDgrBox
     Tag = 255
     Left = 116.502583804038200000
-    Width = 11.999999999999980000
+    Width = 11.999999999999990000
     Height = 31.000000000000000000
     Brush.Style = bsClear
     SelBrush.Style = bsClear
@@ -22184,6 +22269,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 32
+    OriginalHeight = 32
     Collapsed = False
   end
   object Pen1: TDgrBox
@@ -22944,6 +23031,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 22
+    OriginalHeight = 22
     Collapsed = False
   end
   object Label32: TDgrLabel
@@ -23213,6 +23302,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 16
+    OriginalHeight = 12
     Collapsed = False
   end
   object Icon_next: TDgrImage
@@ -23316,6 +23407,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 16
+    OriginalHeight = 12
     Collapsed = False
   end
   object Label35: TDgrLabel
@@ -23529,7 +23622,7 @@ object TatDiagram
   TopRuler.Size = 16
   TopRuler.AutoFactor = False
   TopRuler.GridColor = clBlack
-  Zoom = 170
+  Zoom = 168
   BorderColor = clGray
   VertScrollBar.Smooth = True
   MouseWheelMode = mwOff
@@ -24827,6 +24920,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 22
+    OriginalHeight = 22
     Collapsed = False
   end
   object Label37: TDgrLabel
@@ -25024,6 +25119,8 @@ object TatDiagram
     VolumeClick = 0
     VolumePress = 0
     BlendColor = clWhite
+    OriginalWidth = 18
+    OriginalHeight = 18
     Collapsed = False
   end
   object Label38: TDgrLabel
@@ -26241,7 +26338,7 @@ TRACKING_INDEX      = No window tracking
 TP_I2C_ADDRESS      = 0x88
 FIFO_THRESHOLD_SIZE = 1
 TP_IDRIVE           = 20 mA
-TP_THRESHOLD        = 45
+TP_THRESHOLD        = 70
 ENABLE_INTERRUPTS   = True
 INTERRUPT_TRIGGERS0 = True
 INTERRUPT_TRIGGERS1 = True

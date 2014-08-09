@@ -1,17 +1,21 @@
 _MP3_play:
 ;MP3_main.c,81 :: 		void MP3_play(char *Song_Name, char File_No){
 ; File_No start address is: 4 (R1)
+; Song_Name start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
 STRB	R1, [SP, #4]
 MOV	R1, R0
 LDRB	R0, [SP, #4]
 ; File_No end address is: 4 (R1)
+; Song_Name end address is: 0 (R0)
 ; Song_Name start address is: 4 (R1)
+; File_No start address is: 0 (R0)
 ;MP3_main.c,82 :: 		current_file = File_No;
 MOVW	R2, #lo_addr(_current_file+0)
 MOVT	R2, #hi_addr(_current_file+0)
 STRB	R0, [R2, #0]
+; File_No end address is: 0 (R0)
 ;MP3_main.c,83 :: 		Buffer_count = 0;
 MOVS	R3, #0
 MOVW	R2, #lo_addr(_Buffer_count+0)
@@ -143,6 +147,7 @@ BX	LR
 ; end of _StopMP3_File
 _GetNext_mp3_File:
 ;MP3_main.c,131 :: 		void GetNext_mp3_File(char Next_Previous){      // 0 for previous, 1 for next
+; temp start address is: 0 (R0)
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
 ;MP3_main.c,132 :: 		char temp = 0, temp1;
@@ -150,7 +155,9 @@ STR	LR, [SP, #0]
 ;MP3_main.c,132 :: 		char temp = 0, temp1;
 ;MP3_main.c,131 :: 		void GetNext_mp3_File(char Next_Previous){      // 0 for previous, 1 for next
 STRB	R0, [SP, #8]
+; temp end address is: 0 (R0)
 ;MP3_main.c,132 :: 		char temp = 0, temp1;
+; temp start address is: 0 (R0)
 MOVS	R0, #0
 ;MP3_main.c,133 :: 		StopMP3_File();
 STRB	R0, [SP, #4]
@@ -161,6 +168,7 @@ LDRB	R1, [SP, #8]
 CMP	R1, #0
 IT	EQ
 BEQ	L_GetNext_mp3_File0
+; temp end address is: 0 (R0)
 UXTB	R1, R0
 ;MP3_main.c,136 :: 		while (temp == 0 && temp != 2)
 L_GetNext_mp3_File1:
@@ -197,8 +205,10 @@ IT	AL
 BAL	L_GetNext_mp3_File5
 L_GetNext_mp3_File0:
 ;MP3_main.c,139 :: 		while (temp == 0 && temp != 2)
+; temp start address is: 0 (R0)
 UXTB	R1, R0
 L_GetNext_mp3_File6:
+; temp end address is: 0 (R0)
 ; temp start address is: 4 (R1)
 CMP	R1, #0
 IT	NE
@@ -218,7 +228,9 @@ SXTB	R0, R1
 MOVW	R1, #lo_addr(_MP3_song+0)
 MOVT	R1, #hi_addr(_MP3_song+0)
 BL	_Get_Next_File_Name+0
+; temp start address is: 0 (R0)
 UXTB	R1, R0
+; temp end address is: 0 (R0)
 IT	AL
 BAL	L_GetNext_mp3_File6
 ;MP3_main.c,139 :: 		while (temp == 0 && temp != 2)
@@ -230,9 +242,11 @@ UXTB	R0, R1
 L_GetNext_mp3_File5:
 ; temp end address is: 4 (R1)
 ;MP3_main.c,141 :: 		if (temp == 1){
+; temp start address is: 0 (R0)
 CMP	R0, #1
 IT	NE
 BNE	L_GetNext_mp3_File10
+; temp end address is: 0 (R0)
 ;MP3_main.c,142 :: 		MP3_play(MP3_song, current_file);
 MOVW	R1, #lo_addr(_current_file+0)
 MOVT	R1, #hi_addr(_current_file+0)

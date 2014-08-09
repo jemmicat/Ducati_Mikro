@@ -1,4 +1,4 @@
-#line 1 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Init_routines.c"
+#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Init_routines.c"
 
 
 
@@ -12,7 +12,7 @@ sbit LED_B at GPIOB_ODR.B4;
 
 
 sbit MMC_Card_Detect at GPIOD_IDR.B3;
-#line 27 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Init_routines.c"
+#line 27 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Init_routines.c"
 void Power_Man_Init();
 char ADXL345_Init();
 void Scroll_Undone(unsigned int first, unsigned int last);
@@ -22,7 +22,7 @@ void Scroll(unsigned int scroll);
 char Fat_Initialized_Flag;
 signed short Ext_fhandle;
 char Ext_res_initialized;
-#line 45 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Init_routines.c"
+#line 45 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Init_routines.c"
 void Init_GPIO(){
 
 
@@ -39,7 +39,7 @@ void Init_GPIO(){
  Ext_res_initialized = 0;
  Ext_fhandle = 0xFF;
 }
-#line 70 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Init_routines.c"
+#line 70 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Init_routines.c"
 void Init_SDIO(){
 
  SDIO_Reset();
@@ -61,7 +61,7 @@ void Init_SDIO(){
 }
 
 char My_Ext_Data_Buffer[512];
-#line 99 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Init_routines.c"
+#line 99 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Init_routines.c"
 char* MyTFT_Get_Data(unsigned long offset, unsigned long count, unsigned long *num) {
 unsigned long start_sector;
 unsigned int pos;
@@ -77,7 +77,7 @@ unsigned int pos;
 
  return My_Ext_Data_Buffer;
 }
-#line 123 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Init_routines.c"
+#line 123 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Init_routines.c"
 char Init_FAT(){
 char FAT_cnt = 0;
  if (MMC_Card_Detect == 0){
@@ -100,7 +100,7 @@ char FAT_cnt = 0;
 
  return Ext_res_initialized;
 }
-#line 153 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Init_routines.c"
+#line 153 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Init_routines.c"
 void I2C2_Set(char *test) {
 
  *test = 0;

@@ -683,29 +683,29 @@ ADDS	R2, R2, #1
 CMP	R3, #0
 IT	NE
 BNE	L_doGyro25
-;ITG3200_main.c,234 :: 		Display_Value(&LAbel2, Gyro_vals.GyroXvalue);
+;ITG3200_main.c,234 :: 		Display_Value(&Label9, Gyro_vals.GyroXvalue);
 MOVW	R0, #lo_addr(_Gyro_vals+0)
 MOVT	R0, #hi_addr(_Gyro_vals+0)
 LDRSH	R0, [R0, #0]
 SXTH	R1, R0
-MOVW	R0, #lo_addr(_Label2+0)
-MOVT	R0, #hi_addr(_Label2+0)
+MOVW	R0, #lo_addr(_Label9+0)
+MOVT	R0, #hi_addr(_Label9+0)
 BL	ITG3200_main_Display_Value+0
-;ITG3200_main.c,235 :: 		Display_Value(&LAbel3, Gyro_vals.GyroYvalue);
+;ITG3200_main.c,235 :: 		Display_Value(&Label31, Gyro_vals.GyroYvalue);
 MOVW	R0, #lo_addr(_Gyro_vals+2)
 MOVT	R0, #hi_addr(_Gyro_vals+2)
 LDRSH	R0, [R0, #0]
 SXTH	R1, R0
-MOVW	R0, #lo_addr(_Label3+0)
-MOVT	R0, #hi_addr(_Label3+0)
+MOVW	R0, #lo_addr(_Label31+0)
+MOVT	R0, #hi_addr(_Label31+0)
 BL	ITG3200_main_Display_Value+0
-;ITG3200_main.c,236 :: 		Display_Value(&LAbel4, Gyro_vals.GyroZvalue);
+;ITG3200_main.c,236 :: 		Display_Value(&Label33, Gyro_vals.GyroZvalue);
 MOVW	R0, #lo_addr(_Gyro_vals+4)
 MOVT	R0, #hi_addr(_Gyro_vals+4)
 LDRSH	R0, [R0, #0]
 SXTH	R1, R0
-MOVW	R0, #lo_addr(_Label4+0)
-MOVT	R0, #hi_addr(_Label4+0)
+MOVW	R0, #lo_addr(_Label33+0)
+MOVT	R0, #hi_addr(_Label33+0)
 BL	ITG3200_main_Display_Value+0
 ;ITG3200_main.c,237 :: 		}
 L_end_doGyro:

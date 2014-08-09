@@ -1,4 +1,4 @@
-#line 1 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Init_routines.c"
+#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Init_routines.c"
 
 
 
@@ -45,7 +45,7 @@ const unsigned long mp3_note_bmp = 0x00206750;
 const unsigned long mp3_player_note_bmp = 0x0020A230;
 const unsigned long rgb_bitmap_bmp = 0x002151EC;
 const unsigned long visual_tft_03_bmp = 0x002461B2;
-#line 55 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Init_routines.c"
+#line 55 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Init_routines.c"
 void Init_GPIO(){
 
  Sound_Init(&GPIOB_ODR, 8);
@@ -62,7 +62,7 @@ void Init_GPIO(){
  Ext_res_initialized = 0;
  Ext_fhandle = 0xFF;
 }
-#line 79 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Init_routines.c"
+#line 79 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Init_routines.c"
 void Init_SDIO(){
 
  SDIO_Reset();
@@ -85,7 +85,7 @@ void Init_SDIO(){
 
 char My_Ext_Data_Buffer[512];
 unsigned long currentSector = -1, res_file_size;
-#line 108 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Init_routines.c"
+#line 108 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Init_routines.c"
 char* MyTFT_Get_Data(unsigned long offset, unsigned long count, unsigned long *num) {
 unsigned long start_sector;
 unsigned int pos;
@@ -101,7 +101,7 @@ unsigned int pos;
 
  return My_Ext_Data_Buffer;
 }
-#line 132 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Init_routines.c"
+#line 132 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Init_routines.c"
 char Init_FAT(){
 char FAT_cnt = 0;
  if (MMC_Card_Detect == 0){

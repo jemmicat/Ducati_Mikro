@@ -393,9 +393,9 @@ main
 					Delay_50us
 					Is_TFT_MM_Plus
 					Is_TFT_Rotated_180
-					TFT_mikromedia_Set_Index
+					Set_Index
 						Write_to_Data_Lines
-					TFT_mikromedia_Write_Command
+					Write_Command
 						Write_to_Data_Lines
 					USBD_USR_DeviceReset
 					TFT_Set_Index
@@ -409,14 +409,6 @@ main
 						Write_to_Port
 						Delay_1us
 			TFT_Set_Ext_Buffer
-			TFT_Set_DBC_SSD1963
-				TFT_mikromedia_Set_Index
-				TFT_mikromedia_Write_Command
-				USBD_USR_DeviceReset
-				TFT_Set_Index
-				TFT_Write_Command
-				TFT_SSD1963_8bit_Set_Index
-				TFT_SSD1963YT_8bit_Write_Command
 		STMPE610_Config
 			STMPE610_SetI2CAddress
 			STMPE610_IsOperational
@@ -537,64 +529,64 @@ main
 			Is_SSD1963_Set
 			TFT_Set_Address_SSD1963II
 				Is_TFT_Rotated_180
-				TFT_mikromedia_Set_Index
-				TFT_mikromedia_Write_Command
+				Set_Index
+				Write_Command
 				USBD_USR_DeviceReset
 				TFT_Set_Index
 				TFT_Write_Command
 				TFT_SSD1963_8bit_Set_Index
 				TFT_SSD1963YT_8bit_Write_Command
 			TFT_Set_Address
-				TFT_mikromedia_Set_Index
-				TFT_mikromedia_Write_Command
+				Set_Index
+				Write_Command
 				USBD_USR_DeviceReset
 				TFT_Set_Index
 				TFT_Write_Command
 				TFT_SSD1963_8bit_Set_Index
 				TFT_SSD1963YT_8bit_Write_Command
 			TFT_Set_Address_SST7715R
-				TFT_mikromedia_Set_Index
-				TFT_mikromedia_Write_Command
+				Set_Index
+				Write_Command
 				USBD_USR_DeviceReset
 				TFT_Set_Index
 				TFT_Write_Command
 				TFT_SSD1963_8bit_Set_Index
 				TFT_SSD1963YT_8bit_Write_Command
 			TFT_Set_Address_HX8352A
-				TFT_mikromedia_Set_Index
-				TFT_mikromedia_Write_Command
+				Set_Index
+				Write_Command
 				USBD_USR_DeviceReset
 				TFT_Set_Index
 				TFT_Write_Command
 				TFT_SSD1963_8bit_Set_Index
 				TFT_SSD1963YT_8bit_Write_Command
 			TFT_Set_Address_R61526
-				TFT_mikromedia_Set_Index
-				TFT_mikromedia_Write_Command
+				Set_Index
+				Write_Command
 				USBD_USR_DeviceReset
 				TFT_Set_Index
 				TFT_Write_Command
 				TFT_SSD1963_8bit_Set_Index
 				TFT_SSD1963YT_8bit_Write_Command
 			TFT_Set_Address_ILI9481
-				TFT_mikromedia_Set_Index
-				TFT_mikromedia_Write_Command
+				Set_Index
+				Write_Command
 				USBD_USR_DeviceReset
 				TFT_Set_Index
 				TFT_Write_Command
 				TFT_SSD1963_8bit_Set_Index
 				TFT_SSD1963YT_8bit_Write_Command
 			TFT_Set_Address_ILI9342
-				TFT_mikromedia_Set_Index
-				TFT_mikromedia_Write_Command
+				Set_Index
+				Write_Command
 				USBD_USR_DeviceReset
 				TFT_Set_Index
 				TFT_Write_Command
 				TFT_SSD1963_8bit_Set_Index
 				TFT_SSD1963YT_8bit_Write_Command
 			TFT_Set_Address_ILI9340
-				TFT_mikromedia_Set_Index
-				TFT_mikromedia_Write_Command
+				Set_Index
+				Write_Command
 				USBD_USR_DeviceReset
 				TFT_Set_Index
 				TFT_Write_Command
@@ -1035,6 +1027,13 @@ main
 			doSettings
 				BLED_Fade_Out
 					TFT_Set_DBC_SSD1963
+						Set_Index
+						Write_Command
+						USBD_USR_DeviceReset
+						TFT_Set_Index
+						TFT_Write_Command
+						TFT_SSD1963_8bit_Set_Index
+						TFT_SSD1963YT_8bit_Write_Command
 				DrawScreen
 				BLED_Fade_In
 					TFT_Set_DBC_SSD1963
@@ -1079,10 +1078,10 @@ main
 							I2C2_Read
 					Scroll_Undone
 						Scroll_Init_Scroll_area
-							TFT_mikromedia_Set_Index
-							TFT_mikromedia_Write_Command
-						TFT_mikromedia_Set_Index
-						TFT_mikromedia_Write_Command
+							Set_Index
+							Write_Command
+						Set_Index
+						Write_Command
 			doGPSTest
 				BLED_Fade_Out
 				DrawScreen
@@ -1091,6 +1090,17 @@ main
 				BLED_Fade_Out
 				DrawScreen
 				BLED_Fade_In
+				MAGNET_Start
+					I2C2_Init_Advanced
+					MAGNET_Init
+						MAGNET_Write
+							I2C2_Start
+							I2C2_Write
+						MAGNET_Read_Register
+							I2C2_Start
+							I2C2_Write
+							I2C2_Read
+					Scroll_Undone
 			doPressureTest
 				BLED_Fade_Out
 				DrawScreen
@@ -1099,6 +1109,17 @@ main
 				BLED_Fade_Out
 				DrawScreen
 				BLED_Fade_In
+				GYRO_Start
+					I2C2_Init_Advanced
+					ITG3200_Init
+						ITG3200_Read_Register
+							I2C2_Start
+							I2C2_Write
+							I2C2_Read
+						ITG3200_Write
+							I2C2_Start
+							I2C2_Write
+					Scroll_Undone
 			doCalibration
 				Calibrate
 				BLED_Fade_In
@@ -1234,6 +1255,7 @@ main
 			USBD_USR_DeviceConnected
 			USBD_USR_DeviceDisconnected
 	EnableInterrupts
+	DrawScreen
 	Run_Logger
 		checkRTC
 			RTCC_Read
@@ -1259,8 +1281,8 @@ main
 						I2C2_Read
 			Scroll_ACCEL
 				Scroll
-					TFT_mikromedia_Set_Index
-					TFT_mikromedia_Write_Command
+					Set_Index
+					Write_Command
 			Scroll_Add_Line
 				TFT_Set_Address_SSD1963II
 				Write_Data
@@ -1284,6 +1306,76 @@ main
 				TFT_Set_Brush
 				IntToStr
 					WordToStr
+				strcpy
+				strcat
+				TFT_Rectangle
+				DrawLabel
+		doGyro
+			GYRO_Test
+				Gyro_Average
+					ITG3200_Read
+						I2C2_Start
+						I2C2_Write
+						I2C2_Read
+			Scroll_Gyro
+				Scroll
+			Scroll_Add_Line
+				TFT_Set_Address_SSD1963II
+				Write_Data
+				SPI1_Write
+				SPI2_Write
+				SPI3_Write
+				UART1_Write
+				UART2_Write
+				UART3_Write
+				UART4_Write
+				UART5_Write
+				UART6_Write
+				TFT_Write_Data
+				TFT_16bit_Write_Data
+				TFT_SSD1963_8bit_Write_Data
+			WriteGraph
+				TFT_Set_Pen
+				TFT_Line
+			Display_Value
+				TFT_Set_Pen
+				TFT_Set_Brush
+				IntToStr
+				strcpy
+				strcat
+				TFT_Rectangle
+				DrawLabel
+		doMagnet
+			MAGNET_Test
+				Magnet_Average
+					MAGNET_Read
+						I2C2_Start
+						I2C2_Write
+						I2C2_Read
+			Scroll_MAGNET
+				Scroll
+			Scroll_Add_Line
+				TFT_Set_Address_SSD1963II
+				Write_Data
+				SPI1_Write
+				SPI2_Write
+				SPI3_Write
+				UART1_Write
+				UART2_Write
+				UART3_Write
+				UART4_Write
+				UART5_Write
+				UART6_Write
+				TFT_Write_Data
+				TFT_16bit_Write_Data
+				TFT_SSD1963_8bit_Write_Data
+			WriteGraph
+				TFT_Set_Pen
+				TFT_Line
+			Display_Value
+				TFT_Set_Pen
+				TFT_Set_Brush
+				IntToStr
 				strcpy
 				strcat
 				TFT_Rectangle

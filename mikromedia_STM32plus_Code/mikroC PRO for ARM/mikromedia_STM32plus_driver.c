@@ -11,6 +11,8 @@ sbit TFT_CS at GPIOF_ODR.B13;
 sbit TFT_RD at GPIOF_ODR.B12;
 sbit TFT_WR at GPIOF_ODR.B11;
 sbit TFT_BLED at GPIOF_ODR.B10;
+// End TFT module connections
+
 
 // Global variables
 unsigned int Xcoord, Ycoord;
@@ -41,6 +43,7 @@ TCheckBox *local_checkbox;
 TCheckBox *exec_checkbox;
 int checkbox_order;
 
+
 void Write_to_Data_Lines(unsigned char _hi, unsigned char _lo) {
   unsigned int temp;
   temp = GPIOE_ODR;
@@ -51,7 +54,7 @@ void Write_to_Data_Lines(unsigned char _hi, unsigned char _lo) {
   GPIOG_ODR = temp | _lo;
 }
 
-void TFT_mikromedia_Set_Index(unsigned short index) {
+void Set_Index(unsigned short index) {
   TFT_RS = 0;
   Write_to_Data_Lines(0, index);
   TFT_WR = 0;
@@ -59,7 +62,7 @@ void TFT_mikromedia_Set_Index(unsigned short index) {
   TFT_WR = 1;
 }
 
-void TFT_mikromedia_Write_Command(unsigned short cmd) {
+void Write_Command(unsigned short cmd) {
   TFT_RS = 1;
   Write_to_Data_Lines(0, cmd);
   TFT_WR = 0;
@@ -67,15 +70,16 @@ void TFT_mikromedia_Write_Command(unsigned short cmd) {
   TFT_WR = 1;
 }
 
-void TFT_Write_to_16bitPort(unsigned int _data) {
+void Write_Data(unsigned int _data) {
   TFT_RS = 1;
   Write_to_Data_Lines(Hi(_data), Lo(_data));
   TFT_WR = 0;
   asm nop;
   TFT_WR = 1;
 }
+
 static void InitializeTouchPanel() {
-    TFT_Set_Active(&TFT_mikromedia_Set_Index, &TFT_mikromedia_Write_Command, &TFT_Write_to_16bitPort);
+  TFT_Set_Active(Set_Index, Write_Command, Write_Data);
   TFT_Init_SSD1963(480, 272);
 
   TFT_Set_DBC_SSD1963(255);
@@ -1800,7 +1804,7 @@ static void InitializeObjects() {
   Label42.Order           = 16;
   Label42.Left            = 15;
   Label42.Top             = 235;
-  Label42.Width           = 0;
+  Label42.Width           = 50;
   Label42.Height          = 19;
   Label42.Visible         = 1;
   Label42.Active          = 0;
@@ -2084,8 +2088,8 @@ static void InitializeObjects() {
   Label22.Order           = 1;
   Label22.Left            = 32;
   Label22.Top             = 2;
-  Label22.Width           = 109;
-  Label22.Height          = 31;
+  Label22.Width           = 112;
+  Label22.Height          = 26;
   Label22.Visible         = 1;
   Label22.Active          = 0;
   Label22.Caption         = Label22_Caption;
@@ -2100,8 +2104,8 @@ static void InitializeObjects() {
   Label23.Order           = 2;
   Label23.Left            = 160;
   Label23.Top             = 128;
-  Label23.Width           = 147;
-  Label23.Height          = 24;
+  Label23.Width           = 145;
+  Label23.Height          = 20;
   Label23.Visible         = 1;
   Label23.Active          = 1;
   Label23.Caption         = Label23_Caption;
@@ -3814,7 +3818,7 @@ static void InitializeObjects() {
   Button9.Transparent     = 1;
   Button9.Caption         = Button9_Caption;
   Button9.TextAlign       = _taCenter;
-  Button9.FontName        = Furro_Script50x64_Regular;
+  Button9.FontName        = Furro_Script52x60_Regular;
   Button9.PressColEnabled = 0;
   Button9.Font_Color      = 0x0000;
   Button9.Gradient        = 0;
@@ -3841,7 +3845,7 @@ static void InitializeObjects() {
   Button8.Transparent     = 1;
   Button8.Caption         = Button8_Caption;
   Button8.TextAlign       = _taCenter;
-  Button8.FontName        = Furro_Script50x64_Regular;
+  Button8.FontName        = Furro_Script52x60_Regular;
   Button8.PressColEnabled = 0;
   Button8.Font_Color      = 0x0000;
   Button8.Gradient        = 0;
@@ -3868,7 +3872,7 @@ static void InitializeObjects() {
   Button7.Transparent     = 1;
   Button7.Caption         = Button7_Caption;
   Button7.TextAlign       = _taCenter;
-  Button7.FontName        = Furro_Script50x64_Regular;
+  Button7.FontName        = Furro_Script52x60_Regular;
   Button7.PressColEnabled = 0;
   Button7.Font_Color      = 0x0000;
   Button7.Gradient        = 0;
@@ -3895,7 +3899,7 @@ static void InitializeObjects() {
   Button6.Transparent     = 1;
   Button6.Caption         = Button6_Caption;
   Button6.TextAlign       = _taCenter;
-  Button6.FontName        = Furro_Script50x64_Regular;
+  Button6.FontName        = Furro_Script52x60_Regular;
   Button6.PressColEnabled = 0;
   Button6.Font_Color      = 0x0000;
   Button6.Gradient        = 0;
@@ -3922,7 +3926,7 @@ static void InitializeObjects() {
   Button5.Transparent     = 1;
   Button5.Caption         = Button5_Caption;
   Button5.TextAlign       = _taCenter;
-  Button5.FontName        = Furro_Script50x64_Regular;
+  Button5.FontName        = Furro_Script52x60_Regular;
   Button5.PressColEnabled = 0;
   Button5.Font_Color      = 0x0000;
   Button5.Gradient        = 0;
@@ -3949,7 +3953,7 @@ static void InitializeObjects() {
   Button4.Transparent     = 1;
   Button4.Caption         = Button4_Caption;
   Button4.TextAlign       = _taCenter;
-  Button4.FontName        = Furro_Script50x64_Regular;
+  Button4.FontName        = Furro_Script52x60_Regular;
   Button4.PressColEnabled = 0;
   Button4.Font_Color      = 0x0000;
   Button4.Gradient        = 0;
@@ -3976,7 +3980,7 @@ static void InitializeObjects() {
   Button3.Transparent     = 1;
   Button3.Caption         = Button3_Caption;
   Button3.TextAlign       = _taCenter;
-  Button3.FontName        = Furro_Script50x64_Regular;
+  Button3.FontName        = Furro_Script52x60_Regular;
   Button3.PressColEnabled = 0;
   Button3.Font_Color      = 0x0000;
   Button3.Gradient        = 0;
@@ -4003,7 +4007,7 @@ static void InitializeObjects() {
   Button2.Transparent     = 1;
   Button2.Caption         = Button2_Caption;
   Button2.TextAlign       = _taCenter;
-  Button2.FontName        = Furro_Script50x64_Regular;
+  Button2.FontName        = Furro_Script52x60_Regular;
   Button2.PressColEnabled = 0;
   Button2.Font_Color      = 0x0000;
   Button2.Gradient        = 0;
@@ -4030,7 +4034,7 @@ static void InitializeObjects() {
   Button1.Transparent     = 1;
   Button1.Caption         = Button1_Caption;
   Button1.TextAlign       = _taCenter;
-  Button1.FontName        = Furro_Script50x64_Regular;
+  Button1.FontName        = Furro_Script52x60_Regular;
   Button1.PressColEnabled = 0;
   Button1.Font_Color      = 0x0000;
   Button1.Gradient        = 0;
@@ -4140,7 +4144,7 @@ static void InitializeObjects() {
   Label38.Visible         = 1;
   Label38.Active          = 1;
   Label38.Caption         = Label38_Caption;
-  Label38.FontName        = Furro_Script35x44_Regular;
+  Label38.FontName        = Furro_Script38x42_Regular;
   Label38.Font_Color      = 0x25A4;
   Label38.OnUpPtr         = 0;
   Label38.OnDownPtr       = 0;
@@ -4172,7 +4176,7 @@ static void InitializeObjects() {
   XO1.Visible         = 1;
   XO1.Active          = 1;
   XO1.Caption         = XO1_Caption;
-  XO1.FontName        = Furro_Script50x64_Regular;
+  XO1.FontName        = Furro_Script52x60_Regular;
   XO1.Font_Color      = 0x25A4;
   XO1.OnUpPtr         = 0;
   XO1.OnDownPtr       = 0;
@@ -4188,7 +4192,7 @@ static void InitializeObjects() {
   XO2.Visible         = 1;
   XO2.Active          = 1;
   XO2.Caption         = XO2_Caption;
-  XO2.FontName        = Furro_Script50x64_Regular;
+  XO2.FontName        = Furro_Script52x60_Regular;
   XO2.Font_Color      = 0x25A4;
   XO2.OnUpPtr         = 0;
   XO2.OnDownPtr       = 0;
@@ -4204,7 +4208,7 @@ static void InitializeObjects() {
   XO3.Visible         = 1;
   XO3.Active          = 1;
   XO3.Caption         = XO3_Caption;
-  XO3.FontName        = Furro_Script50x64_Regular;
+  XO3.FontName        = Furro_Script52x60_Regular;
   XO3.Font_Color      = 0x25A4;
   XO3.OnUpPtr         = 0;
   XO3.OnDownPtr       = 0;
@@ -4220,7 +4224,7 @@ static void InitializeObjects() {
   XO4.Visible         = 1;
   XO4.Active          = 1;
   XO4.Caption         = XO4_Caption;
-  XO4.FontName        = Furro_Script50x64_Regular;
+  XO4.FontName        = Furro_Script52x60_Regular;
   XO4.Font_Color      = 0x25A4;
   XO4.OnUpPtr         = 0;
   XO4.OnDownPtr       = 0;
@@ -4236,7 +4240,7 @@ static void InitializeObjects() {
   XO5.Visible         = 1;
   XO5.Active          = 1;
   XO5.Caption         = XO5_Caption;
-  XO5.FontName        = Furro_Script50x64_Regular;
+  XO5.FontName        = Furro_Script52x60_Regular;
   XO5.Font_Color      = 0x25A4;
   XO5.OnUpPtr         = 0;
   XO5.OnDownPtr       = 0;
@@ -4252,7 +4256,7 @@ static void InitializeObjects() {
   XO6.Visible         = 1;
   XO6.Active          = 1;
   XO6.Caption         = XO6_Caption;
-  XO6.FontName        = Furro_Script50x64_Regular;
+  XO6.FontName        = Furro_Script52x60_Regular;
   XO6.Font_Color      = 0x25A4;
   XO6.OnUpPtr         = 0;
   XO6.OnDownPtr       = 0;
@@ -4268,7 +4272,7 @@ static void InitializeObjects() {
   XO7.Visible         = 1;
   XO7.Active          = 1;
   XO7.Caption         = XO7_Caption;
-  XO7.FontName        = Furro_Script50x64_Regular;
+  XO7.FontName        = Furro_Script52x60_Regular;
   XO7.Font_Color      = 0x25A4;
   XO7.OnUpPtr         = 0;
   XO7.OnDownPtr       = 0;
@@ -4284,7 +4288,7 @@ static void InitializeObjects() {
   XO8.Visible         = 1;
   XO8.Active          = 1;
   XO8.Caption         = XO8_Caption;
-  XO8.FontName        = Furro_Script50x64_Regular;
+  XO8.FontName        = Furro_Script52x60_Regular;
   XO8.Font_Color      = 0x25A4;
   XO8.OnUpPtr         = 0;
   XO8.OnDownPtr       = 0;
@@ -4300,7 +4304,7 @@ static void InitializeObjects() {
   XO9.Visible         = 1;
   XO9.Active          = 1;
   XO9.Caption         = XO9_Caption;
-  XO9.FontName        = Furro_Script50x64_Regular;
+  XO9.FontName        = Furro_Script52x60_Regular;
   XO9.Font_Color      = 0x25A4;
   XO9.OnUpPtr         = 0;
   XO9.OnDownPtr       = 0;
@@ -4519,11 +4523,11 @@ void DrawScreen(TScreen *aScreen) {
   if ((display_width != CurrentScreen->Width) || (display_height != CurrentScreen->Height)) {
     save_bled = TFT_BLED;
     TFT_BLED           = 0;
-    TFT_Set_Active(&TFT_mikromedia_Set_Index, &TFT_mikromedia_Write_Command, &TFT_Write_to_16bitPort);
+    TFT_Set_Active(Set_Index, Write_Command, Write_Data);
     TFT_Init_SSD1963(CurrentScreen->Width, CurrentScreen->Height);
-    TFT_Set_DBC_SSD1963(255);
     STMPE610_SetSize(CurrentScreen->Width, CurrentScreen->Height);
     TFT_Fill_Screen(CurrentScreen->Color);
+    TFT_Set_DBC_SSD1963(255);
     display_width = CurrentScreen->Width;
     display_height = CurrentScreen->Height;
     TFT_BLED           = save_bled;
@@ -4685,7 +4689,7 @@ void Get_Object(unsigned int X, unsigned int Y) {
 }
 
 
-static void Process_TP_Press(unsigned int X, unsigned int Y) {
+void Process_TP_Press(unsigned int X, unsigned int Y) {
   exec_button         = 0;
   exec_label          = 0;
   exec_image          = 0;
@@ -4753,7 +4757,7 @@ static void Process_TP_Press(unsigned int X, unsigned int Y) {
   }
 }
 
-static void Process_TP_Up(unsigned int X, unsigned int Y) {
+void Process_TP_Up(unsigned int X, unsigned int Y) {
 
   switch (PressedObjectType) {
     // Button
@@ -4901,7 +4905,7 @@ static void Process_TP_Up(unsigned int X, unsigned int Y) {
   PressedObjectType = -1;
 }
 
-static void Process_TP_Down(unsigned int X, unsigned int Y) {
+void Process_TP_Down(unsigned int X, unsigned int Y) {
 
   object_pressed      = 0;
   exec_button         = 0;
@@ -5001,8 +5005,8 @@ static void Process_TP_Down(unsigned int X, unsigned int Y) {
 
 void Check_TP() {
   if (STMPE610_PressDetect()) {
-    // After a PRESS is detected read X-Y and convert it to Display dimensions space
     if (STMPE610_GetLastCoordinates(&Xcoord, &Ycoord) == 0) {
+    // After a PRESS is detected read X-Y and convert it to Display dimensions space
       Process_TP_Press(Xcoord, Ycoord);
       if (PenDown == 0) {
         PenDown = 1;
@@ -5037,9 +5041,9 @@ char _cnt;
   STMPE610_SetDefaultMode();
 }
 
-char STMPE610_Config() {
+char STMPE610_Config()  {
   STMPE610_SetI2CAddress(STMPE610_I2C_ADDR1);
-  if(STMPE610_IsOperational()) {
+  if (STMPE610_IsOperational() != 0){
     return STMPE610_IO_NOT_OPERATIONAL;
   }
 
@@ -5061,7 +5065,7 @@ char STMPE610_Config() {
   STMPE610_TSIDrive(STMPE610_TSC_I_DRIVE_20mA);
   STMPE610_TSControl(STMPE610_TSC_CTRL_TRACK0 | STMPE610_TSC_CTRL_ACQU_XYZ | STMPE610_TSC_CTRL_ENABLE);
   STMPE610_ZDataFraction(STMPE610_FRACP4_WHOLP4);
-  STMPE610_SetTouchPressureThreshold(45);
+  STMPE610_SetTouchPressureThreshold(70);
   STMPE610_ClearInterrupts();
   STMPE610_WriteReg(STMPE610_INT_CTRL_REG, 0x01);
   return STMPE610_OK;

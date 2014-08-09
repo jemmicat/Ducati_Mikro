@@ -443,6 +443,18 @@ extern   TLabel                 * const code Screen10_Labels[4];
 extern   TImage                 * const code Screen10_Images[1];
 extern   TBox                   * const code Screen10_Boxes[2];
 
+extern   TScreen                Humidity_test;
+extern   TBox                   Box21;
+extern   TBox                   Box22;
+extern   TImage               Image55;
+extern   TLabel                 Label42;
+extern   TLabel                 Label43;
+extern   TLabel                 Label44;
+extern   TLabel                 Label45;
+extern   TLabel                 * const code Screen11_Labels[4];
+extern   TImage                 * const code Screen11_Images[1];
+extern   TBox                   * const code Screen11_Boxes[2];
+
 
 /////////////////////////
 // Events Code Declarations
@@ -619,6 +631,13 @@ extern char Label38_Caption[];
 extern char Label39_Caption[];
 extern char Label40_Caption[];
 extern char Label41_Caption[];
+extern char Box21_Caption[];
+extern char Box22_Caption[];
+extern char Image55_Caption[];
+extern char Label42_Caption[];
+extern char Label43_Caption[];
+extern char Label44_Caption[];
+extern char Label45_Caption[];
 /////////////////////////////////
 
 void DrawScreen(TScreen *aScreen);

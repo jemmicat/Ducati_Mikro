@@ -129,7 +129,7 @@ void Timer5_interrupt() iv IVT_INT_TIM5 {
   //Enter your code here
   TicTacToe_seconds_cnt ++;
   TTT_flag = 1;
-  Net_Ethernet_Intern_UserTimerSec++ ;
+  //Net_Ethernet_Intern_UserTimerSec++ ;
 }
 
 //******************************************************************************

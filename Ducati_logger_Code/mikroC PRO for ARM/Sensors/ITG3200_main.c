@@ -19,8 +19,8 @@ const _SCROLL_GYRO_FIRST_LINE = 41, _SCROLL_GYRO_LAST_LINE = 246;
 int _disp_gyro_scroll = _SCROLL_GYRO_FIRST_LINE;
 
 // external TFT write commands
-void TFT_mikromedia_Write_Command(unsigned short cmd);
-void TFT_mikromedia_Set_Index(unsigned short index);
+void Write_Command(unsigned short cmd);
+void Set_Index(unsigned short index);
 
 //  globals
 char gyroout[16];
@@ -231,9 +231,9 @@ void doGyro(){
   WriteGraph(&Old_Gyro_vals, &Gyro_vals);
   Old_gyro_vals = Gyro_vals;
   
-  Display_Value(&LAbel2, Gyro_vals.GyroXvalue);
-  Display_Value(&LAbel3, Gyro_vals.GyroYvalue);
-  Display_Value(&LAbel4, Gyro_vals.GyroZvalue);
+  Display_Value(&Label9, Gyro_vals.GyroXvalue);
+  Display_Value(&Label31, Gyro_vals.GyroYvalue);
+  Display_Value(&Label33, Gyro_vals.GyroZvalue);
 }
 
 /*******************************************************************************

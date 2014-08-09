@@ -683,29 +683,29 @@ ADDS	R2, R2, #1
 CMP	R3, #0
 IT	NE
 BNE	L_doAccel25
-;ADXL345_main.c,234 :: 		Display_Value(&LAbel2, Accel_vals.Xvalue);
+;ADXL345_main.c,234 :: 		Display_Value(&Label3, Accel_vals.Xvalue);
 MOVW	R0, #lo_addr(_Accel_vals+0)
 MOVT	R0, #hi_addr(_Accel_vals+0)
-LDRSH	R0, [R0, #0]
-SXTH	R1, R0
-MOVW	R0, #lo_addr(_Label2+0)
-MOVT	R0, #hi_addr(_Label2+0)
-BL	ADXL345_main_Display_Value+0
-;ADXL345_main.c,235 :: 		Display_Value(&LAbel3, Accel_vals.Yvalue);
-MOVW	R0, #lo_addr(_Accel_vals+2)
-MOVT	R0, #hi_addr(_Accel_vals+2)
 LDRSH	R0, [R0, #0]
 SXTH	R1, R0
 MOVW	R0, #lo_addr(_Label3+0)
 MOVT	R0, #hi_addr(_Label3+0)
 BL	ADXL345_main_Display_Value+0
-;ADXL345_main.c,236 :: 		Display_Value(&LAbel4, Accel_vals.Zvalue);
-MOVW	R0, #lo_addr(_Accel_vals+4)
-MOVT	R0, #hi_addr(_Accel_vals+4)
+;ADXL345_main.c,235 :: 		Display_Value(&Label4, Accel_vals.Yvalue);
+MOVW	R0, #lo_addr(_Accel_vals+2)
+MOVT	R0, #hi_addr(_Accel_vals+2)
 LDRSH	R0, [R0, #0]
 SXTH	R1, R0
 MOVW	R0, #lo_addr(_Label4+0)
 MOVT	R0, #hi_addr(_Label4+0)
+BL	ADXL345_main_Display_Value+0
+;ADXL345_main.c,236 :: 		Display_Value(&Label7, Accel_vals.Zvalue);
+MOVW	R0, #lo_addr(_Accel_vals+4)
+MOVT	R0, #hi_addr(_Accel_vals+4)
+LDRSH	R0, [R0, #0]
+SXTH	R1, R0
+MOVW	R0, #lo_addr(_Label7+0)
+MOVT	R0, #hi_addr(_Label7+0)
 BL	ADXL345_main_Display_Value+0
 ;ADXL345_main.c,237 :: 		}
 L_end_doAccel:

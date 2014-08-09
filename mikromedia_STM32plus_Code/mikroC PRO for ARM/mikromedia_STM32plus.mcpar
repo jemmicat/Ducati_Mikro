@@ -6,7 +6,7 @@ Value=0
 [BUILD_TYPE]
 Value=0
 [ACTIVE_TAB]
-Value=ADXL345_driver.c
+Value=Scroll.c
 [USE_EEPROM]
 Value=0
 [EEPROM_DEFINITION]
@@ -45,16 +45,39 @@ Count=2
 File0=mikromedia+_stm32_shield_thumb.jpg
 File1=mikromedia+_stm32_thumb.jpg
 ActiveImageIndex=1
+[OPENED_FILES]
+Count=4
+File0=mikromedia_STM32plus_main.c
+File1=Scroll_main.c
+File2=Ethernet_main.c
+File3=Scroll.c
 [EEPROM]
 Count=0
 [ACTIVE_COMMENTS_FILES]
 Count=2
 File0=mikromedia_plus_for_STM.xml
 File1=mikromedia_plus_STM_shield.xml
+[OTHER_FILES]
+Count=0
+[SEARCH_PATH]
+Count=6
+Path0=C:\Users\Jemmi\Documents\Mikroelektronika\mikroC PRO for ARM\defs\
+Path1=C:\Users\Jemmi\Documents\GitHub\Ducati_Mikro\mikromedia_STM32plus_Code\mikroC PRO for ARM\
+Path2=C:\Users\Jemmi\Documents\Mikroelektronika\mikroC PRO for ARM\Uses\ST M4\
+Path3=C:\Users\Jemmi\Desktop\1366123959_mikromedia___for_mikroc_arm\mikromedia_STM32plus_Code\mikroC PRO for ARM\
+Path4=C:\Users\Jemmi\Documents\Mikroelektronika\mikroC PRO for ARM\Packages\FAT32 Library\Uses\
+Path5=C:\Users\Jemmi\Documents\Mikroelektronika\mikroC PRO for ARM\Packages\Network_Ethernet_ARM\Uses\
+[HEADER_PATH]
+Count=2
+Path0=C:\Users\Jemmi\Desktop\1366123959_mikromedia___for_mikroc_arm\mikromedia_STM32plus_Code\mikroC PRO for ARM\
+Path1=C:\Users\Jemmi\Documents\GitHub\Ducati_Mikro\mikromedia_STM32plus_Code\mikroC PRO for ARM\
+[HEADERS]
+Count=1
+File0=__NetEthInternal.h
 [PLDS]
 Count=0
 [Useses]
-Count=22
+Count=25
 File0=Net_Ethernet_Intern_STM32_Defs
 File1=Net_Ethernet_Intern_STM32
 File2=Time
@@ -77,8 +100,11 @@ File18=Mmc
 File19=FAT32_STM32
 File20=FAT32_Defs_STM32
 File21=UART
+File22=Ethernet_Internal
+File23=SPI_Ethernet_24j600
+File24=TFT_TouchPanel
 [EXPANDED NODES]
-Node1=Sources
+Node1=Header Files
 Node2=Output Files
 Count=2
 [PROGRAMMER_OPTIONS]

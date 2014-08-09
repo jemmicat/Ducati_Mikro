@@ -160,7 +160,7 @@ struct Screen {
   unsigned int           Color;
   unsigned int           Width;
   unsigned int           Height;
-  unsigned int         ObjectsCount;
+  unsigned int           ObjectsCount;
   unsigned int           ButtonsCount;
   TButton                * const code *Buttons;
   unsigned int           LabelsCount;
@@ -709,3 +709,6 @@ void DrawBox(TBox *ABox);
 void DrawCheckBox(TCheckBox *ACheckBox);
 void Check_TP();
 void Start_TP();
+void Process_TP_Press(unsigned int X, unsigned int Y);
+void Process_TP_Up(unsigned int X, unsigned int Y);
+void Process_TP_Down(unsigned int X, unsigned int Y);

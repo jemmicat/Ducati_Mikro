@@ -1,5 +1,5 @@
-#line 1 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_events_code.c"
-#line 1 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
+#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_events_code.c"
+#line 1 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
 
 typedef struct Screen TScreen;
@@ -445,6 +445,18 @@ extern TLabel * const code Screen10_Labels[4];
 extern TImage * const code Screen10_Images[1];
 extern TBox * const code Screen10_Boxes[2];
 
+extern TScreen Humidity_test;
+extern TBox Box21;
+extern TBox Box22;
+extern TImage Image55;
+extern TLabel Label42;
+extern TLabel Label43;
+extern TLabel Label44;
+extern TLabel Label45;
+extern TLabel * const code Screen11_Labels[4];
+extern TImage * const code Screen11_Images[1];
+extern TBox * const code Screen11_Boxes[2];
+
 
 
 
@@ -621,6 +633,13 @@ extern char Label38_Caption[];
 extern char Label39_Caption[];
 extern char Label40_Caption[];
 extern char Label41_Caption[];
+extern char Box21_Caption[];
+extern char Box22_Caption[];
+extern char Image55_Caption[];
+extern char Label42_Caption[];
+extern char Label43_Caption[];
+extern char Label44_Caption[];
+extern char Label45_Caption[];
 
 
 void DrawScreen(TScreen *aScreen);
@@ -638,8 +657,8 @@ void Start_TP();
 void Process_TP_Press(unsigned int X, unsigned int Y);
 void Process_TP_Up(unsigned int X, unsigned int Y);
 void Process_TP_Down(unsigned int X, unsigned int Y);
-#line 1 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_resources.h"
-#line 5 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_events_code.c"
+#line 1 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_resources.h"
+#line 5 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_events_code.c"
 void Calibrate();
 void doRTC_Example();
 void RTC_Example_init();
@@ -651,11 +670,36 @@ void HoursOnes();
 void HoursTens();
 void Deactivate_All_Rollers();
 void AmPmRun();
+
 void doAccel();
 void ACCEL_Start(char *test);
 void Accel_Stop();
-
+void doGYRO();
+void GYRO_Start(char *test);
+void Gyro_Stop();
 void checkPowerM();
+extern char cGYRO_test_status;
+extern char cACCEL_test_status;
+void doMAGNET();
+void MAGNET_Start(char *test);
+void Magnet_Stop();
+extern char cMAGNET_test_status;
+
+extern char PenDown;
+extern char Display_Bat_Stat;
+extern sfr sbit TFT_BLED;
+
+void ScrollPress();
+void ScrollOnClick();
+void Stop_Scroll();
+
+char Init_FAT();
+void Sensors_Init();
+void Sensors_Read();
+void Stop_sensors();
+char Logger_State;
+
+
 
 typedef struct Time {
  short ampm;
@@ -690,23 +734,8 @@ void BLED_Fade_In(){
  TFT_Set_DBC_SSD1963(255);
 }
 
-extern char PenDown;
-extern char Display_Bat_Stat;
-extern sfr sbit TFT_BLED;
 
-void ScrollPress();
-void ScrollOnClick();
-void Stop_Scroll();
 
-char Init_FAT();
-void Sensors_Init();
-void Sensors_Read();
-void Stop_sensors();
-char Logger_State;
-void doAccel();
-void ACCEL_Start(char *test);
-void Accel_Stop();
-extern char cACCEL_test_status;
 
 void Run_Logger(){
  switch (Logger_State) {
@@ -733,9 +762,11 @@ void Run_Logger(){
  doAccel();
  }; break;
  case 5 : {
-
+ doGyro();
  }; break;
- case 6 : break;
+ case 6 : {
+ doMagnet();
+ }break;
  case 7 : {
 
  }; break;
@@ -744,7 +775,7 @@ void Run_Logger(){
  }; break;
  }
 }
-#line 150 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_events_code.c"
+#line 162 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_events_code.c"
 void doSetClock() {
  BLED_Fade_Out();
  DrawScreen(&Set_clock);
@@ -837,14 +868,15 @@ void doGPSTest() {
  BLED_Fade_Out();
  DrawScreen(&GPS_test);
  BLED_Fade_In();
- Logger_State = 5;
+
 }
 
 void doGyroTest() {
  BLED_Fade_Out();
  DrawScreen(&Gyro_test);
  BLED_Fade_In();
- Logger_State = 6;
+ Logger_State = 5;
+ GYRO_Start(&cGYRO_test_status);
 }
 
 
@@ -852,7 +884,7 @@ void doPressureTest() {
  BLED_Fade_Out();
  DrawScreen(&Pressure_test);
  BLED_Fade_In();
- Logger_State = 6;
+
 
 }
 
@@ -861,4 +893,6 @@ void doMagnetTest() {
  DrawScreen(&Magnetometer_test);
  BLED_Fade_In();
  Logger_State = 6;
+ MAGNET_Start(&cMAGNET_test_status);
+
 }

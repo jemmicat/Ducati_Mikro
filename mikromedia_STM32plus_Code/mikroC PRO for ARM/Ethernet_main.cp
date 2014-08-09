@@ -1,5 +1,7 @@
-#line 1 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Ethernet_main.c"
-#line 1 "c:/users/jemmi/desktop/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/mikromedia_stm32plus_objects.h"
+#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Ethernet_main.c"
+#line 1 "c:/users/jemmi/documents/github/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/mikromedia_stm32plus_objects.h"
+typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
+
 typedef struct Screen TScreen;
 
 typedef struct {
@@ -9,6 +11,35 @@ typedef struct {
  unsigned int Y_Max;
  char Rotate;
 } TTPConstants;
+
+typedef struct Button {
+ TScreen* OwnerScreen;
+ char Order;
+ unsigned int Left;
+ unsigned int Top;
+ unsigned int Width;
+ unsigned int Height;
+ char Pen_Width;
+ unsigned int Pen_Color;
+ char Visible;
+ char Active;
+ char Transparent;
+ char *Caption;
+ TTextAlign TextAlign;
+ const char *FontName;
+ unsigned int Font_Color;
+ char Gradient;
+ char Gradient_Orientation;
+ unsigned int Gradient_Start_Color;
+ unsigned int Gradient_End_Color;
+ unsigned int Color;
+ char PressColEnabled;
+ unsigned int Press_Color;
+ void (*OnUpPtr)();
+ void (*OnDownPtr)();
+ void (*OnClickPtr)();
+ void (*OnPressPtr)();
+} TButton;
 
 typedef struct Label {
  TScreen* OwnerScreen;
@@ -95,11 +126,45 @@ typedef struct Box {
  void (*OnPressPtr)();
 } TBox;
 
+typedef struct CheckBox {
+ TScreen* OwnerScreen;
+ char Order;
+ unsigned int Left;
+ unsigned int Top;
+ unsigned int Width;
+ unsigned int Height;
+ char Pen_Width;
+ unsigned int Pen_Color;
+ char Visible;
+ char Active;
+ char Checked;
+ char Transparent;
+ char *Caption;
+ TTextAlign TextAlign;
+ const char *FontName;
+ unsigned int Font_Color;
+ char Gradient;
+ char Gradient_Orientation;
+ unsigned int Gradient_Start_Color;
+ unsigned int Gradient_End_Color;
+ unsigned int Color;
+ char Rounded;
+ char Corner_Radius;
+ char PressColEnabled;
+ unsigned int Press_Color;
+ void (*OnUpPtr)();
+ void (*OnDownPtr)();
+ void (*OnClickPtr)();
+ void (*OnPressPtr)();
+} TCheckBox;
+
 struct Screen {
  unsigned int Color;
  unsigned int Width;
  unsigned int Height;
  unsigned int ObjectsCount;
+ unsigned int ButtonsCount;
+ TButton * const code *Buttons;
  unsigned int LabelsCount;
  TLabel * const code *Labels;
  unsigned int ImagesCount;
@@ -108,6 +173,8 @@ struct Screen {
  TCircle * const code *Circles;
  unsigned int BoxesCount;
  TBox * const code *Boxes;
+ unsigned int CheckBoxesCount;
+ TCheckBox * const code *CheckBoxes;
 };
 
 extern TScreen Home;
@@ -124,11 +191,15 @@ extern TImage Image9;
 extern TLabel Label20;
 extern TImage Image16;
 extern TLabel Label25;
+extern TImage Image24;
+extern TLabel Label30;
 extern TImage Image18;
 extern TLabel Label34;
+extern TImage TicTacToe;
+extern TLabel Label40;
 extern TImage BatteryStatus;
-extern TLabel * const code Screen1_Labels[8];
-extern TImage * const code Screen1_Images[8];
+extern TLabel * const code Screen1_Labels[10];
+extern TImage * const code Screen1_Images[10];
 
 extern TScreen Accelerometer;
 extern TBox Box23;
@@ -242,6 +313,56 @@ extern TLabel * const code Screen8_Labels[3];
 extern TImage * const code Screen8_Images[8];
 extern TBox * const code Screen8_Boxes[3];
 
+extern TScreen Paint;
+extern TBox Box18;
+extern TImage Image4;
+extern TImage NewScreen;
+extern TImage Image25;
+extern TImage Pen;
+extern TImage Image27;
+extern TImage Eraser;
+extern TImage Image29;
+extern TBox DrawingArea;
+extern TImage icon_paint_back;
+extern TLabel Label29;
+extern TBox Color01;
+extern TBox Color02;
+extern TBox Color03;
+extern TBox Color04;
+extern TBox Color05;
+extern TBox Color06;
+extern TBox Color07;
+extern TBox Color08;
+extern TBox Color09;
+extern TBox Color10;
+extern TBox Color11;
+extern TBox Color12;
+extern TBox Color13;
+extern TBox Color14;
+extern TBox Color15;
+extern TBox Color16;
+extern TBox Color17;
+extern TBox Color18;
+extern TBox Color19;
+extern TBox Color20;
+extern TBox Color21;
+extern TBox Color22;
+extern TBox Color23;
+extern TBox Color24;
+extern TBox Color25;
+extern TBox Color26;
+extern TBox Color27;
+extern TBox Color28;
+extern TBox Color29;
+extern TBox Color30;
+extern TImage BackGroundColor;
+extern TBox Pen1;
+extern TBox Pen2;
+extern TBox Pen3;
+extern TLabel * const code Screen9_Labels[1];
+extern TImage * const code Screen9_Images[9];
+extern TBox * const code Screen9_Boxes[35];
+
 extern TScreen SlideShow;
 extern TBox Box7;
 extern TBox icon_previous_box;
@@ -254,34 +375,46 @@ extern TImage icon_previous;
 extern TImage Icon_next;
 extern TLabel Label35;
 extern TBox Slide_Active_area;
-extern TLabel * const code Screen9_Labels[4];
-extern TImage * const code Screen9_Images[3];
-extern TBox * const code Screen9_Boxes[4];
+extern TLabel * const code Screen10_Labels[4];
+extern TImage * const code Screen10_Images[3];
+extern TBox * const code Screen10_Boxes[4];
 
-extern TScreen Boot;
-extern TImage Image4;
-extern TImage Image19;
+extern TScreen Tic_Tac_Toe;
+extern TBox Box10;
+extern TBox Box11;
+extern TBox Box9;
+extern TButton Button9;
+extern TButton Button8;
+extern TButton Button7;
+extern TButton Button6;
+extern TButton Button5;
+extern TButton Button4;
+extern TButton Button3;
+extern TButton Button2;
+extern TButton Button1;
+extern TBox Box8;
+extern TLabel Label36;
 extern TImage Image20;
+extern TLabel Label37;
 extern TImage Image21;
-extern TImage Image22;
-extern TImage Image23;
-extern TImage Image24;
-extern TImage Image25;
-extern TImage Image26;
-extern TImage Image27;
-extern TImage Image28;
-extern TImage Image29;
-extern TImage Image30;
-extern TImage Image31;
-extern TImage Image32;
-extern TImage Image33;
-extern TImage Image34;
-extern TImage Image35;
-extern TImage Image36;
-extern TImage Image37;
-extern TImage Image38;
-extern TImage Image39;
-extern TImage * const code Screen10_Images[22];
+extern TLabel Label38;
+extern TLabel Label39;
+extern TLabel XO1;
+extern TLabel XO2;
+extern TLabel XO3;
+extern TLabel XO4;
+extern TLabel XO5;
+extern TLabel XO6;
+extern TLabel XO7;
+extern TLabel XO8;
+extern TLabel XO9;
+extern TCheckBox CheckBox1;
+extern TLabel Label41;
+extern TButton * const code Screen11_Buttons[9];
+extern TLabel * const code Screen11_Labels[14];
+extern TImage * const code Screen11_Images[2];
+extern TBox * const code Screen11_Boxes[4];
+extern TCheckBox * const code Screen11_CheckBoxes[1];
 
 
 
@@ -398,8 +531,12 @@ extern char Image9_Caption[];
 extern char Label20_Caption[];
 extern char Image16_Caption[];
 extern char Label25_Caption[];
+extern char Image24_Caption[];
+extern char Label30_Caption[];
 extern char Image18_Caption[];
 extern char Label34_Caption[];
+extern char TicTacToe_Caption[];
+extern char Label40_Caption[];
 extern char BatteryStatus_Caption[];
 extern char Box23_Caption[];
 extern char Box1_Caption[];
@@ -477,6 +614,51 @@ extern char stop_icon_Caption[];
 extern char next_icon_Caption[];
 extern char songlist_icon_Caption[];
 extern char Label6_Caption[];
+extern char Box18_Caption[];
+extern char Image4_Caption[];
+extern char NewScreen_Caption[];
+extern char Image25_Caption[];
+extern char Pen_Caption[];
+extern char Image27_Caption[];
+extern char Eraser_Caption[];
+extern char Image29_Caption[];
+extern char DrawingArea_Caption[];
+extern char icon_paint_back_Caption[];
+extern char Label29_Caption[];
+extern char Color01_Caption[];
+extern char Color02_Caption[];
+extern char Color03_Caption[];
+extern char Color04_Caption[];
+extern char Color05_Caption[];
+extern char Color06_Caption[];
+extern char Color07_Caption[];
+extern char Color08_Caption[];
+extern char Color09_Caption[];
+extern char Color10_Caption[];
+extern char Color11_Caption[];
+extern char Color12_Caption[];
+extern char Color13_Caption[];
+extern char Color14_Caption[];
+extern char Color15_Caption[];
+extern char Color16_Caption[];
+extern char Color17_Caption[];
+extern char Color18_Caption[];
+extern char Color19_Caption[];
+extern char Color20_Caption[];
+extern char Color21_Caption[];
+extern char Color22_Caption[];
+extern char Color23_Caption[];
+extern char Color24_Caption[];
+extern char Color25_Caption[];
+extern char Color26_Caption[];
+extern char Color27_Caption[];
+extern char Color28_Caption[];
+extern char Color29_Caption[];
+extern char Color30_Caption[];
+extern char BackGroundColor_Caption[];
+extern char Pen1_Caption[];
+extern char Pen2_Caption[];
+extern char Pen3_Caption[];
 extern char Box7_Caption[];
 extern char icon_previous_box_Caption[];
 extern char Icon_next_box_Caption[];
@@ -488,39 +670,52 @@ extern char icon_previous_Caption[];
 extern char Icon_next_Caption[];
 extern char Label35_Caption[];
 extern char Slide_Active_area_Caption[];
-extern char Image4_Caption[];
-extern char Image19_Caption[];
+extern char Box10_Caption[];
+extern char Box11_Caption[];
+extern char Box9_Caption[];
+extern char Button9_Caption[];
+extern char Button8_Caption[];
+extern char Button7_Caption[];
+extern char Button6_Caption[];
+extern char Button5_Caption[];
+extern char Button4_Caption[];
+extern char Button3_Caption[];
+extern char Button2_Caption[];
+extern char Button1_Caption[];
+extern char Box8_Caption[];
+extern char Label36_Caption[];
 extern char Image20_Caption[];
+extern char Label37_Caption[];
 extern char Image21_Caption[];
-extern char Image22_Caption[];
-extern char Image23_Caption[];
-extern char Image24_Caption[];
-extern char Image25_Caption[];
-extern char Image26_Caption[];
-extern char Image27_Caption[];
-extern char Image28_Caption[];
-extern char Image29_Caption[];
-extern char Image30_Caption[];
-extern char Image31_Caption[];
-extern char Image32_Caption[];
-extern char Image33_Caption[];
-extern char Image34_Caption[];
-extern char Image35_Caption[];
-extern char Image36_Caption[];
-extern char Image37_Caption[];
-extern char Image38_Caption[];
-extern char Image39_Caption[];
+extern char Label38_Caption[];
+extern char Label39_Caption[];
+extern char XO1_Caption[];
+extern char XO2_Caption[];
+extern char XO3_Caption[];
+extern char XO4_Caption[];
+extern char XO5_Caption[];
+extern char XO6_Caption[];
+extern char XO7_Caption[];
+extern char XO8_Caption[];
+extern char XO9_Caption[];
+extern char CheckBox1_Caption[];
+extern char Label41_Caption[];
 
 
 void DrawScreen(TScreen *aScreen);
+void DrawButton(TButton *aButton);
 void DrawLabel(TLabel *ALabel);
 void DrawImage(TImage *AImage);
 void DrawCircle(TCircle *ACircle);
 void DrawBox(TBox *ABox);
+void DrawCheckBox(TCheckBox *ACheckBox);
 void Check_TP();
 void Start_TP();
-#line 1 "c:/users/jemmi/desktop/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/__netethinternal.h"
-#line 37 "c:/users/jemmi/desktop/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/__netethinternal.h"
+void Process_TP_Press(unsigned int X, unsigned int Y);
+void Process_TP_Up(unsigned int X, unsigned int Y);
+void Process_TP_Down(unsigned int X, unsigned int Y);
+#line 1 "c:/users/jemmi/documents/github/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/__netethinternal.h"
+#line 37 "c:/users/jemmi/documents/github/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/__netethinternal.h"
 typedef struct
  {
  unsigned char valid;
@@ -607,7 +802,7 @@ extern const unsigned int RETRANSMIT_WAIT_Intern;
 
 extern char tx_buffers_Intern[][];
 extern SOCKET_Intern_Dsc socket_Intern[];
-#line 127 "c:/users/jemmi/desktop/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/__netethinternal.h"
+#line 127 "c:/users/jemmi/documents/github/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/__netethinternal.h"
 extern void Net_Ethernet_Intern_Init(unsigned char *mac, unsigned char *ip, unsigned long configuration);
 extern unsigned char Net_Ethernet_Intern_doPacket();
 extern void Net_Ethernet_Intern_putByte(unsigned char b);
@@ -631,9 +826,9 @@ extern unsigned int Net_Ethernet_Intern_putConstStringTCP(const char *ptr, SOCKE
 extern char Net_Ethernet_Intern_bufferEmptyTCP(SOCKET_Intern_Dsc *socket);
 extern void Net_Ethernet_Intern_stackInitTCP();
 extern char Net_Ethernet_Intern_startSendTCP(SOCKET_Intern_Dsc *socket);
-#line 1 "c:/program files (x86)/mikroc pro for arm/include/built_in.h"
-#line 1 "c:/users/jemmi/desktop/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/__time.h"
-#line 27 "c:/users/jemmi/desktop/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/__time.h"
+#line 1 "c:/users/jemmi/documents/mikroelektronika/mikroc pro for arm/include/built_in.h"
+#line 1 "c:/users/jemmi/documents/github/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/__time.h"
+#line 27 "c:/users/jemmi/documents/github/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/__time.h"
 typedef struct
  {
  unsigned char ss ;
@@ -644,13 +839,13 @@ typedef struct
  unsigned char mo ;
  unsigned int yy ;
  } TimeStruct ;
-#line 41 "c:/users/jemmi/desktop/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/__time.h"
+#line 41 "c:/users/jemmi/documents/github/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/__time.h"
 extern long Time_jd1970 ;
-#line 46 "c:/users/jemmi/desktop/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/__time.h"
+#line 46 "c:/users/jemmi/documents/github/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/__time.h"
 long Time_dateToEpoch(TimeStruct *ts) ;
 long Time_dateDiff(TimeStruct *t1, TimeStruct *t2);
 void Time_epochToDate(long e, TimeStruct *ts) ;
-#line 14 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Ethernet_main.c"
+#line 14 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Ethernet_main.c"
 void InitTimer5();
 void RedrawLabel(unsigned int BackGround_Color, Tlabel *Label, unsigned int Xoffset, unsigned int Yoffset);
 
@@ -672,7 +867,7 @@ static char buff[4];
 static char ethInitialized_mark = NOT_SUCCESS;
 static char ethDhcp_mark = NOT_SUCCESS;
 static char synReqSend_mark = 0;
-#line 43 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Ethernet_main.c"
+#line 43 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Ethernet_main.c"
 void Net_Ethernet_Intern_UserTCP(SOCKET_Intern_Dsc *socket) {
 char i;
 
@@ -695,78 +890,23 @@ char i;
  acquaringComplete_mark = SUCCESS;
  Time_Obtained = 1;
 }
-#line 73 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Ethernet_main.c"
+#line 73 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Ethernet_main.c"
 unsigned int Net_Ethernet_Intern_UserUDP(UDP_Intern_Dsc *udpDsc) {
  return 0;
 }
-#line 84 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Ethernet_main.c"
+#line 84 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Ethernet_main.c"
 void Ethernet_Message(char *text){
  strcpy(Label42_Caption, text);
  RedrawLabel(Clock.Color, &Label42, 180, 20);
 }
-#line 96 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Ethernet_main.c"
+#line 96 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Ethernet_main.c"
 static char Ethernet_Init() {
 char result = SUCCESS;
-
- Net_Ethernet_Intern_stackInitTCP();
- if (ethInitialized_mark == NOT_SUCCESS) {
-
- Net_Ethernet_Intern_stackInitTCP();
-
- Ethernet_Message("Ethernet initialization..");
-
- ethInitialized_mark = Net_Ethernet_Intern_Init(myMacAddr, myIpAddr,  0b10000 , &_GPIO_MODULE_ETHERNET_G11_13_14);
-
- if (ethInitialized_mark == SUCCESS) {
- Ethernet_Message("Initialization success..");
- }
- else {
- Ethernet_Message("Initialization failed..");
- result = NOT_SUCCESS;
- }
- Delay_ms(2000);
- }
- Ethernet_Message("");
+#line 117 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Ethernet_main.c"
  return result;
 
 }
-#line 130 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Ethernet_main.c"
-static char Ethernet_DHCP() {
-char text[20], temp_text[7], i, result = SUCCESS;
-unsigned long timeout;
-
- if (ethDhcp_mark == NOT_SUCCESS) {
- Ethernet_Message("Obtaining IP ...");
- timeout = 0;
- while((ethDhcp_mark == NOT_SUCCESS) && (timeout < 3)) {
-
- ethDhcp_mark = Net_Ethernet_Intern_initDHCP(5) ? SUCCESS : NOT_SUCCESS;
- timeout++;
- }
-
- if (ethDhcp_mark == SUCCESS){
-
- memcpy(myIpAddr, Net_Ethernet_Intern_getIpAddress(), 4);
- text[0] = 0;
- for (i = 0; i < 4; i ++){
- ByteToStr(myIpAddr[i], temp_text);
- strcat(text, temp_text);
- if(i != 3)
- strcat(text, ".");
- }
-
- Ethernet_Message(text);
- }
- else {
- Ethernet_Message("DHCP not respond");
- result = NOT_SUCCESS;
- }
- Delay_ms(2000);
- }
- Ethernet_Message("");
- return result;
-}
-#line 173 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Ethernet_main.c"
+#line 172 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Ethernet_main.c"
 static void Ethernet_ReachTime() {
 unsigned long timeout;
 char connectedDetect_mark;
@@ -819,17 +959,7 @@ char i;
  Ethernet_Message("");
  Net_Ethernet_Intern_disconnectTCP(socketServer);
 }
-#line 233 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Ethernet_main.c"
+#line 232 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Ethernet_main.c"
 void Start_Ethernet(){
-
- InitTimer5();
- NVIC_IntEnable(IVT_INT_TIM5);
- EnableInterrupts();
-
- if(Ethernet_Init() != SUCCESS)
- return;
- if(Ethernet_DHCP() != SUCCESS)
- return;
-
- Ethernet_ReachTime();
+#line 244 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Ethernet_main.c"
 }

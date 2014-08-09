@@ -1,5 +1,7 @@
-#line 1 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/mikromedia_STM32plus_driver.c"
-#line 1 "c:/users/jemmi/desktop/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/mikromedia_stm32plus_objects.h"
+#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/mikromedia_STM32plus_driver.c"
+#line 1 "c:/users/jemmi/documents/github/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/mikromedia_stm32plus_objects.h"
+typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
+
 typedef struct Screen TScreen;
 
 typedef struct {
@@ -9,6 +11,35 @@ typedef struct {
  unsigned int Y_Max;
  char Rotate;
 } TTPConstants;
+
+typedef struct Button {
+ TScreen* OwnerScreen;
+ char Order;
+ unsigned int Left;
+ unsigned int Top;
+ unsigned int Width;
+ unsigned int Height;
+ char Pen_Width;
+ unsigned int Pen_Color;
+ char Visible;
+ char Active;
+ char Transparent;
+ char *Caption;
+ TTextAlign TextAlign;
+ const char *FontName;
+ unsigned int Font_Color;
+ char Gradient;
+ char Gradient_Orientation;
+ unsigned int Gradient_Start_Color;
+ unsigned int Gradient_End_Color;
+ unsigned int Color;
+ char PressColEnabled;
+ unsigned int Press_Color;
+ void (*OnUpPtr)();
+ void (*OnDownPtr)();
+ void (*OnClickPtr)();
+ void (*OnPressPtr)();
+} TButton;
 
 typedef struct Label {
  TScreen* OwnerScreen;
@@ -95,11 +126,45 @@ typedef struct Box {
  void (*OnPressPtr)();
 } TBox;
 
+typedef struct CheckBox {
+ TScreen* OwnerScreen;
+ char Order;
+ unsigned int Left;
+ unsigned int Top;
+ unsigned int Width;
+ unsigned int Height;
+ char Pen_Width;
+ unsigned int Pen_Color;
+ char Visible;
+ char Active;
+ char Checked;
+ char Transparent;
+ char *Caption;
+ TTextAlign TextAlign;
+ const char *FontName;
+ unsigned int Font_Color;
+ char Gradient;
+ char Gradient_Orientation;
+ unsigned int Gradient_Start_Color;
+ unsigned int Gradient_End_Color;
+ unsigned int Color;
+ char Rounded;
+ char Corner_Radius;
+ char PressColEnabled;
+ unsigned int Press_Color;
+ void (*OnUpPtr)();
+ void (*OnDownPtr)();
+ void (*OnClickPtr)();
+ void (*OnPressPtr)();
+} TCheckBox;
+
 struct Screen {
  unsigned int Color;
  unsigned int Width;
  unsigned int Height;
  unsigned int ObjectsCount;
+ unsigned int ButtonsCount;
+ TButton * const code *Buttons;
  unsigned int LabelsCount;
  TLabel * const code *Labels;
  unsigned int ImagesCount;
@@ -108,6 +173,8 @@ struct Screen {
  TCircle * const code *Circles;
  unsigned int BoxesCount;
  TBox * const code *Boxes;
+ unsigned int CheckBoxesCount;
+ TCheckBox * const code *CheckBoxes;
 };
 
 extern TScreen Home;
@@ -124,11 +191,15 @@ extern TImage Image9;
 extern TLabel Label20;
 extern TImage Image16;
 extern TLabel Label25;
+extern TImage Image24;
+extern TLabel Label30;
 extern TImage Image18;
 extern TLabel Label34;
+extern TImage TicTacToe;
+extern TLabel Label40;
 extern TImage BatteryStatus;
-extern TLabel * const code Screen1_Labels[8];
-extern TImage * const code Screen1_Images[8];
+extern TLabel * const code Screen1_Labels[10];
+extern TImage * const code Screen1_Images[10];
 
 extern TScreen Accelerometer;
 extern TBox Box23;
@@ -242,6 +313,56 @@ extern TLabel * const code Screen8_Labels[3];
 extern TImage * const code Screen8_Images[8];
 extern TBox * const code Screen8_Boxes[3];
 
+extern TScreen Paint;
+extern TBox Box18;
+extern TImage Image4;
+extern TImage NewScreen;
+extern TImage Image25;
+extern TImage Pen;
+extern TImage Image27;
+extern TImage Eraser;
+extern TImage Image29;
+extern TBox DrawingArea;
+extern TImage icon_paint_back;
+extern TLabel Label29;
+extern TBox Color01;
+extern TBox Color02;
+extern TBox Color03;
+extern TBox Color04;
+extern TBox Color05;
+extern TBox Color06;
+extern TBox Color07;
+extern TBox Color08;
+extern TBox Color09;
+extern TBox Color10;
+extern TBox Color11;
+extern TBox Color12;
+extern TBox Color13;
+extern TBox Color14;
+extern TBox Color15;
+extern TBox Color16;
+extern TBox Color17;
+extern TBox Color18;
+extern TBox Color19;
+extern TBox Color20;
+extern TBox Color21;
+extern TBox Color22;
+extern TBox Color23;
+extern TBox Color24;
+extern TBox Color25;
+extern TBox Color26;
+extern TBox Color27;
+extern TBox Color28;
+extern TBox Color29;
+extern TBox Color30;
+extern TImage BackGroundColor;
+extern TBox Pen1;
+extern TBox Pen2;
+extern TBox Pen3;
+extern TLabel * const code Screen9_Labels[1];
+extern TImage * const code Screen9_Images[9];
+extern TBox * const code Screen9_Boxes[35];
+
 extern TScreen SlideShow;
 extern TBox Box7;
 extern TBox icon_previous_box;
@@ -254,34 +375,46 @@ extern TImage icon_previous;
 extern TImage Icon_next;
 extern TLabel Label35;
 extern TBox Slide_Active_area;
-extern TLabel * const code Screen9_Labels[4];
-extern TImage * const code Screen9_Images[3];
-extern TBox * const code Screen9_Boxes[4];
+extern TLabel * const code Screen10_Labels[4];
+extern TImage * const code Screen10_Images[3];
+extern TBox * const code Screen10_Boxes[4];
 
-extern TScreen Boot;
-extern TImage Image4;
-extern TImage Image19;
+extern TScreen Tic_Tac_Toe;
+extern TBox Box10;
+extern TBox Box11;
+extern TBox Box9;
+extern TButton Button9;
+extern TButton Button8;
+extern TButton Button7;
+extern TButton Button6;
+extern TButton Button5;
+extern TButton Button4;
+extern TButton Button3;
+extern TButton Button2;
+extern TButton Button1;
+extern TBox Box8;
+extern TLabel Label36;
 extern TImage Image20;
+extern TLabel Label37;
 extern TImage Image21;
-extern TImage Image22;
-extern TImage Image23;
-extern TImage Image24;
-extern TImage Image25;
-extern TImage Image26;
-extern TImage Image27;
-extern TImage Image28;
-extern TImage Image29;
-extern TImage Image30;
-extern TImage Image31;
-extern TImage Image32;
-extern TImage Image33;
-extern TImage Image34;
-extern TImage Image35;
-extern TImage Image36;
-extern TImage Image37;
-extern TImage Image38;
-extern TImage Image39;
-extern TImage * const code Screen10_Images[22];
+extern TLabel Label38;
+extern TLabel Label39;
+extern TLabel XO1;
+extern TLabel XO2;
+extern TLabel XO3;
+extern TLabel XO4;
+extern TLabel XO5;
+extern TLabel XO6;
+extern TLabel XO7;
+extern TLabel XO8;
+extern TLabel XO9;
+extern TCheckBox CheckBox1;
+extern TLabel Label41;
+extern TButton * const code Screen11_Buttons[9];
+extern TLabel * const code Screen11_Labels[14];
+extern TImage * const code Screen11_Images[2];
+extern TBox * const code Screen11_Boxes[4];
+extern TCheckBox * const code Screen11_CheckBoxes[1];
 
 
 
@@ -398,8 +531,12 @@ extern char Image9_Caption[];
 extern char Label20_Caption[];
 extern char Image16_Caption[];
 extern char Label25_Caption[];
+extern char Image24_Caption[];
+extern char Label30_Caption[];
 extern char Image18_Caption[];
 extern char Label34_Caption[];
+extern char TicTacToe_Caption[];
+extern char Label40_Caption[];
 extern char BatteryStatus_Caption[];
 extern char Box23_Caption[];
 extern char Box1_Caption[];
@@ -477,6 +614,51 @@ extern char stop_icon_Caption[];
 extern char next_icon_Caption[];
 extern char songlist_icon_Caption[];
 extern char Label6_Caption[];
+extern char Box18_Caption[];
+extern char Image4_Caption[];
+extern char NewScreen_Caption[];
+extern char Image25_Caption[];
+extern char Pen_Caption[];
+extern char Image27_Caption[];
+extern char Eraser_Caption[];
+extern char Image29_Caption[];
+extern char DrawingArea_Caption[];
+extern char icon_paint_back_Caption[];
+extern char Label29_Caption[];
+extern char Color01_Caption[];
+extern char Color02_Caption[];
+extern char Color03_Caption[];
+extern char Color04_Caption[];
+extern char Color05_Caption[];
+extern char Color06_Caption[];
+extern char Color07_Caption[];
+extern char Color08_Caption[];
+extern char Color09_Caption[];
+extern char Color10_Caption[];
+extern char Color11_Caption[];
+extern char Color12_Caption[];
+extern char Color13_Caption[];
+extern char Color14_Caption[];
+extern char Color15_Caption[];
+extern char Color16_Caption[];
+extern char Color17_Caption[];
+extern char Color18_Caption[];
+extern char Color19_Caption[];
+extern char Color20_Caption[];
+extern char Color21_Caption[];
+extern char Color22_Caption[];
+extern char Color23_Caption[];
+extern char Color24_Caption[];
+extern char Color25_Caption[];
+extern char Color26_Caption[];
+extern char Color27_Caption[];
+extern char Color28_Caption[];
+extern char Color29_Caption[];
+extern char Color30_Caption[];
+extern char BackGroundColor_Caption[];
+extern char Pen1_Caption[];
+extern char Pen2_Caption[];
+extern char Pen3_Caption[];
 extern char Box7_Caption[];
 extern char icon_previous_box_Caption[];
 extern char Icon_next_box_Caption[];
@@ -488,50 +670,67 @@ extern char icon_previous_Caption[];
 extern char Icon_next_Caption[];
 extern char Label35_Caption[];
 extern char Slide_Active_area_Caption[];
-extern char Image4_Caption[];
-extern char Image19_Caption[];
+extern char Box10_Caption[];
+extern char Box11_Caption[];
+extern char Box9_Caption[];
+extern char Button9_Caption[];
+extern char Button8_Caption[];
+extern char Button7_Caption[];
+extern char Button6_Caption[];
+extern char Button5_Caption[];
+extern char Button4_Caption[];
+extern char Button3_Caption[];
+extern char Button2_Caption[];
+extern char Button1_Caption[];
+extern char Box8_Caption[];
+extern char Label36_Caption[];
 extern char Image20_Caption[];
+extern char Label37_Caption[];
 extern char Image21_Caption[];
-extern char Image22_Caption[];
-extern char Image23_Caption[];
-extern char Image24_Caption[];
-extern char Image25_Caption[];
-extern char Image26_Caption[];
-extern char Image27_Caption[];
-extern char Image28_Caption[];
-extern char Image29_Caption[];
-extern char Image30_Caption[];
-extern char Image31_Caption[];
-extern char Image32_Caption[];
-extern char Image33_Caption[];
-extern char Image34_Caption[];
-extern char Image35_Caption[];
-extern char Image36_Caption[];
-extern char Image37_Caption[];
-extern char Image38_Caption[];
-extern char Image39_Caption[];
+extern char Label38_Caption[];
+extern char Label39_Caption[];
+extern char XO1_Caption[];
+extern char XO2_Caption[];
+extern char XO3_Caption[];
+extern char XO4_Caption[];
+extern char XO5_Caption[];
+extern char XO6_Caption[];
+extern char XO7_Caption[];
+extern char XO8_Caption[];
+extern char XO9_Caption[];
+extern char CheckBox1_Caption[];
+extern char Label41_Caption[];
 
 
 void DrawScreen(TScreen *aScreen);
+void DrawButton(TButton *aButton);
 void DrawLabel(TLabel *ALabel);
 void DrawImage(TImage *AImage);
 void DrawCircle(TCircle *ACircle);
 void DrawBox(TBox *ABox);
+void DrawCheckBox(TCheckBox *ACheckBox);
 void Check_TP();
 void Start_TP();
-#line 1 "c:/users/jemmi/desktop/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/mikromedia_stm32plus_resources.h"
-const code char Open_Sans_Light13x16_Regular[];
-const code char Open_Sans_Light16x18_Regular[];
-const code char Open_Sans_Light21x24_Regular[];
-const code char Open_Sans_Light58x65_Regular[];
-const code char Open_Sans46x50_Regular[];
+void Process_TP_Press(unsigned int X, unsigned int Y);
+void Process_TP_Up(unsigned int X, unsigned int Y);
+void Process_TP_Down(unsigned int X, unsigned int Y);
+#line 1 "c:/users/jemmi/documents/github/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/mikromedia_stm32plus_resources.h"
+const code char Furro_Script38x42_Regular[];
+const code char Furro_Script52x60_Regular[];
+const code char Open_Sans_Light12x18_Regular[];
+const code char Open_Sans_Light14x22_Regular[];
+const code char Open_Sans_Light19x28_Regular[];
+const code char Open_Sans_Light51x78_Regular[];
+const code char Open_Sans42x61_Regular[];
 const code char icon_accel_bmp[11558];
 const code char icon_rgb_light_bmp[11558];
 const code char icon_clock_bmp[11558];
 const code char icon_time_bmp[926];
 const code char icon_temp_bmp[11558];
 const code char icon_mp3_player_bmp[11558];
+const code char icon_paint_bmp[11558];
 const code char icon_slide_show_bmp[11558];
+const code char icon_tic_tac_toe_bmp[11558];
 const code char icon_battery_bmp[1766];
 const code char icon_back_accel_bmp[974];
 const code char icon_back_rgb_bmp[974];
@@ -558,33 +757,22 @@ const code char icon_play_bmp[344];
 const code char icon_stop_bmp[344];
 const code char icon_next_bmp[344];
 const code char icon_playlist_bmp[728];
+const code char icon_new_screen_selected_bmp[2054];
+const code char icon_new_screen_bmp[2054];
+const code char icon_brush_selected_bmp[2054];
+const code char icon_brush_bmp[2054];
+const code char icon_eraser_selected_bmp[2054];
+const code char icon_eraser_bmp[2054];
+const code char icon_fill_back_selected_bmp[2054];
+const code char icon_back_paint_bmp[974];
+const code char icon_fill_back_bmp[2054];
 const code char icon_back_slideshow_bmp[974];
 const code char icon_prev_slide_bmp[390];
 const code char icon_next_slide_bmp[390];
-const code char img0_jpg[11233];
-const code char img3_jpg[11274];
-const code char img6_jpg[11601];
-const code char img9_jpg[11238];
-const code char img12_jpg[10927];
-const code char img15_jpg[10583];
-const code char img18_jpg[10211];
-const code char img21_jpg[9782];
-const code char img24_jpg[9199];
-const code char img27_jpg[8614];
-const code char img30_jpg[7878];
-const code char img33_jpg[7628];
-const code char img36_jpg[8015];
-const code char img39_jpg[9281];
-const code char img42_jpg[10162];
-const code char img45_jpg[11054];
-const code char img48_jpg[11818];
-const code char img51_jpg[12419];
-const code char img54_jpg[12917];
-const code char img57_jpg[13432];
-const code char img60_jpg[13360];
-const code char img63_jpg[13482];
-#line 1 "c:/program files (x86)/mikroc pro for arm/include/built_in.h"
-#line 7 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/mikromedia_STM32plus_driver.c"
+const code char icon_back_tictactow_bmp[974];
+const code char icon_new_game_bmp[654];
+#line 1 "c:/users/jemmi/documents/mikroelektronika/mikroc pro for arm/include/built_in.h"
+#line 7 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/mikromedia_STM32plus_driver.c"
 unsigned int TFT_DataPort at GPIOE_ODR;
 sbit TFT_RST at GPIOF_ODR.B14;
 sbit TFT_RS at GPIOF_ODR.B15;
@@ -592,6 +780,8 @@ sbit TFT_CS at GPIOF_ODR.B13;
 sbit TFT_RD at GPIOF_ODR.B12;
 sbit TFT_WR at GPIOF_ODR.B11;
 sbit TFT_BLED at GPIOF_ODR.B10;
+
+
 
 
 unsigned int Xcoord, Ycoord;
@@ -603,6 +793,9 @@ unsigned int display_width, display_height;
 
 int _object_count;
 unsigned short object_pressed;
+TButton *local_button;
+TButton *exec_button;
+int button_order;
 TLabel *local_label;
 TLabel *exec_label;
 int label_order;
@@ -615,6 +808,10 @@ int circle_order;
 TBox *local_box;
 TBox *exec_box;
 int box_order;
+TCheckBox *local_checkbox;
+TCheckBox *exec_checkbox;
+int checkbox_order;
+
 
 void Write_to_Data_Lines(unsigned char _hi, unsigned char _lo) {
  unsigned int temp;
@@ -626,7 +823,7 @@ void Write_to_Data_Lines(unsigned char _hi, unsigned char _lo) {
  GPIOG_ODR = temp | _lo;
 }
 
-void TFT_mikromedia_Set_Index(unsigned short index) {
+void Set_Index(unsigned short index) {
  TFT_RS = 0;
  Write_to_Data_Lines(0, index);
  TFT_WR = 0;
@@ -634,7 +831,7 @@ void TFT_mikromedia_Set_Index(unsigned short index) {
  TFT_WR = 1;
 }
 
-void TFT_mikromedia_Write_Command(unsigned short cmd) {
+void Write_Command(unsigned short cmd) {
  TFT_RS = 1;
  Write_to_Data_Lines(0, cmd);
  TFT_WR = 0;
@@ -642,15 +839,16 @@ void TFT_mikromedia_Write_Command(unsigned short cmd) {
  TFT_WR = 1;
 }
 
-void TFT_Write_to_16bitPort(unsigned int _data) {
+void Write_Data(unsigned int _data) {
  TFT_RS = 1;
  Write_to_Data_Lines( ((char *)&_data)[1] ,  ((char *)&_data)[0] );
  TFT_WR = 0;
  asm nop;
  TFT_WR = 1;
 }
+
 static void InitializeTouchPanel() {
- TFT_Set_Active(&TFT_mikromedia_Set_Index, &TFT_mikromedia_Write_Command, &TFT_Write_to_16bitPort);
+ TFT_Set_Active(Set_Index, Write_Command, Write_Data);
  TFT_Init_SSD1963(480, 272);
 
  TFT_Set_DBC_SSD1963(255);
@@ -692,12 +890,20 @@ char Label20_Caption[8] = "Sensors";
  TLabel Label25;
 char Label25_Caption[11] = "MP3 Player";
 
+ TImage Image24;
+ TLabel Label30;
+char Label30_Caption[6] = "Paint";
+
  TImage Image18;
  TLabel Label34;
 char Label34_Caption[11] = "Slide Show";
 
+ TImage TicTacToe;
+ TLabel Label40;
+char Label40_Caption[12] = "Tic Tac Toe";
+
  TImage BatteryStatus;
- TLabel * const code Screen1_Labels[8]=
+ TLabel * const code Screen1_Labels[10]=
  {
  &Label5,
  &Label7,
@@ -706,9 +912,11 @@ char Label34_Caption[11] = "Slide Show";
  &Label19,
  &Label20,
  &Label25,
- &Label34
+ &Label30,
+ &Label34,
+ &Label40
  };
- TImage * const code Screen1_Images[8]=
+ TImage * const code Screen1_Images[10]=
  {
  &Image1,
  &Image3,
@@ -716,7 +924,9 @@ char Label34_Caption[11] = "Slide Show";
  &Image10,
  &Image9,
  &Image16,
+ &Image24,
  &Image18,
+ &TicTacToe,
  &BatteryStatus
  };
 
@@ -1008,6 +1218,109 @@ char Label6_Caption[6] = "00:00";
  &ProgressBar
  };
 
+ TScreen Paint;
+ TBox Box18;
+ TImage Image4;
+ TImage NewScreen;
+ TImage Image25;
+ TImage Pen;
+ TImage Image27;
+ TImage Eraser;
+ TImage Image29;
+ TBox DrawingArea;
+ TImage icon_paint_back;
+ TLabel Label29;
+char Label29_Caption[6] = "Paint";
+
+ TBox Color01;
+ TBox Color02;
+ TBox Color03;
+ TBox Color04;
+ TBox Color05;
+ TBox Color06;
+ TBox Color07;
+ TBox Color08;
+ TBox Color09;
+ TBox Color10;
+ TBox Color11;
+ TBox Color12;
+ TBox Color13;
+ TBox Color14;
+ TBox Color15;
+ TBox Color16;
+ TBox Color17;
+ TBox Color18;
+ TBox Color19;
+ TBox Color20;
+ TBox Color21;
+ TBox Color22;
+ TBox Color23;
+ TBox Color24;
+ TBox Color25;
+ TBox Color26;
+ TBox Color27;
+ TBox Color28;
+ TBox Color29;
+ TBox Color30;
+ TImage BackGroundColor;
+ TBox Pen1;
+ TBox Pen2;
+ TBox Pen3;
+ TLabel * const code Screen9_Labels[1]=
+ {
+ &Label29
+ };
+ TImage * const code Screen9_Images[9]=
+ {
+ &Image4,
+ &NewScreen,
+ &Image25,
+ &Pen,
+ &Image27,
+ &Eraser,
+ &Image29,
+ &icon_paint_back,
+ &BackGroundColor
+ };
+ TBox * const code Screen9_Boxes[35]=
+ {
+ &Box18,
+ &DrawingArea,
+ &Color01,
+ &Color02,
+ &Color03,
+ &Color04,
+ &Color05,
+ &Color06,
+ &Color07,
+ &Color08,
+ &Color09,
+ &Color10,
+ &Color11,
+ &Color12,
+ &Color13,
+ &Color14,
+ &Color15,
+ &Color16,
+ &Color17,
+ &Color18,
+ &Color19,
+ &Color20,
+ &Color21,
+ &Color22,
+ &Color23,
+ &Color24,
+ &Color25,
+ &Color26,
+ &Color27,
+ &Color28,
+ &Color29,
+ &Color30,
+ &Pen1,
+ &Pen2,
+ &Pen3
+ };
+
  TScreen SlideShow;
  TBox Box7;
  TBox icon_previous_box;
@@ -1028,20 +1341,20 @@ char Label33_Caption[5] = "of 8";
 char Label35_Caption[6] = "  ";
 
  TBox Slide_Active_area;
- TLabel * const code Screen9_Labels[4]=
+ TLabel * const code Screen10_Labels[4]=
  {
  &Label31,
  &Label32,
  &Label33,
  &Label35
  };
- TImage * const code Screen9_Images[3]=
+ TImage * const code Screen10_Images[3]=
  {
  &back_slide_show,
  &icon_previous,
  &Icon_next
  };
- TBox * const code Screen9_Boxes[4]=
+ TBox * const code Screen10_Boxes[4]=
  {
  &Box7,
  &icon_previous_box,
@@ -1049,53 +1362,129 @@ char Label35_Caption[6] = "  ";
  &Slide_Active_area
  };
 
- TScreen Boot;
- TImage Image4;
- TImage Image19;
+ TScreen Tic_Tac_Toe;
+ TBox Box10;
+ TBox Box11;
+ TBox Box9;
+ TButton Button9;
+char Button9_Caption[1] = "";
+
+ TButton Button8;
+char Button8_Caption[1] = "";
+
+ TButton Button7;
+char Button7_Caption[1] = "";
+
+ TButton Button6;
+char Button6_Caption[1] = "";
+
+ TButton Button5;
+char Button5_Caption[1] = "";
+
+ TButton Button4;
+char Button4_Caption[1] = "";
+
+ TButton Button3;
+char Button3_Caption[1] = "";
+
+ TButton Button2;
+char Button2_Caption[1] = "";
+
+ TButton Button1;
+char Button1_Caption[1] = "";
+
+ TBox Box8;
+ TLabel Label36;
+char Label36_Caption[17] = "Tic-Tac-Toe Game";
+
  TImage Image20;
+ TLabel Label37;
+char Label37_Caption[9] = "New Game";
+
  TImage Image21;
- TImage Image22;
- TImage Image23;
- TImage Image24;
- TImage Image25;
- TImage Image26;
- TImage Image27;
- TImage Image28;
- TImage Image29;
- TImage Image30;
- TImage Image31;
- TImage Image32;
- TImage Image33;
- TImage Image34;
- TImage Image35;
- TImage Image36;
- TImage Image37;
- TImage Image38;
- TImage Image39;
- TImage * const code Screen10_Images[22]=
+ TLabel Label38;
+char Label38_Caption[11] = " ";
+
+ TLabel Label39;
+char Label39_Caption[12] = "Time: 00:00";
+
+ TLabel XO1;
+char XO1_Caption[2] = " ";
+
+ TLabel XO2;
+char XO2_Caption[2] = " ";
+
+ TLabel XO3;
+char XO3_Caption[2] = " ";
+
+ TLabel XO4;
+char XO4_Caption[2] = " ";
+
+ TLabel XO5;
+char XO5_Caption[2] = " ";
+
+ TLabel XO6;
+char XO6_Caption[2] = " ";
+
+ TLabel XO7;
+char XO7_Caption[2] = " ";
+
+ TLabel XO8;
+char XO8_Caption[2] = " ";
+
+ TLabel XO9;
+char XO9_Caption[2] = " ";
+
+ TCheckBox CheckBox1;
+char CheckBox1_Caption[1] = "";
+
+ TLabel Label41;
+char Label41_Caption[12] = "Remote Play";
+
+ TButton * const code Screen11_Buttons[9]=
  {
- &Image4,
- &Image19,
+ &Button9,
+ &Button8,
+ &Button7,
+ &Button6,
+ &Button5,
+ &Button4,
+ &Button3,
+ &Button2,
+ &Button1
+ };
+ TLabel * const code Screen11_Labels[14]=
+ {
+ &Label36,
+ &Label37,
+ &Label38,
+ &Label39,
+ &XO1,
+ &XO2,
+ &XO3,
+ &XO4,
+ &XO5,
+ &XO6,
+ &XO7,
+ &XO8,
+ &XO9,
+ &Label41
+ };
+ TImage * const code Screen11_Images[2]=
+ {
  &Image20,
- &Image21,
- &Image22,
- &Image23,
- &Image24,
- &Image25,
- &Image26,
- &Image27,
- &Image28,
- &Image29,
- &Image30,
- &Image31,
- &Image32,
- &Image33,
- &Image34,
- &Image35,
- &Image36,
- &Image37,
- &Image38,
- &Image39
+ &Image21
+ };
+ TBox * const code Screen11_Boxes[4]=
+ {
+ &Box10,
+ &Box11,
+ &Box9,
+ &Box8
+ };
+ TCheckBox * const code Screen11_CheckBoxes[1]=
+ {
+ &CheckBox1
  };
 
 
@@ -1104,17 +1493,20 @@ static void InitializeObjects() {
  Home.Color = 0x2D33;
  Home.Width = 480;
  Home.Height = 272;
- Home.LabelsCount = 8;
+ Home.ButtonsCount = 0;
+ Home.LabelsCount = 10;
  Home.Labels = Screen1_Labels;
- Home.ImagesCount = 8;
+ Home.ImagesCount = 10;
  Home.Images = Screen1_Images;
  Home.CirclesCount = 0;
  Home.BoxesCount = 0;
- Home.ObjectsCount = 16;
+ Home.CheckBoxesCount = 0;
+ Home.ObjectsCount = 20;
 
  Accelerometer.Color = 0x4229;
  Accelerometer.Width = 480;
  Accelerometer.Height = 272;
+ Accelerometer.ButtonsCount = 0;
  Accelerometer.LabelsCount = 4;
  Accelerometer.Labels = Screen2_Labels;
  Accelerometer.ImagesCount = 1;
@@ -1122,11 +1514,13 @@ static void InitializeObjects() {
  Accelerometer.CirclesCount = 0;
  Accelerometer.BoxesCount = 2;
  Accelerometer.Boxes = Screen2_Boxes;
+ Accelerometer.CheckBoxesCount = 0;
  Accelerometer.ObjectsCount = 7;
 
  RGBLight.Color = 0x4229;
  RGBLight.Width = 480;
  RGBLight.Height = 272;
+ RGBLight.ButtonsCount = 0;
  RGBLight.LabelsCount = 5;
  RGBLight.Labels = Screen3_Labels;
  RGBLight.ImagesCount = 1;
@@ -1135,11 +1529,13 @@ static void InitializeObjects() {
  RGBLight.Circles = Screen3_Circles;
  RGBLight.BoxesCount = 2;
  RGBLight.Boxes = Screen3_Boxes;
+ RGBLight.CheckBoxesCount = 0;
  RGBLight.ObjectsCount = 9;
 
  Clock.Color = 0x54C3;
  Clock.Width = 480;
  Clock.Height = 272;
+ Clock.ButtonsCount = 0;
  Clock.LabelsCount = 5;
  Clock.Labels = Screen4_Labels;
  Clock.ImagesCount = 5;
@@ -1147,11 +1543,13 @@ static void InitializeObjects() {
  Clock.CirclesCount = 0;
  Clock.BoxesCount = 9;
  Clock.Boxes = Screen4_Boxes;
+ Clock.CheckBoxesCount = 0;
  Clock.ObjectsCount = 19;
 
  Sensors.Color = 0xA948;
  Sensors.Width = 480;
  Sensors.Height = 272;
+ Sensors.ButtonsCount = 0;
  Sensors.LabelsCount = 7;
  Sensors.Labels = Screen5_Labels;
  Sensors.ImagesCount = 3;
@@ -1159,11 +1557,13 @@ static void InitializeObjects() {
  Sensors.CirclesCount = 0;
  Sensors.BoxesCount = 2;
  Sensors.Boxes = Screen5_Boxes;
+ Sensors.CheckBoxesCount = 0;
  Sensors.ObjectsCount = 12;
 
  MP3_SD.Color = 0x4457;
  MP3_SD.Width = 480;
  MP3_SD.Height = 272;
+ MP3_SD.ButtonsCount = 0;
  MP3_SD.LabelsCount = 2;
  MP3_SD.Labels = Screen6_Labels;
  MP3_SD.ImagesCount = 5;
@@ -1171,11 +1571,13 @@ static void InitializeObjects() {
  MP3_SD.CirclesCount = 0;
  MP3_SD.BoxesCount = 1;
  MP3_SD.Boxes = Screen6_Boxes;
+ MP3_SD.CheckBoxesCount = 0;
  MP3_SD.ObjectsCount = 8;
 
  MP3_SongList.Color = 0x4457;
  MP3_SongList.Width = 480;
  MP3_SongList.Height = 272;
+ MP3_SongList.ButtonsCount = 0;
  MP3_SongList.LabelsCount = 2;
  MP3_SongList.Labels = Screen7_Labels;
  MP3_SongList.ImagesCount = 3;
@@ -1183,11 +1585,13 @@ static void InitializeObjects() {
  MP3_SongList.CirclesCount = 0;
  MP3_SongList.BoxesCount = 2;
  MP3_SongList.Boxes = Screen7_Boxes;
+ MP3_SongList.CheckBoxesCount = 0;
  MP3_SongList.ObjectsCount = 7;
 
  MP3_Player.Color = 0x4457;
  MP3_Player.Width = 480;
  MP3_Player.Height = 272;
+ MP3_Player.ButtonsCount = 0;
  MP3_Player.LabelsCount = 3;
  MP3_Player.Labels = Screen8_Labels;
  MP3_Player.ImagesCount = 8;
@@ -1195,29 +1599,52 @@ static void InitializeObjects() {
  MP3_Player.CirclesCount = 0;
  MP3_Player.BoxesCount = 3;
  MP3_Player.Boxes = Screen8_Boxes;
+ MP3_Player.CheckBoxesCount = 0;
  MP3_Player.ObjectsCount = 14;
+
+ Paint.Color = 0x4229;
+ Paint.Width = 480;
+ Paint.Height = 272;
+ Paint.ButtonsCount = 0;
+ Paint.LabelsCount = 1;
+ Paint.Labels = Screen9_Labels;
+ Paint.ImagesCount = 9;
+ Paint.Images = Screen9_Images;
+ Paint.CirclesCount = 0;
+ Paint.BoxesCount = 35;
+ Paint.Boxes = Screen9_Boxes;
+ Paint.CheckBoxesCount = 0;
+ Paint.ObjectsCount = 45;
 
  SlideShow.Color = 0x4229;
  SlideShow.Width = 480;
  SlideShow.Height = 272;
+ SlideShow.ButtonsCount = 0;
  SlideShow.LabelsCount = 4;
- SlideShow.Labels = Screen9_Labels;
+ SlideShow.Labels = Screen10_Labels;
  SlideShow.ImagesCount = 3;
- SlideShow.Images = Screen9_Images;
+ SlideShow.Images = Screen10_Images;
  SlideShow.CirclesCount = 0;
  SlideShow.BoxesCount = 4;
- SlideShow.Boxes = Screen9_Boxes;
+ SlideShow.Boxes = Screen10_Boxes;
+ SlideShow.CheckBoxesCount = 0;
  SlideShow.ObjectsCount = 11;
 
- Boot.Color = 0x5AEB;
- Boot.Width = 480;
- Boot.Height = 272;
- Boot.LabelsCount = 0;
- Boot.ImagesCount = 22;
- Boot.Images = Screen10_Images;
- Boot.CirclesCount = 0;
- Boot.BoxesCount = 0;
- Boot.ObjectsCount = 22;
+ Tic_Tac_Toe.Color = 0xA1AE;
+ Tic_Tac_Toe.Width = 480;
+ Tic_Tac_Toe.Height = 272;
+ Tic_Tac_Toe.ButtonsCount = 9;
+ Tic_Tac_Toe.Buttons = Screen11_Buttons;
+ Tic_Tac_Toe.LabelsCount = 14;
+ Tic_Tac_Toe.Labels = Screen11_Labels;
+ Tic_Tac_Toe.ImagesCount = 2;
+ Tic_Tac_Toe.Images = Screen11_Images;
+ Tic_Tac_Toe.CirclesCount = 0;
+ Tic_Tac_Toe.BoxesCount = 4;
+ Tic_Tac_Toe.Boxes = Screen11_Boxes;
+ Tic_Tac_Toe.CheckBoxesCount = 1;
+ Tic_Tac_Toe.CheckBoxes = Screen11_CheckBoxes;
+ Tic_Tac_Toe.ObjectsCount = 30;
 
 
  Image1.OwnerScreen = &Home;
@@ -1261,7 +1688,7 @@ static void InitializeObjects() {
  Label5.Visible = 1;
  Label5.Active = 1;
  Label5.Caption = Label5_Caption;
- Label5.FontName = Open_Sans_Light21x24_Regular;
+ Label5.FontName = Open_Sans_Light19x28_Regular;
  Label5.Font_Color = 0xFFFF;
  Label5.OnUpPtr = 0;
  Label5.OnDownPtr = 0;
@@ -1277,7 +1704,7 @@ static void InitializeObjects() {
  Label7.Visible = 1;
  Label7.Active = 1;
  Label7.Caption = Label7_Caption;
- Label7.FontName = Open_Sans_Light16x18_Regular;
+ Label7.FontName = Open_Sans_Light14x22_Regular;
  Label7.Font_Color = 0xFFFF;
  Label7.OnUpPtr = 0;
  Label7.OnDownPtr = 0;
@@ -1293,7 +1720,7 @@ static void InitializeObjects() {
  Label8.Visible = 1;
  Label8.Active = 1;
  Label8.Caption = Label8_Caption;
- Label8.FontName = Open_Sans_Light16x18_Regular;
+ Label8.FontName = Open_Sans_Light14x22_Regular;
  Label8.Font_Color = 0xFFFF;
  Label8.OnUpPtr = 0;
  Label8.OnDownPtr = 0;
@@ -1325,7 +1752,7 @@ static void InitializeObjects() {
  Label14.Visible = 1;
  Label14.Active = 1;
  Label14.Caption = Label14_Caption;
- Label14.FontName = Open_Sans_Light16x18_Regular;
+ Label14.FontName = Open_Sans_Light14x22_Regular;
  Label14.Font_Color = 0xFFFF;
  Label14.OnUpPtr = 0;
  Label14.OnDownPtr = 0;
@@ -1357,7 +1784,7 @@ static void InitializeObjects() {
  Label19.Visible = 1;
  Label19.Active = 1;
  Label19.Caption = Label19_Caption;
- Label19.FontName = Open_Sans_Light13x16_Regular;
+ Label19.FontName = Open_Sans_Light12x18_Regular;
  Label19.Font_Color = 0xFFFF;
  Label19.OnUpPtr = 0;
  Label19.OnDownPtr = 0;
@@ -1389,7 +1816,7 @@ static void InitializeObjects() {
  Label20.Visible = 1;
  Label20.Active = 1;
  Label20.Caption = Label20_Caption;
- Label20.FontName = Open_Sans_Light16x18_Regular;
+ Label20.FontName = Open_Sans_Light14x22_Regular;
  Label20.Font_Color = 0xFFFF;
  Label20.OnUpPtr = 0;
  Label20.OnDownPtr = 0;
@@ -1421,15 +1848,47 @@ static void InitializeObjects() {
  Label25.Visible = 1;
  Label25.Active = 1;
  Label25.Caption = Label25_Caption;
- Label25.FontName = Open_Sans_Light16x18_Regular;
+ Label25.FontName = Open_Sans_Light14x22_Regular;
  Label25.Font_Color = 0xFFFF;
  Label25.OnUpPtr = 0;
  Label25.OnDownPtr = 0;
  Label25.OnClickPtr = 0;
  Label25.OnPressPtr = 0;
 
+ Image24.OwnerScreen = &Home;
+ Image24.Order = 13;
+ Image24.Left = 150;
+ Image24.Top = 46;
+ Image24.Width = 76;
+ Image24.Height = 76;
+ Image24.Picture_Type = 0;
+ Image24.Picture_Ratio = 1;
+ Image24.Picture_Name = icon_paint_bmp;
+ Image24.Visible = 1;
+ Image24.Active = 1;
+ Image24.OnUpPtr = 0;
+ Image24.OnDownPtr = 0;
+ Image24.OnClickPtr = 0;
+ Image24.OnPressPtr = Image24OnPress;
+
+ Label30.OwnerScreen = &Home;
+ Label30.Order = 14;
+ Label30.Left = 168;
+ Label30.Top = 120;
+ Label30.Width = 38;
+ Label30.Height = 20;
+ Label30.Visible = 1;
+ Label30.Active = 1;
+ Label30.Caption = Label30_Caption;
+ Label30.FontName = Open_Sans_Light14x22_Regular;
+ Label30.Font_Color = 0xFFFF;
+ Label30.OnUpPtr = 0;
+ Label30.OnDownPtr = 0;
+ Label30.OnClickPtr = 0;
+ Label30.OnPressPtr = 0;
+
  Image18.OwnerScreen = &Home;
- Image18.Order = 13;
+ Image18.Order = 15;
  Image18.Left = 255;
  Image18.Top = 160;
  Image18.Width = 76;
@@ -1445,7 +1904,7 @@ static void InitializeObjects() {
  Image18.OnPressPtr = 0;
 
  Label34.OwnerScreen = &Home;
- Label34.Order = 14;
+ Label34.Order = 16;
  Label34.Left = 254;
  Label34.Top = 230;
  Label34.Width = 82;
@@ -1453,15 +1912,47 @@ static void InitializeObjects() {
  Label34.Visible = 1;
  Label34.Active = 1;
  Label34.Caption = Label34_Caption;
- Label34.FontName = Open_Sans_Light16x18_Regular;
+ Label34.FontName = Open_Sans_Light14x22_Regular;
  Label34.Font_Color = 0xFFFF;
  Label34.OnUpPtr = 0;
  Label34.OnDownPtr = 0;
  Label34.OnClickPtr = 0;
  Label34.OnPressPtr = 0;
 
+ TicTacToe.OwnerScreen = &Home;
+ TicTacToe.Order = 17;
+ TicTacToe.Left = 255;
+ TicTacToe.Top = 46;
+ TicTacToe.Width = 76;
+ TicTacToe.Height = 76;
+ TicTacToe.Picture_Type = 0;
+ TicTacToe.Picture_Ratio = 1;
+ TicTacToe.Picture_Name = icon_tic_tac_toe_bmp;
+ TicTacToe.Visible = 1;
+ TicTacToe.Active = 1;
+ TicTacToe.OnUpPtr = 0;
+ TicTacToe.OnDownPtr = 0;
+ TicTacToe.OnClickPtr = Image22OnClick;
+ TicTacToe.OnPressPtr = 0;
+
+ Label40.OwnerScreen = &Home;
+ Label40.Order = 18;
+ Label40.Left = 253;
+ Label40.Top = 120;
+ Label40.Width = 87;
+ Label40.Height = 20;
+ Label40.Visible = 1;
+ Label40.Active = 1;
+ Label40.Caption = Label40_Caption;
+ Label40.FontName = Open_Sans_Light14x22_Regular;
+ Label40.Font_Color = 0xFFFF;
+ Label40.OnUpPtr = 0;
+ Label40.OnDownPtr = 0;
+ Label40.OnClickPtr = 0;
+ Label40.OnPressPtr = 0;
+
  BatteryStatus.OwnerScreen = &Home;
- BatteryStatus.Order = 15;
+ BatteryStatus.Order = 19;
  BatteryStatus.Left = 10;
  BatteryStatus.Top = 6;
  BatteryStatus.Width = 44;
@@ -1547,7 +2038,7 @@ static void InitializeObjects() {
  Label1.Visible = 1;
  Label1.Active = 0;
  Label1.Caption = Label1_Caption;
- Label1.FontName = Open_Sans_Light21x24_Regular;
+ Label1.FontName = Open_Sans_Light19x28_Regular;
  Label1.Font_Color = 0xFFFF;
  Label1.OnUpPtr = 0;
  Label1.OnDownPtr = 0;
@@ -1563,7 +2054,7 @@ static void InitializeObjects() {
  Label2.Visible = 1;
  Label2.Active = 1;
  Label2.Caption = Label2_Caption;
- Label2.FontName = Open_Sans_Light16x18_Regular;
+ Label2.FontName = Open_Sans_Light14x22_Regular;
  Label2.Font_Color = 0xF800;
  Label2.OnUpPtr = 0;
  Label2.OnDownPtr = 0;
@@ -1579,7 +2070,7 @@ static void InitializeObjects() {
  Label3.Visible = 1;
  Label3.Active = 1;
  Label3.Caption = Label3_Caption;
- Label3.FontName = Open_Sans_Light16x18_Regular;
+ Label3.FontName = Open_Sans_Light14x22_Regular;
  Label3.Font_Color = 0x001F;
  Label3.OnUpPtr = 0;
  Label3.OnDownPtr = 0;
@@ -1595,7 +2086,7 @@ static void InitializeObjects() {
  Label4.Visible = 1;
  Label4.Active = 1;
  Label4.Caption = Label4_Caption;
- Label4.FontName = Open_Sans_Light16x18_Regular;
+ Label4.FontName = Open_Sans_Light14x22_Regular;
  Label4.Font_Color = 0x0400;
  Label4.OnUpPtr = 0;
  Label4.OnDownPtr = 0;
@@ -1634,7 +2125,7 @@ static void InitializeObjects() {
  Label9.Visible = 1;
  Label9.Active = 0;
  Label9.Caption = Label9_Caption;
- Label9.FontName = Open_Sans_Light21x24_Regular;
+ Label9.FontName = Open_Sans_Light19x28_Regular;
  Label9.Font_Color = 0xFFFF;
  Label9.OnUpPtr = 0;
  Label9.OnDownPtr = 0;
@@ -1666,7 +2157,7 @@ static void InitializeObjects() {
  Label10.Visible = 1;
  Label10.Active = 1;
  Label10.Caption = Label10_Caption;
- Label10.FontName = Open_Sans_Light16x18_Regular;
+ Label10.FontName = Open_Sans_Light14x22_Regular;
  Label10.Font_Color = 0xFFFF;
  Label10.OnUpPtr = 0;
  Label10.OnDownPtr = 0;
@@ -1704,7 +2195,7 @@ static void InitializeObjects() {
  Label11.Visible = 1;
  Label11.Active = 1;
  Label11.Caption = Label11_Caption;
- Label11.FontName = Open_Sans_Light16x18_Regular;
+ Label11.FontName = Open_Sans_Light14x22_Regular;
  Label11.Font_Color = 0xFFFF;
  Label11.OnUpPtr = 0;
  Label11.OnDownPtr = 0;
@@ -1720,7 +2211,7 @@ static void InitializeObjects() {
  Label12.Visible = 1;
  Label12.Active = 1;
  Label12.Caption = Label12_Caption;
- Label12.FontName = Open_Sans_Light16x18_Regular;
+ Label12.FontName = Open_Sans_Light14x22_Regular;
  Label12.Font_Color = 0xFFFF;
  Label12.OnUpPtr = 0;
  Label12.OnDownPtr = 0;
@@ -1736,7 +2227,7 @@ static void InitializeObjects() {
  Label13.Visible = 1;
  Label13.Active = 1;
  Label13.Caption = Label13_Caption;
- Label13.FontName = Open_Sans_Light16x18_Regular;
+ Label13.FontName = Open_Sans_Light14x22_Regular;
  Label13.Font_Color = 0xFFFF;
  Label13.OnUpPtr = 0;
  Label13.OnDownPtr = 0;
@@ -1867,7 +2358,7 @@ static void InitializeObjects() {
  Label15.Visible = 1;
  Label15.Active = 1;
  Label15.Caption = Label15_Caption;
- Label15.FontName = Open_Sans_Light58x65_Regular;
+ Label15.FontName = Open_Sans_Light51x78_Regular;
  Label15.Font_Color = 0xFFFF;
  Label15.OnUpPtr = 0;
  Label15.OnDownPtr = 0;
@@ -1929,7 +2420,7 @@ static void InitializeObjects() {
  Label16.Visible = 1;
  Label16.Active = 0;
  Label16.Caption = Label16_Caption;
- Label16.FontName = Open_Sans_Light21x24_Regular;
+ Label16.FontName = Open_Sans_Light19x28_Regular;
  Label16.Font_Color = 0xFFFF;
  Label16.OnUpPtr = 0;
  Label16.OnDownPtr = 0;
@@ -1961,7 +2452,7 @@ static void InitializeObjects() {
  Label17.Visible = 1;
  Label17.Active = 0;
  Label17.Caption = Label17_Caption;
- Label17.FontName = Open_Sans_Light16x18_Regular;
+ Label17.FontName = Open_Sans_Light14x22_Regular;
  Label17.Font_Color = 0xFFFF;
  Label17.OnUpPtr = 0;
  Label17.OnDownPtr = 0;
@@ -1977,7 +2468,7 @@ static void InitializeObjects() {
  Label18.Visible = 1;
  Label18.Active = 0;
  Label18.Caption = Label18_Caption;
- Label18.FontName = Open_Sans_Light16x18_Regular;
+ Label18.FontName = Open_Sans_Light14x22_Regular;
  Label18.Font_Color = 0xFFFF;
  Label18.OnUpPtr = 0;
  Label18.OnDownPtr = 0;
@@ -2087,7 +2578,7 @@ static void InitializeObjects() {
  Label42.Visible = 1;
  Label42.Active = 0;
  Label42.Caption = Label42_Caption;
- Label42.FontName = Open_Sans_Light13x16_Regular;
+ Label42.FontName = Open_Sans_Light12x18_Regular;
  Label42.Font_Color = 0xFFFF;
  Label42.OnUpPtr = 0;
  Label42.OnDownPtr = 0;
@@ -2220,7 +2711,7 @@ static void InitializeObjects() {
  Diagram5_Label1.Visible = 1;
  Diagram5_Label1.Active = 1;
  Diagram5_Label1.Caption = Diagram5_Label1_Caption;
- Diagram5_Label1.FontName = Open_Sans_Light16x18_Regular;
+ Diagram5_Label1.FontName = Open_Sans_Light14x22_Regular;
  Diagram5_Label1.Font_Color = 0xFFFF;
  Diagram5_Label1.OnUpPtr = 0;
  Diagram5_Label1.OnDownPtr = 0;
@@ -2236,7 +2727,7 @@ static void InitializeObjects() {
  Diagram5_Label2.Visible = 1;
  Diagram5_Label2.Active = 1;
  Diagram5_Label2.Caption = Diagram5_Label2_Caption;
- Diagram5_Label2.FontName = Open_Sans46x50_Regular;
+ Diagram5_Label2.FontName = Open_Sans42x61_Regular;
  Diagram5_Label2.Font_Color = 0xFFFF;
  Diagram5_Label2.OnUpPtr = 0;
  Diagram5_Label2.OnDownPtr = 0;
@@ -2252,7 +2743,7 @@ static void InitializeObjects() {
  Diagram5_Label3.Visible = 1;
  Diagram5_Label3.Active = 1;
  Diagram5_Label3.Caption = Diagram5_Label3_Caption;
- Diagram5_Label3.FontName = Open_Sans_Light16x18_Regular;
+ Diagram5_Label3.FontName = Open_Sans_Light14x22_Regular;
  Diagram5_Label3.Font_Color = 0xFFFF;
  Diagram5_Label3.OnUpPtr = 0;
  Diagram5_Label3.OnDownPtr = 0;
@@ -2268,7 +2759,7 @@ static void InitializeObjects() {
  Diagram5_Label4.Visible = 1;
  Diagram5_Label4.Active = 1;
  Diagram5_Label4.Caption = Diagram5_Label4_Caption;
- Diagram5_Label4.FontName = Open_Sans46x50_Regular;
+ Diagram5_Label4.FontName = Open_Sans42x61_Regular;
  Diagram5_Label4.Font_Color = 0xFFFF;
  Diagram5_Label4.OnUpPtr = 0;
  Diagram5_Label4.OnDownPtr = 0;
@@ -2284,7 +2775,7 @@ static void InitializeObjects() {
  Diagram5_Label5.Visible = 1;
  Diagram5_Label5.Active = 1;
  Diagram5_Label5.Caption = Diagram5_Label5_Caption;
- Diagram5_Label5.FontName = Open_Sans_Light21x24_Regular;
+ Diagram5_Label5.FontName = Open_Sans_Light19x28_Regular;
  Diagram5_Label5.Font_Color = 0xFFFF;
  Diagram5_Label5.OnUpPtr = 0;
  Diagram5_Label5.OnDownPtr = 0;
@@ -2316,7 +2807,7 @@ static void InitializeObjects() {
  Diagram5_Label6.Visible = 1;
  Diagram5_Label6.Active = 0;
  Diagram5_Label6.Caption = Diagram5_Label6_Caption;
- Diagram5_Label6.FontName = Open_Sans_Light21x24_Regular;
+ Diagram5_Label6.FontName = Open_Sans_Light19x28_Regular;
  Diagram5_Label6.Font_Color = 0xFFFF;
  Diagram5_Label6.OnUpPtr = 0;
  Diagram5_Label6.OnDownPtr = 0;
@@ -2332,7 +2823,7 @@ static void InitializeObjects() {
  Label21.Visible = 1;
  Label21.Active = 1;
  Label21.Caption = Label21_Caption;
- Label21.FontName = Open_Sans_Light21x24_Regular;
+ Label21.FontName = Open_Sans_Light19x28_Regular;
  Label21.Font_Color = 0xFFFF;
  Label21.OnUpPtr = 0;
  Label21.OnDownPtr = 0;
@@ -2371,7 +2862,7 @@ static void InitializeObjects() {
  Label22.Visible = 1;
  Label22.Active = 0;
  Label22.Caption = Label22_Caption;
- Label22.FontName = Open_Sans_Light21x24_Regular;
+ Label22.FontName = Open_Sans_Light19x28_Regular;
  Label22.Font_Color = 0xFFFF;
  Label22.OnUpPtr = 0;
  Label22.OnDownPtr = 0;
@@ -2387,7 +2878,7 @@ static void InitializeObjects() {
  Label23.Visible = 1;
  Label23.Active = 1;
  Label23.Caption = Label23_Caption;
- Label23.FontName = Open_Sans_Light16x18_Regular;
+ Label23.FontName = Open_Sans_Light14x22_Regular;
  Label23.Font_Color = 0xFFFF;
  Label23.OnUpPtr = 0;
  Label23.OnDownPtr = 0;
@@ -2524,12 +3015,12 @@ static void InitializeObjects() {
  Label24.Order = 2;
  Label24.Left = 32;
  Label24.Top = 2;
- Label24.Width = 109;
- Label24.Height = 31;
+ Label24.Width = 112;
+ Label24.Height = 26;
  Label24.Visible = 1;
  Label24.Active = 0;
  Label24.Caption = Label24_Caption;
- Label24.FontName = Open_Sans_Light21x24_Regular;
+ Label24.FontName = Open_Sans_Light19x28_Regular;
  Label24.Font_Color = 0xFFFF;
  Label24.OnUpPtr = 0;
  Label24.OnDownPtr = 0;
@@ -2557,11 +3048,11 @@ static void InitializeObjects() {
  Label26.Left = 168;
  Label26.Top = 248;
  Label26.Width = 163;
- Label26.Height = 24;
+ Label26.Height = 20;
  Label26.Visible = 1;
  Label26.Active = 1;
  Label26.Caption = Label26_Caption;
- Label26.FontName = Open_Sans_Light16x18_Regular;
+ Label26.FontName = Open_Sans_Light14x22_Regular;
  Label26.Font_Color = 0xFFFF;
  Label26.OnUpPtr = 0;
  Label26.OnDownPtr = 0;
@@ -2632,7 +3123,7 @@ static void InitializeObjects() {
  Label27.Visible = 1;
  Label27.Active = 0;
  Label27.Caption = Label27_Caption;
- Label27.FontName = Open_Sans_Light21x24_Regular;
+ Label27.FontName = Open_Sans_Light19x28_Regular;
  Label27.Font_Color = 0xFFFF;
  Label27.OnUpPtr = 0;
  Label27.OnDownPtr = 0;
@@ -2726,7 +3217,7 @@ static void InitializeObjects() {
  Label28.Visible = 1;
  Label28.Active = 1;
  Label28.Caption = Label28_Caption;
- Label28.FontName = Open_Sans_Light21x24_Regular;
+ Label28.FontName = Open_Sans_Light19x28_Regular;
  Label28.Font_Color = 0xFFFF;
  Label28.OnUpPtr = 0;
  Label28.OnDownPtr = 0;
@@ -2838,12 +3329,977 @@ static void InitializeObjects() {
  Label6.Visible = 1;
  Label6.Active = 1;
  Label6.Caption = Label6_Caption;
- Label6.FontName = Open_Sans_Light13x16_Regular;
+ Label6.FontName = Open_Sans_Light12x18_Regular;
  Label6.Font_Color = 0xFFFF;
  Label6.OnUpPtr = 0;
  Label6.OnDownPtr = 0;
  Label6.OnClickPtr = 0;
  Label6.OnPressPtr = 0;
+
+ Box18.OwnerScreen = &Paint;
+ Box18.Order = 0;
+ Box18.Left = 2;
+ Box18.Top = 4;
+ Box18.Width = 82;
+ Box18.Height = 25;
+ Box18.Pen_Width = 1;
+ Box18.Pen_Color = 0x0000;
+ Box18.Visible = 0;
+ Box18.Active = 1;
+ Box18.Transparent = 1;
+ Box18.Gradient = 0;
+ Box18.Gradient_Orientation = 0;
+ Box18.Gradient_Start_Color = 0xFFFF;
+ Box18.Gradient_End_Color = 0xC618;
+ Box18.Color = 0xC618;
+ Box18.PressColEnabled = 0;
+ Box18.Press_Color = 0xE71C;
+ Box18.OnUpPtr = 0;
+ Box18.OnDownPtr = 0;
+ Box18.OnClickPtr = icon_paint_backOnPress;
+ Box18.OnPressPtr = 0;
+
+ Image4.OwnerScreen = &Paint;
+ Image4.Order = 1;
+ Image4.Left = 0;
+ Image4.Top = 46;
+ Image4.Width = 32;
+ Image4.Height = 32;
+ Image4.Picture_Type = 0;
+ Image4.Picture_Ratio = 1;
+ Image4.Picture_Name = icon_new_screen_selected_bmp;
+ Image4.Visible = 0;
+ Image4.Active = 1;
+ Image4.OnUpPtr = 0;
+ Image4.OnDownPtr = 0;
+ Image4.OnClickPtr = 0;
+ Image4.OnPressPtr = 0;
+
+ NewScreen.OwnerScreen = &Paint;
+ NewScreen.Order = 2;
+ NewScreen.Left = 0;
+ NewScreen.Top = 46;
+ NewScreen.Width = 32;
+ NewScreen.Height = 32;
+ NewScreen.Picture_Type = 0;
+ NewScreen.Picture_Ratio = 1;
+ NewScreen.Picture_Name = icon_new_screen_bmp;
+ NewScreen.Visible = 1;
+ NewScreen.Active = 1;
+ NewScreen.OnUpPtr = 0;
+ NewScreen.OnDownPtr = 0;
+ NewScreen.OnClickPtr = 0;
+ NewScreen.OnPressPtr = NewScreenOnPress;
+
+ Image25.OwnerScreen = &Paint;
+ Image25.Order = 3;
+ Image25.Left = 0;
+ Image25.Top = 86;
+ Image25.Width = 32;
+ Image25.Height = 32;
+ Image25.Picture_Type = 0;
+ Image25.Picture_Ratio = 1;
+ Image25.Picture_Name = icon_brush_selected_bmp;
+ Image25.Visible = 0;
+ Image25.Active = 1;
+ Image25.OnUpPtr = 0;
+ Image25.OnDownPtr = 0;
+ Image25.OnClickPtr = 0;
+ Image25.OnPressPtr = 0;
+
+ Pen.OwnerScreen = &Paint;
+ Pen.Order = 4;
+ Pen.Left = 0;
+ Pen.Top = 86;
+ Pen.Width = 32;
+ Pen.Height = 32;
+ Pen.Picture_Type = 0;
+ Pen.Picture_Ratio = 1;
+ Pen.Picture_Name = icon_brush_bmp;
+ Pen.Visible = 1;
+ Pen.Active = 1;
+ Pen.OnUpPtr = 0;
+ Pen.OnDownPtr = 0;
+ Pen.OnClickPtr = 0;
+ Pen.OnPressPtr = PenOnPress;
+
+ Image27.OwnerScreen = &Paint;
+ Image27.Order = 5;
+ Image27.Left = 0;
+ Image27.Top = 124;
+ Image27.Width = 32;
+ Image27.Height = 32;
+ Image27.Picture_Type = 0;
+ Image27.Picture_Ratio = 1;
+ Image27.Picture_Name = icon_eraser_selected_bmp;
+ Image27.Visible = 0;
+ Image27.Active = 1;
+ Image27.OnUpPtr = 0;
+ Image27.OnDownPtr = 0;
+ Image27.OnClickPtr = 0;
+ Image27.OnPressPtr = 0;
+
+ Eraser.OwnerScreen = &Paint;
+ Eraser.Order = 6;
+ Eraser.Left = 0;
+ Eraser.Top = 124;
+ Eraser.Width = 32;
+ Eraser.Height = 32;
+ Eraser.Picture_Type = 0;
+ Eraser.Picture_Ratio = 1;
+ Eraser.Picture_Name = icon_eraser_bmp;
+ Eraser.Visible = 1;
+ Eraser.Active = 1;
+ Eraser.OnUpPtr = 0;
+ Eraser.OnDownPtr = 0;
+ Eraser.OnClickPtr = 0;
+ Eraser.OnPressPtr = EraserOnPress;
+
+ Image29.OwnerScreen = &Paint;
+ Image29.Order = 7;
+ Image29.Left = 0;
+ Image29.Top = 166;
+ Image29.Width = 32;
+ Image29.Height = 32;
+ Image29.Picture_Type = 0;
+ Image29.Picture_Ratio = 1;
+ Image29.Picture_Name = icon_fill_back_selected_bmp;
+ Image29.Visible = 0;
+ Image29.Active = 1;
+ Image29.OnUpPtr = 0;
+ Image29.OnDownPtr = 0;
+ Image29.OnClickPtr = 0;
+ Image29.OnPressPtr = 0;
+
+ DrawingArea.OwnerScreen = &Paint;
+ DrawingArea.Order = 8;
+ DrawingArea.Left = 32;
+ DrawingArea.Top = 32;
+ DrawingArea.Width = 449;
+ DrawingArea.Height = 241;
+ DrawingArea.Pen_Width = 0;
+ DrawingArea.Pen_Color = 0x0000;
+ DrawingArea.Visible = 1;
+ DrawingArea.Active = 1;
+ DrawingArea.Transparent = 1;
+ DrawingArea.Gradient = 0;
+ DrawingArea.Gradient_Orientation = 0;
+ DrawingArea.Gradient_Start_Color = 0xFFFF;
+ DrawingArea.Gradient_End_Color = 0xC618;
+ DrawingArea.Color = 0xFFFF;
+ DrawingArea.PressColEnabled = 0;
+ DrawingArea.Press_Color = 0xE71C;
+ DrawingArea.OnUpPtr = 0;
+ DrawingArea.OnDownPtr = 0;
+ DrawingArea.OnClickPtr = 0;
+ DrawingArea.OnPressPtr = DrawingAreaOnPress;
+
+ icon_paint_back.OwnerScreen = &Paint;
+ icon_paint_back.Order = 9;
+ icon_paint_back.Left = 5;
+ icon_paint_back.Top = 6;
+ icon_paint_back.Width = 22;
+ icon_paint_back.Height = 22;
+ icon_paint_back.Picture_Type = 0;
+ icon_paint_back.Picture_Ratio = 1;
+ icon_paint_back.Picture_Name = icon_back_paint_bmp;
+ icon_paint_back.Visible = 1;
+ icon_paint_back.Active = 0;
+ icon_paint_back.OnUpPtr = 0;
+ icon_paint_back.OnDownPtr = 0;
+ icon_paint_back.OnClickPtr = 0;
+ icon_paint_back.OnPressPtr = icon_paint_backOnPress;
+
+ Label29.OwnerScreen = &Paint;
+ Label29.Order = 10;
+ Label29.Left = 31;
+ Label29.Top = 2;
+ Label29.Width = 49;
+ Label29.Height = 31;
+ Label29.Visible = 1;
+ Label29.Active = 0;
+ Label29.Caption = Label29_Caption;
+ Label29.FontName = Open_Sans_Light19x28_Regular;
+ Label29.Font_Color = 0xFFFF;
+ Label29.OnUpPtr = 0;
+ Label29.OnDownPtr = 0;
+ Label29.OnClickPtr = 0;
+ Label29.OnPressPtr = icon_paint_backOnPress;
+
+ Color01.OwnerScreen = &Paint;
+ Color01.Order = 11;
+ Color01.Left = 91;
+ Color01.Top = 0;
+ Color01.Width = 12;
+ Color01.Height = 31;
+ Color01.Pen_Width = 1;
+ Color01.Pen_Color = 0x0000;
+ Color01.Visible = 1;
+ Color01.Active = 1;
+ Color01.Transparent = 1;
+ Color01.Gradient = 0;
+ Color01.Gradient_Orientation = 0;
+ Color01.Gradient_Start_Color = 0xFFFF;
+ Color01.Gradient_End_Color = 0xC618;
+ Color01.Color = 0x0000;
+ Color01.PressColEnabled = 0;
+ Color01.Press_Color = 0xE71C;
+ Color01.OnUpPtr = 0;
+ Color01.OnDownPtr = 0;
+ Color01.OnClickPtr = 0;
+ Color01.OnPressPtr = Color01OnPress;
+
+ Color02.OwnerScreen = &Paint;
+ Color02.Order = 12;
+ Color02.Left = 104;
+ Color02.Top = 0;
+ Color02.Width = 12;
+ Color02.Height = 31;
+ Color02.Pen_Width = 1;
+ Color02.Pen_Color = 0x8410;
+ Color02.Visible = 1;
+ Color02.Active = 1;
+ Color02.Transparent = 1;
+ Color02.Gradient = 0;
+ Color02.Gradient_Orientation = 0;
+ Color02.Gradient_Start_Color = 0xFFFF;
+ Color02.Gradient_End_Color = 0xC618;
+ Color02.Color = 0x8410;
+ Color02.PressColEnabled = 0;
+ Color02.Press_Color = 0xE71C;
+ Color02.OnUpPtr = 0;
+ Color02.OnDownPtr = 0;
+ Color02.OnClickPtr = 0;
+ Color02.OnPressPtr = Color02OnPress;
+
+ Color03.OwnerScreen = &Paint;
+ Color03.Order = 13;
+ Color03.Left = 117;
+ Color03.Top = 0;
+ Color03.Width = 12;
+ Color03.Height = 31;
+ Color03.Pen_Width = 1;
+ Color03.Pen_Color = 0xA534;
+ Color03.Visible = 1;
+ Color03.Active = 1;
+ Color03.Transparent = 1;
+ Color03.Gradient = 0;
+ Color03.Gradient_Orientation = 0;
+ Color03.Gradient_Start_Color = 0xFFFF;
+ Color03.Gradient_End_Color = 0xC618;
+ Color03.Color = 0xA534;
+ Color03.PressColEnabled = 0;
+ Color03.Press_Color = 0xE71C;
+ Color03.OnUpPtr = 0;
+ Color03.OnDownPtr = 0;
+ Color03.OnClickPtr = 0;
+ Color03.OnPressPtr = Color03OnPress;
+
+ Color04.OwnerScreen = &Paint;
+ Color04.Order = 14;
+ Color04.Left = 130;
+ Color04.Top = 0;
+ Color04.Width = 12;
+ Color04.Height = 31;
+ Color04.Pen_Width = 1;
+ Color04.Pen_Color = 0xDEDB;
+ Color04.Visible = 1;
+ Color04.Active = 1;
+ Color04.Transparent = 1;
+ Color04.Gradient = 0;
+ Color04.Gradient_Orientation = 0;
+ Color04.Gradient_Start_Color = 0xFFFF;
+ Color04.Gradient_End_Color = 0xC618;
+ Color04.Color = 0xDEDB;
+ Color04.PressColEnabled = 0;
+ Color04.Press_Color = 0xE71C;
+ Color04.OnUpPtr = 0;
+ Color04.OnDownPtr = 0;
+ Color04.OnClickPtr = 0;
+ Color04.OnPressPtr = Color04OnPress;
+
+ Color05.OwnerScreen = &Paint;
+ Color05.Order = 15;
+ Color05.Left = 143;
+ Color05.Top = 0;
+ Color05.Width = 12;
+ Color05.Height = 31;
+ Color05.Pen_Width = 1;
+ Color05.Pen_Color = 0xFFFF;
+ Color05.Visible = 1;
+ Color05.Active = 1;
+ Color05.Transparent = 1;
+ Color05.Gradient = 0;
+ Color05.Gradient_Orientation = 0;
+ Color05.Gradient_Start_Color = 0xFFFF;
+ Color05.Gradient_End_Color = 0xC618;
+ Color05.Color = 0xFFFF;
+ Color05.PressColEnabled = 0;
+ Color05.Press_Color = 0xE71C;
+ Color05.OnUpPtr = 0;
+ Color05.OnDownPtr = 0;
+ Color05.OnClickPtr = 0;
+ Color05.OnPressPtr = Color05OnPress;
+
+ Color06.OwnerScreen = &Paint;
+ Color06.Order = 16;
+ Color06.Left = 156;
+ Color06.Top = 0;
+ Color06.Width = 12;
+ Color06.Height = 31;
+ Color06.Pen_Width = 1;
+ Color06.Pen_Color = 0xFF5B;
+ Color06.Visible = 1;
+ Color06.Active = 1;
+ Color06.Transparent = 1;
+ Color06.Gradient = 0;
+ Color06.Gradient_Orientation = 0;
+ Color06.Gradient_Start_Color = 0xFFFF;
+ Color06.Gradient_End_Color = 0xC618;
+ Color06.Color = 0xFF5B;
+ Color06.PressColEnabled = 0;
+ Color06.Press_Color = 0xE71C;
+ Color06.OnUpPtr = 0;
+ Color06.OnDownPtr = 0;
+ Color06.OnClickPtr = 0;
+ Color06.OnPressPtr = Color06OnPress;
+
+ Color07.OwnerScreen = &Paint;
+ Color07.Order = 17;
+ Color07.Left = 169;
+ Color07.Top = 0;
+ Color07.Width = 12;
+ Color07.Height = 31;
+ Color07.Pen_Width = 1;
+ Color07.Pen_Color = 0xFE53;
+ Color07.Visible = 1;
+ Color07.Active = 1;
+ Color07.Transparent = 1;
+ Color07.Gradient = 0;
+ Color07.Gradient_Orientation = 0;
+ Color07.Gradient_Start_Color = 0xFFFF;
+ Color07.Gradient_End_Color = 0xC618;
+ Color07.Color = 0xFE53;
+ Color07.PressColEnabled = 0;
+ Color07.Press_Color = 0xE71C;
+ Color07.OnUpPtr = 0;
+ Color07.OnDownPtr = 0;
+ Color07.OnClickPtr = 0;
+ Color07.OnPressPtr = Color07OnPress;
+
+ Color08.OwnerScreen = &Paint;
+ Color08.Order = 18;
+ Color08.Left = 182;
+ Color08.Top = 0;
+ Color08.Width = 12;
+ Color08.Height = 31;
+ Color08.Pen_Width = 1;
+ Color08.Pen_Color = 0x9B26;
+ Color08.Visible = 1;
+ Color08.Active = 1;
+ Color08.Transparent = 1;
+ Color08.Gradient = 0;
+ Color08.Gradient_Orientation = 0;
+ Color08.Gradient_Start_Color = 0xFFFF;
+ Color08.Gradient_End_Color = 0xC618;
+ Color08.Color = 0x9B26;
+ Color08.PressColEnabled = 0;
+ Color08.Press_Color = 0xE71C;
+ Color08.OnUpPtr = 0;
+ Color08.OnDownPtr = 0;
+ Color08.OnClickPtr = 0;
+ Color08.OnPressPtr = Color08OnPress;
+
+ Color09.OwnerScreen = &Paint;
+ Color09.Order = 19;
+ Color09.Left = 195;
+ Color09.Top = 0;
+ Color09.Width = 12;
+ Color09.Height = 31;
+ Color09.Pen_Width = 1;
+ Color09.Pen_Color = 0x61A0;
+ Color09.Visible = 1;
+ Color09.Active = 1;
+ Color09.Transparent = 1;
+ Color09.Gradient = 0;
+ Color09.Gradient_Orientation = 0;
+ Color09.Gradient_Start_Color = 0xFFFF;
+ Color09.Gradient_End_Color = 0xC618;
+ Color09.Color = 0x61A0;
+ Color09.PressColEnabled = 0;
+ Color09.Press_Color = 0xE71C;
+ Color09.OnUpPtr = 0;
+ Color09.OnDownPtr = 0;
+ Color09.OnClickPtr = 0;
+ Color09.OnPressPtr = Color09OnPress;
+
+ Color10.OwnerScreen = &Paint;
+ Color10.Order = 20;
+ Color10.Left = 208;
+ Color10.Top = 0;
+ Color10.Width = 12;
+ Color10.Height = 31;
+ Color10.Pen_Width = 1;
+ Color10.Pen_Color = 0x8800;
+ Color10.Visible = 1;
+ Color10.Active = 1;
+ Color10.Transparent = 1;
+ Color10.Gradient = 0;
+ Color10.Gradient_Orientation = 0;
+ Color10.Gradient_Start_Color = 0xFFFF;
+ Color10.Gradient_End_Color = 0xC618;
+ Color10.Color = 0x8800;
+ Color10.PressColEnabled = 0;
+ Color10.Press_Color = 0xE71C;
+ Color10.OnUpPtr = 0;
+ Color10.OnDownPtr = 0;
+ Color10.OnClickPtr = 0;
+ Color10.OnPressPtr = Color10OnPress;
+
+ Color11.OwnerScreen = &Paint;
+ Color11.Order = 21;
+ Color11.Left = 221;
+ Color11.Top = 0;
+ Color11.Width = 12;
+ Color11.Height = 31;
+ Color11.Pen_Width = 1;
+ Color11.Pen_Color = 0xF800;
+ Color11.Visible = 1;
+ Color11.Active = 1;
+ Color11.Transparent = 1;
+ Color11.Gradient = 0;
+ Color11.Gradient_Orientation = 0;
+ Color11.Gradient_Start_Color = 0xFFFF;
+ Color11.Gradient_End_Color = 0xC618;
+ Color11.Color = 0xF800;
+ Color11.PressColEnabled = 0;
+ Color11.Press_Color = 0xE71C;
+ Color11.OnUpPtr = 0;
+ Color11.OnDownPtr = 0;
+ Color11.OnClickPtr = 0;
+ Color11.OnPressPtr = Color11OnPress;
+
+ Color12.OwnerScreen = &Paint;
+ Color12.Order = 22;
+ Color12.Left = 234;
+ Color12.Top = 0;
+ Color12.Width = 12;
+ Color12.Height = 31;
+ Color12.Pen_Width = 1;
+ Color12.Pen_Color = 0xFB20;
+ Color12.Visible = 1;
+ Color12.Active = 1;
+ Color12.Transparent = 1;
+ Color12.Gradient = 0;
+ Color12.Gradient_Orientation = 0;
+ Color12.Gradient_Start_Color = 0xFFFF;
+ Color12.Gradient_End_Color = 0xC618;
+ Color12.Color = 0xFB20;
+ Color12.PressColEnabled = 0;
+ Color12.Press_Color = 0xE71C;
+ Color12.OnUpPtr = 0;
+ Color12.OnDownPtr = 0;
+ Color12.OnClickPtr = 0;
+ Color12.OnPressPtr = Color12OnPress;
+
+ Color13.OwnerScreen = &Paint;
+ Color13.Order = 23;
+ Color13.Left = 247;
+ Color13.Top = 0;
+ Color13.Width = 12;
+ Color13.Height = 31;
+ Color13.Pen_Width = 1;
+ Color13.Pen_Color = 0xFDC0;
+ Color13.Visible = 1;
+ Color13.Active = 1;
+ Color13.Transparent = 1;
+ Color13.Gradient = 0;
+ Color13.Gradient_Orientation = 0;
+ Color13.Gradient_Start_Color = 0xFFFF;
+ Color13.Gradient_End_Color = 0xC618;
+ Color13.Color = 0xFDC0;
+ Color13.PressColEnabled = 0;
+ Color13.Press_Color = 0xE71C;
+ Color13.OnUpPtr = 0;
+ Color13.OnDownPtr = 0;
+ Color13.OnClickPtr = 0;
+ Color13.OnPressPtr = Color13OnPress;
+
+ Color14.OwnerScreen = &Paint;
+ Color14.Order = 24;
+ Color14.Left = 260;
+ Color14.Top = 0;
+ Color14.Width = 12;
+ Color14.Height = 31;
+ Color14.Pen_Width = 1;
+ Color14.Pen_Color = 0xFEA4;
+ Color14.Visible = 1;
+ Color14.Active = 1;
+ Color14.Transparent = 1;
+ Color14.Gradient = 0;
+ Color14.Gradient_Orientation = 0;
+ Color14.Gradient_Start_Color = 0xFFFF;
+ Color14.Gradient_End_Color = 0xC618;
+ Color14.Color = 0xFEA4;
+ Color14.PressColEnabled = 0;
+ Color14.Press_Color = 0xE71C;
+ Color14.OnUpPtr = 0;
+ Color14.OnDownPtr = 0;
+ Color14.OnClickPtr = 0;
+ Color14.OnPressPtr = Color14OnPress;
+
+ Color15.OwnerScreen = &Paint;
+ Color15.Order = 25;
+ Color15.Left = 273;
+ Color15.Top = 0;
+ Color15.Width = 12;
+ Color15.Height = 31;
+ Color15.Pen_Width = 1;
+ Color15.Pen_Color = 0xFFE0;
+ Color15.Visible = 1;
+ Color15.Active = 1;
+ Color15.Transparent = 1;
+ Color15.Gradient = 0;
+ Color15.Gradient_Orientation = 0;
+ Color15.Gradient_Start_Color = 0xFFFF;
+ Color15.Gradient_End_Color = 0xC618;
+ Color15.Color = 0xFFE0;
+ Color15.PressColEnabled = 0;
+ Color15.Press_Color = 0xE71C;
+ Color15.OnUpPtr = 0;
+ Color15.OnDownPtr = 0;
+ Color15.OnClickPtr = 0;
+ Color15.OnPressPtr = Color15OnPress;
+
+ Color16.OwnerScreen = &Paint;
+ Color16.Order = 26;
+ Color16.Left = 286;
+ Color16.Top = 0;
+ Color16.Width = 12;
+ Color16.Height = 31;
+ Color16.Pen_Width = 1;
+ Color16.Pen_Color = 0xFFF3;
+ Color16.Visible = 1;
+ Color16.Active = 1;
+ Color16.Transparent = 1;
+ Color16.Gradient = 0;
+ Color16.Gradient_Orientation = 0;
+ Color16.Gradient_Start_Color = 0xFFFF;
+ Color16.Gradient_End_Color = 0xC618;
+ Color16.Color = 0xFFF3;
+ Color16.PressColEnabled = 0;
+ Color16.Press_Color = 0xE71C;
+ Color16.OnUpPtr = 0;
+ Color16.OnDownPtr = 0;
+ Color16.OnClickPtr = 0;
+ Color16.OnPressPtr = Color16OnPress;
+
+ Color17.OwnerScreen = &Paint;
+ Color17.Order = 27;
+ Color17.Left = 299;
+ Color17.Top = 0;
+ Color17.Width = 12;
+ Color17.Height = 31;
+ Color17.Pen_Width = 1;
+ Color17.Pen_Color = 0xCFED;
+ Color17.Visible = 1;
+ Color17.Active = 1;
+ Color17.Transparent = 1;
+ Color17.Gradient = 0;
+ Color17.Gradient_Orientation = 0;
+ Color17.Gradient_Start_Color = 0xFFFF;
+ Color17.Gradient_End_Color = 0xC618;
+ Color17.Color = 0xCFED;
+ Color17.PressColEnabled = 0;
+ Color17.Press_Color = 0xE71C;
+ Color17.OnUpPtr = 0;
+ Color17.OnDownPtr = 0;
+ Color17.OnClickPtr = 0;
+ Color17.OnPressPtr = Color17OnPress;
+
+ Color18.OwnerScreen = &Paint;
+ Color18.Order = 28;
+ Color18.Left = 312;
+ Color18.Top = 0;
+ Color18.Width = 12;
+ Color18.Height = 31;
+ Color18.Pen_Width = 1;
+ Color18.Pen_Color = 0x97F3;
+ Color18.Visible = 1;
+ Color18.Active = 1;
+ Color18.Transparent = 1;
+ Color18.Gradient = 0;
+ Color18.Gradient_Orientation = 0;
+ Color18.Gradient_Start_Color = 0xFFFF;
+ Color18.Gradient_End_Color = 0xC618;
+ Color18.Color = 0x97F3;
+ Color18.PressColEnabled = 0;
+ Color18.Press_Color = 0xE71C;
+ Color18.OnUpPtr = 0;
+ Color18.OnDownPtr = 0;
+ Color18.OnClickPtr = 0;
+ Color18.OnPressPtr = Color18OnPress;
+
+ Color19.OwnerScreen = &Paint;
+ Color19.Order = 29;
+ Color19.Left = 325;
+ Color19.Top = 0;
+ Color19.Width = 12;
+ Color19.Height = 31;
+ Color19.Pen_Width = 1;
+ Color19.Pen_Color = 0x0E21;
+ Color19.Visible = 1;
+ Color19.Active = 1;
+ Color19.Transparent = 1;
+ Color19.Gradient = 0;
+ Color19.Gradient_Orientation = 0;
+ Color19.Gradient_Start_Color = 0xFFFF;
+ Color19.Gradient_End_Color = 0xC618;
+ Color19.Color = 0x0E21;
+ Color19.PressColEnabled = 0;
+ Color19.Press_Color = 0xE71C;
+ Color19.OnUpPtr = 0;
+ Color19.OnDownPtr = 0;
+ Color19.OnClickPtr = 0;
+ Color19.OnPressPtr = Color19OnPress;
+
+ Color20.OwnerScreen = &Paint;
+ Color20.Order = 30;
+ Color20.Left = 338;
+ Color20.Top = 0;
+ Color20.Width = 12;
+ Color20.Height = 31;
+ Color20.Pen_Width = 1;
+ Color20.Pen_Color = 0x0400;
+ Color20.Visible = 1;
+ Color20.Active = 1;
+ Color20.Transparent = 1;
+ Color20.Gradient = 0;
+ Color20.Gradient_Orientation = 0;
+ Color20.Gradient_Start_Color = 0xFFFF;
+ Color20.Gradient_End_Color = 0xC618;
+ Color20.Color = 0x0400;
+ Color20.PressColEnabled = 0;
+ Color20.Press_Color = 0xE71C;
+ Color20.OnUpPtr = 0;
+ Color20.OnDownPtr = 0;
+ Color20.OnClickPtr = 0;
+ Color20.OnPressPtr = Color20OnPress;
+
+ Color21.OwnerScreen = &Paint;
+ Color21.Order = 31;
+ Color21.Left = 351;
+ Color21.Top = 0;
+ Color21.Width = 12;
+ Color21.Height = 31;
+ Color21.Pen_Width = 1;
+ Color21.Pen_Color = 0x2CEB;
+ Color21.Visible = 1;
+ Color21.Active = 1;
+ Color21.Transparent = 1;
+ Color21.Gradient = 0;
+ Color21.Gradient_Orientation = 0;
+ Color21.Gradient_Start_Color = 0xFFFF;
+ Color21.Gradient_End_Color = 0xC618;
+ Color21.Color = 0x2CEB;
+ Color21.PressColEnabled = 0;
+ Color21.Press_Color = 0xE71C;
+ Color21.OnUpPtr = 0;
+ Color21.OnDownPtr = 0;
+ Color21.OnClickPtr = 0;
+ Color21.OnPressPtr = Color21OnPress;
+
+ Color22.OwnerScreen = &Paint;
+ Color22.Order = 32;
+ Color22.Left = 364;
+ Color22.Top = 0;
+ Color22.Width = 12;
+ Color22.Height = 31;
+ Color22.Pen_Width = 1;
+ Color22.Pen_Color = 0x059E;
+ Color22.Visible = 1;
+ Color22.Active = 1;
+ Color22.Transparent = 1;
+ Color22.Gradient = 0;
+ Color22.Gradient_Orientation = 0;
+ Color22.Gradient_Start_Color = 0xFFFF;
+ Color22.Gradient_End_Color = 0xC618;
+ Color22.Color = 0x059E;
+ Color22.PressColEnabled = 0;
+ Color22.Press_Color = 0xE71C;
+ Color22.OnUpPtr = 0;
+ Color22.OnDownPtr = 0;
+ Color22.OnClickPtr = 0;
+ Color22.OnPressPtr = Color22OnPress;
+
+ Color23.OwnerScreen = &Paint;
+ Color23.Order = 33;
+ Color23.Left = 377;
+ Color23.Top = 0;
+ Color23.Width = 12;
+ Color23.Height = 31;
+ Color23.Pen_Width = 1;
+ Color23.Pen_Color = 0x001F;
+ Color23.Visible = 1;
+ Color23.Active = 1;
+ Color23.Transparent = 1;
+ Color23.Gradient = 0;
+ Color23.Gradient_Orientation = 0;
+ Color23.Gradient_Start_Color = 0xFFFF;
+ Color23.Gradient_End_Color = 0xC618;
+ Color23.Color = 0x001F;
+ Color23.PressColEnabled = 0;
+ Color23.Press_Color = 0xE71C;
+ Color23.OnUpPtr = 0;
+ Color23.OnDownPtr = 0;
+ Color23.OnClickPtr = 0;
+ Color23.OnPressPtr = Color23OnPress;
+
+ Color24.OwnerScreen = &Paint;
+ Color24.Order = 34;
+ Color24.Left = 390;
+ Color24.Top = 0;
+ Color24.Width = 12;
+ Color24.Height = 31;
+ Color24.Pen_Width = 1;
+ Color24.Pen_Color = 0x0013;
+ Color24.Visible = 1;
+ Color24.Active = 1;
+ Color24.Transparent = 1;
+ Color24.Gradient = 0;
+ Color24.Gradient_Orientation = 0;
+ Color24.Gradient_Start_Color = 0xFFFF;
+ Color24.Gradient_End_Color = 0xC618;
+ Color24.Color = 0x0013;
+ Color24.PressColEnabled = 0;
+ Color24.Press_Color = 0xE71C;
+ Color24.OnUpPtr = 0;
+ Color24.OnDownPtr = 0;
+ Color24.OnClickPtr = 0;
+ Color24.OnPressPtr = Color24OnPress;
+
+ Color25.OwnerScreen = &Paint;
+ Color25.Order = 35;
+ Color25.Left = 403;
+ Color25.Top = 0;
+ Color25.Width = 12;
+ Color25.Height = 31;
+ Color25.Pen_Width = 1;
+ Color25.Pen_Color = 0x5013;
+ Color25.Visible = 1;
+ Color25.Active = 1;
+ Color25.Transparent = 1;
+ Color25.Gradient = 0;
+ Color25.Gradient_Orientation = 0;
+ Color25.Gradient_Start_Color = 0xFFFF;
+ Color25.Gradient_End_Color = 0xC618;
+ Color25.Color = 0x5013;
+ Color25.PressColEnabled = 0;
+ Color25.Press_Color = 0xE71C;
+ Color25.OnUpPtr = 0;
+ Color25.OnDownPtr = 0;
+ Color25.OnClickPtr = 0;
+ Color25.OnPressPtr = Color25OnPress;
+
+ Color26.OwnerScreen = &Paint;
+ Color26.Order = 36;
+ Color26.Left = 416;
+ Color26.Top = 0;
+ Color26.Width = 12;
+ Color26.Height = 31;
+ Color26.Pen_Width = 1;
+ Color26.Pen_Color = 0x7194;
+ Color26.Visible = 1;
+ Color26.Active = 1;
+ Color26.Transparent = 1;
+ Color26.Gradient = 0;
+ Color26.Gradient_Orientation = 0;
+ Color26.Gradient_Start_Color = 0xFFFF;
+ Color26.Gradient_End_Color = 0xC618;
+ Color26.Color = 0x7194;
+ Color26.PressColEnabled = 0;
+ Color26.Press_Color = 0xE71C;
+ Color26.OnUpPtr = 0;
+ Color26.OnDownPtr = 0;
+ Color26.OnClickPtr = 0;
+ Color26.OnPressPtr = Color26OnPress;
+
+ Color27.OwnerScreen = &Paint;
+ Color27.Order = 37;
+ Color27.Left = 428;
+ Color27.Top = 0;
+ Color27.Width = 12;
+ Color27.Height = 31;
+ Color27.Pen_Width = 1;
+ Color27.Pen_Color = 0x935F;
+ Color27.Visible = 1;
+ Color27.Active = 1;
+ Color27.Transparent = 1;
+ Color27.Gradient = 0;
+ Color27.Gradient_Orientation = 0;
+ Color27.Gradient_Start_Color = 0xFFFF;
+ Color27.Gradient_End_Color = 0xC618;
+ Color27.Color = 0x935F;
+ Color27.PressColEnabled = 0;
+ Color27.Press_Color = 0xE71C;
+ Color27.OnUpPtr = 0;
+ Color27.OnDownPtr = 0;
+ Color27.OnClickPtr = 0;
+ Color27.OnPressPtr = Color27OnPress;
+
+ Color28.OwnerScreen = &Paint;
+ Color28.Order = 38;
+ Color28.Left = 441;
+ Color28.Top = 0;
+ Color28.Width = 12;
+ Color28.Height = 31;
+ Color28.Pen_Width = 1;
+ Color28.Pen_Color = 0xFCDF;
+ Color28.Visible = 1;
+ Color28.Active = 1;
+ Color28.Transparent = 1;
+ Color28.Gradient = 0;
+ Color28.Gradient_Orientation = 0;
+ Color28.Gradient_Start_Color = 0xFFFF;
+ Color28.Gradient_End_Color = 0xC618;
+ Color28.Color = 0xFCDF;
+ Color28.PressColEnabled = 0;
+ Color28.Press_Color = 0xE71C;
+ Color28.OnUpPtr = 0;
+ Color28.OnDownPtr = 0;
+ Color28.OnClickPtr = 0;
+ Color28.OnPressPtr = Color28OnPress;
+
+ Color29.OwnerScreen = &Paint;
+ Color29.Order = 39;
+ Color29.Left = 454;
+ Color29.Top = 0;
+ Color29.Width = 12;
+ Color29.Height = 31;
+ Color29.Pen_Width = 1;
+ Color29.Pen_Color = 0xF992;
+ Color29.Visible = 1;
+ Color29.Active = 1;
+ Color29.Transparent = 1;
+ Color29.Gradient = 0;
+ Color29.Gradient_Orientation = 0;
+ Color29.Gradient_Start_Color = 0xFFFF;
+ Color29.Gradient_End_Color = 0xC618;
+ Color29.Color = 0xF992;
+ Color29.PressColEnabled = 0;
+ Color29.Press_Color = 0xE71C;
+ Color29.OnUpPtr = 0;
+ Color29.OnDownPtr = 0;
+ Color29.OnClickPtr = 0;
+ Color29.OnPressPtr = Color29OnPress;
+
+ Color30.OwnerScreen = &Paint;
+ Color30.Order = 40;
+ Color30.Left = 467;
+ Color30.Top = 0;
+ Color30.Width = 12;
+ Color30.Height = 31;
+ Color30.Pen_Width = 1;
+ Color30.Pen_Color = 0xC813;
+ Color30.Visible = 1;
+ Color30.Active = 1;
+ Color30.Transparent = 1;
+ Color30.Gradient = 0;
+ Color30.Gradient_Orientation = 0;
+ Color30.Gradient_Start_Color = 0xFFFF;
+ Color30.Gradient_End_Color = 0xC618;
+ Color30.Color = 0xC813;
+ Color30.PressColEnabled = 0;
+ Color30.Press_Color = 0xE71C;
+ Color30.OnUpPtr = 0;
+ Color30.OnDownPtr = 0;
+ Color30.OnClickPtr = 0;
+ Color30.OnPressPtr = Color30OnPress;
+
+ BackGroundColor.OwnerScreen = &Paint;
+ BackGroundColor.Order = 41;
+ BackGroundColor.Left = 0;
+ BackGroundColor.Top = 166;
+ BackGroundColor.Width = 32;
+ BackGroundColor.Height = 32;
+ BackGroundColor.Picture_Type = 0;
+ BackGroundColor.Picture_Ratio = 1;
+ BackGroundColor.Picture_Name = icon_fill_back_bmp;
+ BackGroundColor.Visible = 1;
+ BackGroundColor.Active = 1;
+ BackGroundColor.OnUpPtr = 0;
+ BackGroundColor.OnDownPtr = 0;
+ BackGroundColor.OnClickPtr = 0;
+ BackGroundColor.OnPressPtr = BackGroundColorOnPress;
+
+ Pen1.OwnerScreen = &Paint;
+ Pen1.Order = 42;
+ Pen1.Left = 6;
+ Pen1.Top = 212;
+ Pen1.Width = 19;
+ Pen1.Height = 5;
+ Pen1.Pen_Width = 1;
+ Pen1.Pen_Color = 0xFFFF;
+ Pen1.Visible = 1;
+ Pen1.Active = 1;
+ Pen1.Transparent = 1;
+ Pen1.Gradient = 0;
+ Pen1.Gradient_Orientation = 0;
+ Pen1.Gradient_Start_Color = 0xFFFF;
+ Pen1.Gradient_End_Color = 0xC618;
+ Pen1.Color = 0xFFFF;
+ Pen1.PressColEnabled = 0;
+ Pen1.Press_Color = 0xE71C;
+ Pen1.OnUpPtr = 0;
+ Pen1.OnDownPtr = 0;
+ Pen1.OnClickPtr = 0;
+ Pen1.OnPressPtr = Pen1OnPress;
+
+ Pen2.OwnerScreen = &Paint;
+ Pen2.Order = 43;
+ Pen2.Left = 6;
+ Pen2.Top = 229;
+ Pen2.Width = 19;
+ Pen2.Height = 6;
+ Pen2.Pen_Width = 1;
+ Pen2.Pen_Color = 0xFFFF;
+ Pen2.Visible = 1;
+ Pen2.Active = 1;
+ Pen2.Transparent = 1;
+ Pen2.Gradient = 0;
+ Pen2.Gradient_Orientation = 0;
+ Pen2.Gradient_Start_Color = 0xFFFF;
+ Pen2.Gradient_End_Color = 0xC618;
+ Pen2.Color = 0xFFFF;
+ Pen2.PressColEnabled = 0;
+ Pen2.Press_Color = 0xE71C;
+ Pen2.OnUpPtr = 0;
+ Pen2.OnDownPtr = 0;
+ Pen2.OnClickPtr = 0;
+ Pen2.OnPressPtr = Pen2OnPress;
+
+ Pen3.OwnerScreen = &Paint;
+ Pen3.Order = 44;
+ Pen3.Left = 6;
+ Pen3.Top = 248;
+ Pen3.Width = 19;
+ Pen3.Height = 8;
+ Pen3.Pen_Width = 1;
+ Pen3.Pen_Color = 0xFFFF;
+ Pen3.Visible = 1;
+ Pen3.Active = 1;
+ Pen3.Transparent = 1;
+ Pen3.Gradient = 0;
+ Pen3.Gradient_Orientation = 0;
+ Pen3.Gradient_Start_Color = 0xFFFF;
+ Pen3.Gradient_End_Color = 0xC618;
+ Pen3.Color = 0xFFFF;
+ Pen3.PressColEnabled = 0;
+ Pen3.Press_Color = 0xE71C;
+ Pen3.OnUpPtr = 0;
+ Pen3.OnDownPtr = 0;
+ Pen3.OnClickPtr = 0;
+ Pen3.OnPressPtr = Pen3OnPress;
 
  Box7.OwnerScreen = &SlideShow;
  Box7.Order = 0;
@@ -2918,12 +4374,12 @@ static void InitializeObjects() {
  Label31.Order = 3;
  Label31.Left = 32;
  Label31.Top = 2;
- Label31.Width = 108;
- Label31.Height = 26;
+ Label31.Width = 105;
+ Label31.Height = 31;
  Label31.Visible = 1;
  Label31.Active = 0;
  Label31.Caption = Label31_Caption;
- Label31.FontName = Open_Sans_Light21x24_Regular;
+ Label31.FontName = Open_Sans_Light19x28_Regular;
  Label31.Font_Color = 0xFFFF;
  Label31.OnUpPtr = 0;
  Label31.OnDownPtr = 0;
@@ -2950,12 +4406,12 @@ static void InitializeObjects() {
  Label32.Order = 5;
  Label32.Left = 9;
  Label32.Top = 249;
- Label32.Width = 104;
- Label32.Height = 20;
+ Label32.Width = 106;
+ Label32.Height = 24;
  Label32.Visible = 1;
  Label32.Active = 1;
  Label32.Caption = Label32_Caption;
- Label32.FontName = Open_Sans_Light16x18_Regular;
+ Label32.FontName = Open_Sans_Light14x22_Regular;
  Label32.Font_Color = 0xFFFF;
  Label32.OnUpPtr = 0;
  Label32.OnDownPtr = 0;
@@ -2971,7 +4427,7 @@ static void InitializeObjects() {
  Label33.Visible = 1;
  Label33.Active = 1;
  Label33.Caption = Label33_Caption;
- Label33.FontName = Open_Sans_Light16x18_Regular;
+ Label33.FontName = Open_Sans_Light14x22_Regular;
  Label33.Font_Color = 0xFFFF;
  Label33.OnUpPtr = 0;
  Label33.OnDownPtr = 0;
@@ -3019,7 +4475,7 @@ static void InitializeObjects() {
  Label35.Visible = 1;
  Label35.Active = 1;
  Label35.Caption = Label35_Caption;
- Label35.FontName = Open_Sans_Light16x18_Regular;
+ Label35.FontName = Open_Sans_Light14x22_Regular;
  Label35.Font_Color = 0xFFFF;
  Label35.OnUpPtr = 0;
  Label35.OnDownPtr = 0;
@@ -3049,357 +4505,626 @@ static void InitializeObjects() {
  Slide_Active_area.OnClickPtr = 0;
  Slide_Active_area.OnPressPtr = Slide_Active_areaOnPress;
 
- Image4.OwnerScreen = &Boot;
- Image4.Order = 0;
- Image4.Left = 0;
- Image4.Top = 0;
- Image4.Width = 480;
- Image4.Height = 272;
- Image4.Picture_Type = 1;
- Image4.Picture_Ratio = 1;
- Image4.Picture_Name = img0_jpg;
- Image4.Visible = 1;
- Image4.Active = 1;
- Image4.OnUpPtr = 0;
- Image4.OnDownPtr = 0;
- Image4.OnClickPtr = 0;
- Image4.OnPressPtr = 0;
+ Box10.OwnerScreen = &Tic_Tac_Toe;
+ Box10.Order = 0;
+ Box10.Left = 48;
+ Box10.Top = 193;
+ Box10.Width = 97;
+ Box10.Height = 21;
+ Box10.Pen_Width = 1;
+ Box10.Pen_Color = 0x0000;
+ Box10.Visible = 0;
+ Box10.Active = 1;
+ Box10.Transparent = 1;
+ Box10.Gradient = 0;
+ Box10.Gradient_Orientation = 0;
+ Box10.Gradient_Start_Color = 0xFFFF;
+ Box10.Gradient_End_Color = 0xC618;
+ Box10.Color = 0xC618;
+ Box10.PressColEnabled = 0;
+ Box10.Press_Color = 0xE71C;
+ Box10.OnUpPtr = 0;
+ Box10.OnDownPtr = 0;
+ Box10.OnClickPtr = Box10OnClick;
+ Box10.OnPressPtr = 0;
 
- Image19.OwnerScreen = &Boot;
- Image19.Order = 1;
- Image19.Left = 0;
- Image19.Top = 0;
- Image19.Width = 480;
- Image19.Height = 272;
- Image19.Picture_Type = 1;
- Image19.Picture_Ratio = 1;
- Image19.Picture_Name = img3_jpg;
- Image19.Visible = 1;
- Image19.Active = 1;
- Image19.OnUpPtr = 0;
- Image19.OnDownPtr = 0;
- Image19.OnClickPtr = 0;
- Image19.OnPressPtr = 0;
+ Box11.OwnerScreen = &Tic_Tac_Toe;
+ Box11.Order = 1;
+ Box11.Left = 27;
+ Box11.Top = 224;
+ Box11.Width = 109;
+ Box11.Height = 26;
+ Box11.Pen_Width = 1;
+ Box11.Pen_Color = 0x0000;
+ Box11.Visible = 0;
+ Box11.Active = 1;
+ Box11.Transparent = 1;
+ Box11.Gradient = 0;
+ Box11.Gradient_Orientation = 0;
+ Box11.Gradient_Start_Color = 0xFFFF;
+ Box11.Gradient_End_Color = 0xC618;
+ Box11.Color = 0xC618;
+ Box11.PressColEnabled = 0;
+ Box11.Press_Color = 0xE71C;
+ Box11.OnUpPtr = 0;
+ Box11.OnDownPtr = 0;
+ Box11.OnClickPtr = 0;
+ Box11.OnPressPtr = Box11OnPress;
 
- Image20.OwnerScreen = &Boot;
- Image20.Order = 2;
- Image20.Left = 0;
- Image20.Top = 0;
- Image20.Width = 480;
- Image20.Height = 272;
- Image20.Picture_Type = 1;
+ Box9.OwnerScreen = &Tic_Tac_Toe;
+ Box9.Order = 2;
+ Box9.Left = 0;
+ Box9.Top = 0;
+ Box9.Width = 206;
+ Box9.Height = 32;
+ Box9.Pen_Width = 1;
+ Box9.Pen_Color = 0x0000;
+ Box9.Visible = 0;
+ Box9.Active = 1;
+ Box9.Transparent = 1;
+ Box9.Gradient = 0;
+ Box9.Gradient_Orientation = 0;
+ Box9.Gradient_Start_Color = 0xFFFF;
+ Box9.Gradient_End_Color = 0xC618;
+ Box9.Color = 0xC618;
+ Box9.PressColEnabled = 0;
+ Box9.Press_Color = 0xE71C;
+ Box9.OnUpPtr = 0;
+ Box9.OnDownPtr = 0;
+ Box9.OnClickPtr = 0;
+ Box9.OnPressPtr = Box9OnPress;
+
+ Button9.OwnerScreen = &Tic_Tac_Toe;
+ Button9.Order = 3;
+ Button9.Left = 384;
+ Button9.Top = 176;
+ Button9.Width = 66;
+ Button9.Height = 64;
+ Button9.Pen_Width = 1;
+ Button9.Pen_Color = 0x0000;
+ Button9.Visible = 0;
+ Button9.Active = 1;
+ Button9.Transparent = 1;
+ Button9.Caption = Button9_Caption;
+ Button9.TextAlign = _taCenter;
+ Button9.FontName = Furro_Script52x60_Regular;
+ Button9.PressColEnabled = 0;
+ Button9.Font_Color = 0x0000;
+ Button9.Gradient = 0;
+ Button9.Gradient_Orientation = 0;
+ Button9.Gradient_Start_Color = 0xFFFF;
+ Button9.Gradient_End_Color = 0xC618;
+ Button9.Color = 0xC618;
+ Button9.Press_Color = 0xE71C;
+ Button9.OnUpPtr = 0;
+ Button9.OnDownPtr = 0;
+ Button9.OnClickPtr = Button9OnClick;
+ Button9.OnPressPtr = 0;
+
+ Button8.OwnerScreen = &Tic_Tac_Toe;
+ Button8.Order = 4;
+ Button8.Left = 310;
+ Button8.Top = 178;
+ Button8.Width = 66;
+ Button8.Height = 64;
+ Button8.Pen_Width = 1;
+ Button8.Pen_Color = 0x0000;
+ Button8.Visible = 0;
+ Button8.Active = 1;
+ Button8.Transparent = 1;
+ Button8.Caption = Button8_Caption;
+ Button8.TextAlign = _taCenter;
+ Button8.FontName = Furro_Script52x60_Regular;
+ Button8.PressColEnabled = 0;
+ Button8.Font_Color = 0x0000;
+ Button8.Gradient = 0;
+ Button8.Gradient_Orientation = 0;
+ Button8.Gradient_Start_Color = 0xFFFF;
+ Button8.Gradient_End_Color = 0xC618;
+ Button8.Color = 0xC618;
+ Button8.Press_Color = 0xE71C;
+ Button8.OnUpPtr = 0;
+ Button8.OnDownPtr = 0;
+ Button8.OnClickPtr = Button8OnClick;
+ Button8.OnPressPtr = 0;
+
+ Button7.OwnerScreen = &Tic_Tac_Toe;
+ Button7.Order = 5;
+ Button7.Left = 236;
+ Button7.Top = 183;
+ Button7.Width = 66;
+ Button7.Height = 64;
+ Button7.Pen_Width = 1;
+ Button7.Pen_Color = 0x0000;
+ Button7.Visible = 0;
+ Button7.Active = 1;
+ Button7.Transparent = 1;
+ Button7.Caption = Button7_Caption;
+ Button7.TextAlign = _taCenter;
+ Button7.FontName = Furro_Script52x60_Regular;
+ Button7.PressColEnabled = 0;
+ Button7.Font_Color = 0x0000;
+ Button7.Gradient = 0;
+ Button7.Gradient_Orientation = 0;
+ Button7.Gradient_Start_Color = 0xFFFF;
+ Button7.Gradient_End_Color = 0xC618;
+ Button7.Color = 0xC618;
+ Button7.Press_Color = 0xE71C;
+ Button7.OnUpPtr = 0;
+ Button7.OnDownPtr = 0;
+ Button7.OnClickPtr = Button7OnClick;
+ Button7.OnPressPtr = 0;
+
+ Button6.OwnerScreen = &Tic_Tac_Toe;
+ Button6.Order = 6;
+ Button6.Left = 382;
+ Button6.Top = 101;
+ Button6.Width = 66;
+ Button6.Height = 64;
+ Button6.Pen_Width = 1;
+ Button6.Pen_Color = 0x0000;
+ Button6.Visible = 0;
+ Button6.Active = 1;
+ Button6.Transparent = 1;
+ Button6.Caption = Button6_Caption;
+ Button6.TextAlign = _taCenter;
+ Button6.FontName = Furro_Script52x60_Regular;
+ Button6.PressColEnabled = 0;
+ Button6.Font_Color = 0x0000;
+ Button6.Gradient = 0;
+ Button6.Gradient_Orientation = 0;
+ Button6.Gradient_Start_Color = 0xFFFF;
+ Button6.Gradient_End_Color = 0xC618;
+ Button6.Color = 0xC618;
+ Button6.Press_Color = 0xE71C;
+ Button6.OnUpPtr = 0;
+ Button6.OnDownPtr = 0;
+ Button6.OnClickPtr = Button6OnClick;
+ Button6.OnPressPtr = 0;
+
+ Button5.OwnerScreen = &Tic_Tac_Toe;
+ Button5.Order = 7;
+ Button5.Left = 306;
+ Button5.Top = 104;
+ Button5.Width = 66;
+ Button5.Height = 64;
+ Button5.Pen_Width = 1;
+ Button5.Pen_Color = 0x0000;
+ Button5.Visible = 0;
+ Button5.Active = 1;
+ Button5.Transparent = 1;
+ Button5.Caption = Button5_Caption;
+ Button5.TextAlign = _taCenter;
+ Button5.FontName = Furro_Script52x60_Regular;
+ Button5.PressColEnabled = 0;
+ Button5.Font_Color = 0x0000;
+ Button5.Gradient = 0;
+ Button5.Gradient_Orientation = 0;
+ Button5.Gradient_Start_Color = 0xFFFF;
+ Button5.Gradient_End_Color = 0xC618;
+ Button5.Color = 0xC618;
+ Button5.Press_Color = 0xE71C;
+ Button5.OnUpPtr = 0;
+ Button5.OnDownPtr = 0;
+ Button5.OnClickPtr = Button5OnClick;
+ Button5.OnPressPtr = 0;
+
+ Button4.OwnerScreen = &Tic_Tac_Toe;
+ Button4.Order = 8;
+ Button4.Left = 232;
+ Button4.Top = 110;
+ Button4.Width = 66;
+ Button4.Height = 64;
+ Button4.Pen_Width = 1;
+ Button4.Pen_Color = 0x0000;
+ Button4.Visible = 0;
+ Button4.Active = 1;
+ Button4.Transparent = 1;
+ Button4.Caption = Button4_Caption;
+ Button4.TextAlign = _taCenter;
+ Button4.FontName = Furro_Script52x60_Regular;
+ Button4.PressColEnabled = 0;
+ Button4.Font_Color = 0x0000;
+ Button4.Gradient = 0;
+ Button4.Gradient_Orientation = 0;
+ Button4.Gradient_Start_Color = 0xFFFF;
+ Button4.Gradient_End_Color = 0xC618;
+ Button4.Color = 0xC618;
+ Button4.Press_Color = 0xE71C;
+ Button4.OnUpPtr = 0;
+ Button4.OnDownPtr = 0;
+ Button4.OnClickPtr = Button4OnClick;
+ Button4.OnPressPtr = 0;
+
+ Button3.OwnerScreen = &Tic_Tac_Toe;
+ Button3.Order = 9;
+ Button3.Left = 379;
+ Button3.Top = 27;
+ Button3.Width = 66;
+ Button3.Height = 64;
+ Button3.Pen_Width = 1;
+ Button3.Pen_Color = 0x0000;
+ Button3.Visible = 0;
+ Button3.Active = 1;
+ Button3.Transparent = 1;
+ Button3.Caption = Button3_Caption;
+ Button3.TextAlign = _taCenter;
+ Button3.FontName = Furro_Script52x60_Regular;
+ Button3.PressColEnabled = 0;
+ Button3.Font_Color = 0x0000;
+ Button3.Gradient = 0;
+ Button3.Gradient_Orientation = 0;
+ Button3.Gradient_Start_Color = 0xFFFF;
+ Button3.Gradient_End_Color = 0xC618;
+ Button3.Color = 0xC618;
+ Button3.Press_Color = 0xE71C;
+ Button3.OnUpPtr = 0;
+ Button3.OnDownPtr = 0;
+ Button3.OnClickPtr = Button3OnClick;
+ Button3.OnPressPtr = 0;
+
+ Button2.OwnerScreen = &Tic_Tac_Toe;
+ Button2.Order = 10;
+ Button2.Left = 302;
+ Button2.Top = 30;
+ Button2.Width = 66;
+ Button2.Height = 64;
+ Button2.Pen_Width = 1;
+ Button2.Pen_Color = 0x0000;
+ Button2.Visible = 0;
+ Button2.Active = 1;
+ Button2.Transparent = 1;
+ Button2.Caption = Button2_Caption;
+ Button2.TextAlign = _taCenter;
+ Button2.FontName = Furro_Script52x60_Regular;
+ Button2.PressColEnabled = 0;
+ Button2.Font_Color = 0x0000;
+ Button2.Gradient = 0;
+ Button2.Gradient_Orientation = 0;
+ Button2.Gradient_Start_Color = 0xFFFF;
+ Button2.Gradient_End_Color = 0xC618;
+ Button2.Color = 0xC618;
+ Button2.Press_Color = 0xE71C;
+ Button2.OnUpPtr = 0;
+ Button2.OnDownPtr = 0;
+ Button2.OnClickPtr = Button2OnClick;
+ Button2.OnPressPtr = 0;
+
+ Button1.OwnerScreen = &Tic_Tac_Toe;
+ Button1.Order = 11;
+ Button1.Left = 228;
+ Button1.Top = 36;
+ Button1.Width = 66;
+ Button1.Height = 64;
+ Button1.Pen_Width = 1;
+ Button1.Pen_Color = 0x0000;
+ Button1.Visible = 0;
+ Button1.Active = 1;
+ Button1.Transparent = 1;
+ Button1.Caption = Button1_Caption;
+ Button1.TextAlign = _taCenter;
+ Button1.FontName = Furro_Script52x60_Regular;
+ Button1.PressColEnabled = 0;
+ Button1.Font_Color = 0x0000;
+ Button1.Gradient = 0;
+ Button1.Gradient_Orientation = 0;
+ Button1.Gradient_Start_Color = 0xFFFF;
+ Button1.Gradient_End_Color = 0xC618;
+ Button1.Color = 0xC618;
+ Button1.Press_Color = 0xE71C;
+ Button1.OnUpPtr = 0;
+ Button1.OnDownPtr = 0;
+ Button1.OnClickPtr = Button1OnClick;
+ Button1.OnPressPtr = 0;
+
+ Box8.OwnerScreen = &Tic_Tac_Toe;
+ Box8.Order = 12;
+ Box8.Left = 32;
+ Box8.Top = 62;
+ Box8.Width = 130;
+ Box8.Height = 102;
+ Box8.Pen_Width = 0;
+ Box8.Pen_Color = 0x0000;
+ Box8.Visible = 1;
+ Box8.Active = 0;
+ Box8.Transparent = 1;
+ Box8.Gradient = 0;
+ Box8.Gradient_Orientation = 0;
+ Box8.Gradient_Start_Color = 0xFFFF;
+ Box8.Gradient_End_Color = 0xC618;
+ Box8.Color = 0x796C;
+ Box8.PressColEnabled = 1;
+ Box8.Press_Color = 0xE71C;
+ Box8.OnUpPtr = 0;
+ Box8.OnDownPtr = 0;
+ Box8.OnClickPtr = 0;
+ Box8.OnPressPtr = 0;
+
+ Label36.OwnerScreen = &Tic_Tac_Toe;
+ Label36.Order = 13;
+ Label36.Left = 32;
+ Label36.Top = 2;
+ Label36.Width = 173;
+ Label36.Height = 31;
+ Label36.Visible = 1;
+ Label36.Active = 0;
+ Label36.Caption = Label36_Caption;
+ Label36.FontName = Open_Sans_Light19x28_Regular;
+ Label36.Font_Color = 0xFFFF;
+ Label36.OnUpPtr = 0;
+ Label36.OnDownPtr = 0;
+ Label36.OnClickPtr = 0;
+ Label36.OnPressPtr = 0;
+
+ Image20.OwnerScreen = &Tic_Tac_Toe;
+ Image20.Order = 14;
+ Image20.Left = 5;
+ Image20.Top = 6;
+ Image20.Width = 22;
+ Image20.Height = 22;
+ Image20.Picture_Type = 0;
  Image20.Picture_Ratio = 1;
- Image20.Picture_Name = img6_jpg;
+ Image20.Picture_Name = icon_back_tictactow_bmp;
  Image20.Visible = 1;
- Image20.Active = 1;
+ Image20.Active = 0;
  Image20.OnUpPtr = 0;
  Image20.OnDownPtr = 0;
  Image20.OnClickPtr = 0;
  Image20.OnPressPtr = 0;
 
- Image21.OwnerScreen = &Boot;
- Image21.Order = 3;
- Image21.Left = 0;
- Image21.Top = 0;
- Image21.Width = 480;
- Image21.Height = 272;
- Image21.Picture_Type = 1;
+ Label37.OwnerScreen = &Tic_Tac_Toe;
+ Label37.Order = 15;
+ Label37.Left = 50;
+ Label37.Top = 226;
+ Label37.Width = 81;
+ Label37.Height = 24;
+ Label37.Visible = 1;
+ Label37.Active = 0;
+ Label37.Caption = Label37_Caption;
+ Label37.FontName = Open_Sans_Light14x22_Regular;
+ Label37.Font_Color = 0xFFFF;
+ Label37.OnUpPtr = 0;
+ Label37.OnDownPtr = 0;
+ Label37.OnClickPtr = 0;
+ Label37.OnPressPtr = 0;
+
+ Image21.OwnerScreen = &Tic_Tac_Toe;
+ Image21.Order = 16;
+ Image21.Left = 30;
+ Image21.Top = 229;
+ Image21.Width = 18;
+ Image21.Height = 18;
+ Image21.Picture_Type = 0;
  Image21.Picture_Ratio = 1;
- Image21.Picture_Name = img9_jpg;
+ Image21.Picture_Name = icon_new_game_bmp;
  Image21.Visible = 1;
- Image21.Active = 1;
+ Image21.Active = 0;
  Image21.OnUpPtr = 0;
  Image21.OnDownPtr = 0;
  Image21.OnClickPtr = 0;
  Image21.OnPressPtr = 0;
 
- Image22.OwnerScreen = &Boot;
- Image22.Order = 4;
- Image22.Left = 0;
- Image22.Top = 0;
- Image22.Width = 480;
- Image22.Height = 272;
- Image22.Picture_Type = 1;
- Image22.Picture_Ratio = 1;
- Image22.Picture_Name = img12_jpg;
- Image22.Visible = 1;
- Image22.Active = 1;
- Image22.OnUpPtr = 0;
- Image22.OnDownPtr = 0;
- Image22.OnClickPtr = 0;
- Image22.OnPressPtr = 0;
+ Label38.OwnerScreen = &Tic_Tac_Toe;
+ Label38.Order = 17;
+ Label38.Left = 40;
+ Label38.Top = 90;
+ Label38.Width = 9;
+ Label38.Height = 44;
+ Label38.Visible = 1;
+ Label38.Active = 1;
+ Label38.Caption = Label38_Caption;
+ Label38.FontName = Furro_Script38x42_Regular;
+ Label38.Font_Color = 0x25A4;
+ Label38.OnUpPtr = 0;
+ Label38.OnDownPtr = 0;
+ Label38.OnClickPtr = 0;
+ Label38.OnPressPtr = 0;
 
- Image23.OwnerScreen = &Boot;
- Image23.Order = 5;
- Image23.Left = 0;
- Image23.Top = 0;
- Image23.Width = 480;
- Image23.Height = 272;
- Image23.Picture_Type = 1;
- Image23.Picture_Ratio = 1;
- Image23.Picture_Name = img15_jpg;
- Image23.Visible = 1;
- Image23.Active = 1;
- Image23.OnUpPtr = 0;
- Image23.OnDownPtr = 0;
- Image23.OnClickPtr = 0;
- Image23.OnPressPtr = 0;
+ Label39.OwnerScreen = &Tic_Tac_Toe;
+ Label39.Order = 18;
+ Label39.Left = 51;
+ Label39.Top = 141;
+ Label39.Width = 86;
+ Label39.Height = 24;
+ Label39.Visible = 1;
+ Label39.Active = 1;
+ Label39.Caption = Label39_Caption;
+ Label39.FontName = Open_Sans_Light14x22_Regular;
+ Label39.Font_Color = 0xFFFF;
+ Label39.OnUpPtr = 0;
+ Label39.OnDownPtr = 0;
+ Label39.OnClickPtr = 0;
+ Label39.OnPressPtr = 0;
 
- Image24.OwnerScreen = &Boot;
- Image24.Order = 6;
- Image24.Left = 0;
- Image24.Top = 0;
- Image24.Width = 480;
- Image24.Height = 272;
- Image24.Picture_Type = 1;
- Image24.Picture_Ratio = 1;
- Image24.Picture_Name = img18_jpg;
- Image24.Visible = 1;
- Image24.Active = 1;
- Image24.OnUpPtr = 0;
- Image24.OnDownPtr = 0;
- Image24.OnClickPtr = 0;
- Image24.OnPressPtr = 0;
+ XO1.OwnerScreen = &Tic_Tac_Toe;
+ XO1.Order = 19;
+ XO1.Left = 238;
+ XO1.Top = 44;
+ XO1.Width = 13;
+ XO1.Height = 64;
+ XO1.Visible = 1;
+ XO1.Active = 1;
+ XO1.Caption = XO1_Caption;
+ XO1.FontName = Furro_Script52x60_Regular;
+ XO1.Font_Color = 0x25A4;
+ XO1.OnUpPtr = 0;
+ XO1.OnDownPtr = 0;
+ XO1.OnClickPtr = 0;
+ XO1.OnPressPtr = 0;
 
- Image25.OwnerScreen = &Boot;
- Image25.Order = 7;
- Image25.Left = 0;
- Image25.Top = 0;
- Image25.Width = 480;
- Image25.Height = 272;
- Image25.Picture_Type = 1;
- Image25.Picture_Ratio = 1;
- Image25.Picture_Name = img21_jpg;
- Image25.Visible = 1;
- Image25.Active = 1;
- Image25.OnUpPtr = 0;
- Image25.OnDownPtr = 0;
- Image25.OnClickPtr = 0;
- Image25.OnPressPtr = 0;
+ XO2.OwnerScreen = &Tic_Tac_Toe;
+ XO2.Order = 20;
+ XO2.Left = 314;
+ XO2.Top = 38;
+ XO2.Width = 13;
+ XO2.Height = 64;
+ XO2.Visible = 1;
+ XO2.Active = 1;
+ XO2.Caption = XO2_Caption;
+ XO2.FontName = Furro_Script52x60_Regular;
+ XO2.Font_Color = 0x25A4;
+ XO2.OnUpPtr = 0;
+ XO2.OnDownPtr = 0;
+ XO2.OnClickPtr = 0;
+ XO2.OnPressPtr = 0;
 
- Image26.OwnerScreen = &Boot;
- Image26.Order = 8;
- Image26.Left = 0;
- Image26.Top = 0;
- Image26.Width = 480;
- Image26.Height = 272;
- Image26.Picture_Type = 1;
- Image26.Picture_Ratio = 1;
- Image26.Picture_Name = img24_jpg;
- Image26.Visible = 1;
- Image26.Active = 1;
- Image26.OnUpPtr = 0;
- Image26.OnDownPtr = 0;
- Image26.OnClickPtr = 0;
- Image26.OnPressPtr = 0;
+ XO3.OwnerScreen = &Tic_Tac_Toe;
+ XO3.Order = 21;
+ XO3.Left = 386;
+ XO3.Top = 32;
+ XO3.Width = 13;
+ XO3.Height = 64;
+ XO3.Visible = 1;
+ XO3.Active = 1;
+ XO3.Caption = XO3_Caption;
+ XO3.FontName = Furro_Script52x60_Regular;
+ XO3.Font_Color = 0x25A4;
+ XO3.OnUpPtr = 0;
+ XO3.OnDownPtr = 0;
+ XO3.OnClickPtr = 0;
+ XO3.OnPressPtr = 0;
 
- Image27.OwnerScreen = &Boot;
- Image27.Order = 9;
- Image27.Left = 0;
- Image27.Top = 0;
- Image27.Width = 480;
- Image27.Height = 272;
- Image27.Picture_Type = 1;
- Image27.Picture_Ratio = 1;
- Image27.Picture_Name = img27_jpg;
- Image27.Visible = 1;
- Image27.Active = 1;
- Image27.OnUpPtr = 0;
- Image27.OnDownPtr = 0;
- Image27.OnClickPtr = 0;
- Image27.OnPressPtr = 0;
+ XO4.OwnerScreen = &Tic_Tac_Toe;
+ XO4.Order = 22;
+ XO4.Left = 241;
+ XO4.Top = 120;
+ XO4.Width = 13;
+ XO4.Height = 64;
+ XO4.Visible = 1;
+ XO4.Active = 1;
+ XO4.Caption = XO4_Caption;
+ XO4.FontName = Furro_Script52x60_Regular;
+ XO4.Font_Color = 0x25A4;
+ XO4.OnUpPtr = 0;
+ XO4.OnDownPtr = 0;
+ XO4.OnClickPtr = 0;
+ XO4.OnPressPtr = 0;
 
- Image28.OwnerScreen = &Boot;
- Image28.Order = 10;
- Image28.Left = 0;
- Image28.Top = 0;
- Image28.Width = 480;
- Image28.Height = 272;
- Image28.Picture_Type = 1;
- Image28.Picture_Ratio = 1;
- Image28.Picture_Name = img30_jpg;
- Image28.Visible = 1;
- Image28.Active = 1;
- Image28.OnUpPtr = 0;
- Image28.OnDownPtr = 0;
- Image28.OnClickPtr = 0;
- Image28.OnPressPtr = 0;
+ XO5.OwnerScreen = &Tic_Tac_Toe;
+ XO5.Order = 23;
+ XO5.Left = 316;
+ XO5.Top = 116;
+ XO5.Width = 13;
+ XO5.Height = 64;
+ XO5.Visible = 1;
+ XO5.Active = 1;
+ XO5.Caption = XO5_Caption;
+ XO5.FontName = Furro_Script52x60_Regular;
+ XO5.Font_Color = 0x25A4;
+ XO5.OnUpPtr = 0;
+ XO5.OnDownPtr = 0;
+ XO5.OnClickPtr = 0;
+ XO5.OnPressPtr = 0;
 
- Image29.OwnerScreen = &Boot;
- Image29.Order = 11;
- Image29.Left = 0;
- Image29.Top = 0;
- Image29.Width = 480;
- Image29.Height = 272;
- Image29.Picture_Type = 1;
- Image29.Picture_Ratio = 1;
- Image29.Picture_Name = img33_jpg;
- Image29.Visible = 1;
- Image29.Active = 1;
- Image29.OnUpPtr = 0;
- Image29.OnDownPtr = 0;
- Image29.OnClickPtr = 0;
- Image29.OnPressPtr = 0;
+ XO6.OwnerScreen = &Tic_Tac_Toe;
+ XO6.Order = 24;
+ XO6.Left = 392;
+ XO6.Top = 109;
+ XO6.Width = 13;
+ XO6.Height = 64;
+ XO6.Visible = 1;
+ XO6.Active = 1;
+ XO6.Caption = XO6_Caption;
+ XO6.FontName = Furro_Script52x60_Regular;
+ XO6.Font_Color = 0x25A4;
+ XO6.OnUpPtr = 0;
+ XO6.OnDownPtr = 0;
+ XO6.OnClickPtr = 0;
+ XO6.OnPressPtr = 0;
 
- Image30.OwnerScreen = &Boot;
- Image30.Order = 12;
- Image30.Left = 0;
- Image30.Top = 0;
- Image30.Width = 480;
- Image30.Height = 272;
- Image30.Picture_Type = 1;
- Image30.Picture_Ratio = 1;
- Image30.Picture_Name = img36_jpg;
- Image30.Visible = 1;
- Image30.Active = 1;
- Image30.OnUpPtr = 0;
- Image30.OnDownPtr = 0;
- Image30.OnClickPtr = 0;
- Image30.OnPressPtr = 0;
+ XO7.OwnerScreen = &Tic_Tac_Toe;
+ XO7.Order = 25;
+ XO7.Left = 244;
+ XO7.Top = 193;
+ XO7.Width = 13;
+ XO7.Height = 64;
+ XO7.Visible = 1;
+ XO7.Active = 1;
+ XO7.Caption = XO7_Caption;
+ XO7.FontName = Furro_Script52x60_Regular;
+ XO7.Font_Color = 0x25A4;
+ XO7.OnUpPtr = 0;
+ XO7.OnDownPtr = 0;
+ XO7.OnClickPtr = 0;
+ XO7.OnPressPtr = 0;
 
- Image31.OwnerScreen = &Boot;
- Image31.Order = 13;
- Image31.Left = 0;
- Image31.Top = 0;
- Image31.Width = 480;
- Image31.Height = 272;
- Image31.Picture_Type = 1;
- Image31.Picture_Ratio = 1;
- Image31.Picture_Name = img39_jpg;
- Image31.Visible = 1;
- Image31.Active = 1;
- Image31.OnUpPtr = 0;
- Image31.OnDownPtr = 0;
- Image31.OnClickPtr = 0;
- Image31.OnPressPtr = 0;
+ XO8.OwnerScreen = &Tic_Tac_Toe;
+ XO8.Order = 26;
+ XO8.Left = 322;
+ XO8.Top = 190;
+ XO8.Width = 13;
+ XO8.Height = 64;
+ XO8.Visible = 1;
+ XO8.Active = 1;
+ XO8.Caption = XO8_Caption;
+ XO8.FontName = Furro_Script52x60_Regular;
+ XO8.Font_Color = 0x25A4;
+ XO8.OnUpPtr = 0;
+ XO8.OnDownPtr = 0;
+ XO8.OnClickPtr = 0;
+ XO8.OnPressPtr = 0;
 
- Image32.OwnerScreen = &Boot;
- Image32.Order = 14;
- Image32.Left = 0;
- Image32.Top = 0;
- Image32.Width = 480;
- Image32.Height = 272;
- Image32.Picture_Type = 1;
- Image32.Picture_Ratio = 1;
- Image32.Picture_Name = img42_jpg;
- Image32.Visible = 1;
- Image32.Active = 1;
- Image32.OnUpPtr = 0;
- Image32.OnDownPtr = 0;
- Image32.OnClickPtr = 0;
- Image32.OnPressPtr = 0;
+ XO9.OwnerScreen = &Tic_Tac_Toe;
+ XO9.Order = 27;
+ XO9.Left = 396;
+ XO9.Top = 186;
+ XO9.Width = 13;
+ XO9.Height = 64;
+ XO9.Visible = 1;
+ XO9.Active = 1;
+ XO9.Caption = XO9_Caption;
+ XO9.FontName = Furro_Script52x60_Regular;
+ XO9.Font_Color = 0x25A4;
+ XO9.OnUpPtr = 0;
+ XO9.OnDownPtr = 0;
+ XO9.OnClickPtr = 0;
+ XO9.OnPressPtr = 0;
 
- Image33.OwnerScreen = &Boot;
- Image33.Order = 15;
- Image33.Left = 0;
- Image33.Top = 0;
- Image33.Width = 480;
- Image33.Height = 272;
- Image33.Picture_Type = 1;
- Image33.Picture_Ratio = 1;
- Image33.Picture_Name = img45_jpg;
- Image33.Visible = 1;
- Image33.Active = 1;
- Image33.OnUpPtr = 0;
- Image33.OnDownPtr = 0;
- Image33.OnClickPtr = 0;
- Image33.OnPressPtr = 0;
+ CheckBox1.OwnerScreen = &Tic_Tac_Toe;
+ CheckBox1.Order = 28;
+ CheckBox1.Left = 30;
+ CheckBox1.Top = 198;
+ CheckBox1.Width = 17;
+ CheckBox1.Height = 13;
+ CheckBox1.Pen_Width = 1;
+ CheckBox1.Pen_Color = 0xFFFF;
+ CheckBox1.Visible = 1;
+ CheckBox1.Active = 1;
+ CheckBox1.Checked = 0;
+ CheckBox1.Transparent = 1;
+ CheckBox1.Caption = CheckBox1_Caption;
+ CheckBox1.TextAlign = _taLeft;
+ CheckBox1.FontName = Open_Sans_Light12x18_Regular;
+ CheckBox1.PressColEnabled = 0;
+ CheckBox1.Font_Color = 0xFFFF;
+ CheckBox1.Gradient = 0;
+ CheckBox1.Gradient_Orientation = 0;
+ CheckBox1.Gradient_Start_Color = 0xFFFF;
+ CheckBox1.Gradient_End_Color = 0xC618;
+ CheckBox1.Color = 0xA1AE;
+ CheckBox1.Press_Color = 0xE71C;
+ CheckBox1.Rounded = 0;
+ CheckBox1.Corner_Radius = 1;
+ CheckBox1.OnUpPtr = 0;
+ CheckBox1.OnDownPtr = 0;
+ CheckBox1.OnClickPtr = CheckBox1OnClick;
+ CheckBox1.OnPressPtr = 0;
 
- Image34.OwnerScreen = &Boot;
- Image34.Order = 16;
- Image34.Left = 0;
- Image34.Top = 0;
- Image34.Width = 480;
- Image34.Height = 272;
- Image34.Picture_Type = 1;
- Image34.Picture_Ratio = 1;
- Image34.Picture_Name = img48_jpg;
- Image34.Visible = 1;
- Image34.Active = 1;
- Image34.OnUpPtr = 0;
- Image34.OnDownPtr = 0;
- Image34.OnClickPtr = 0;
- Image34.OnPressPtr = 0;
-
- Image35.OwnerScreen = &Boot;
- Image35.Order = 17;
- Image35.Left = 0;
- Image35.Top = 0;
- Image35.Width = 480;
- Image35.Height = 272;
- Image35.Picture_Type = 1;
- Image35.Picture_Ratio = 1;
- Image35.Picture_Name = img51_jpg;
- Image35.Visible = 1;
- Image35.Active = 1;
- Image35.OnUpPtr = 0;
- Image35.OnDownPtr = 0;
- Image35.OnClickPtr = 0;
- Image35.OnPressPtr = 0;
-
- Image36.OwnerScreen = &Boot;
- Image36.Order = 18;
- Image36.Left = 0;
- Image36.Top = 0;
- Image36.Width = 480;
- Image36.Height = 272;
- Image36.Picture_Type = 1;
- Image36.Picture_Ratio = 1;
- Image36.Picture_Name = img54_jpg;
- Image36.Visible = 1;
- Image36.Active = 1;
- Image36.OnUpPtr = 0;
- Image36.OnDownPtr = 0;
- Image36.OnClickPtr = 0;
- Image36.OnPressPtr = 0;
-
- Image37.OwnerScreen = &Boot;
- Image37.Order = 19;
- Image37.Left = 0;
- Image37.Top = 0;
- Image37.Width = 480;
- Image37.Height = 272;
- Image37.Picture_Type = 1;
- Image37.Picture_Ratio = 1;
- Image37.Picture_Name = img57_jpg;
- Image37.Visible = 1;
- Image37.Active = 1;
- Image37.OnUpPtr = 0;
- Image37.OnDownPtr = 0;
- Image37.OnClickPtr = 0;
- Image37.OnPressPtr = 0;
-
- Image38.OwnerScreen = &Boot;
- Image38.Order = 20;
- Image38.Left = 0;
- Image38.Top = 0;
- Image38.Width = 480;
- Image38.Height = 272;
- Image38.Picture_Type = 1;
- Image38.Picture_Ratio = 1;
- Image38.Picture_Name = img60_jpg;
- Image38.Visible = 1;
- Image38.Active = 1;
- Image38.OnUpPtr = 0;
- Image38.OnDownPtr = 0;
- Image38.OnClickPtr = 0;
- Image38.OnPressPtr = 0;
-
- Image39.OwnerScreen = &Boot;
- Image39.Order = 21;
- Image39.Left = 0;
- Image39.Top = 0;
- Image39.Width = 480;
- Image39.Height = 272;
- Image39.Picture_Type = 1;
- Image39.Picture_Ratio = 1;
- Image39.Picture_Name = img63_jpg;
- Image39.Visible = 1;
- Image39.Active = 1;
- Image39.OnUpPtr = 0;
- Image39.OnDownPtr = 0;
- Image39.OnClickPtr = 0;
- Image39.OnPressPtr = 0;
+ Label41.OwnerScreen = &Tic_Tac_Toe;
+ Label41.Order = 29;
+ Label41.Left = 50;
+ Label41.Top = 193;
+ Label41.Width = 92;
+ Label41.Height = 24;
+ Label41.Visible = 1;
+ Label41.Active = 0;
+ Label41.Caption = Label41_Caption;
+ Label41.FontName = Open_Sans_Light14x22_Regular;
+ Label41.Font_Color = 0xFFFF;
+ Label41.OnUpPtr = 0;
+ Label41.OnDownPtr = 0;
+ Label41.OnClickPtr = 0;
+ Label41.OnPressPtr = 0;
 }
 
 static char IsInsideObject (unsigned int X, unsigned int Y, unsigned int Left, unsigned int Top, unsigned int Width, unsigned int Height) {
@@ -3417,6 +5142,30 @@ static char IsInsideObject (unsigned int X, unsigned int Y, unsigned int Left, u
 
 
 
+
+
+void DrawButton(TButton *Abutton) {
+ if (Abutton->Visible == 1) {
+ if (object_pressed == 1) {
+ object_pressed = 0;
+ TFT_Set_Brush(Abutton->Transparent, Abutton->Press_Color, Abutton->Gradient, Abutton->Gradient_Orientation, Abutton->Gradient_End_Color, Abutton->Gradient_Start_Color);
+ }
+ else {
+ TFT_Set_Brush(Abutton->Transparent, Abutton->Color, Abutton->Gradient, Abutton->Gradient_Orientation, Abutton->Gradient_Start_Color, Abutton->Gradient_End_Color);
+ }
+ TFT_Set_Pen(Abutton->Pen_Color, Abutton->Pen_Width);
+ TFT_Rectangle(Abutton->Left, Abutton->Top, Abutton->Left + Abutton->Width - 1, Abutton->Top + Abutton->Height - 1);
+ TFT_Set_Font(Abutton->FontName, Abutton->Font_Color, FO_HORIZONTAL);
+ TFT_Write_Text_Return_Pos(Abutton->Caption, Abutton->Left, Abutton->Top);
+ if (Abutton->TextAlign == _taLeft)
+ TFT_Write_Text(Abutton->Caption, Abutton->Left + 4, (Abutton->Top + ((Abutton->Height - caption_height) / 2)));
+ else if (Abutton->TextAlign == _taCenter)
+ TFT_Write_Text(Abutton->Caption, (Abutton->Left + (Abutton->Width - caption_length) / 2), (Abutton->Top + ((Abutton->Height - caption_height) / 2)));
+ else if (Abutton->TextAlign == _taRight)
+ TFT_Write_Text(Abutton->Caption, Abutton->Left + (Abutton->Width - caption_length - 4), (Abutton->Top + (Abutton->Height - caption_height) / 2));
+ }
+}
+
 void DrawLabel(TLabel *ALabel) {
  if (ALabel->Visible == 1) {
  TFT_Set_Font(ALabel->FontName, ALabel->Font_Color, FO_HORIZONTAL);
@@ -3426,10 +5175,7 @@ void DrawLabel(TLabel *ALabel) {
 
 void DrawImage(TImage *AImage) {
  if (AImage->Visible) {
- if (AImage->Picture_Type == 0)
  TFT_Image(AImage->Left, AImage->Top, AImage->Picture_Name, AImage->Picture_Ratio);
- if (AImage->Picture_Type == 1)
- TFT_Image_Jpeg(AImage->Left, AImage->Top, AImage->Picture_Name);
  }
 }
 
@@ -3465,8 +5211,62 @@ void DrawBox(TBox *ABox) {
  }
 }
 
+void DrawCheckBox(TCheckBox *ACheckBox) {
+ if (ACheckBox->Visible == 1) {
+ if (object_pressed == 1) {
+ object_pressed = 0;
+ TFT_Set_Brush(ACheckBox->Transparent, ACheckBox->Press_Color, ACheckBox->Gradient, ACheckBox->Gradient_Orientation, ACheckBox->Gradient_End_Color, ACheckBox->Gradient_Start_Color);
+ }
+ else {
+ TFT_Set_Brush(ACheckBox->Transparent, ACheckBox->Color, ACheckBox->Gradient, ACheckBox->Gradient_Orientation, ACheckBox->Gradient_Start_Color, ACheckBox->Gradient_End_Color);
+ }
+ TFT_Set_Pen(ACheckBox->Pen_Color, ACheckBox->Pen_Width);
+ TFT_Set_Font(ACheckBox->FontName, ACheckBox->Font_Color, FO_HORIZONTAL);
+ if (ACheckBox->TextAlign == _taLeft) {
+ if (ACheckBox->Rounded == 1)
+ TFT_Rectangle_Round_Edges(ACheckBox->Left, ACheckBox->Top, ACheckBox->Left + ACheckBox->Height, ACheckBox->Top + ACheckBox->Height - 1, ACheckBox->Corner_Radius);
+ else
+ TFT_Rectangle(ACheckBox->Left, ACheckBox->Top, ACheckBox->Left + ACheckBox->Height, ACheckBox->Top + ACheckBox->Height - 1);
+ if (ACheckBox->Checked == 1) {
+ TFT_Set_Pen(ACheckBox->Pen_Color, ACheckBox->Height / 8);
+ TFT_Line(ACheckBox->Left + ACheckBox->Height / 5 + 1,
+ ACheckBox->Top + ACheckBox->Height / 2 + 1,
+ ACheckBox->Left + ACheckBox->Height / 2 - 1,
+ ACheckBox->Top + ACheckBox->Height - ACheckBox->Height / 5 - 1);
+ TFT_Line(ACheckBox->Left + ACheckBox->Height / 2 - ACheckBox->Pen_Width + 1,
+ ACheckBox->Top + ACheckBox->Height - ACheckBox->Height / 5 - 1,
+ ACheckBox->Left + ACheckBox->Height - ACheckBox->Height / 5 - 1,
+ ACheckBox->Top + ACheckBox->Height / 5 + 1);
+ }
+ TFT_Write_Text_Return_Pos(ACheckBox->Caption, ACheckBox->Left + ACheckBox->Width / 4 + 3, ACheckBox->Top);
+ TFT_Write_Text(ACheckBox->Caption, ACheckBox->Left + ACheckBox->Height + 3, (ACheckBox->Top + ((ACheckBox->Height - caption_height) / 2)));
+ }
+ else if (ACheckBox->TextAlign == _taRight) {
+ if (ACheckBox->Rounded == 1)
+ TFT_Rectangle_Round_Edges(ACheckBox->Left + ACheckBox->Width - ACheckBox->Height , ACheckBox->Top, ACheckBox->Left + ACheckBox->Width, ACheckBox->Top + ACheckBox->Height - 1, ACheckBox->Corner_Radius);
+ else
+ TFT_Rectangle(ACheckBox->Left + ACheckBox->Width - ACheckBox->Height , ACheckBox->Top, ACheckBox->Left + ACheckBox->Width, ACheckBox->Top + ACheckBox->Height - 1);
+ if (ACheckBox->Checked == 1) {
+ TFT_Set_Pen(ACheckBox->Pen_Color, ACheckBox->Height / 8);
+ TFT_Line(ACheckBox->Left + ACheckBox->Width - ACheckBox->Height + ACheckBox->Height / 5 + 1,
+ ACheckBox->Top + ACheckBox->Height / 2 + 1,
+ ACheckBox->Left + ACheckBox->Width - ACheckBox->Height /2 - 1,
+ ACheckBox->Top + ACheckBox->Height - ACheckBox->Height / 5 - 1);
+ TFT_Line(ACheckBox->Left + ACheckBox->Width - ACheckBox->Height /2 + 1,
+ ACheckBox->Top + ACheckBox->Height - ACheckBox->Height / 5 - 1,
+ ACheckBox->Left + ACheckBox->Width - ACheckBox->Height / 5 - 1,
+ ACheckBox->Top + ACheckBox->Height / 5 + 1);
+ }
+ TFT_Write_Text_Return_Pos(ACheckBox->Caption, ACheckBox->Left + 3, ACheckBox->Top);
+ TFT_Write_Text(ACheckBox->Caption, ACheckBox->Left + 3, ACheckBox->Top + (ACheckBox->Height - caption_height) / 2);
+ }
+ }
+}
+
 void DrawScreen(TScreen *aScreen) {
  unsigned int order;
+ unsigned short button_idx;
+ TButton *local_button;
  unsigned short label_idx;
  TLabel *local_label;
  unsigned short image_idx;
@@ -3475,24 +5275,28 @@ void DrawScreen(TScreen *aScreen) {
  TCircle *local_circle;
  unsigned short box_idx;
  TBox *local_box;
+ unsigned short checkbox_idx;
+ TCheckBox *local_checkbox;
  char save_bled, save_bled_direction;
 
  object_pressed = 0;
  order = 0;
+ button_idx = 0;
  label_idx = 0;
  image_idx = 0;
  circle_idx = 0;
  box_idx = 0;
+ checkbox_idx = 0;
  CurrentScreen = aScreen;
 
  if ((display_width != CurrentScreen->Width) || (display_height != CurrentScreen->Height)) {
  save_bled = TFT_BLED;
  TFT_BLED = 0;
- TFT_Set_Active(&TFT_mikromedia_Set_Index, &TFT_mikromedia_Write_Command, &TFT_Write_to_16bitPort);
+ TFT_Set_Active(Set_Index, Write_Command, Write_Data);
  TFT_Init_SSD1963(CurrentScreen->Width, CurrentScreen->Height);
- TFT_Set_DBC_SSD1963(255);
  STMPE610_SetSize(CurrentScreen->Width, CurrentScreen->Height);
  TFT_Fill_Screen(CurrentScreen->Color);
+ TFT_Set_DBC_SSD1963(255);
  display_width = CurrentScreen->Width;
  display_height = CurrentScreen->Height;
  TFT_BLED = save_bled;
@@ -3502,6 +5306,15 @@ void DrawScreen(TScreen *aScreen) {
 
 
  while (order < CurrentScreen->ObjectsCount) {
+ if (button_idx < CurrentScreen->ButtonsCount) {
+ local_button =  CurrentScreen->Buttons[button_idx] ;
+ if (order == local_button->Order) {
+ button_idx++;
+ order++;
+ DrawButton(local_button);
+ }
+ }
+
  if (label_idx < CurrentScreen->LabelsCount) {
  local_label =  CurrentScreen->Labels[label_idx] ;
  if (order == local_label->Order) {
@@ -3538,14 +5351,37 @@ void DrawScreen(TScreen *aScreen) {
  }
  }
 
+ if (checkbox_idx < CurrentScreen->CheckBoxesCount) {
+ local_checkbox =  CurrentScreen->CheckBoxes[checkbox_idx] ;
+ if (order == local_checkbox->Order) {
+ checkbox_idx++;
+ order++;
+ DrawCheckBox(local_checkbox);
+ }
+ }
+
  }
 }
 
 void Get_Object(unsigned int X, unsigned int Y) {
+ button_order = -1;
  label_order = -1;
  image_order = -1;
  circle_order = -1;
  box_order = -1;
+ checkbox_order = -1;
+
+ for ( _object_count = 0 ; _object_count < CurrentScreen->ButtonsCount ; _object_count++ ) {
+ local_button =  CurrentScreen->Buttons[_object_count] ;
+ if (local_button->Active == 1) {
+ if (IsInsideObject(X, Y, local_button->Left, local_button->Top,
+ local_button->Width, local_button->Height) == 1) {
+ button_order = local_button->Order;
+ exec_button = local_button;
+ }
+ }
+ }
+
 
  for ( _object_count = 0 ; _object_count < CurrentScreen->LabelsCount ; _object_count++ ) {
  local_label =  CurrentScreen->Labels[_object_count] ;
@@ -3594,7 +5430,21 @@ void Get_Object(unsigned int X, unsigned int Y) {
  }
  }
 
+
+ for ( _object_count = 0 ; _object_count < CurrentScreen->CheckBoxesCount ; _object_count++ ) {
+ local_checkbox =  CurrentScreen->CheckBoxes[_object_count] ;
+ if (local_checkbox->Active == 1) {
+ if (IsInsideObject(X, Y, local_checkbox->Left, local_checkbox->Top,
+ local_checkbox->Width, local_checkbox->Height) == 1) {
+ checkbox_order = local_checkbox->Order;
+ exec_checkbox = local_checkbox;
+ }
+ }
+ }
+
  _object_count = -1;
+ if (button_order > _object_count )
+ _object_count = button_order;
  if (label_order > _object_count )
  _object_count = label_order;
  if (image_order > _object_count )
@@ -3603,18 +5453,31 @@ void Get_Object(unsigned int X, unsigned int Y) {
  _object_count = circle_order;
  if (box_order > _object_count )
  _object_count = box_order;
+ if (checkbox_order > _object_count )
+ _object_count = checkbox_order;
 }
 
 
-static void Process_TP_Press(unsigned int X, unsigned int Y) {
+void Process_TP_Press(unsigned int X, unsigned int Y) {
+ exec_button = 0;
  exec_label = 0;
  exec_image = 0;
  exec_circle = 0;
  exec_box = 0;
+ exec_checkbox = 0;
 
  Get_Object(X, Y);
 
  if (_object_count != -1) {
+ if (_object_count == button_order) {
+ if (exec_button->Active == 1) {
+ if (exec_button->OnPressPtr != 0) {
+ exec_button->OnPressPtr();
+ return;
+ }
+ }
+ }
+
  if (_object_count == label_order) {
  if (exec_label->Active == 1) {
  if (exec_label->OnPressPtr != 0) {
@@ -3651,12 +5514,32 @@ static void Process_TP_Press(unsigned int X, unsigned int Y) {
  }
  }
 
+ if (_object_count == checkbox_order) {
+ if (exec_checkbox->Active == 1) {
+ if (exec_checkbox->OnPressPtr != 0) {
+ exec_checkbox->OnPressPtr();
+ return;
+ }
+ }
+ }
+
  }
 }
 
-static void Process_TP_Up(unsigned int X, unsigned int Y) {
+void Process_TP_Up(unsigned int X, unsigned int Y) {
 
  switch (PressedObjectType) {
+
+ case 0: {
+ if (PressedObject != 0) {
+ exec_button = (TButton*)PressedObject;
+ if ((exec_button->PressColEnabled == 1) && (exec_button->OwnerScreen == CurrentScreen)) {
+ DrawButton(exec_button);
+ }
+ break;
+ }
+ break;
+ }
 
  case 4: {
  if (PressedObject != 0) {
@@ -3679,6 +5562,14 @@ static void Process_TP_Up(unsigned int X, unsigned int Y) {
  }
  break;
  }
+
+ case 16: {
+ if (PressedObject != 0) {
+ exec_checkbox = (TCheckBox*)PressedObject;
+ break;
+ }
+ break;
+ }
  }
 
  exec_label = 0;
@@ -3688,6 +5579,20 @@ static void Process_TP_Up(unsigned int X, unsigned int Y) {
 
 
  if (_object_count != -1) {
+
+ if (_object_count == button_order) {
+ if (exec_button->Active == 1) {
+ if (exec_button->OnUpPtr != 0)
+ exec_button->OnUpPtr();
+ if (PressedObject == (void *)exec_button)
+ if (exec_button->OnClickPtr != 0)
+ exec_button->OnClickPtr();
+ PressedObject = 0;
+ PressedObjectType = -1;
+ return;
+ }
+ }
+
 
  if (_object_count == label_order) {
  if (exec_label->Active == 1) {
@@ -3744,22 +5649,59 @@ static void Process_TP_Up(unsigned int X, unsigned int Y) {
  }
  }
 
+
+ if (_object_count == checkbox_order) {
+ if (exec_checkbox->Active == 1) {
+ if (exec_checkbox->OnUpPtr != 0)
+ exec_checkbox->OnUpPtr();
+ if (PressedObject == (void *)exec_checkbox) {
+ if (exec_checkbox->Checked == 1)
+ exec_checkbox->Checked = 0;
+ else
+ exec_checkbox->Checked = 1;
+ DrawCheckBox(exec_checkbox);
+ if (exec_checkbox->OnClickPtr != 0)
+ exec_checkbox->OnClickPtr();
+ }
+ PressedObject = 0;
+ PressedObjectType = -1;
+ return;
+ }
+ }
+
  }
  PressedObject = 0;
  PressedObjectType = -1;
 }
 
-static void Process_TP_Down(unsigned int X, unsigned int Y) {
+void Process_TP_Down(unsigned int X, unsigned int Y) {
 
  object_pressed = 0;
+ exec_button = 0;
  exec_label = 0;
  exec_image = 0;
  exec_circle = 0;
  exec_box = 0;
+ exec_checkbox = 0;
 
  Get_Object(X, Y);
 
  if (_object_count != -1) {
+ if (_object_count == button_order) {
+ if (exec_button->Active == 1) {
+ if (exec_button->PressColEnabled == 1) {
+ object_pressed = 1;
+ DrawButton(exec_button);
+ }
+ PressedObject = (void *)exec_button;
+ PressedObjectType = 0;
+ if (exec_button->OnDownPtr != 0) {
+ exec_button->OnDownPtr();
+ return;
+ }
+ }
+ }
+
  if (_object_count == label_order) {
  if (exec_label->Active == 1) {
  PressedObject = (void *)exec_label;
@@ -3812,13 +5754,28 @@ static void Process_TP_Down(unsigned int X, unsigned int Y) {
  }
  }
 
+ if (_object_count == checkbox_order) {
+ if (exec_checkbox->Active == 1) {
+ if (exec_checkbox->PressColEnabled == 1) {
+ object_pressed = 1;
+ DrawCheckBox(exec_checkbox);
+ }
+ PressedObject = (void *)exec_checkbox;
+ PressedObjectType = 16;
+ if (exec_checkbox->OnDownPtr != 0) {
+ exec_checkbox->OnDownPtr();
+ return;
+ }
+ }
+ }
+
  }
 }
 
 void Check_TP() {
  if (STMPE610_PressDetect()) {
-
  if (STMPE610_GetLastCoordinates(&Xcoord, &Ycoord) == 0) {
+
  Process_TP_Press(Xcoord, Ycoord);
  if (PenDown == 0) {
  PenDown = 1;
@@ -3842,19 +5799,7 @@ char _cnt;
  Delay_ms(1);
  }
 
- GPIO_Digital_Output(&GPIOF_BASE, _GPIO_PINMASK_1);
- for (_cnt = 0; _cnt < 20; _cnt++) {
- GPIOB_ODR.B1 = 0;
- Delay_ms(1);
- GPIOB_ODR.B1 = 1;
- Delay_ms(1);
- }
-
- GPIO_Alternate_Function_Enable(&_GPIO_MODULE_I2C2_PF01);
-
-
  I2C1_Init_Advanced(400000, &_GPIO_MODULE_I2C1_PB67);
- I2C2_Init_Advanced(400000, &_GPIO_MODULE_I2C2_PF01);
  TFT_Set_Default_Mode();
  GPIO_Digital_Output(&GPIOG_BASE, 0x00FF);
  GPIO_Digital_Output(&GPIOE_BASE, 0xFF00);
@@ -3867,7 +5812,7 @@ char _cnt;
 
 char STMPE610_Config() {
  STMPE610_SetI2CAddress(STMPE610_I2C_ADDR1);
- if(STMPE610_IsOperational()) {
+ if (STMPE610_IsOperational() != 0){
  return STMPE610_IO_NOT_OPERATIONAL;
  }
 
@@ -3889,7 +5834,7 @@ char STMPE610_Config() {
  STMPE610_TSIDrive(STMPE610_TSC_I_DRIVE_20mA);
  STMPE610_TSControl(STMPE610_TSC_CTRL_TRACK0 | STMPE610_TSC_CTRL_ACQU_XYZ | STMPE610_TSC_CTRL_ENABLE);
  STMPE610_ZDataFraction(STMPE610_FRACP4_WHOLP4);
- STMPE610_SetTouchPressureThreshold(45);
+ STMPE610_SetTouchPressureThreshold(70);
  STMPE610_ClearInterrupts();
  STMPE610_WriteReg(STMPE610_INT_CTRL_REG, 0x01);
  return STMPE610_OK;
@@ -3916,7 +5861,7 @@ TTPConstants TPConstsStruct;
  STMPE610_SetCalibrationConsts(&TPConstsStruct);
 
  InitializeObjects();
- display_width = Boot.Width;
- display_height = Boot.Height;
- DrawScreen(&Boot);
+ display_width = Home.Width;
+ display_height = Home.Height;
+ DrawScreen(&Home);
 }

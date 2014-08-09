@@ -28,7 +28,7 @@ L_HMC5883L_main_Magnet_Average0:
 CMP	R3, #16
 IT	GE
 BGE	L_HMC5883L_main_Magnet_Average1
-;HMC5883L_main.c,52 :: 		HMC5883L_Read(&xx, &yy, &zz);
+;HMC5883L_main.c,52 :: 		MAGNET_Read(&xx, &yy, &zz);
 ADD	R2, SP, #16
 ADD	R1, SP, #14
 ADD	R0, SP, #12
@@ -36,7 +36,7 @@ STRH	R4, [SP, #4]
 STRH	R5, [SP, #6]
 STRH	R6, [SP, #8]
 STRH	R3, [SP, #10]
-BL	_HMC5883L_Read+0
+BL	_MAGNET_Read+0
 LDRSH	R3, [SP, #10]
 LDRSH	R6, [SP, #8]
 LDRSH	R5, [SP, #6]
@@ -541,8 +541,8 @@ LDR	LR, [SP, #0]
 ADD	SP, SP, #4
 BX	LR
 ; end of _MAGNET_Stop
-_HMC5883L_Start:
-;HMC5883L_main.c,185 :: 		void HMC5883L_Start(char *test) {
+_MAGNET_Start:
+;HMC5883L_main.c,185 :: 		void MAGNET_Start(char *test) {
 ; test start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
@@ -564,18 +564,18 @@ MOVW	R7, #19262
 MOVT	R7, #76
 NOP
 NOP
-L_HMC5883L_Start19:
+L_MAGNET_Start19:
 SUBS	R7, R7, #1
-BNE	L_HMC5883L_Start19
+BNE	L_MAGNET_Start19
 NOP
 NOP
 NOP
-;HMC5883L_main.c,193 :: 		if (HMC5883L_Init() == 0) {
-BL	_HMC5883L_Init+0
+;HMC5883L_main.c,193 :: 		if (MAGNET_Init() == 0) {
+BL	_MAGNET_Init+0
 LDR	R2, [SP, #4]
 CMP	R0, #0
 IT	NE
-BNE	L_HMC5883L_Start21
+BNE	L_MAGNET_Start21
 ;HMC5883L_main.c,194 :: 		*test = 1;
 MOVS	R1, #1
 STRB	R1, [R2, #0]
@@ -585,35 +585,35 @@ MOVW	R7, #30782
 MOVT	R7, #381
 NOP
 NOP
-L_HMC5883L_Start22:
+L_MAGNET_Start22:
 SUBS	R7, R7, #1
-BNE	L_HMC5883L_Start22
+BNE	L_MAGNET_Start22
 NOP
 NOP
 NOP
 ;HMC5883L_main.c,196 :: 		}
 IT	AL
-BAL	L_HMC5883L_Start24
-L_HMC5883L_Start21:
+BAL	L_MAGNET_Start24
+L_MAGNET_Start21:
 ;HMC5883L_main.c,198 :: 		*test = 2;
 ; test start address is: 8 (R2)
 MOVS	R1, #2
 STRB	R1, [R2, #0]
 ; test end address is: 8 (R2)
 ;HMC5883L_main.c,199 :: 		}
-L_HMC5883L_Start24:
+L_MAGNET_Start24:
 ;HMC5883L_main.c,200 :: 		Scroll_Undone(_SCROLL_MAGNET_FIRST_LINE, _SCROLL_MAGNET_LAST_LINE);
 MOVW	R1, #246
 MOVW	R0, #41
 BL	_Scroll_Undone+0
 ;HMC5883L_main.c,201 :: 		}
-L_end_HMC5883L_Start:
+L_end_MAGNET_Start:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #8
 BX	LR
-; end of _HMC5883L_Start
-HMC5883L_main_HMC5883L_Test:
-;HMC5883L_main.c,210 :: 		static void HMC5883L_Test(TMagnet_values *values) {
+; end of _MAGNET_Start
+HMC5883L_main_MAGNET_Test:
+;HMC5883L_main.c,210 :: 		static void MAGNET_Test(TMagnet_values *values) {
 ; values start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
@@ -642,19 +642,19 @@ MOVT	R1, #hi_addr(_magnetreadings+4)
 LDRSH	R1, [R1, #0]
 STRH	R1, [R2, #0]
 ;HMC5883L_main.c,216 :: 		}
-L_end_HMC5883L_Test:
+L_end_MAGNET_Test:
 LDR	LR, [SP, #0]
 ADD	SP, SP, #8
 BX	LR
-; end of HMC5883L_main_HMC5883L_Test
+; end of HMC5883L_main_MAGNET_Test
 _doMagnet:
 ;HMC5883L_main.c,227 :: 		void doMagnet(){
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;HMC5883L_main.c,228 :: 		HMC5883L_Test(&Magnet_vals);
+;HMC5883L_main.c,228 :: 		MAGNET_Test(&Magnet_vals);
 MOVW	R0, #lo_addr(_Magnet_vals+0)
 MOVT	R0, #hi_addr(_Magnet_vals+0)
-BL	HMC5883L_main_HMC5883L_Test+0
+BL	HMC5883L_main_MAGNET_Test+0
 ;HMC5883L_main.c,229 :: 		Scroll_MAGNET(_MAGNET_UP);
 MOVS	R0, #1
 BL	HMC5883L_main_Scroll_MAGNET+0
@@ -683,29 +683,29 @@ ADDS	R2, R2, #1
 CMP	R3, #0
 IT	NE
 BNE	L_doMagnet25
-;HMC5883L_main.c,234 :: 		Display_Value(&LAbel2, Magnet_vals.Xvalue);
+;HMC5883L_main.c,234 :: 		Display_Value(&Label35, Magnet_vals.Xvalue);
 MOVW	R0, #lo_addr(_Magnet_vals+0)
 MOVT	R0, #hi_addr(_Magnet_vals+0)
 LDRSH	R0, [R0, #0]
 SXTH	R1, R0
-MOVW	R0, #lo_addr(_Label2+0)
-MOVT	R0, #hi_addr(_Label2+0)
+MOVW	R0, #lo_addr(_Label35+0)
+MOVT	R0, #hi_addr(_Label35+0)
 BL	HMC5883L_main_Display_Value+0
-;HMC5883L_main.c,235 :: 		Display_Value(&LAbel3, Magnet_vals.Yvalue);
+;HMC5883L_main.c,235 :: 		Display_Value(&Label36, Magnet_vals.Yvalue);
 MOVW	R0, #lo_addr(_Magnet_vals+2)
 MOVT	R0, #hi_addr(_Magnet_vals+2)
 LDRSH	R0, [R0, #0]
 SXTH	R1, R0
-MOVW	R0, #lo_addr(_Label3+0)
-MOVT	R0, #hi_addr(_Label3+0)
+MOVW	R0, #lo_addr(_Label36+0)
+MOVT	R0, #hi_addr(_Label36+0)
 BL	HMC5883L_main_Display_Value+0
-;HMC5883L_main.c,236 :: 		Display_Value(&LAbel4, Magnet_vals.Zvalue);
+;HMC5883L_main.c,236 :: 		Display_Value(&Label37, Magnet_vals.Zvalue);
 MOVW	R0, #lo_addr(_Magnet_vals+4)
 MOVT	R0, #hi_addr(_Magnet_vals+4)
 LDRSH	R0, [R0, #0]
 SXTH	R1, R0
-MOVW	R0, #lo_addr(_Label4+0)
-MOVT	R0, #hi_addr(_Label4+0)
+MOVW	R0, #lo_addr(_Label37+0)
+MOVT	R0, #hi_addr(_Label37+0)
 BL	HMC5883L_main_Display_Value+0
 ;HMC5883L_main.c,237 :: 		}
 L_end_doMagnet:

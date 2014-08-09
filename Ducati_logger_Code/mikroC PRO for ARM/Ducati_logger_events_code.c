@@ -13,11 +13,36 @@ void HoursOnes();
 void HoursTens();
 void Deactivate_All_Rollers();
 void AmPmRun();
+
 void doAccel();
 void ACCEL_Start(char *test);
 void Accel_Stop();
-
+void doGYRO();
+void GYRO_Start(char *test);
+void Gyro_Stop();
 void checkPowerM();
+extern char cGYRO_test_status;
+extern char cACCEL_test_status;
+void doMAGNET();
+void MAGNET_Start(char *test);
+void Magnet_Stop();
+extern char cMAGNET_test_status;
+
+extern char PenDown;
+extern char Display_Bat_Stat;
+extern sfr sbit TFT_BLED;
+
+void ScrollPress();
+void ScrollOnClick();
+void Stop_Scroll();
+
+char Init_FAT();
+void Sensors_Init();
+void Sensors_Read();
+void Stop_sensors();
+char Logger_State;
+
+
 
 typedef struct Time {
   short ampm;
@@ -52,23 +77,8 @@ void BLED_Fade_In(){
     TFT_Set_DBC_SSD1963(255);
 }
 
-extern char PenDown;
-extern char Display_Bat_Stat;
-extern sfr sbit TFT_BLED;
 
-void ScrollPress();
-void ScrollOnClick();
-void Stop_Scroll();
 
-char Init_FAT();
-void Sensors_Init();
-void Sensors_Read();
-void Stop_sensors();
-char Logger_State;
-void doAccel();
-void ACCEL_Start(char *test);
-void Accel_Stop();
-extern char cACCEL_test_status;
 
 void Run_Logger(){
   switch (Logger_State) {
@@ -93,11 +103,13 @@ void Run_Logger(){
              }; break;                
     case 4 : {
                  doAccel();
-              };   break;                  // Sensor Test
+              };   break;                  // Accelerometer Test
     case 5 : {
-              //doMp3();               // GPS Test
+                 doGyro();                      // Gyro Test
              }; break;
-    case 6 : break;                   //Sensor Calibration
+    case 6 : {
+                 doMagnet();                      // Gyro Test
+             }break;                   //Sensor Calibration
     case 7 : {                       // Oxygen sensor test
                //doSlide();
              }; break;
@@ -239,14 +251,15 @@ void doGPSTest() {
     BLED_Fade_Out();
     DrawScreen(&GPS_test);
     BLED_Fade_In();
-    Logger_State = 5;
+    //Logger_State = 5;
 }
 
 void doGyroTest() {
     BLED_Fade_Out();
     DrawScreen(&Gyro_test);
     BLED_Fade_In();
-    Logger_State = 6;
+    Logger_State = 5;
+    GYRO_Start(&cGYRO_test_status);
 }
 
 
@@ -254,7 +267,7 @@ void doPressureTest() {
     BLED_Fade_Out();
     DrawScreen(&Pressure_test);
     BLED_Fade_In();
-    Logger_State = 6;
+    //Logger_State = 6;
 
 }
 
@@ -263,4 +276,6 @@ void doMagnetTest() {
     DrawScreen(&Magnetometer_test);
     BLED_Fade_In();
     Logger_State = 6;
+    MAGNET_Start(&cMAGNET_test_status);
+    
 }

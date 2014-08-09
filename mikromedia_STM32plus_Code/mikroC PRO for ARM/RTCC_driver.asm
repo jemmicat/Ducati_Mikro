@@ -74,8 +74,11 @@ BX	LR
 ; end of _RTC_Init
 _Set_RTC:
 ;RTCC_driver.c,57 :: 		void Set_RTC(TTime *RTCC_Time){
+; RTCC_Time start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
+; RTCC_Time end address is: 0 (R0)
+; RTCC_Time start address is: 0 (R0)
 ;RTCC_driver.c,60 :: 		PWR_CR.DBP = 1;
 MOVS	R2, #1
 SXTB	R2, R2
@@ -97,6 +100,7 @@ MOVS	R2, #128
 MOVW	R1, #lo_addr(RTC_ISR+0)
 MOVT	R1, #hi_addr(RTC_ISR+0)
 STR	R2, [R1, #0]
+; RTCC_Time end address is: 0 (R0)
 MOV	R4, R0
 ;RTCC_driver.c,65 :: 		while(RTC_ISR.INITF != 1){};      // bit 6
 L_Set_RTC5:
@@ -214,11 +218,14 @@ BX	LR
 ; end of _Set_RTC
 _RTCC_Read:
 ;RTCC_driver.c,96 :: 		char RTCC_Read(TTime *RTCC_Time){
+; RTCC_Time start address is: 0 (R0)
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
 MOV	R4, R0
+; RTCC_Time end address is: 0 (R0)
 ; RTCC_Time start address is: 16 (R4)
 ;RTCC_driver.c,97 :: 		char temp = 0;
+; temp start address is: 0 (R0)
 MOVS	R0, #0
 ;RTCC_driver.c,99 :: 		RTC_Time = RTC_TR;
 MOVW	R1, #lo_addr(RTC_TR+0)
@@ -243,6 +250,7 @@ LDR	R1, [R1, #0]
 CMP	R1, R2
 IT	EQ
 BEQ	L__RTCC_Read9
+; temp end address is: 0 (R0)
 ;RTCC_driver.c,103 :: 		old_RTC_Time = RTC_Time;
 MOVW	R3, #lo_addr(_RTC_Time+0)
 MOVT	R3, #hi_addr(_RTC_Time+0)
@@ -291,7 +299,9 @@ BL	_Bcd2Dec+0
 LDR	R1, [SP, #4]
 STRB	R0, [R1, #0]
 ;RTCC_driver.c,110 :: 		temp = 1;
+; temp start address is: 0 (R0)
 MOVS	R0, #1
+; temp end address is: 0 (R0)
 ;RTCC_driver.c,111 :: 		}
 IT	AL
 BAL	L_RTCC_Read7
@@ -300,6 +310,7 @@ L__RTCC_Read9:
 ;RTCC_driver.c,111 :: 		}
 L_RTCC_Read7:
 ;RTCC_driver.c,113 :: 		if(RTC_Date != old_RTC_Date){
+; temp start address is: 0 (R0)
 MOVW	R1, #lo_addr(_old_RTC_Date+0)
 MOVT	R1, #hi_addr(_old_RTC_Date+0)
 LDR	R2, [R1, #0]
@@ -309,6 +320,7 @@ LDR	R1, [R1, #0]
 CMP	R1, R2
 IT	EQ
 BEQ	L__RTCC_Read10
+; temp end address is: 0 (R0)
 ;RTCC_driver.c,114 :: 		old_RTC_Date = RTC_Date;
 MOVW	R3, #lo_addr(_RTC_Date+0)
 MOVT	R3, #hi_addr(_RTC_Date+0)
@@ -351,7 +363,9 @@ BL	_Bcd2Dec+0
 LDR	R1, [SP, #4]
 STRB	R0, [R1, #0]
 ;RTCC_driver.c,120 :: 		temp = 1;
+; temp start address is: 0 (R0)
 MOVS	R0, #1
+; temp end address is: 0 (R0)
 ;RTCC_driver.c,121 :: 		}
 IT	AL
 BAL	L_RTCC_Read8
@@ -360,6 +374,8 @@ L__RTCC_Read10:
 ;RTCC_driver.c,121 :: 		}
 L_RTCC_Read8:
 ;RTCC_driver.c,122 :: 		return temp;
+; temp start address is: 0 (R0)
+; temp end address is: 0 (R0)
 ;RTCC_driver.c,123 :: 		}
 L_end_RTCC_Read:
 LDR	LR, [SP, #0]

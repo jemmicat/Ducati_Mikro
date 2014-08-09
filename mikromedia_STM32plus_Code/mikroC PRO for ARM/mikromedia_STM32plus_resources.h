@@ -1,5 +1,5 @@
-const code char Furro_Script35x44_Regular[];
-const code char Furro_Script50x64_Regular[];
+const code char Furro_Script38x42_Regular[];
+const code char Furro_Script52x60_Regular[];
 const code char Open_Sans_Light12x18_Regular[];
 const code char Open_Sans_Light14x22_Regular[];
 const code char Open_Sans_Light19x28_Regular[];

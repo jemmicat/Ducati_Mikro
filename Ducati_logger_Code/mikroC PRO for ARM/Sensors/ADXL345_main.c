@@ -231,9 +231,9 @@ void doAccel(){
   WriteGraph(&Old_Accel_vals, &Accel_vals);
   Old_accel_vals = Accel_vals;
   
-  Display_Value(&LAbel2, Accel_vals.Xvalue);
-  Display_Value(&LAbel3, Accel_vals.Yvalue);
-  Display_Value(&LAbel4, Accel_vals.Zvalue);
+  Display_Value(&Label3, Accel_vals.Xvalue);
+  Display_Value(&Label4, Accel_vals.Yvalue);
+  Display_Value(&Label7, Accel_vals.Zvalue);
 }
 
 /*******************************************************************************

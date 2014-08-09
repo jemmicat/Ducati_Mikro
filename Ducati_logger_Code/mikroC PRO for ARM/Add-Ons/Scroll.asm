@@ -10,51 +10,51 @@ SXTB	R3, R3
 MOVW	R2, #lo_addr(TFT_CS+0)
 MOVT	R2, #hi_addr(TFT_CS+0)
 STR	R3, [R2, #0]
-;Scroll.c,46 :: 		TFT_mikromedia_Set_Index(0x33);
+;Scroll.c,46 :: 		Set_Index(0x33);
 MOVS	R0, #51
-BL	_TFT_mikromedia_Set_Index+0
-;Scroll.c,47 :: 		TFT_mikromedia_Write_Command(Hi(first));
+BL	_Set_Index+0
+;Scroll.c,47 :: 		Write_Command(Hi(first));
 ADD	R2, SP, #8
 ADDS	R2, R2, #1
 LDRB	R2, [R2, #0]
 UXTB	R0, R2
-BL	_TFT_mikromedia_Write_Command+0
-;Scroll.c,48 :: 		TFT_mikromedia_Write_Command(Lo(first));
+BL	_Write_Command+0
+;Scroll.c,48 :: 		Write_Command(Lo(first));
 ADD	R2, SP, #8
 LDRB	R2, [R2, #0]
 UXTB	R0, R2
-BL	_TFT_mikromedia_Write_Command+0
+BL	_Write_Command+0
 ;Scroll.c,49 :: 		temp = last - first;
 LDRH	R3, [SP, #8]
 LDRH	R2, [SP, #12]
 SUB	R2, R2, R3
 STRH	R2, [SP, #4]
-;Scroll.c,50 :: 		TFT_mikromedia_Write_Command(Hi(temp));
+;Scroll.c,50 :: 		Write_Command(Hi(temp));
 ADD	R2, SP, #4
 ADDS	R2, R2, #1
 LDRB	R2, [R2, #0]
 UXTB	R0, R2
-BL	_TFT_mikromedia_Write_Command+0
-;Scroll.c,51 :: 		TFT_mikromedia_Write_Command(Lo(temp));
+BL	_Write_Command+0
+;Scroll.c,51 :: 		Write_Command(Lo(temp));
 ADD	R2, SP, #4
 LDRB	R2, [R2, #0]
 UXTB	R0, R2
-BL	_TFT_mikromedia_Write_Command+0
+BL	_Write_Command+0
 ;Scroll.c,52 :: 		temp = _DISPLAY_HEIGHT - last;
 LDRH	R2, [SP, #12]
 RSB	R2, R2, #272
 STRH	R2, [SP, #4]
-;Scroll.c,53 :: 		TFT_mikromedia_Write_Command(Hi(temp));
+;Scroll.c,53 :: 		Write_Command(Hi(temp));
 ADD	R2, SP, #4
 ADDS	R2, R2, #1
 LDRB	R2, [R2, #0]
 UXTB	R0, R2
-BL	_TFT_mikromedia_Write_Command+0
-;Scroll.c,54 :: 		TFT_mikromedia_Write_Command(Lo(temp));
+BL	_Write_Command+0
+;Scroll.c,54 :: 		Write_Command(Lo(temp));
 ADD	R2, SP, #4
 LDRB	R2, [R2, #0]
 UXTB	R0, R2
-BL	_TFT_mikromedia_Write_Command+0
+BL	_Write_Command+0
 ;Scroll.c,55 :: 		TFT_CS = 1;
 MOVS	R3, #1
 SXTB	R3, R3
@@ -85,26 +85,26 @@ SXTB	R3, R3
 MOVW	R2, #lo_addr(TFT_CS+0)
 MOVT	R2, #hi_addr(TFT_CS+0)
 STR	R3, [R2, #0]
-;Scroll.c,68 :: 		TFT_mikromedia_Set_Index(0x36);
+;Scroll.c,68 :: 		Set_Index(0x36);
 MOVS	R0, #54
-BL	_TFT_mikromedia_Set_Index+0
-;Scroll.c,69 :: 		TFT_mikromedia_Write_Command(0x00);
+BL	_Set_Index+0
+;Scroll.c,69 :: 		Write_Command(0x00);
 MOVS	R0, #0
-BL	_TFT_mikromedia_Write_Command+0
-;Scroll.c,71 :: 		TFT_mikromedia_Set_Index(0x37);
+BL	_Write_Command+0
+;Scroll.c,71 :: 		Set_Index(0x37);
 MOVS	R0, #55
-BL	_TFT_mikromedia_Set_Index+0
-;Scroll.c,72 :: 		TFT_mikromedia_Write_Command(Hi(first));
+BL	_Set_Index+0
+;Scroll.c,72 :: 		Write_Command(Hi(first));
 ADD	R2, SP, #4
 ADDS	R2, R2, #1
 LDRB	R2, [R2, #0]
 UXTB	R0, R2
-BL	_TFT_mikromedia_Write_Command+0
-;Scroll.c,73 :: 		TFT_mikromedia_Write_Command(Lo(first));
+BL	_Write_Command+0
+;Scroll.c,73 :: 		Write_Command(Lo(first));
 ADD	R2, SP, #4
 LDRB	R2, [R2, #0]
 UXTB	R0, R2
-BL	_TFT_mikromedia_Write_Command+0
+BL	_Write_Command+0
 ;Scroll.c,75 :: 		TFT_CS = 1;
 MOVS	R3, #1
 SXTB	R3, R3
@@ -128,26 +128,26 @@ SXTB	R2, R2
 MOVW	R1, #lo_addr(TFT_CS+0)
 MOVT	R1, #hi_addr(TFT_CS+0)
 STR	R2, [R1, #0]
-;Scroll.c,88 :: 		TFT_mikromedia_Set_Index(0x36);
+;Scroll.c,88 :: 		Set_Index(0x36);
 MOVS	R0, #54
-BL	_TFT_mikromedia_Set_Index+0
-;Scroll.c,89 :: 		TFT_mikromedia_Write_Command(0x00);
+BL	_Set_Index+0
+;Scroll.c,89 :: 		Write_Command(0x00);
 MOVS	R0, #0
-BL	_TFT_mikromedia_Write_Command+0
-;Scroll.c,91 :: 		TFT_mikromedia_Set_Index(0x37);
+BL	_Write_Command+0
+;Scroll.c,91 :: 		Set_Index(0x37);
 MOVS	R0, #55
-BL	_TFT_mikromedia_Set_Index+0
-;Scroll.c,92 :: 		TFT_mikromedia_Write_Command(Hi(scroll));
+BL	_Set_Index+0
+;Scroll.c,92 :: 		Write_Command(Hi(scroll));
 ADD	R1, SP, #4
 ADDS	R1, R1, #1
 LDRB	R1, [R1, #0]
 UXTB	R0, R1
-BL	_TFT_mikromedia_Write_Command+0
-;Scroll.c,93 :: 		TFT_mikromedia_Write_Command(Lo(scroll));
+BL	_Write_Command+0
+;Scroll.c,93 :: 		Write_Command(Lo(scroll));
 ADD	R1, SP, #4
 LDRB	R1, [R1, #0]
 UXTB	R0, R1
-BL	_TFT_mikromedia_Write_Command+0
+BL	_Write_Command+0
 ;Scroll.c,95 :: 		TFT_CS = 1;
 MOVS	R2, #1
 SXTB	R2, R2

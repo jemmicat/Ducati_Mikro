@@ -95,8 +95,7 @@ void Ethernet_Message(char *text){
 *******************************************************************************/
 static char Ethernet_Init() {
 char result = SUCCESS;
-
-  Net_Ethernet_Intern_stackInitTCP();
+/*Net_Ethernet_Intern_stackInitTCP();
   if (ethInitialized_mark == NOT_SUCCESS) {
     // stack TCP init
     Net_Ethernet_Intern_stackInitTCP();
@@ -114,7 +113,7 @@ char result = SUCCESS;
     }
     Delay_ms(2000);
   }
-  Ethernet_Message("");
+  Ethernet_Message("");*/
   return result;
 
 }
@@ -127,7 +126,7 @@ char result = SUCCESS;
 * Output: 0 if successful
 *         1 if not successul
 *******************************************************************************/
-static char Ethernet_DHCP() {
+/*static char Ethernet_DHCP() {
 char text[20], temp_text[7], i, result = SUCCESS;
 unsigned long timeout;
 
@@ -161,7 +160,7 @@ unsigned long timeout;
   }
   Ethernet_Message("");
   return result;
-}
+}*/
 
 /*******************************************************************************
 * Function Ethernet_ReachTime()
@@ -232,14 +231,14 @@ char i;
 *******************************************************************************/
 void Start_Ethernet(){
   // we should provide timer interrupt each second and increment Net_Ethernet_Intern_UserTimerSec
-  InitTimer5();
+  /*InitTimer5();
   NVIC_IntEnable(IVT_INT_TIM5);
   EnableInterrupts();
-  
+
   if(Ethernet_Init() != SUCCESS)
     return;
   if(Ethernet_DHCP() != SUCCESS)
     return;
 
-  Ethernet_ReachTime();
+  Ethernet_ReachTime();*/
 }

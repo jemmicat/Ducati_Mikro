@@ -1,9 +1,11 @@
 _MP3_SCI_Write:
 ;MP3_driver.c,51 :: 		void MP3_SCI_Write(char address, unsigned int data_in) {
+; address start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
 UXTB	R4, R0
 STRH	R1, [SP, #4]
+; address end address is: 0 (R0)
 ; address start address is: 16 (R4)
 ;MP3_driver.c,52 :: 		BSYNC = 1;
 MOVS	R3, #1
@@ -62,6 +64,7 @@ _MP3_SCI_Read:
 ;MP3_driver.c,70 :: 		void MP3_SCI_Read(char start_address, char words_count, unsigned int *data_buffer) {
 ; data_buffer start address is: 8 (R2)
 ; words_count start address is: 4 (R1)
+; start_address start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
 UXTB	R5, R0
@@ -69,6 +72,7 @@ UXTB	R6, R1
 MOV	R7, R2
 ; data_buffer end address is: 8 (R2)
 ; words_count end address is: 4 (R1)
+; start_address end address is: 0 (R0)
 ; start_address start address is: 20 (R5)
 ; words_count start address is: 24 (R6)
 ; data_buffer start address is: 28 (R7)
@@ -93,8 +97,10 @@ MOV	R6, R7
 L_MP3_SCI_Read2:
 ; data_buffer start address is: 24 (R6)
 ; words_count start address is: 20 (R5)
+; words_count start address is: 0 (R0)
 UXTB	R4, R0
 SUBS	R3, R0, #1
+; words_count end address is: 0 (R0)
 ; words_count start address is: 20 (R5)
 UXTB	R5, R3
 ; words_count end address is: 20 (R5)
@@ -150,8 +156,11 @@ BX	LR
 ; end of _MP3_SCI_Read
 _MP3_SDI_Write:
 ;MP3_driver.c,94 :: 		void MP3_SDI_Write(char data_) {
+; data_ start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
+; data_ end address is: 0 (R0)
+; data_ start address is: 0 (R0)
 ;MP3_driver.c,96 :: 		MP3_CS = 1;
 MOVS	R2, #1
 SXTB	R2, R2
@@ -164,8 +173,10 @@ SXTB	R2, R2
 MOVW	R1, #lo_addr(BSYNC+0)
 MOVT	R1, #hi_addr(BSYNC+0)
 STR	R2, [R1, #0]
+; data_ end address is: 0 (R0)
 ;MP3_driver.c,99 :: 		while (DREQ == 0);             // wait until DREQ becomes 1, see MP3 codec datasheet, Serial Protocol for SCI
 L_MP3_SDI_Write6:
+; data_ start address is: 0 (R0)
 MOVW	R2, #lo_addr(DREQ+0)
 MOVT	R2, #hi_addr(DREQ+0)
 LDR	R1, [R2, #0]
@@ -176,6 +187,7 @@ IT	AL
 BAL	L_MP3_SDI_Write6
 L_MP3_SDI_Write7:
 ;MP3_driver.c,101 :: 		SPI2_Write(data_);
+; data_ end address is: 0 (R0)
 BL	_SPI2_Write+0
 ;MP3_driver.c,102 :: 		BSYNC = 1;
 MOVS	R2, #1
@@ -205,10 +217,14 @@ BX	LR
 ; end of _MP3_Reset_Time
 _MP3_Get_Decode_Time:
 ;MP3_driver.c,123 :: 		void MP3_Get_Decode_Time(unsigned int *time){
+; time start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
+; time end address is: 0 (R0)
+; time start address is: 0 (R0)
 ;MP3_driver.c,124 :: 		MP3_SCI_Read(SCI_DECODE_TIME_ADDR, 1, time);
 MOV	R2, R0
+; time end address is: 0 (R0)
 MOVS	R1, #1
 MOVS	R0, #4
 BL	_MP3_SCI_Read+0
@@ -220,8 +236,11 @@ BX	LR
 ; end of _MP3_Get_Decode_Time
 _MP3_SDI_Write_32:
 ;MP3_driver.c,134 :: 		void MP3_SDI_Write_32(char *data_) {
+; data_ start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
+; data_ end address is: 0 (R0)
+; data_ start address is: 0 (R0)
 ;MP3_driver.c,137 :: 		MP3_CS = 1;
 MOVS	R2, #1
 SXTB	R2, R2
@@ -234,8 +253,10 @@ SXTB	R2, R2
 MOVW	R1, #lo_addr(BSYNC+0)
 MOVT	R1, #hi_addr(BSYNC+0)
 STR	R2, [R1, #0]
+; data_ end address is: 0 (R0)
 ;MP3_driver.c,140 :: 		while (DREQ == 0);             // wait until DREQ becomes 1, see MP3 codec datasheet, Serial Protocol for SCI
 L_MP3_SDI_Write_328:
+; data_ start address is: 0 (R0)
 MOVW	R2, #lo_addr(DREQ+0)
 MOVT	R2, #hi_addr(DREQ+0)
 LDR	R1, [R2, #0]
@@ -248,6 +269,7 @@ L_MP3_SDI_Write_329:
 ;MP3_driver.c,142 :: 		for (i=0; i<32; i++)
 ; i start address is: 20 (R5)
 MOVS	R5, #0
+; data_ end address is: 0 (R0)
 ; i end address is: 20 (R5)
 MOV	R4, R0
 L_MP3_SDI_Write_3210:
@@ -289,13 +311,17 @@ BX	LR
 _MP3_Set_Volume:
 ;MP3_driver.c,154 :: 		void MP3_Set_Volume(char left, char right) {
 ; right start address is: 4 (R1)
+; left start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
 ; right end address is: 4 (R1)
+; left end address is: 0 (R0)
+; left start address is: 0 (R0)
 ; right start address is: 4 (R1)
 ;MP3_driver.c,157 :: 		volume = (left<<8) + right;             // calculate value
 LSLS	R2, R0, #8
 UXTH	R2, R2
+; left end address is: 0 (R0)
 ADDS	R2, R2, R1
 ; right end address is: 4 (R1)
 ;MP3_driver.c,158 :: 		MP3_SCI_Write(SCI_VOL_ADDR, volume);    // Write value to VOL register

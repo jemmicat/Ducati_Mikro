@@ -41,6 +41,7 @@ _RedrawLabel:
 ;sensors.c,40 :: 		void RedrawLabel(unsigned int BackGround_Color, Tlabel *Label, unsigned int Xoffset, unsigned int Yoffset){
 ; Yoffset start address is: 12 (R3)
 ; Xoffset start address is: 8 (R2)
+; BackGround_Color start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
 UXTH	R7, R0
@@ -49,6 +50,7 @@ UXTH	R8, R2
 UXTH	R9, R3
 ; Yoffset end address is: 12 (R3)
 ; Xoffset end address is: 8 (R2)
+; BackGround_Color end address is: 0 (R0)
 ; BackGround_Color start address is: 28 (R7)
 ; Xoffset start address is: 32 (R8)
 ; Yoffset start address is: 36 (R9)
@@ -98,17 +100,22 @@ BX	LR
 sensors_Display_Temp:
 ;sensors.c,54 :: 		static void Display_Temp(unsigned long temperature, char CF){
 ; CF start address is: 4 (R1)
+; temperature start address is: 0 (R0)
 SUB	SP, SP, #16
 STR	LR, [SP, #0]
 UXTB	R6, R1
 ; CF end address is: 4 (R1)
+; temperature end address is: 0 (R0)
+; temperature start address is: 0 (R0)
 ; CF start address is: 24 (R6)
 ;sensors.c,58 :: 		LongWordToStr(temperature, text1);
 ADD	R2, SP, #4
 MOV	R1, R2
+; temperature end address is: 0 (R0)
 BL	_LongWordToStr+0
 ;sensors.c,59 :: 		ptr1 = text1;
 ADD	R2, SP, #4
+; ptr1 start address is: 0 (R0)
 MOV	R0, R2
 ;sensors.c,60 :: 		if (CF == 0)
 CMP	R6, #0
@@ -136,11 +143,13 @@ L_sensors_Display_Temp1:
 ; ptr2 start address is: 16 (R4)
 MOV	R1, R0
 ; CF end address is: 24 (R6)
+; ptr1 end address is: 0 (R0)
 ; ptr2 end address is: 16 (R4)
 UXTB	R0, R6
 L_sensors_Display_Temp2:
 ; ptr2 start address is: 16 (R4)
 ; ptr1 start address is: 4 (R1)
+; CF start address is: 0 (R0)
 LDRB	R2, [R1, #0]
 CMP	R2, #0
 IT	EQ
@@ -223,6 +232,7 @@ STRB	R2, [R1, #0]
 CMP	R0, #0
 IT	NE
 BNE	L_sensors_Display_Temp7
+; CF end address is: 0 (R0)
 ;sensors.c,83 :: 		RedrawLabel(Sensors.Color, &Diagram5_Label2, 135, 50);
 MOVW	R2, #lo_addr(_Sensors+0)
 MOVT	R2, #hi_addr(_Sensors+0)
@@ -260,8 +270,10 @@ STR	LR, [SP, #0]
 ;sensors.c,100 :: 		temp = ADC3_Get_Sample(6);
 MOVS	R0, #6
 BL	_ADC3_Get_Sample+0
+; temp start address is: 0 (R0)
 ;sensors.c,101 :: 		temp = (unsigned long)(VREF * temp) / 4100;
 LSLS	R1, R0, #11
+; temp end address is: 0 (R0)
 MOVW	R0, #4100
 UDIV	R0, R1, R0
 ;sensors.c,102 :: 		temp = temp - 500;
@@ -302,8 +314,11 @@ BX	LR
 ; end of sensors_Get_Temperature
 sensors_Dim_BackLight:
 ;sensors.c,118 :: 		static void Dim_BackLight(char intensity){
+; intensity start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
+; intensity end address is: 0 (R0)
+; intensity start address is: 0 (R0)
 ;sensors.c,120 :: 		if (intensity < current_intensity)
 MOVW	R1, #lo_addr(sensors_current_intensity+0)
 MOVT	R1, #hi_addr(sensors_current_intensity+0)
@@ -317,8 +332,10 @@ MOVT	R1, #hi_addr(sensors_current_intensity+0)
 ; intensity_cnt start address is: 8 (R2)
 LDRB	R2, [R1, #0]
 ; intensity_cnt end address is: 8 (R2)
+; intensity end address is: 0 (R0)
 L_sensors_Dim_BackLight10:
 ; intensity_cnt start address is: 8 (R2)
+; intensity start address is: 0 (R0)
 CMP	R2, R0
 IT	LS
 BLS	L_sensors_Dim_BackLight11
@@ -357,8 +374,10 @@ MOVT	R1, #hi_addr(sensors_current_intensity+0)
 ; intensity_cnt start address is: 8 (R2)
 LDRB	R2, [R1, #0]
 ; intensity_cnt end address is: 8 (R2)
+; intensity end address is: 0 (R0)
 L_sensors_Dim_BackLight16:
 ; intensity_cnt start address is: 8 (R2)
+; intensity start address is: 0 (R0)
 CMP	R2, R0
 IT	CS
 BCS	L_sensors_Dim_BackLight17
@@ -389,10 +408,13 @@ IT	AL
 BAL	L_sensors_Dim_BackLight16
 L_sensors_Dim_BackLight17:
 L_sensors_Dim_BackLight15:
+; intensity end address is: 0 (R0)
 ;sensors.c,130 :: 		current_intensity = intensity;
+; intensity start address is: 0 (R0)
 MOVW	R1, #lo_addr(sensors_current_intensity+0)
 MOVT	R1, #hi_addr(sensors_current_intensity+0)
 STRB	R0, [R1, #0]
+; intensity end address is: 0 (R0)
 ;sensors.c,131 :: 		}
 L_end_Dim_BackLight:
 LDR	LR, [SP, #0]
@@ -426,12 +448,12 @@ L_sensors_Get_Light_Intensity38:
 L_sensors_Get_Light_Intensity21:
 ;sensors.c,150 :: 		WordToStr(Light_Intensity, text);
 ; Light_Intensity start address is: 24 (R6)
-ADD	R0, SP, #6
+ADD	R0, SP, #8
 MOV	R1, R0
 UXTH	R0, R6
 BL	_WordToStr+0
 ;sensors.c,151 :: 		ptr1 = text;
-ADD	R1, SP, #6
+ADD	R1, SP, #8
 ; ptr1 start address is: 4 (R1)
 ;sensors.c,152 :: 		ptr2 = Diagram5_Label4_Caption;
 ; ptr2 start address is: 12 (R3)

@@ -1,6 +1,6 @@
-#line 1 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/MP3_driver.c"
-#line 1 "c:/program files (x86)/mikroc pro for arm/include/built_in.h"
-#line 14 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/MP3_driver.c"
+#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/MP3_driver.c"
+#line 1 "c:/users/jemmi/documents/mikroelektronika/mikroc pro for arm/include/built_in.h"
+#line 14 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/MP3_driver.c"
 const char WRITE_CODE = 0x02;
 const char READ_CODE = 0x03;
 
@@ -21,13 +21,13 @@ const char SCI_AICTRL0_ADDR = 0x0C;
 const char SCI_AICTRL1_ADDR = 0x0D;
 const char SCI_AICTRL2_ADDR = 0x0E;
 const char SCI_AICTRL3_ADDR = 0x0F;
-#line 38 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/MP3_driver.c"
+#line 38 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/MP3_driver.c"
 extern sfr sbit Mmc_Chip_Select;
 extern sfr sbit MP3_CS;
 extern sfr sbit MP3_RST;
 extern sfr sbit BSYNC;
 extern sfr sbit DREQ;
-#line 51 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/MP3_driver.c"
+#line 51 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/MP3_driver.c"
 void MP3_SCI_Write(char address, unsigned int data_in) {
  BSYNC = 1;
 
@@ -39,7 +39,7 @@ void MP3_SCI_Write(char address, unsigned int data_in) {
  MP3_CS = 1;
  while (DREQ == 0);
 }
-#line 70 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/MP3_driver.c"
+#line 70 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/MP3_driver.c"
 void MP3_SCI_Read(char start_address, char words_count, unsigned int *data_buffer) {
  unsigned int temp;
 
@@ -56,7 +56,7 @@ void MP3_SCI_Read(char start_address, char words_count, unsigned int *data_buffe
  MP3_CS = 1;
  while (DREQ == 0);
 }
-#line 94 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/MP3_driver.c"
+#line 94 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/MP3_driver.c"
 void MP3_SDI_Write(char data_) {
 
  MP3_CS = 1;
@@ -67,15 +67,15 @@ void MP3_SDI_Write(char data_) {
  SPI2_Write(data_);
  BSYNC = 1;
 }
-#line 112 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/MP3_driver.c"
+#line 112 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/MP3_driver.c"
 void MP3_Reset_Time(){
  MP3_SCI_Write(SCI_DECODE_TIME_ADDR, 0);
 }
-#line 123 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/MP3_driver.c"
+#line 123 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/MP3_driver.c"
 void MP3_Get_Decode_Time(unsigned int *time){
  MP3_SCI_Read(SCI_DECODE_TIME_ADDR, 1, time);
 }
-#line 134 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/MP3_driver.c"
+#line 134 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/MP3_driver.c"
 void MP3_SDI_Write_32(char *data_) {
  char i;
 
@@ -88,7 +88,7 @@ void MP3_SDI_Write_32(char *data_) {
  SPI2_Write(data_[i]);
  BSYNC = 1;
 }
-#line 154 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/MP3_driver.c"
+#line 154 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/MP3_driver.c"
 void MP3_Set_Volume(char left, char right) {
  unsigned int volume;
 

@@ -170,14 +170,18 @@ RGB_Light_GetColor_FromSD:
 ;RGB_Light.c,108 :: 		static unsigned int GetColor_FromSD(unsigned long Img, unsigned int xc, unsigned int yc){
 ; yc start address is: 8 (R2)
 ; xc start address is: 4 (R1)
+; Img start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
 ; yc end address is: 8 (R2)
 ; xc end address is: 4 (R1)
+; Img end address is: 0 (R0)
+; Img start address is: 0 (R0)
 ; xc start address is: 4 (R1)
 ; yc start address is: 8 (R2)
 ;RGB_Light.c,116 :: 		offset = Img + 6 + ((long)(480) * (yc - 1) + xc) * 2;
 ADDS	R5, R0, #6
+; Img end address is: 0 (R0)
 SUBS	R4, R2, #1
 UXTH	R4, R4
 ; yc end address is: 8 (R2)
@@ -216,9 +220,11 @@ RGB_Light_GetColor_FromFlash:
 ;RGB_Light.c,136 :: 		static unsigned int GetColor_FromFlash(TImage *Img, unsigned int xc, unsigned int yc){
 ; yc start address is: 8 (R2)
 ; xc start address is: 4 (R1)
+; Img start address is: 0 (R0)
 MOV	R4, R0
 ; yc end address is: 8 (R2)
 ; xc end address is: 4 (R1)
+; Img end address is: 0 (R0)
 ; Img start address is: 16 (R4)
 ; xc start address is: 4 (R1)
 ; yc start address is: 8 (R2)
@@ -226,6 +232,7 @@ MOV	R4, R0
 ADDW	R3, R4, #16
 LDR	R3, [R3, #0]
 ADDS	R3, R3, #6
+; pColor start address is: 0 (R0)
 MOV	R0, R3
 ;RGB_Light.c,140 :: 		pColor = pColor + ((long)(Img->Width) * (yc - 1) + xc) * 2;
 ADDW	R3, R4, #10
@@ -240,8 +247,10 @@ ADDS	R3, R3, R1
 ; xc end address is: 4 (R1)
 LSLS	R3, R3, #1
 ADDS	R4, R0, R3
+; pColor end address is: 0 (R0)
 ;RGB_Light.c,141 :: 		color_temp = (*pColor++);
 LDRB	R3, [R4, #0]
+; color_temp start address is: 0 (R0)
 UXTB	R0, R3
 ADDS	R3, R4, #1
 ;RGB_Light.c,142 :: 		color_temp += (*pColor) << 8;
@@ -249,6 +258,7 @@ LDRB	R3, [R3, #0]
 LSLS	R3, R3, #8
 UXTH	R3, R3
 ADDS	R3, R0, R3
+; color_temp end address is: 0 (R0)
 ;RGB_Light.c,144 :: 		return color_temp;
 UXTH	R0, R3
 ;RGB_Light.c,145 :: 		}
@@ -365,9 +375,11 @@ BX	LR
 ; end of RGB_Light_Display_color_text
 RGB_Light_Drive_RGB_Diode:
 ;RGB_Light.c,189 :: 		static void Drive_RGB_Diode(TColors *colors){
+; colors start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
 MOV	R6, R0
+; colors end address is: 0 (R0)
 ; colors start address is: 24 (R6)
 ;RGB_Light.c,190 :: 		PWM_TIM2_Set_Duty((int)pwm_period2 / 64 * colors->Green, _PWM_NON_INVERTED, _PWM_CHANNEL2);
 MOVW	R1, #lo_addr(RGB_Light_pwm_period2+0)

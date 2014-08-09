@@ -1,9 +1,12 @@
 Slide_Show_DrawImageLine:
 ;Slide_Show.c,73 :: 		static void DrawImageLine(unsigned long image, int line){
 ; line start address is: 4 (R1)
+; image start address is: 0 (R0)
 SUB	SP, SP, #24
 STR	LR, [SP, #0]
 ; line end address is: 4 (R1)
+; image end address is: 0 (R0)
+; image start address is: 0 (R0)
 ; line start address is: 4 (R1)
 ;Slide_Show.c,78 :: 		TFT_CS = 0;
 MOVS	R3, #0
@@ -13,6 +16,7 @@ MOVT	R2, #hi_addr(TFT_CS+0)
 STR	R3, [R2, #0]
 ;Slide_Show.c,79 :: 		offset = image + 6 + (unsigned long)line*960;
 ADDS	R4, R0, #6
+; image end address is: 0 (R0)
 SXTH	R3, R1
 ; line end address is: 4 (R1)
 MOVW	R2, #960
@@ -67,6 +71,7 @@ MOVS	R5, #0
 ; i end address is: 20 (R5)
 UXTH	R0, R5
 L_Slide_Show_DrawImageLine2:
+; i start address is: 0 (R0)
 LDR	R2, [SP, #12]
 CMP	R0, R2
 IT	CS
@@ -96,6 +101,7 @@ BLX	R4
 LDRH	R0, [SP, #4]
 ;Slide_Show.c,87 :: 		for (i = 0;i<readed;i++){
 ADDS	R2, R0, #1
+; i end address is: 0 (R0)
 ; i start address is: 20 (R5)
 UXTH	R5, R2
 ;Slide_Show.c,91 :: 		}
@@ -122,12 +128,16 @@ BX	LR
 ; end of Slide_Show_DrawImageLine
 Slide_Show_Slides_Scroll:
 ;Slide_Show.c,104 :: 		static void Slides_Scroll(char Adir) {
+; Adir start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
+; Adir end address is: 0 (R0)
+; Adir start address is: 0 (R0)
 ;Slide_Show.c,107 :: 		if (Adir == 1) {
 CMP	R0, #1
 IT	NE
 BNE	L_Slide_Show_Slides_Scroll5
+; Adir end address is: 0 (R0)
 ;Slide_Show.c,108 :: 		if (Slides_disp_scroll != _SLIDES_SCROLL_LAST_LINE - 1)
 MOVW	R1, #lo_addr(Slide_Show_Slides_disp_scroll+0)
 MOVT	R1, #hi_addr(Slide_Show_Slides_disp_scroll+0)
@@ -338,8 +348,11 @@ BX	LR
 ; end of Slide_Show_Slides_ScrollDown
 _ScrollImageUp:
 ;Slide_Show.c,190 :: 		void ScrollImageUp(int scroll){
+; scroll start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
+; scroll end address is: 0 (R0)
+; scroll start address is: 0 (R0)
 ;Slide_Show.c,191 :: 		if (Slides_imageLine == 0){
 MOVW	R1, #lo_addr(Slide_Show_Slides_imageLine+0)
 MOVT	R1, #hi_addr(Slide_Show_Slides_imageLine+0)
@@ -398,12 +411,15 @@ STRH	R0, [SP, #4]
 BL	Slide_Show_GetNextImage+0
 LDRSH	R0, [SP, #4]
 ;Slide_Show.c,203 :: 		Slides_ScrollUp(scroll);
+; scroll end address is: 0 (R0)
 BL	Slide_Show_Slides_ScrollUp+0
 ;Slide_Show.c,204 :: 		}
 IT	AL
 BAL	L_ScrollImageUp19
 L_ScrollImageUp17:
 ;Slide_Show.c,206 :: 		Slides_ScrollUp(scroll);
+; scroll start address is: 0 (R0)
+; scroll end address is: 0 (R0)
 BL	Slide_Show_Slides_ScrollUp+0
 ;Slide_Show.c,207 :: 		}
 L_ScrollImageUp19:
@@ -415,8 +431,11 @@ BX	LR
 ; end of _ScrollImageUp
 _ScrollImageDown:
 ;Slide_Show.c,217 :: 		void ScrollImageDown(int scroll){
+; scroll start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
+; scroll end address is: 0 (R0)
+; scroll start address is: 0 (R0)
 ;Slide_Show.c,218 :: 		if (Slides_imageLine == 209){
 MOVW	R1, #lo_addr(Slide_Show_Slides_imageLine+0)
 MOVT	R1, #hi_addr(Slide_Show_Slides_imageLine+0)
@@ -475,12 +494,15 @@ STRH	R0, [SP, #4]
 BL	Slide_Show_GetPreviousImage+0
 LDRSH	R0, [SP, #4]
 ;Slide_Show.c,230 :: 		Slides_ScrollDown(scroll);
+; scroll end address is: 0 (R0)
 BL	Slide_Show_Slides_ScrollDown+0
 ;Slide_Show.c,231 :: 		}
 IT	AL
 BAL	L_ScrollImageDown24
 L_ScrollImageDown22:
 ;Slide_Show.c,233 :: 		Slides_ScrollDown(scroll);
+; scroll start address is: 0 (R0)
+; scroll end address is: 0 (R0)
 BL	Slide_Show_Slides_ScrollDown+0
 ;Slide_Show.c,234 :: 		}
 L_ScrollImageDown24:
@@ -552,7 +574,7 @@ BX	LR
 ; end of _Start_Slide_Show
 _Slide_scroll:
 ;Slide_Show.c,265 :: 		void Slide_scroll(){
-SUB	SP, SP, #8
+SUB	SP, SP, #12
 STR	LR, [SP, #0]
 ;Slide_Show.c,269 :: 		if (Slide_Flag == 0){
 MOVW	R0, #lo_addr(Slide_Show_Slide_Flag+0)
@@ -600,7 +622,7 @@ IT	LE
 BLE	L_Slide_scroll27
 ;Slide_Show.c,277 :: 		dir = 0;
 MOVS	R0, #0
-STRB	R0, [SP, #6]
+STRB	R0, [SP, #8]
 ;Slide_Show.c,278 :: 		}
 L_Slide_scroll27:
 ;Slide_Show.c,279 :: 		if (delta < 0){
@@ -609,7 +631,7 @@ IT	GE
 BGE	L__Slide_scroll51
 ;Slide_Show.c,280 :: 		dir = 1;
 MOVS	R0, #1
-STRB	R0, [SP, #6]
+STRB	R0, [SP, #8]
 ;Slide_Show.c,281 :: 		delta = - delta;
 RSBS	R1, R1, #0
 SXTH	R1, R1
@@ -645,7 +667,7 @@ CMP	R1, #0
 IT	LE
 BLE	L_Slide_scroll31
 ;Slide_Show.c,289 :: 		if (dir == 1)
-LDRB	R0, [SP, #6]
+LDRB	R0, [SP, #8]
 CMP	R0, #1
 IT	NE
 BNE	L_Slide_scroll32
@@ -683,7 +705,7 @@ STRH	R1, [R0, #0]
 ;Slide_Show.c,297 :: 		}
 L_end_Slide_scroll:
 LDR	LR, [SP, #0]
-ADD	SP, SP, #8
+ADD	SP, SP, #12
 BX	LR
 ; end of _Slide_scroll
 _doSlide:

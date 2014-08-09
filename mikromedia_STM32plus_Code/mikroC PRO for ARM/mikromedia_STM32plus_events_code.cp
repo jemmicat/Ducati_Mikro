@@ -1,5 +1,7 @@
-#line 1 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/mikromedia_STM32plus_events_code.c"
-#line 1 "c:/users/jemmi/desktop/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/mikromedia_stm32plus_objects.h"
+#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/mikromedia_STM32plus_events_code.c"
+#line 1 "c:/users/jemmi/documents/github/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/mikromedia_stm32plus_objects.h"
+typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
+
 typedef struct Screen TScreen;
 
 typedef struct {
@@ -9,6 +11,35 @@ typedef struct {
  unsigned int Y_Max;
  char Rotate;
 } TTPConstants;
+
+typedef struct Button {
+ TScreen* OwnerScreen;
+ char Order;
+ unsigned int Left;
+ unsigned int Top;
+ unsigned int Width;
+ unsigned int Height;
+ char Pen_Width;
+ unsigned int Pen_Color;
+ char Visible;
+ char Active;
+ char Transparent;
+ char *Caption;
+ TTextAlign TextAlign;
+ const char *FontName;
+ unsigned int Font_Color;
+ char Gradient;
+ char Gradient_Orientation;
+ unsigned int Gradient_Start_Color;
+ unsigned int Gradient_End_Color;
+ unsigned int Color;
+ char PressColEnabled;
+ unsigned int Press_Color;
+ void (*OnUpPtr)();
+ void (*OnDownPtr)();
+ void (*OnClickPtr)();
+ void (*OnPressPtr)();
+} TButton;
 
 typedef struct Label {
  TScreen* OwnerScreen;
@@ -95,11 +126,45 @@ typedef struct Box {
  void (*OnPressPtr)();
 } TBox;
 
+typedef struct CheckBox {
+ TScreen* OwnerScreen;
+ char Order;
+ unsigned int Left;
+ unsigned int Top;
+ unsigned int Width;
+ unsigned int Height;
+ char Pen_Width;
+ unsigned int Pen_Color;
+ char Visible;
+ char Active;
+ char Checked;
+ char Transparent;
+ char *Caption;
+ TTextAlign TextAlign;
+ const char *FontName;
+ unsigned int Font_Color;
+ char Gradient;
+ char Gradient_Orientation;
+ unsigned int Gradient_Start_Color;
+ unsigned int Gradient_End_Color;
+ unsigned int Color;
+ char Rounded;
+ char Corner_Radius;
+ char PressColEnabled;
+ unsigned int Press_Color;
+ void (*OnUpPtr)();
+ void (*OnDownPtr)();
+ void (*OnClickPtr)();
+ void (*OnPressPtr)();
+} TCheckBox;
+
 struct Screen {
  unsigned int Color;
  unsigned int Width;
  unsigned int Height;
  unsigned int ObjectsCount;
+ unsigned int ButtonsCount;
+ TButton * const code *Buttons;
  unsigned int LabelsCount;
  TLabel * const code *Labels;
  unsigned int ImagesCount;
@@ -108,6 +173,8 @@ struct Screen {
  TCircle * const code *Circles;
  unsigned int BoxesCount;
  TBox * const code *Boxes;
+ unsigned int CheckBoxesCount;
+ TCheckBox * const code *CheckBoxes;
 };
 
 extern TScreen Home;
@@ -124,11 +191,15 @@ extern TImage Image9;
 extern TLabel Label20;
 extern TImage Image16;
 extern TLabel Label25;
+extern TImage Image24;
+extern TLabel Label30;
 extern TImage Image18;
 extern TLabel Label34;
+extern TImage TicTacToe;
+extern TLabel Label40;
 extern TImage BatteryStatus;
-extern TLabel * const code Screen1_Labels[8];
-extern TImage * const code Screen1_Images[8];
+extern TLabel * const code Screen1_Labels[10];
+extern TImage * const code Screen1_Images[10];
 
 extern TScreen Accelerometer;
 extern TBox Box23;
@@ -242,6 +313,56 @@ extern TLabel * const code Screen8_Labels[3];
 extern TImage * const code Screen8_Images[8];
 extern TBox * const code Screen8_Boxes[3];
 
+extern TScreen Paint;
+extern TBox Box18;
+extern TImage Image4;
+extern TImage NewScreen;
+extern TImage Image25;
+extern TImage Pen;
+extern TImage Image27;
+extern TImage Eraser;
+extern TImage Image29;
+extern TBox DrawingArea;
+extern TImage icon_paint_back;
+extern TLabel Label29;
+extern TBox Color01;
+extern TBox Color02;
+extern TBox Color03;
+extern TBox Color04;
+extern TBox Color05;
+extern TBox Color06;
+extern TBox Color07;
+extern TBox Color08;
+extern TBox Color09;
+extern TBox Color10;
+extern TBox Color11;
+extern TBox Color12;
+extern TBox Color13;
+extern TBox Color14;
+extern TBox Color15;
+extern TBox Color16;
+extern TBox Color17;
+extern TBox Color18;
+extern TBox Color19;
+extern TBox Color20;
+extern TBox Color21;
+extern TBox Color22;
+extern TBox Color23;
+extern TBox Color24;
+extern TBox Color25;
+extern TBox Color26;
+extern TBox Color27;
+extern TBox Color28;
+extern TBox Color29;
+extern TBox Color30;
+extern TImage BackGroundColor;
+extern TBox Pen1;
+extern TBox Pen2;
+extern TBox Pen3;
+extern TLabel * const code Screen9_Labels[1];
+extern TImage * const code Screen9_Images[9];
+extern TBox * const code Screen9_Boxes[35];
+
 extern TScreen SlideShow;
 extern TBox Box7;
 extern TBox icon_previous_box;
@@ -254,34 +375,46 @@ extern TImage icon_previous;
 extern TImage Icon_next;
 extern TLabel Label35;
 extern TBox Slide_Active_area;
-extern TLabel * const code Screen9_Labels[4];
-extern TImage * const code Screen9_Images[3];
-extern TBox * const code Screen9_Boxes[4];
+extern TLabel * const code Screen10_Labels[4];
+extern TImage * const code Screen10_Images[3];
+extern TBox * const code Screen10_Boxes[4];
 
-extern TScreen Boot;
-extern TImage Image4;
-extern TImage Image19;
+extern TScreen Tic_Tac_Toe;
+extern TBox Box10;
+extern TBox Box11;
+extern TBox Box9;
+extern TButton Button9;
+extern TButton Button8;
+extern TButton Button7;
+extern TButton Button6;
+extern TButton Button5;
+extern TButton Button4;
+extern TButton Button3;
+extern TButton Button2;
+extern TButton Button1;
+extern TBox Box8;
+extern TLabel Label36;
 extern TImage Image20;
+extern TLabel Label37;
 extern TImage Image21;
-extern TImage Image22;
-extern TImage Image23;
-extern TImage Image24;
-extern TImage Image25;
-extern TImage Image26;
-extern TImage Image27;
-extern TImage Image28;
-extern TImage Image29;
-extern TImage Image30;
-extern TImage Image31;
-extern TImage Image32;
-extern TImage Image33;
-extern TImage Image34;
-extern TImage Image35;
-extern TImage Image36;
-extern TImage Image37;
-extern TImage Image38;
-extern TImage Image39;
-extern TImage * const code Screen10_Images[22];
+extern TLabel Label38;
+extern TLabel Label39;
+extern TLabel XO1;
+extern TLabel XO2;
+extern TLabel XO3;
+extern TLabel XO4;
+extern TLabel XO5;
+extern TLabel XO6;
+extern TLabel XO7;
+extern TLabel XO8;
+extern TLabel XO9;
+extern TCheckBox CheckBox1;
+extern TLabel Label41;
+extern TButton * const code Screen11_Buttons[9];
+extern TLabel * const code Screen11_Labels[14];
+extern TImage * const code Screen11_Images[2];
+extern TBox * const code Screen11_Boxes[4];
+extern TCheckBox * const code Screen11_CheckBoxes[1];
 
 
 
@@ -398,8 +531,12 @@ extern char Image9_Caption[];
 extern char Label20_Caption[];
 extern char Image16_Caption[];
 extern char Label25_Caption[];
+extern char Image24_Caption[];
+extern char Label30_Caption[];
 extern char Image18_Caption[];
 extern char Label34_Caption[];
+extern char TicTacToe_Caption[];
+extern char Label40_Caption[];
 extern char BatteryStatus_Caption[];
 extern char Box23_Caption[];
 extern char Box1_Caption[];
@@ -477,6 +614,51 @@ extern char stop_icon_Caption[];
 extern char next_icon_Caption[];
 extern char songlist_icon_Caption[];
 extern char Label6_Caption[];
+extern char Box18_Caption[];
+extern char Image4_Caption[];
+extern char NewScreen_Caption[];
+extern char Image25_Caption[];
+extern char Pen_Caption[];
+extern char Image27_Caption[];
+extern char Eraser_Caption[];
+extern char Image29_Caption[];
+extern char DrawingArea_Caption[];
+extern char icon_paint_back_Caption[];
+extern char Label29_Caption[];
+extern char Color01_Caption[];
+extern char Color02_Caption[];
+extern char Color03_Caption[];
+extern char Color04_Caption[];
+extern char Color05_Caption[];
+extern char Color06_Caption[];
+extern char Color07_Caption[];
+extern char Color08_Caption[];
+extern char Color09_Caption[];
+extern char Color10_Caption[];
+extern char Color11_Caption[];
+extern char Color12_Caption[];
+extern char Color13_Caption[];
+extern char Color14_Caption[];
+extern char Color15_Caption[];
+extern char Color16_Caption[];
+extern char Color17_Caption[];
+extern char Color18_Caption[];
+extern char Color19_Caption[];
+extern char Color20_Caption[];
+extern char Color21_Caption[];
+extern char Color22_Caption[];
+extern char Color23_Caption[];
+extern char Color24_Caption[];
+extern char Color25_Caption[];
+extern char Color26_Caption[];
+extern char Color27_Caption[];
+extern char Color28_Caption[];
+extern char Color29_Caption[];
+extern char Color30_Caption[];
+extern char BackGroundColor_Caption[];
+extern char Pen1_Caption[];
+extern char Pen2_Caption[];
+extern char Pen3_Caption[];
 extern char Box7_Caption[];
 extern char icon_previous_box_Caption[];
 extern char Icon_next_box_Caption[];
@@ -488,50 +670,67 @@ extern char icon_previous_Caption[];
 extern char Icon_next_Caption[];
 extern char Label35_Caption[];
 extern char Slide_Active_area_Caption[];
-extern char Image4_Caption[];
-extern char Image19_Caption[];
+extern char Box10_Caption[];
+extern char Box11_Caption[];
+extern char Box9_Caption[];
+extern char Button9_Caption[];
+extern char Button8_Caption[];
+extern char Button7_Caption[];
+extern char Button6_Caption[];
+extern char Button5_Caption[];
+extern char Button4_Caption[];
+extern char Button3_Caption[];
+extern char Button2_Caption[];
+extern char Button1_Caption[];
+extern char Box8_Caption[];
+extern char Label36_Caption[];
 extern char Image20_Caption[];
+extern char Label37_Caption[];
 extern char Image21_Caption[];
-extern char Image22_Caption[];
-extern char Image23_Caption[];
-extern char Image24_Caption[];
-extern char Image25_Caption[];
-extern char Image26_Caption[];
-extern char Image27_Caption[];
-extern char Image28_Caption[];
-extern char Image29_Caption[];
-extern char Image30_Caption[];
-extern char Image31_Caption[];
-extern char Image32_Caption[];
-extern char Image33_Caption[];
-extern char Image34_Caption[];
-extern char Image35_Caption[];
-extern char Image36_Caption[];
-extern char Image37_Caption[];
-extern char Image38_Caption[];
-extern char Image39_Caption[];
+extern char Label38_Caption[];
+extern char Label39_Caption[];
+extern char XO1_Caption[];
+extern char XO2_Caption[];
+extern char XO3_Caption[];
+extern char XO4_Caption[];
+extern char XO5_Caption[];
+extern char XO6_Caption[];
+extern char XO7_Caption[];
+extern char XO8_Caption[];
+extern char XO9_Caption[];
+extern char CheckBox1_Caption[];
+extern char Label41_Caption[];
 
 
 void DrawScreen(TScreen *aScreen);
+void DrawButton(TButton *aButton);
 void DrawLabel(TLabel *ALabel);
 void DrawImage(TImage *AImage);
 void DrawCircle(TCircle *ACircle);
 void DrawBox(TBox *ABox);
+void DrawCheckBox(TCheckBox *ACheckBox);
 void Check_TP();
 void Start_TP();
-#line 1 "c:/users/jemmi/desktop/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/mikromedia_stm32plus_resources.h"
-const code char Open_Sans_Light13x16_Regular[];
-const code char Open_Sans_Light16x18_Regular[];
-const code char Open_Sans_Light21x24_Regular[];
-const code char Open_Sans_Light58x65_Regular[];
-const code char Open_Sans46x50_Regular[];
+void Process_TP_Press(unsigned int X, unsigned int Y);
+void Process_TP_Up(unsigned int X, unsigned int Y);
+void Process_TP_Down(unsigned int X, unsigned int Y);
+#line 1 "c:/users/jemmi/documents/github/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/mikromedia_stm32plus_resources.h"
+const code char Furro_Script38x42_Regular[];
+const code char Furro_Script52x60_Regular[];
+const code char Open_Sans_Light12x18_Regular[];
+const code char Open_Sans_Light14x22_Regular[];
+const code char Open_Sans_Light19x28_Regular[];
+const code char Open_Sans_Light51x78_Regular[];
+const code char Open_Sans42x61_Regular[];
 const code char icon_accel_bmp[11558];
 const code char icon_rgb_light_bmp[11558];
 const code char icon_clock_bmp[11558];
 const code char icon_time_bmp[926];
 const code char icon_temp_bmp[11558];
 const code char icon_mp3_player_bmp[11558];
+const code char icon_paint_bmp[11558];
 const code char icon_slide_show_bmp[11558];
+const code char icon_tic_tac_toe_bmp[11558];
 const code char icon_battery_bmp[1766];
 const code char icon_back_accel_bmp[974];
 const code char icon_back_rgb_bmp[974];
@@ -558,32 +757,21 @@ const code char icon_play_bmp[344];
 const code char icon_stop_bmp[344];
 const code char icon_next_bmp[344];
 const code char icon_playlist_bmp[728];
+const code char icon_new_screen_selected_bmp[2054];
+const code char icon_new_screen_bmp[2054];
+const code char icon_brush_selected_bmp[2054];
+const code char icon_brush_bmp[2054];
+const code char icon_eraser_selected_bmp[2054];
+const code char icon_eraser_bmp[2054];
+const code char icon_fill_back_selected_bmp[2054];
+const code char icon_back_paint_bmp[974];
+const code char icon_fill_back_bmp[2054];
 const code char icon_back_slideshow_bmp[974];
 const code char icon_prev_slide_bmp[390];
 const code char icon_next_slide_bmp[390];
-const code char img0_jpg[11233];
-const code char img3_jpg[11274];
-const code char img6_jpg[11601];
-const code char img9_jpg[11238];
-const code char img12_jpg[10927];
-const code char img15_jpg[10583];
-const code char img18_jpg[10211];
-const code char img21_jpg[9782];
-const code char img24_jpg[9199];
-const code char img27_jpg[8614];
-const code char img30_jpg[7878];
-const code char img33_jpg[7628];
-const code char img36_jpg[8015];
-const code char img39_jpg[9281];
-const code char img42_jpg[10162];
-const code char img45_jpg[11054];
-const code char img48_jpg[11818];
-const code char img51_jpg[12419];
-const code char img54_jpg[12917];
-const code char img57_jpg[13432];
-const code char img60_jpg[13360];
-const code char img63_jpg[13482];
-#line 5 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/mikromedia_STM32plus_events_code.c"
+const code char icon_back_tictactow_bmp[974];
+const code char icon_new_game_bmp[654];
+#line 5 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/mikromedia_STM32plus_events_code.c"
 extern sfr sbit LED_R;
 extern sfr sbit LED_G;
 extern sfr sbit LED_B;
@@ -639,15 +827,15 @@ void RedrawLabel(unsigned int BackGround_Color, Tlabel *Label, unsigned int Xoff
 void Slide_scroll();
 void doSlide();
 
-
-
-
+void ButtonClick(TButton *Butt, char No);
+extern TButton *ButtonArray[];
+void XO_Reset();
 
 void checkPowerM();
 extern char Display_Bat_Stat;
 
 void Start_nRF();
-
+void doTicTacToe();
 
 typedef struct t_drawingTool{
  unsigned int pen_size;
@@ -667,6 +855,8 @@ void SetDefaults();
 void SelectColor(TBox *ColorBox);
 
 char Init_FAT();
+
+extern void Start_Ethernet();
 
 typedef struct Time {
  short ampm;
@@ -706,6 +896,9 @@ void Run_Example(){
  case 6 : break;
  case 7 : {
  doSlide();
+ }; break;
+ case 8 : {
+ doTicTacToe();
  }; break;
  }
 }
@@ -918,6 +1111,203 @@ void Label27OnPress() {
 }
 
 
+void DrawingAreaOnPress() {
+ if ((Xcoord >= DrawingArea.Left+drawingTool.pen_size) && (Ycoord >= DrawingArea.Top+drawingTool.pen_size)){
+ if (drawingTool.EraserSelected){
+ TFT_Set_Pen(DrawingArea.Color, 0);
+ TFT_Set_Brush(1, DrawingArea.Color, 0, 0, 0, 0);
+ }
+ TFT_Circle(Xcoord, Ycoord, drawingTool.pen_size);
+ }
+}
+
+void Color01OnPress() {
+ SelectColor(&Color01);
+}
+
+void Color02OnPress() {
+ SelectColor(&Color02);
+}
+
+void Color03OnPress() {
+ SelectColor(&Color03);
+}
+
+void Color04OnPress() {
+ SelectColor(&Color04);
+}
+
+void Color05OnPress() {
+ SelectColor(&Color05);
+}
+
+void Color06OnPress() {
+ SelectColor(&Color06);
+}
+
+void Color07OnPress() {
+ SelectColor(&Color07);
+}
+
+void Color08OnPress() {
+ SelectColor(&Color08);
+}
+
+void Color09OnPress() {
+ SelectColor(&Color09);
+}
+
+void Color10OnPress() {
+ SelectColor(&Color10);
+}
+
+void Color11OnPress() {
+ SelectColor(&Color11);
+}
+
+void Color12OnPress() {
+ SelectColor(&Color12);
+}
+
+void Color13OnPress() {
+ SelectColor(&Color13);
+}
+
+void Color14OnPress() {
+ SelectColor(&Color14);
+}
+
+void Color15OnPress() {
+ SelectColor(&Color15);
+}
+
+void Color16OnPress() {
+ SelectColor(&Color16);
+}
+
+void Color17OnPress() {
+ SelectColor(&Color17);
+}
+
+void Color18OnPress() {
+ SelectColor(&Color18);
+}
+
+void Color19OnPress() {
+ SelectColor(&Color19);
+}
+
+void Color20OnPress() {
+ SelectColor(&Color20);
+}
+
+void Color21OnPress() {
+ SelectColor(&Color21);
+}
+
+void Color22OnPress() {
+ SelectColor(&Color22);
+}
+
+void Color23OnPress() {
+ SelectColor(&Color23);
+}
+
+void Color24OnPress() {
+ SelectColor(&Color24);
+}
+
+void Color25OnPress() {
+ SelectColor(&Color25);
+}
+
+void Color26OnPress() {
+ SelectColor(&Color26);
+}
+
+void Color27OnPress() {
+ SelectColor(&Color27);
+}
+
+void Color28OnPress() {
+ SelectColor(&Color28);
+}
+
+void Color29OnPress() {
+ SelectColor(&Color29);
+}
+
+void Color30OnPress() {
+ SelectColor(&Color30);
+}
+
+void Pen1OnPress() {
+ if (drawingTool.CurrentPen != &Pen1){
+ drawingTool.pen_size = 2;
+ drawingTool.PreviousPen = drawingTool.CurrentPen;
+ drawingTool.CurrentPen = &Pen1;
+ UpdatePenSelection();
+ }
+}
+
+void Pen2OnPress() {
+ if (drawingTool.CurrentPen != &Pen2){
+ drawingTool.pen_size = 3;
+ drawingTool.PreviousPen = drawingTool.CurrentPen;
+ drawingTool.CurrentPen = &Pen2;
+ UpdatePenSelection();
+ }
+}
+
+void Pen3OnPress() {
+ if (drawingTool.CurrentPen != &Pen3){
+ drawingTool.pen_size = 5;
+ drawingTool.PreviousPen = drawingTool.CurrentPen;
+ drawingTool.CurrentPen = &Pen3;
+ UpdatePenSelection();
+ }
+}
+
+void NewScreenOnPress() {
+ DrawBox(&DrawingArea);
+ UpdatePenColor();
+}
+
+void BackGroundColorOnPress() {
+ DrawingArea.Color = drawingTool.CurrentColor->Color;
+ DrawBox(&DrawingArea);
+}
+
+void EraserOnPress() {
+ if (drawingTool.EraserSelected != 1){
+ Pen.Picture_Name = icon_brush_bmp;
+ DrawImage(&Pen);
+ Eraser.Picture_Name = icon_eraser_selected_bmp;
+ DrawImage(&Eraser);
+ drawingTool.EraserSelected = 1;
+ UpdatePenColor();
+ }
+}
+
+void PenOnPress() {
+ if (drawingTool.EraserSelected != 0){
+ drawingTool.EraserSelected = 0;
+ Eraser.Picture_Name = icon_eraser_bmp;
+ DrawImage(&Eraser);
+ Pen.Picture_Name = icon_brush_selected_bmp;
+ DrawImage(&Pen);
+ UpdatePenColor();
+ }
+}
+
+void Image24OnPress() {
+ BLED_Fade_Out();
+ SetDefaults();
+ DrawScreen(&Paint);
+ Example_state = 6;
+ BLED_Fade_In();
+}
+
 void icon_paint_backOnPress() {
  BLED_Fade_Out();
  DrawScreen(&Home);
@@ -1084,6 +1474,57 @@ void Box9OnPress() {
  LED_G = 0;
 }
 
+void Box11OnPress() {
+ XO_Reset();
+}
+
+void Button1OnClick() {
+ ButtonClick(ButtonArray[0], 0);
+}
+
+void Button2OnClick() {
+ ButtonClick(ButtonArray[1], 1);
+}
+
+void Button3OnClick() {
+ ButtonClick(ButtonArray[2], 2);
+}
+
+void Button4OnClick() {
+ ButtonClick(ButtonArray[3], 3);
+}
+
+void Button5OnClick() {
+ ButtonClick(ButtonArray[4], 4);
+}
+
+void Button6OnClick() {
+ ButtonClick(ButtonArray[5], 5);
+}
+
+void Button7OnClick() {
+ ButtonClick(ButtonArray[6], 6);
+}
+
+void Button8OnClick() {
+ ButtonClick(ButtonArray[7], 7);
+}
+
+void Button9OnClick() {
+ ButtonClick(ButtonArray[8], 8);
+}
+
+void Image22OnClick() {
+ BLED_Fade_Out();
+ DrawScreen(&Tic_Tac_Toe);
+ Example_state = 8;
+
+ GPIO_Digital_Output(&GPIOG_BASE, _GPIO_PINMASK_15);
+ GPIO_Digital_Output(&GPIOB_BASE, _GPIO_PINMASK_3 | _GPIO_PINMASK_4);
+ Init_FAT();
+ XO_Reset();
+ BLED_Fade_In();
+}
 
 void Box12OnPress() {
 
@@ -1093,9 +1534,23 @@ void Slide_Active_areaOnPress() {
  Slide_scroll();
 }
 
+void CheckBox1OnClick() {
+ Start_nRF();
+}
+
+void Box10OnClick() {
+ if (CheckBox1.Checked == 0)
+ CheckBox1.Checked = 1;
+ else
+ CheckBox1.Checked = 0;
+ DrawCheckBox(&CheckBox1);
+ Start_nRF();
+}
+
+
 void Box12OnClick() {
  Deactivate_All_Rollers();
-
+ Start_Ethernet();
 }
 
 void Box13OnClick() {

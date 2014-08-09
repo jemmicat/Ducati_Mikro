@@ -71,7 +71,7 @@ void Write_to_Data_Lines(unsigned char _hi, unsigned char _lo) {
   GPIOG_ODR = temp | _lo;
 }
 
- void TFT_mikromedia_Set_Index(unsigned short index) {
+ void Set_Index(unsigned short index) {
   TFT_RS = 0;
   Write_to_Data_Lines(0, index);
   TFT_WR = 0;
@@ -79,7 +79,7 @@ void Write_to_Data_Lines(unsigned char _hi, unsigned char _lo) {
   TFT_WR = 1;
 }
 
-void TFT_mikromedia_Write_Command(unsigned short cmd) {
+void Write_Command(unsigned short cmd) {
   TFT_RS = 1;
   Write_to_Data_Lines(0, cmd);
   TFT_WR = 0;
@@ -122,11 +122,10 @@ unsigned int fpos;
   return Ext_Data_Buffer+fpos;
 }
 static void InitializeTouchPanel() {
-  TFT_Set_Active(TFT_mikromedia_Set_Index, TFT_mikromedia_Write_Command, Write_Data);
+  TFT_Set_Active(Set_Index, Write_Command, Write_Data);
   TFT_Init_SSD1963(480, 272);
   TFT_Set_Ext_Buffer(TFT_Get_Data);
 
-  TFT_Set_DBC_SSD1963(255);
 
   PenDown = 0;
   PressedObject = 0;
@@ -815,6 +814,39 @@ char Label41_Caption[4] = "Z: ";
          &Box20                
          };
 
+  TScreen                Humidity_test;
+  TBox                   Box21;
+  TBox                   Box22;
+  TImage               Image55;
+  TLabel                 Label42;
+char Label42_Caption[22] = "Humidity Sensor Graph";
+
+  TLabel                 Label43;
+char Label43_Caption[4] = "X: ";
+
+  TLabel                 Label44;
+char Label44_Caption[4] = "Y: ";
+
+  TLabel                 Label45;
+char Label45_Caption[4] = "Z: ";
+
+  TLabel                 * const code Screen11_Labels[4]=
+         {
+         &Label42,             
+         &Label43,             
+         &Label44,             
+         &Label45              
+         };
+  TImage                 * const code Screen11_Images[1]=
+         {
+         &Image55              
+         };
+  TBox                   * const code Screen11_Boxes[2]=
+         {
+         &Box21,               
+         &Box22                
+         };
+
 
 
 static void InitializeObjects() {
@@ -996,6 +1028,23 @@ static void InitializeObjects() {
   Pressure_test.CBoxesCount               = 0;
   Pressure_test.LinesCount                = 0;
   Pressure_test.ObjectsCount              = 7;
+
+  Humidity_test.Color                     = 0x5AEB;
+  Humidity_test.Width                     = 480;
+  Humidity_test.Height                    = 272;
+  Humidity_test.Buttons_RoundCount        = 0;
+  Humidity_test.LabelsCount               = 4;
+  Humidity_test.Labels                    = Screen11_Labels;
+  Humidity_test.ImagesCount               = 1;
+  Humidity_test.Images                    = Screen11_Images;
+  Humidity_test.CImagesCount              = 0;
+  Humidity_test.CirclesCount              = 0;
+  Humidity_test.CircleButtonsCount        = 0;
+  Humidity_test.BoxesCount                = 2;
+  Humidity_test.Boxes                     = Screen11_Boxes;
+  Humidity_test.CBoxesCount               = 0;
+  Humidity_test.LinesCount                = 0;
+  Humidity_test.ObjectsCount              = 7;
 
 
   Image1.OwnerScreen     = &Boot;
@@ -2519,12 +2568,12 @@ static void InitializeObjects() {
   Label2.Order           = 2;
   Label2.Left            = 191;
   Label2.Top             = 94;
-  Label2.Width           = 16;
-  Label2.Height          = 72;
+  Label2.Width           = 14;
+  Label2.Height          = 85;
   Label2.Visible         = 1;
   Label2.Active          = 1;
   Label2.Caption         = Label2_Caption;
-  Label2.FontName        = Open_Sans_Light58x65_Regular;
+  Label2.FontName        = Open_Sans_Light51x78_Regular;
   Label2.Font_Color      = 0xFFFF;
   Label2.OnUpPtr         = 0;
   Label2.OnDownPtr       = 0;
@@ -2675,12 +2724,12 @@ static void InitializeObjects() {
   Label6.Order           = 10;
   Label6.Left            = 15;
   Label6.Top             = 235;
-  Label6.Width           = 50;
-  Label6.Height          = 16;
+  Label6.Width           = 0;
+  Label6.Height          = 19;
   Label6.Visible         = 1;
   Label6.Active          = 0;
   Label6.Caption         = Label6_Caption;
-  Label6.FontName        = Open_Sans_Light13x16_Regular;
+  Label6.FontName        = Open_Sans_Light12x18_Regular;
   Label6.Font_Color      = 0xFFFF;
   Label6.OnUpPtr         = 0;
   Label6.OnDownPtr       = 0;
@@ -2731,7 +2780,7 @@ static void InitializeObjects() {
   Box23.Left            = 4;
   Box23.Top             = 5;
   Box23.Width           = 236;
-  Box23.Height          = 25;
+  Box23.Height          = 23;
   Box23.Pen_Width       = 1;
   Box23.Pen_Color       = 0x0000;
   Box23.Visible         = 0;
@@ -2746,7 +2795,7 @@ static void InitializeObjects() {
   Box23.Press_Color     = 0xE71C;
   Box23.OnUpPtr         = 0;
   Box23.OnDownPtr       = 0;
-  Box23.OnClickPtr      = doPrevScreen;
+  Box23.OnClickPtr      = doSettings;
   Box23.OnPressPtr      = 0;
 
   Box6.OwnerScreen     = &Accelerometer_test;
@@ -2785,19 +2834,19 @@ static void InitializeObjects() {
   Image49.Active          = 0;
   Image49.OnUpPtr         = 0;
   Image49.OnDownPtr       = 0;
-  Image49.OnClickPtr      = doPrevScreen;
-  Image49.OnPressPtr      = doPrevScreen;
+  Image49.OnClickPtr      = doSettings;
+  Image49.OnPressPtr      = doSettings;
 
   Label1.OwnerScreen     = &Accelerometer_test;
   Label1.Order           = 3;
   Label1.Left            = 32;
   Label1.Top             = 2;
-  Label1.Width           = 205;
-  Label1.Height          = 26;
+  Label1.Width           = 209;
+  Label1.Height          = 31;
   Label1.Visible         = 1;
   Label1.Active          = 0;
   Label1.Caption         = Label1_Caption;
-  Label1.FontName        = Open_Sans_Light21x24_Regular;
+  Label1.FontName        = Open_Sans_Light19x28_Regular;
   Label1.Font_Color      = 0xFFFF;
   Label1.OnUpPtr         = 0;
   Label1.OnDownPtr       = 0;
@@ -2808,12 +2857,12 @@ static void InitializeObjects() {
   Label3.Order           = 4;
   Label3.Left            = 75;
   Label3.Top             = 250;
-  Label3.Width           = 16;
-  Label3.Height          = 20;
+  Label3.Width           = 13;
+  Label3.Height          = 24;
   Label3.Visible         = 1;
   Label3.Active          = 1;
   Label3.Caption         = Label3_Caption;
-  Label3.FontName        = Open_Sans_Light16x18_Regular;
+  Label3.FontName        = Open_Sans_Light14x22_Regular;
   Label3.Font_Color      = 0xF800;
   Label3.OnUpPtr         = 0;
   Label3.OnDownPtr       = 0;
@@ -2824,12 +2873,12 @@ static void InitializeObjects() {
   Label4.Order           = 5;
   Label4.Left            = 225;
   Label4.Top             = 250;
-  Label4.Width           = 16;
-  Label4.Height          = 20;
+  Label4.Width           = 13;
+  Label4.Height          = 24;
   Label4.Visible         = 1;
   Label4.Active          = 1;
   Label4.Caption         = Label4_Caption;
-  Label4.FontName        = Open_Sans_Light16x18_Regular;
+  Label4.FontName        = Open_Sans_Light14x22_Regular;
   Label4.Font_Color      = 0x001F;
   Label4.OnUpPtr         = 0;
   Label4.OnDownPtr       = 0;
@@ -2840,12 +2889,12 @@ static void InitializeObjects() {
   Label7.Order           = 6;
   Label7.Left            = 375;
   Label7.Top             = 250;
-  Label7.Width           = 15;
-  Label7.Height          = 20;
+  Label7.Width           = 13;
+  Label7.Height          = 24;
   Label7.Visible         = 1;
   Label7.Active          = 1;
   Label7.Caption         = Label7_Caption;
-  Label7.FontName        = Open_Sans_Light16x18_Regular;
+  Label7.FontName        = Open_Sans_Light14x22_Regular;
   Label7.Font_Color      = 0x0400;
   Label7.OnUpPtr         = 0;
   Label7.OnDownPtr       = 0;
@@ -2877,8 +2926,8 @@ static void InitializeObjects() {
 
   Box16.OwnerScreen     = &GPS_Test;
   Box16.Order           = 1;
-  Box16.Left            = 376;
-  Box16.Top             = 234;
+  Box16.Left            = 12;
+  Box16.Top             = 12;
   Box16.Width           = 78;
   Box16.Height          = 26;
   Box16.Pen_Width       = 1;
@@ -2900,8 +2949,8 @@ static void InitializeObjects() {
 
   Image50.OwnerScreen     = &GPS_Test;
   Image50.Order           = 2;
-  Image50.Left            = 380;
-  Image50.Top             = 236;
+  Image50.Left            = 16;
+  Image50.Top             = 14;
   Image50.Width           = 22;
   Image50.Height          = 22;
   Image50.Picture_Type    = 0;
@@ -2916,8 +2965,8 @@ static void InitializeObjects() {
 
   Label32.OwnerScreen     = &GPS_Test;
   Label32.Order           = 3;
-  Label32.Left            = 408;
-  Label32.Top             = 236;
+  Label32.Left            = 44;
+  Label32.Top             = 14;
   Label32.Width           = 46;
   Label32.Height          = 25;
   Label32.Visible         = 1;
@@ -2932,8 +2981,8 @@ static void InitializeObjects() {
 
   Label53.OwnerScreen     = &GPS_Test;
   Label53.Order           = 4;
-  Label53.Left            = 23;
-  Label53.Top             = 17;
+  Label53.Left            = 159;
+  Label53.Top             = 85;
   Label53.Width           = 65;
   Label53.Height          = 20;
   Label53.Visible         = 1;
@@ -2948,8 +2997,8 @@ static void InitializeObjects() {
 
   Label54.OwnerScreen     = &GPS_Test;
   Label54.Order           = 5;
-  Label54.Left            = 107;
-  Label54.Top             = 17;
+  Label54.Left            = 243;
+  Label54.Top             = 85;
   Label54.Width           = 36;
   Label54.Height          = 20;
   Label54.Visible         = 1;
@@ -2964,8 +3013,8 @@ static void InitializeObjects() {
 
   Label55.OwnerScreen     = &GPS_Test;
   Label55.Order           = 6;
-  Label55.Left            = 148;
-  Label55.Top             = 17;
+  Label55.Left            = 284;
+  Label55.Top             = 85;
   Label55.Width           = 36;
   Label55.Height          = 20;
   Label55.Visible         = 1;
@@ -2980,8 +3029,8 @@ static void InitializeObjects() {
 
   Label56.OwnerScreen     = &GPS_Test;
   Label56.Order           = 7;
-  Label56.Left            = 143;
-  Label56.Top             = 17;
+  Label56.Left            = 279;
+  Label56.Top             = 85;
   Label56.Width           = 4;
   Label56.Height          = 20;
   Label56.Visible         = 1;
@@ -2996,8 +3045,8 @@ static void InitializeObjects() {
 
   Label57.OwnerScreen     = &GPS_Test;
   Label57.Order           = 8;
-  Label57.Left            = 23;
-  Label57.Top             = 40;
+  Label57.Left            = 159;
+  Label57.Top             = 108;
   Label57.Width           = 77;
   Label57.Height          = 20;
   Label57.Visible         = 1;
@@ -3012,8 +3061,8 @@ static void InitializeObjects() {
 
   Label58.OwnerScreen     = &GPS_Test;
   Label58.Order           = 9;
-  Label58.Left            = 107;
-  Label58.Top             = 40;
+  Label58.Left            = 243;
+  Label58.Top             = 108;
   Label58.Width           = 36;
   Label58.Height          = 20;
   Label58.Visible         = 1;
@@ -3028,8 +3077,8 @@ static void InitializeObjects() {
 
   Label59.OwnerScreen     = &GPS_Test;
   Label59.Order           = 10;
-  Label59.Left            = 148;
-  Label59.Top             = 40;
+  Label59.Left            = 284;
+  Label59.Top             = 108;
   Label59.Width           = 36;
   Label59.Height          = 20;
   Label59.Visible         = 1;
@@ -3044,8 +3093,8 @@ static void InitializeObjects() {
 
   Label60.OwnerScreen     = &GPS_Test;
   Label60.Order           = 11;
-  Label60.Left            = 143;
-  Label60.Top             = 40;
+  Label60.Left            = 279;
+  Label60.Top             = 108;
   Label60.Width           = 4;
   Label60.Height          = 20;
   Label60.Visible         = 1;
@@ -3060,8 +3109,8 @@ static void InitializeObjects() {
 
   Label61.OwnerScreen     = &GPS_Test;
   Label61.Order           = 12;
-  Label61.Left            = 23;
-  Label61.Top             = 63;
+  Label61.Left            = 159;
+  Label61.Top             = 131;
   Label61.Width           = 50;
   Label61.Height          = 20;
   Label61.Visible         = 1;
@@ -3076,8 +3125,8 @@ static void InitializeObjects() {
 
   Label62.OwnerScreen     = &GPS_Test;
   Label62.Order           = 13;
-  Label62.Left            = 107;
-  Label62.Top             = 63;
+  Label62.Left            = 243;
+  Label62.Top             = 131;
   Label62.Width           = 36;
   Label62.Height          = 20;
   Label62.Visible         = 1;
@@ -3092,8 +3141,8 @@ static void InitializeObjects() {
 
   Label63.OwnerScreen     = &GPS_Test;
   Label63.Order           = 14;
-  Label63.Left            = 148;
-  Label63.Top             = 63;
+  Label63.Left            = 284;
+  Label63.Top             = 131;
   Label63.Width           = 36;
   Label63.Height          = 20;
   Label63.Visible         = 1;
@@ -3108,8 +3157,8 @@ static void InitializeObjects() {
 
   Label64.OwnerScreen     = &GPS_Test;
   Label64.Order           = 15;
-  Label64.Left            = 143;
-  Label64.Top             = 63;
+  Label64.Left            = 279;
+  Label64.Top             = 131;
   Label64.Width           = 4;
   Label64.Height          = 20;
   Label64.Visible         = 1;
@@ -3124,8 +3173,8 @@ static void InitializeObjects() {
 
   Label65.OwnerScreen     = &GPS_Test;
   Label65.Order           = 16;
-  Label65.Left            = 23;
-  Label65.Top             = 86;
+  Label65.Left            = 159;
+  Label65.Top             = 154;
   Label65.Width           = 53;
   Label65.Height          = 20;
   Label65.Visible         = 1;
@@ -3140,8 +3189,8 @@ static void InitializeObjects() {
 
   Label66.OwnerScreen     = &GPS_Test;
   Label66.Order           = 17;
-  Label66.Left            = 107;
-  Label66.Top             = 86;
+  Label66.Left            = 243;
+  Label66.Top             = 154;
   Label66.Width           = 36;
   Label66.Height          = 20;
   Label66.Visible         = 1;
@@ -3156,8 +3205,8 @@ static void InitializeObjects() {
 
   Label67.OwnerScreen     = &GPS_Test;
   Label67.Order           = 18;
-  Label67.Left            = 148;
-  Label67.Top             = 86;
+  Label67.Left            = 284;
+  Label67.Top             = 154;
   Label67.Width           = 36;
   Label67.Height          = 20;
   Label67.Visible         = 1;
@@ -3172,8 +3221,8 @@ static void InitializeObjects() {
 
   Label68.OwnerScreen     = &GPS_Test;
   Label68.Order           = 19;
-  Label68.Left            = 143;
-  Label68.Top             = 86;
+  Label68.Left            = 279;
+  Label68.Top             = 154;
   Label68.Width           = 4;
   Label68.Height          = 20;
   Label68.Visible         = 1;
@@ -3188,8 +3237,8 @@ static void InitializeObjects() {
 
   Label69.OwnerScreen     = &GPS_Test;
   Label69.Order           = 20;
-  Label69.Left            = 23;
-  Label69.Top             = 109;
+  Label69.Left            = 159;
+  Label69.Top             = 177;
   Label69.Width           = 41;
   Label69.Height          = 20;
   Label69.Visible         = 1;
@@ -3204,8 +3253,8 @@ static void InitializeObjects() {
 
   Label70.OwnerScreen     = &GPS_Test;
   Label70.Order           = 21;
-  Label70.Left            = 107;
-  Label70.Top             = 109;
+  Label70.Left            = 243;
+  Label70.Top             = 177;
   Label70.Width           = 36;
   Label70.Height          = 20;
   Label70.Visible         = 1;
@@ -3220,8 +3269,8 @@ static void InitializeObjects() {
 
   Label71.OwnerScreen     = &GPS_Test;
   Label71.Order           = 22;
-  Label71.Left            = 148;
-  Label71.Top             = 109;
+  Label71.Left            = 284;
+  Label71.Top             = 177;
   Label71.Width           = 36;
   Label71.Height          = 20;
   Label71.Visible         = 1;
@@ -3236,8 +3285,8 @@ static void InitializeObjects() {
 
   Label72.OwnerScreen     = &GPS_Test;
   Label72.Order           = 23;
-  Label72.Left            = 143;
-  Label72.Top             = 109;
+  Label72.Left            = 279;
+  Label72.Top             = 177;
   Label72.Width           = 4;
   Label72.Height          = 20;
   Label72.Visible         = 1;
@@ -3254,8 +3303,8 @@ static void InitializeObjects() {
   Box13.Order           = 0;
   Box13.Left            = 4;
   Box13.Top             = 5;
-  Box13.Width           = 236;
-  Box13.Height          = 25;
+  Box13.Width           = 150;
+  Box13.Height          = 23;
   Box13.Pen_Width       = 1;
   Box13.Pen_Color       = 0x0000;
   Box13.Visible         = 0;
@@ -3270,7 +3319,7 @@ static void InitializeObjects() {
   Box13.Press_Color     = 0xE71C;
   Box13.OnUpPtr         = 0;
   Box13.OnDownPtr       = 0;
-  Box13.OnClickPtr      = doPrevScreen;
+  Box13.OnClickPtr      = doSettings;
   Box13.OnPressPtr      = 0;
 
   Box14.OwnerScreen     = &Gyro_test;
@@ -3304,24 +3353,24 @@ static void InitializeObjects() {
   Image52.Height          = 22;
   Image52.Picture_Type    = 0;
   Image52.Picture_Ratio   = 1;
-  Image52.Picture_Name    = icon_back_accel_bmp;
+  Image52.Picture_Name    = icon_back_gyro_bmp;
   Image52.Visible         = 1;
   Image52.Active          = 0;
   Image52.OnUpPtr         = 0;
   Image52.OnDownPtr       = 0;
-  Image52.OnClickPtr      = doPrevScreen;
-  Image52.OnPressPtr      = doPrevScreen;
+  Image52.OnClickPtr      = doSettings;
+  Image52.OnPressPtr      = doSettings;
 
   Label8.OwnerScreen     = &Gyro_test;
   Label8.Order           = 3;
   Label8.Left            = 32;
   Label8.Top             = 2;
   Label8.Width           = 113;
-  Label8.Height          = 26;
+  Label8.Height          = 31;
   Label8.Visible         = 1;
   Label8.Active          = 0;
   Label8.Caption         = Label8_Caption;
-  Label8.FontName        = Open_Sans_Light21x24_Regular;
+  Label8.FontName        = Open_Sans_Light19x28_Regular;
   Label8.Font_Color      = 0xFFFF;
   Label8.OnUpPtr         = 0;
   Label8.OnDownPtr       = 0;
@@ -3332,12 +3381,12 @@ static void InitializeObjects() {
   Label9.Order           = 4;
   Label9.Left            = 75;
   Label9.Top             = 250;
-  Label9.Width           = 16;
-  Label9.Height          = 20;
+  Label9.Width           = 13;
+  Label9.Height          = 24;
   Label9.Visible         = 1;
   Label9.Active          = 1;
   Label9.Caption         = Label9_Caption;
-  Label9.FontName        = Open_Sans_Light16x18_Regular;
+  Label9.FontName        = Open_Sans_Light14x22_Regular;
   Label9.Font_Color      = 0xF800;
   Label9.OnUpPtr         = 0;
   Label9.OnDownPtr       = 0;
@@ -3348,12 +3397,12 @@ static void InitializeObjects() {
   Label31.Order           = 5;
   Label31.Left            = 225;
   Label31.Top             = 250;
-  Label31.Width           = 16;
-  Label31.Height          = 20;
+  Label31.Width           = 13;
+  Label31.Height          = 24;
   Label31.Visible         = 1;
   Label31.Active          = 1;
   Label31.Caption         = Label31_Caption;
-  Label31.FontName        = Open_Sans_Light16x18_Regular;
+  Label31.FontName        = Open_Sans_Light14x22_Regular;
   Label31.Font_Color      = 0x001F;
   Label31.OnUpPtr         = 0;
   Label31.OnDownPtr       = 0;
@@ -3364,12 +3413,12 @@ static void InitializeObjects() {
   Label33.Order           = 6;
   Label33.Left            = 375;
   Label33.Top             = 250;
-  Label33.Width           = 15;
-  Label33.Height          = 20;
+  Label33.Width           = 13;
+  Label33.Height          = 24;
   Label33.Visible         = 1;
   Label33.Active          = 1;
   Label33.Caption         = Label33_Caption;
-  Label33.FontName        = Open_Sans_Light16x18_Regular;
+  Label33.FontName        = Open_Sans_Light14x22_Regular;
   Label33.Font_Color      = 0x0400;
   Label33.OnUpPtr         = 0;
   Label33.OnDownPtr       = 0;
@@ -3380,8 +3429,8 @@ static void InitializeObjects() {
   Box15.Order           = 0;
   Box15.Left            = 4;
   Box15.Top             = 5;
-  Box15.Width           = 236;
-  Box15.Height          = 25;
+  Box15.Width           = 240;
+  Box15.Height          = 23;
   Box15.Pen_Width       = 1;
   Box15.Pen_Color       = 0x0000;
   Box15.Visible         = 0;
@@ -3396,7 +3445,7 @@ static void InitializeObjects() {
   Box15.Press_Color     = 0xE71C;
   Box15.OnUpPtr         = 0;
   Box15.OnDownPtr       = 0;
-  Box15.OnClickPtr      = doPrevScreen;
+  Box15.OnClickPtr      = doSettings;
   Box15.OnPressPtr      = 0;
 
   Box18.OwnerScreen     = &Magnetometer_test;
@@ -3430,24 +3479,24 @@ static void InitializeObjects() {
   Image53.Height          = 22;
   Image53.Picture_Type    = 0;
   Image53.Picture_Ratio   = 1;
-  Image53.Picture_Name    = icon_back_accel_bmp;
+  Image53.Picture_Name    = icon_back_magnet_bmp;
   Image53.Visible         = 1;
   Image53.Active          = 0;
   Image53.OnUpPtr         = 0;
   Image53.OnDownPtr       = 0;
-  Image53.OnClickPtr      = doPrevScreen;
-  Image53.OnPressPtr      = doPrevScreen;
+  Image53.OnClickPtr      = doSettings;
+  Image53.OnPressPtr      = doSettings;
 
   Label34.OwnerScreen     = &Magnetometer_test;
   Label34.Order           = 3;
   Label34.Left            = 32;
   Label34.Top             = 2;
-  Label34.Width           = 205;
-  Label34.Height          = 26;
+  Label34.Width           = 211;
+  Label34.Height          = 31;
   Label34.Visible         = 1;
   Label34.Active          = 0;
   Label34.Caption         = Label34_Caption;
-  Label34.FontName        = Open_Sans_Light21x24_Regular;
+  Label34.FontName        = Open_Sans_Light19x28_Regular;
   Label34.Font_Color      = 0xFFFF;
   Label34.OnUpPtr         = 0;
   Label34.OnDownPtr       = 0;
@@ -3458,12 +3507,12 @@ static void InitializeObjects() {
   Label35.Order           = 4;
   Label35.Left            = 75;
   Label35.Top             = 250;
-  Label35.Width           = 16;
-  Label35.Height          = 20;
+  Label35.Width           = 13;
+  Label35.Height          = 24;
   Label35.Visible         = 1;
   Label35.Active          = 1;
   Label35.Caption         = Label35_Caption;
-  Label35.FontName        = Open_Sans_Light16x18_Regular;
+  Label35.FontName        = Open_Sans_Light14x22_Regular;
   Label35.Font_Color      = 0xF800;
   Label35.OnUpPtr         = 0;
   Label35.OnDownPtr       = 0;
@@ -3474,12 +3523,12 @@ static void InitializeObjects() {
   Label36.Order           = 5;
   Label36.Left            = 225;
   Label36.Top             = 250;
-  Label36.Width           = 16;
-  Label36.Height          = 20;
+  Label36.Width           = 13;
+  Label36.Height          = 24;
   Label36.Visible         = 1;
   Label36.Active          = 1;
   Label36.Caption         = Label36_Caption;
-  Label36.FontName        = Open_Sans_Light16x18_Regular;
+  Label36.FontName        = Open_Sans_Light14x22_Regular;
   Label36.Font_Color      = 0x001F;
   Label36.OnUpPtr         = 0;
   Label36.OnDownPtr       = 0;
@@ -3490,12 +3539,12 @@ static void InitializeObjects() {
   Label37.Order           = 6;
   Label37.Left            = 375;
   Label37.Top             = 250;
-  Label37.Width           = 15;
-  Label37.Height          = 20;
+  Label37.Width           = 13;
+  Label37.Height          = 24;
   Label37.Visible         = 1;
   Label37.Active          = 1;
   Label37.Caption         = Label37_Caption;
-  Label37.FontName        = Open_Sans_Light16x18_Regular;
+  Label37.FontName        = Open_Sans_Light14x22_Regular;
   Label37.Font_Color      = 0x0400;
   Label37.OnUpPtr         = 0;
   Label37.OnDownPtr       = 0;
@@ -3506,8 +3555,8 @@ static void InitializeObjects() {
   Box19.Order           = 0;
   Box19.Left            = 4;
   Box19.Top             = 5;
-  Box19.Width           = 236;
-  Box19.Height          = 25;
+  Box19.Width           = 265;
+  Box19.Height          = 23;
   Box19.Pen_Width       = 1;
   Box19.Pen_Color       = 0x0000;
   Box19.Visible         = 0;
@@ -3522,7 +3571,7 @@ static void InitializeObjects() {
   Box19.Press_Color     = 0xE71C;
   Box19.OnUpPtr         = 0;
   Box19.OnDownPtr       = 0;
-  Box19.OnClickPtr      = doPrevScreen;
+  Box19.OnClickPtr      = doSettings;
   Box19.OnPressPtr      = 0;
 
   Box20.OwnerScreen     = &Pressure_test;
@@ -3556,7 +3605,7 @@ static void InitializeObjects() {
   Image54.Height          = 22;
   Image54.Picture_Type    = 0;
   Image54.Picture_Ratio   = 1;
-  Image54.Picture_Name    = icon_back_accel_bmp;
+  Image54.Picture_Name    = icon_back_pressure_bmp;
   Image54.Visible         = 1;
   Image54.Active          = 0;
   Image54.OnUpPtr         = 0;
@@ -3568,12 +3617,12 @@ static void InitializeObjects() {
   Label38.Order           = 3;
   Label38.Left            = 32;
   Label38.Top             = 2;
-  Label38.Width           = 227;
-  Label38.Height          = 26;
+  Label38.Width           = 226;
+  Label38.Height          = 31;
   Label38.Visible         = 1;
   Label38.Active          = 0;
   Label38.Caption         = Label38_Caption;
-  Label38.FontName        = Open_Sans_Light21x24_Regular;
+  Label38.FontName        = Open_Sans_Light19x28_Regular;
   Label38.Font_Color      = 0xFFFF;
   Label38.OnUpPtr         = 0;
   Label38.OnDownPtr       = 0;
@@ -3584,12 +3633,12 @@ static void InitializeObjects() {
   Label39.Order           = 4;
   Label39.Left            = 75;
   Label39.Top             = 250;
-  Label39.Width           = 16;
-  Label39.Height          = 20;
+  Label39.Width           = 13;
+  Label39.Height          = 24;
   Label39.Visible         = 1;
   Label39.Active          = 1;
   Label39.Caption         = Label39_Caption;
-  Label39.FontName        = Open_Sans_Light16x18_Regular;
+  Label39.FontName        = Open_Sans_Light14x22_Regular;
   Label39.Font_Color      = 0xF800;
   Label39.OnUpPtr         = 0;
   Label39.OnDownPtr       = 0;
@@ -3600,12 +3649,12 @@ static void InitializeObjects() {
   Label40.Order           = 5;
   Label40.Left            = 225;
   Label40.Top             = 250;
-  Label40.Width           = 16;
-  Label40.Height          = 20;
+  Label40.Width           = 13;
+  Label40.Height          = 24;
   Label40.Visible         = 1;
   Label40.Active          = 1;
   Label40.Caption         = Label40_Caption;
-  Label40.FontName        = Open_Sans_Light16x18_Regular;
+  Label40.FontName        = Open_Sans_Light14x22_Regular;
   Label40.Font_Color      = 0x001F;
   Label40.OnUpPtr         = 0;
   Label40.OnDownPtr       = 0;
@@ -3616,17 +3665,143 @@ static void InitializeObjects() {
   Label41.Order           = 6;
   Label41.Left            = 375;
   Label41.Top             = 250;
-  Label41.Width           = 15;
-  Label41.Height          = 20;
+  Label41.Width           = 13;
+  Label41.Height          = 24;
   Label41.Visible         = 1;
   Label41.Active          = 1;
   Label41.Caption         = Label41_Caption;
-  Label41.FontName        = Open_Sans_Light16x18_Regular;
+  Label41.FontName        = Open_Sans_Light14x22_Regular;
   Label41.Font_Color      = 0x0400;
   Label41.OnUpPtr         = 0;
   Label41.OnDownPtr       = 0;
   Label41.OnClickPtr      = 0;
   Label41.OnPressPtr      = 0;
+
+  Box21.OwnerScreen     = &Humidity_test;
+  Box21.Order           = 0;
+  Box21.Left            = 4;
+  Box21.Top             = 5;
+  Box21.Width           = 265;
+  Box21.Height          = 23;
+  Box21.Pen_Width       = 1;
+  Box21.Pen_Color       = 0x0000;
+  Box21.Visible         = 0;
+  Box21.Active          = 1;
+  Box21.Transparent     = 1;
+  Box21.Gradient        = 0;
+  Box21.Gradient_Orientation = 0;
+  Box21.Gradient_Start_Color = 0xFFFF;
+  Box21.Gradient_End_Color = 0xC618;
+  Box21.Color           = 0xC618;
+  Box21.PressColEnabled = 0;
+  Box21.Press_Color     = 0xE71C;
+  Box21.OnUpPtr         = 0;
+  Box21.OnDownPtr       = 0;
+  Box21.OnClickPtr      = doSettings;
+  Box21.OnPressPtr      = 0;
+
+  Box22.OwnerScreen     = &Humidity_test;
+  Box22.Order           = 1;
+  Box22.Left            = 0;
+  Box22.Top             = 40;
+  Box22.Width           = 480;
+  Box22.Height          = 207;
+  Box22.Pen_Width       = 1;
+  Box22.Pen_Color       = 0xFFFF;
+  Box22.Visible         = 1;
+  Box22.Active          = 1;
+  Box22.Transparent     = 1;
+  Box22.Gradient        = 0;
+  Box22.Gradient_Orientation = 0;
+  Box22.Gradient_Start_Color = 0xFFFF;
+  Box22.Gradient_End_Color = 0xFFFF;
+  Box22.Color           = 0xFFFF;
+  Box22.PressColEnabled = 0;
+  Box22.Press_Color     = 0xFFFF;
+  Box22.OnUpPtr         = 0;
+  Box22.OnDownPtr       = 0;
+  Box22.OnClickPtr      = 0;
+  Box22.OnPressPtr      = 0;
+
+  Image55.OwnerScreen     = &Humidity_test;
+  Image55.Order           = 2;
+  Image55.Left            = 5;
+  Image55.Top             = 6;
+  Image55.Width           = 22;
+  Image55.Height          = 22;
+  Image55.Picture_Type    = 0;
+  Image55.Picture_Ratio   = 1;
+  Image55.Picture_Name    = icon_back_pressure_bmp;
+  Image55.Visible         = 1;
+  Image55.Active          = 0;
+  Image55.OnUpPtr         = 0;
+  Image55.OnDownPtr       = 0;
+  Image55.OnClickPtr      = doPrevScreen;
+  Image55.OnPressPtr      = doPrevScreen;
+
+  Label42.OwnerScreen     = &Humidity_test;
+  Label42.Order           = 3;
+  Label42.Left            = 32;
+  Label42.Top             = 2;
+  Label42.Width           = 227;
+  Label42.Height          = 31;
+  Label42.Visible         = 1;
+  Label42.Active          = 0;
+  Label42.Caption         = Label42_Caption;
+  Label42.FontName        = Open_Sans_Light19x28_Regular;
+  Label42.Font_Color      = 0xFFFF;
+  Label42.OnUpPtr         = 0;
+  Label42.OnDownPtr       = 0;
+  Label42.OnClickPtr      = 0;
+  Label42.OnPressPtr      = 0;
+
+  Label43.OwnerScreen     = &Humidity_test;
+  Label43.Order           = 4;
+  Label43.Left            = 75;
+  Label43.Top             = 250;
+  Label43.Width           = 13;
+  Label43.Height          = 24;
+  Label43.Visible         = 1;
+  Label43.Active          = 1;
+  Label43.Caption         = Label43_Caption;
+  Label43.FontName        = Open_Sans_Light14x22_Regular;
+  Label43.Font_Color      = 0xF800;
+  Label43.OnUpPtr         = 0;
+  Label43.OnDownPtr       = 0;
+  Label43.OnClickPtr      = 0;
+  Label43.OnPressPtr      = 0;
+
+  Label44.OwnerScreen     = &Humidity_test;
+  Label44.Order           = 5;
+  Label44.Left            = 225;
+  Label44.Top             = 250;
+  Label44.Width           = 13;
+  Label44.Height          = 24;
+  Label44.Visible         = 1;
+  Label44.Active          = 1;
+  Label44.Caption         = Label44_Caption;
+  Label44.FontName        = Open_Sans_Light14x22_Regular;
+  Label44.Font_Color      = 0x001F;
+  Label44.OnUpPtr         = 0;
+  Label44.OnDownPtr       = 0;
+  Label44.OnClickPtr      = 0;
+  Label44.OnPressPtr      = 0;
+
+  Label45.OwnerScreen     = &Humidity_test;
+  Label45.Order           = 6;
+  Label45.Left            = 375;
+  Label45.Top             = 250;
+  Label45.Width           = 13;
+  Label45.Height          = 24;
+  Label45.Visible         = 1;
+  Label45.Active          = 1;
+  Label45.Caption         = Label45_Caption;
+  Label45.FontName        = Open_Sans_Light14x22_Regular;
+  Label45.Font_Color      = 0x0400;
+  Label45.OnUpPtr         = 0;
+  Label45.OnDownPtr       = 0;
+  Label45.OnClickPtr      = 0;
+  Label45.OnPressPtr      = 0;
 }
 
 static char IsInsideObject (unsigned int X, unsigned int Y, unsigned int Left, unsigned int Top, unsigned int Width, unsigned int Height) { // static
@@ -3811,7 +3986,7 @@ void DrawScreen(TScreen *aScreen) {
   if ((display_width != CurrentScreen->Width) || (display_height != CurrentScreen->Height)) {
     save_bled = TFT_BLED;
     TFT_BLED           = 0;
-    TFT_Set_Active(TFT_mikromedia_Set_Index, TFT_mikromedia_Write_Command, Write_Data);
+    TFT_Set_Active(Set_Index, Write_Command, Write_Data);
     TFT_Init_SSD1963(CurrentScreen->Width, CurrentScreen->Height);
     STMPE610_SetSize(CurrentScreen->Width, CurrentScreen->Height);
     TFT_Set_Ext_Buffer(TFT_Get_Data);

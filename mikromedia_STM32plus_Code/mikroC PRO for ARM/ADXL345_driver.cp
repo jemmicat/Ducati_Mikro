@@ -1,15 +1,15 @@
-#line 1 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/ADXL345_driver.c"
-#line 1 "c:/program files (x86)/mikroc pro for arm/include/built_in.h"
-#line 22 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/ADXL345_driver.c"
+#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/ADXL345_driver.c"
+#line 1 "c:/users/jemmi/documents/mikroelektronika/mikroc pro for arm/include/built_in.h"
+#line 22 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/ADXL345_driver.c"
 char data_[10];
-#line 30 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/ADXL345_driver.c"
+#line 30 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/ADXL345_driver.c"
 static void ADXL345_Write(unsigned short address, unsigned short data1) {
  I2C1_Start();
  data_[0] = address;
  data_[1] = data1;
  I2C1_Write( 0x53 , data_, 2, END_MODE_STOP);
 }
-#line 44 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/ADXL345_driver.c"
+#line 44 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/ADXL345_driver.c"
 void ADXL345_Read(int *data_X, int *data_Y, int *data_Z){
  data_[0] =  0x32 ;
  I2C1_Start();
@@ -20,7 +20,7 @@ void ADXL345_Read(int *data_X, int *data_Y, int *data_Z){
  *data_Y = data_[2] + (data_[3] << 8);
  *data_Z = data_[4] + (data_[5] << 8);
 }
-#line 62 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/ADXL345_driver.c"
+#line 62 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/ADXL345_driver.c"
 static unsigned short ADXL345_Read_Register(unsigned short address) {
  I2C1_Start();
  data_[0] = address;
@@ -28,7 +28,7 @@ static unsigned short ADXL345_Read_Register(unsigned short address) {
  I2C1_Read( 0x53 , data_, 1, END_MODE_STOP);
  return data_[0];
 }
-#line 77 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/ADXL345_driver.c"
+#line 77 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/ADXL345_driver.c"
 char ADXL345_Init() {
  char id = 0x00;
 

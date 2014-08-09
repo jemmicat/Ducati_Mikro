@@ -1,5 +1,7 @@
-#line 1 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
-#line 1 "c:/users/jemmi/desktop/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/mikromedia_stm32plus_objects.h"
+#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 1 "c:/users/jemmi/documents/github/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/mikromedia_stm32plus_objects.h"
+typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
+
 typedef struct Screen TScreen;
 
 typedef struct {
@@ -9,6 +11,35 @@ typedef struct {
  unsigned int Y_Max;
  char Rotate;
 } TTPConstants;
+
+typedef struct Button {
+ TScreen* OwnerScreen;
+ char Order;
+ unsigned int Left;
+ unsigned int Top;
+ unsigned int Width;
+ unsigned int Height;
+ char Pen_Width;
+ unsigned int Pen_Color;
+ char Visible;
+ char Active;
+ char Transparent;
+ char *Caption;
+ TTextAlign TextAlign;
+ const char *FontName;
+ unsigned int Font_Color;
+ char Gradient;
+ char Gradient_Orientation;
+ unsigned int Gradient_Start_Color;
+ unsigned int Gradient_End_Color;
+ unsigned int Color;
+ char PressColEnabled;
+ unsigned int Press_Color;
+ void (*OnUpPtr)();
+ void (*OnDownPtr)();
+ void (*OnClickPtr)();
+ void (*OnPressPtr)();
+} TButton;
 
 typedef struct Label {
  TScreen* OwnerScreen;
@@ -95,11 +126,45 @@ typedef struct Box {
  void (*OnPressPtr)();
 } TBox;
 
+typedef struct CheckBox {
+ TScreen* OwnerScreen;
+ char Order;
+ unsigned int Left;
+ unsigned int Top;
+ unsigned int Width;
+ unsigned int Height;
+ char Pen_Width;
+ unsigned int Pen_Color;
+ char Visible;
+ char Active;
+ char Checked;
+ char Transparent;
+ char *Caption;
+ TTextAlign TextAlign;
+ const char *FontName;
+ unsigned int Font_Color;
+ char Gradient;
+ char Gradient_Orientation;
+ unsigned int Gradient_Start_Color;
+ unsigned int Gradient_End_Color;
+ unsigned int Color;
+ char Rounded;
+ char Corner_Radius;
+ char PressColEnabled;
+ unsigned int Press_Color;
+ void (*OnUpPtr)();
+ void (*OnDownPtr)();
+ void (*OnClickPtr)();
+ void (*OnPressPtr)();
+} TCheckBox;
+
 struct Screen {
  unsigned int Color;
  unsigned int Width;
  unsigned int Height;
  unsigned int ObjectsCount;
+ unsigned int ButtonsCount;
+ TButton * const code *Buttons;
  unsigned int LabelsCount;
  TLabel * const code *Labels;
  unsigned int ImagesCount;
@@ -108,6 +173,8 @@ struct Screen {
  TCircle * const code *Circles;
  unsigned int BoxesCount;
  TBox * const code *Boxes;
+ unsigned int CheckBoxesCount;
+ TCheckBox * const code *CheckBoxes;
 };
 
 extern TScreen Home;
@@ -124,11 +191,15 @@ extern TImage Image9;
 extern TLabel Label20;
 extern TImage Image16;
 extern TLabel Label25;
+extern TImage Image24;
+extern TLabel Label30;
 extern TImage Image18;
 extern TLabel Label34;
+extern TImage TicTacToe;
+extern TLabel Label40;
 extern TImage BatteryStatus;
-extern TLabel * const code Screen1_Labels[8];
-extern TImage * const code Screen1_Images[8];
+extern TLabel * const code Screen1_Labels[10];
+extern TImage * const code Screen1_Images[10];
 
 extern TScreen Accelerometer;
 extern TBox Box23;
@@ -242,6 +313,56 @@ extern TLabel * const code Screen8_Labels[3];
 extern TImage * const code Screen8_Images[8];
 extern TBox * const code Screen8_Boxes[3];
 
+extern TScreen Paint;
+extern TBox Box18;
+extern TImage Image4;
+extern TImage NewScreen;
+extern TImage Image25;
+extern TImage Pen;
+extern TImage Image27;
+extern TImage Eraser;
+extern TImage Image29;
+extern TBox DrawingArea;
+extern TImage icon_paint_back;
+extern TLabel Label29;
+extern TBox Color01;
+extern TBox Color02;
+extern TBox Color03;
+extern TBox Color04;
+extern TBox Color05;
+extern TBox Color06;
+extern TBox Color07;
+extern TBox Color08;
+extern TBox Color09;
+extern TBox Color10;
+extern TBox Color11;
+extern TBox Color12;
+extern TBox Color13;
+extern TBox Color14;
+extern TBox Color15;
+extern TBox Color16;
+extern TBox Color17;
+extern TBox Color18;
+extern TBox Color19;
+extern TBox Color20;
+extern TBox Color21;
+extern TBox Color22;
+extern TBox Color23;
+extern TBox Color24;
+extern TBox Color25;
+extern TBox Color26;
+extern TBox Color27;
+extern TBox Color28;
+extern TBox Color29;
+extern TBox Color30;
+extern TImage BackGroundColor;
+extern TBox Pen1;
+extern TBox Pen2;
+extern TBox Pen3;
+extern TLabel * const code Screen9_Labels[1];
+extern TImage * const code Screen9_Images[9];
+extern TBox * const code Screen9_Boxes[35];
+
 extern TScreen SlideShow;
 extern TBox Box7;
 extern TBox icon_previous_box;
@@ -254,34 +375,46 @@ extern TImage icon_previous;
 extern TImage Icon_next;
 extern TLabel Label35;
 extern TBox Slide_Active_area;
-extern TLabel * const code Screen9_Labels[4];
-extern TImage * const code Screen9_Images[3];
-extern TBox * const code Screen9_Boxes[4];
+extern TLabel * const code Screen10_Labels[4];
+extern TImage * const code Screen10_Images[3];
+extern TBox * const code Screen10_Boxes[4];
 
-extern TScreen Boot;
-extern TImage Image4;
-extern TImage Image19;
+extern TScreen Tic_Tac_Toe;
+extern TBox Box10;
+extern TBox Box11;
+extern TBox Box9;
+extern TButton Button9;
+extern TButton Button8;
+extern TButton Button7;
+extern TButton Button6;
+extern TButton Button5;
+extern TButton Button4;
+extern TButton Button3;
+extern TButton Button2;
+extern TButton Button1;
+extern TBox Box8;
+extern TLabel Label36;
 extern TImage Image20;
+extern TLabel Label37;
 extern TImage Image21;
-extern TImage Image22;
-extern TImage Image23;
-extern TImage Image24;
-extern TImage Image25;
-extern TImage Image26;
-extern TImage Image27;
-extern TImage Image28;
-extern TImage Image29;
-extern TImage Image30;
-extern TImage Image31;
-extern TImage Image32;
-extern TImage Image33;
-extern TImage Image34;
-extern TImage Image35;
-extern TImage Image36;
-extern TImage Image37;
-extern TImage Image38;
-extern TImage Image39;
-extern TImage * const code Screen10_Images[22];
+extern TLabel Label38;
+extern TLabel Label39;
+extern TLabel XO1;
+extern TLabel XO2;
+extern TLabel XO3;
+extern TLabel XO4;
+extern TLabel XO5;
+extern TLabel XO6;
+extern TLabel XO7;
+extern TLabel XO8;
+extern TLabel XO9;
+extern TCheckBox CheckBox1;
+extern TLabel Label41;
+extern TButton * const code Screen11_Buttons[9];
+extern TLabel * const code Screen11_Labels[14];
+extern TImage * const code Screen11_Images[2];
+extern TBox * const code Screen11_Boxes[4];
+extern TCheckBox * const code Screen11_CheckBoxes[1];
 
 
 
@@ -398,8 +531,12 @@ extern char Image9_Caption[];
 extern char Label20_Caption[];
 extern char Image16_Caption[];
 extern char Label25_Caption[];
+extern char Image24_Caption[];
+extern char Label30_Caption[];
 extern char Image18_Caption[];
 extern char Label34_Caption[];
+extern char TicTacToe_Caption[];
+extern char Label40_Caption[];
 extern char BatteryStatus_Caption[];
 extern char Box23_Caption[];
 extern char Box1_Caption[];
@@ -477,6 +614,51 @@ extern char stop_icon_Caption[];
 extern char next_icon_Caption[];
 extern char songlist_icon_Caption[];
 extern char Label6_Caption[];
+extern char Box18_Caption[];
+extern char Image4_Caption[];
+extern char NewScreen_Caption[];
+extern char Image25_Caption[];
+extern char Pen_Caption[];
+extern char Image27_Caption[];
+extern char Eraser_Caption[];
+extern char Image29_Caption[];
+extern char DrawingArea_Caption[];
+extern char icon_paint_back_Caption[];
+extern char Label29_Caption[];
+extern char Color01_Caption[];
+extern char Color02_Caption[];
+extern char Color03_Caption[];
+extern char Color04_Caption[];
+extern char Color05_Caption[];
+extern char Color06_Caption[];
+extern char Color07_Caption[];
+extern char Color08_Caption[];
+extern char Color09_Caption[];
+extern char Color10_Caption[];
+extern char Color11_Caption[];
+extern char Color12_Caption[];
+extern char Color13_Caption[];
+extern char Color14_Caption[];
+extern char Color15_Caption[];
+extern char Color16_Caption[];
+extern char Color17_Caption[];
+extern char Color18_Caption[];
+extern char Color19_Caption[];
+extern char Color20_Caption[];
+extern char Color21_Caption[];
+extern char Color22_Caption[];
+extern char Color23_Caption[];
+extern char Color24_Caption[];
+extern char Color25_Caption[];
+extern char Color26_Caption[];
+extern char Color27_Caption[];
+extern char Color28_Caption[];
+extern char Color29_Caption[];
+extern char Color30_Caption[];
+extern char BackGroundColor_Caption[];
+extern char Pen1_Caption[];
+extern char Pen2_Caption[];
+extern char Pen3_Caption[];
 extern char Box7_Caption[];
 extern char icon_previous_box_Caption[];
 extern char Icon_next_box_Caption[];
@@ -488,50 +670,67 @@ extern char icon_previous_Caption[];
 extern char Icon_next_Caption[];
 extern char Label35_Caption[];
 extern char Slide_Active_area_Caption[];
-extern char Image4_Caption[];
-extern char Image19_Caption[];
+extern char Box10_Caption[];
+extern char Box11_Caption[];
+extern char Box9_Caption[];
+extern char Button9_Caption[];
+extern char Button8_Caption[];
+extern char Button7_Caption[];
+extern char Button6_Caption[];
+extern char Button5_Caption[];
+extern char Button4_Caption[];
+extern char Button3_Caption[];
+extern char Button2_Caption[];
+extern char Button1_Caption[];
+extern char Box8_Caption[];
+extern char Label36_Caption[];
 extern char Image20_Caption[];
+extern char Label37_Caption[];
 extern char Image21_Caption[];
-extern char Image22_Caption[];
-extern char Image23_Caption[];
-extern char Image24_Caption[];
-extern char Image25_Caption[];
-extern char Image26_Caption[];
-extern char Image27_Caption[];
-extern char Image28_Caption[];
-extern char Image29_Caption[];
-extern char Image30_Caption[];
-extern char Image31_Caption[];
-extern char Image32_Caption[];
-extern char Image33_Caption[];
-extern char Image34_Caption[];
-extern char Image35_Caption[];
-extern char Image36_Caption[];
-extern char Image37_Caption[];
-extern char Image38_Caption[];
-extern char Image39_Caption[];
+extern char Label38_Caption[];
+extern char Label39_Caption[];
+extern char XO1_Caption[];
+extern char XO2_Caption[];
+extern char XO3_Caption[];
+extern char XO4_Caption[];
+extern char XO5_Caption[];
+extern char XO6_Caption[];
+extern char XO7_Caption[];
+extern char XO8_Caption[];
+extern char XO9_Caption[];
+extern char CheckBox1_Caption[];
+extern char Label41_Caption[];
 
 
 void DrawScreen(TScreen *aScreen);
+void DrawButton(TButton *aButton);
 void DrawLabel(TLabel *ALabel);
 void DrawImage(TImage *AImage);
 void DrawCircle(TCircle *ACircle);
 void DrawBox(TBox *ABox);
+void DrawCheckBox(TCheckBox *ACheckBox);
 void Check_TP();
 void Start_TP();
-#line 1 "c:/users/jemmi/desktop/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/mikromedia_stm32plus_resources.h"
-const code char Open_Sans_Light13x16_Regular[];
-const code char Open_Sans_Light16x18_Regular[];
-const code char Open_Sans_Light21x24_Regular[];
-const code char Open_Sans_Light58x65_Regular[];
-const code char Open_Sans46x50_Regular[];
+void Process_TP_Press(unsigned int X, unsigned int Y);
+void Process_TP_Up(unsigned int X, unsigned int Y);
+void Process_TP_Down(unsigned int X, unsigned int Y);
+#line 1 "c:/users/jemmi/documents/github/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/mikromedia_stm32plus_resources.h"
+const code char Furro_Script38x42_Regular[];
+const code char Furro_Script52x60_Regular[];
+const code char Open_Sans_Light12x18_Regular[];
+const code char Open_Sans_Light14x22_Regular[];
+const code char Open_Sans_Light19x28_Regular[];
+const code char Open_Sans_Light51x78_Regular[];
+const code char Open_Sans42x61_Regular[];
 const code char icon_accel_bmp[11558];
 const code char icon_rgb_light_bmp[11558];
 const code char icon_clock_bmp[11558];
 const code char icon_time_bmp[926];
 const code char icon_temp_bmp[11558];
 const code char icon_mp3_player_bmp[11558];
+const code char icon_paint_bmp[11558];
 const code char icon_slide_show_bmp[11558];
+const code char icon_tic_tac_toe_bmp[11558];
 const code char icon_battery_bmp[1766];
 const code char icon_back_accel_bmp[974];
 const code char icon_back_rgb_bmp[974];
@@ -558,33 +757,22 @@ const code char icon_play_bmp[344];
 const code char icon_stop_bmp[344];
 const code char icon_next_bmp[344];
 const code char icon_playlist_bmp[728];
+const code char icon_new_screen_selected_bmp[2054];
+const code char icon_new_screen_bmp[2054];
+const code char icon_brush_selected_bmp[2054];
+const code char icon_brush_bmp[2054];
+const code char icon_eraser_selected_bmp[2054];
+const code char icon_eraser_bmp[2054];
+const code char icon_fill_back_selected_bmp[2054];
+const code char icon_back_paint_bmp[974];
+const code char icon_fill_back_bmp[2054];
 const code char icon_back_slideshow_bmp[974];
 const code char icon_prev_slide_bmp[390];
 const code char icon_next_slide_bmp[390];
-const code char img0_jpg[11233];
-const code char img3_jpg[11274];
-const code char img6_jpg[11601];
-const code char img9_jpg[11238];
-const code char img12_jpg[10927];
-const code char img15_jpg[10583];
-const code char img18_jpg[10211];
-const code char img21_jpg[9782];
-const code char img24_jpg[9199];
-const code char img27_jpg[8614];
-const code char img30_jpg[7878];
-const code char img33_jpg[7628];
-const code char img36_jpg[8015];
-const code char img39_jpg[9281];
-const code char img42_jpg[10162];
-const code char img45_jpg[11054];
-const code char img48_jpg[11818];
-const code char img51_jpg[12419];
-const code char img54_jpg[12917];
-const code char img57_jpg[13432];
-const code char img60_jpg[13360];
-const code char img63_jpg[13482];
-#line 1 "c:/program files (x86)/mikroc pro for arm/include/built_in.h"
-#line 1 "c:/users/jemmi/desktop/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/__lib_nrf24l01.h"
+const code char icon_back_tictactow_bmp[974];
+const code char icon_new_game_bmp[654];
+#line 1 "c:/users/jemmi/documents/mikroelektronika/mikroc pro for arm/include/built_in.h"
+#line 1 "c:/users/jemmi/documents/github/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/__lib_nrf24l01.h"
 
 
 
@@ -637,8 +825,8 @@ unsigned char nRF_Receive_Packet();
 
 
 int GetOutputPower(unsigned char op);
-#line 1 "c:/users/jemmi/desktop/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/nrf24l01_defs.h"
-#line 16 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 1 "c:/users/jemmi/documents/github/ducati_mikro/mikromedia_stm32plus_code/mikroc pro for arm/nrf24l01_defs.h"
+#line 16 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 extern sfr sbit nRF_CS;
 extern sfr sbit nRF_CE;
 extern sfr sbit nRF_IRQ;
@@ -657,7 +845,7 @@ extern char TTT_flag;
 
 
 char RF_used;
-#line 42 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 42 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 void InitTimer5(){
  RCC_APB1ENR.TIM5EN = 1;
  TIM5_CR1.CEN = 0;
@@ -667,7 +855,7 @@ void InitTimer5(){
  TIM5_DIER.UIE = 1;
  TIM5_CR1.CEN = 1;
 }
-#line 59 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 59 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 void InitTimer2(){
 
  RCC_APB1ENR.TIM2EN = 1;
@@ -679,7 +867,7 @@ void InitTimer2(){
 
  TIM2_CR1.CEN = 0;
 }
-#line 77 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 77 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 void InitExt(){
  SYSCFGEN_bit = 1;
  SYSCFG_EXTICR3 = 0x00000600;
@@ -689,7 +877,7 @@ void InitExt(){
 
  NVIC_IntEnable(IVT_INT_EXTI15_10);
 }
-#line 94 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 94 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 void InitRF(){
 
  GPIO_Digital_Output(&GPIOB_BASE, _GPIO_PINMASK_3 | _GPIO_PINMASK_4);
@@ -707,7 +895,7 @@ void InitRF(){
  _SPI_MSB_FIRST | _SPI_SS_DISABLE | _SPI_SSM_ENABLE | _SPI_SSI_1,
  &_GPIO_MODULE_SPI2_PB13_14_15);
 }
-#line 119 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 119 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 void Start_nRF(){
 
  rfConfig.autoTransmitDelay =  0xF0 ;
@@ -792,7 +980,7 @@ void LED_Victory_Blink();
 void LED_Move();
 void Test_Victory();
 void XO_Reset();
-#line 211 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 211 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 void ToneA() {
  Sound_Play( 880, 50);
 }
@@ -825,7 +1013,7 @@ char i;
  }
  LED_B = 0;
 }
-#line 251 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 251 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 void doTicTacToeISR(){
  Label39_Caption[6] = (TicTacToe_seconds_cnt / 60) / 10 + 48;
  Label39_Caption[7] = (TicTacToe_seconds_cnt / 60) % 10 + 48;
@@ -833,7 +1021,7 @@ void doTicTacToeISR(){
  Label39_Caption[10] = (TicTacToe_seconds_cnt % 60) % 10 + 48;
  RedrawLabel(Box8.Color, &Label39, 100, 22);
 }
-#line 266 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 266 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 void UpdateLabel38(char *text, unsigned int color){
  Label38.Font_Color = color;
  Label38.Caption = text;
@@ -842,7 +1030,7 @@ void UpdateLabel38(char *text, unsigned int color){
 
 void XO_Process_Packet(char *receved_packet);
 char RF_Send_Move();
-#line 281 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 281 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 void doTicTacToe(){
 
  if (TTT_flag){
@@ -880,7 +1068,7 @@ void doTicTacToe(){
  }
  }
 }
-#line 326 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 326 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 char RF_Send_Move(){
 char i;
 char *pMat;
@@ -916,7 +1104,7 @@ char attempts = 0;
  LED_B = 0;
  return 0;
 }
-#line 369 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 369 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 void XO_Process(char No){
 char temp_i, temp_j;
 
@@ -936,7 +1124,7 @@ char temp_i, temp_j;
 }
 
 char Check_For_Draw();
-#line 395 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 395 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 void TestDraw(){
  if (victory == 0)
  if (Check_For_Draw() == 1){
@@ -947,7 +1135,7 @@ void TestDraw(){
  LED_R = 0;
  }
 }
-#line 413 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 413 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 void XO_Process_Packet(char *receved_packet){
 char *ptr1;
 char *ptr2;
@@ -989,7 +1177,7 @@ char i;
  }
  }
 }
-#line 464 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 464 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 char XO_Set_New_State(char MatNo){
 char temp_i, temp_j;
 
@@ -1011,7 +1199,7 @@ char temp_i, temp_j;
  return 0;
  }
 }
-#line 493 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 493 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 void XO_Victory(char victory_flag){
  switch (victory_flag){
  case 1 : {
@@ -1048,7 +1236,7 @@ void XO_Victory(char victory_flag){
  }; break;
  }
 }
-#line 538 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 538 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 char Check_For_Draw(){
  char i, j;
  for (i = 0; i < 3; i ++){
@@ -1059,7 +1247,7 @@ char Check_For_Draw(){
  }
  return 1;
 }
-#line 556 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 556 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 char XO_Check_For_Victory(){
 char temp_i, temp_j;
 
@@ -1087,7 +1275,7 @@ char temp_i, temp_j;
  }
  return 0;
 }
-#line 591 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 591 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 void DrawImageLine_TTT(TImage *image, int line, int xcoo1, int xcoo2){
  long count;
  volatile unsigned int color;
@@ -1106,7 +1294,7 @@ void DrawImageLine_TTT(TImage *image, int line, int xcoo1, int xcoo2){
  count -= 2;
  TFT_CS = 1;
 }
-#line 617 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 617 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 void ReDrawBackground(TImage *Image, int x1, int x2, int y1, int y2){
 int i;
 
@@ -1114,7 +1302,7 @@ int i;
  DrawImageLine_TTT(Image, y1 + i, x1, x2);
  }
 }
-#line 632 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 632 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 void UpdateLabel(TLabel * Label, char xo){
  if (xo){
  Label->Caption = XO_O_caption;
@@ -1127,7 +1315,7 @@ void UpdateLabel(TLabel * Label, char xo){
  DrawLabel(Label);
  }
 }
-#line 652 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 652 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 void UpdateStatus (char xo){
  if (xo){
  UpdateLabel38(XsTurn_cap, X_color);
@@ -1136,7 +1324,7 @@ void UpdateStatus (char xo){
  UpdateLabel38(OsTurn_cap, O_color);
  }
 }
-#line 668 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 668 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 void Test_Victory(){
  victory = XO_Check_For_Victory();
  if (victory){
@@ -1159,7 +1347,7 @@ void Test_Victory(){
  else
  LED_Move();
 }
-#line 698 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 698 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 void XO_Reset(){
 
  memset(XO_matrix, 0, 9);
@@ -1188,7 +1376,7 @@ void XO_Reset(){
  Label38.Caption = Label38_Caption;
  ReDrawLabel(Box8.Color, &Label38, 120, 50);
 }
-#line 734 "C:/Users/Jemmi/Desktop/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
+#line 734 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/mikromedia_STM32plus_Code/mikroC PRO for ARM/Tic_Tac_Toe.c"
 void ButtonClick(TButton *Butt, char No){
 
  if (victory == 0){

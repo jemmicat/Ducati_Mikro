@@ -59,7 +59,7 @@ signed int first_window_column = 0;
 signed int last_window_column = 190;
 unsigned int Scroll_total_columns = 350;
 
-void TFT_Write_to_16bitPort(unsigned int _data);
+//void TFT_Write_to_16bitPort(unsigned int _data);
 void TFT_mikromedia_Write_Command(unsigned short cmd);
 void TFT_mikromedia_Set_Index(unsigned short index);
 
@@ -88,7 +88,7 @@ void Scroll_Get_One_Text_Line(char line, char *text){
   TFT_Set_Font(MP3_Font, _MP3_FONT_COLOR, FO_HORIZONTAL);
   TFT_Write_Text(text, _MP3_TEXT_VLINE, 0);
   TFT_SSD1963_Set_Address_Ptr = TFT_Set_Address_SSD1963II;
-  TFT_Write_Data_Ptr = TFT_Write_to_16bitPort;
+  //TFT_Write_Data_Ptr = TFT_Write_to_16bitPort;
 }
 
 /*******************************************************************************

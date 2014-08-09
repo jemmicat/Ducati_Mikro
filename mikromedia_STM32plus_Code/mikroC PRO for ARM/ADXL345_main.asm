@@ -175,12 +175,16 @@ BX	LR
 ; end of ADXL345_main_Display_Value
 ADXL345_main_Scroll_ACCEL:
 ;ADXL345_main.c,95 :: 		static void Scroll_ACCEL(char Adir) {
+; Adir start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
+; Adir end address is: 0 (R0)
+; Adir start address is: 0 (R0)
 ;ADXL345_main.c,98 :: 		if (Adir == _ACCEL_UP) {
 CMP	R0, #1
 IT	NE
 BNE	L_ADXL345_main_Scroll_ACCEL3
+; Adir end address is: 0 (R0)
 ;ADXL345_main.c,99 :: 		if (_disp_accel_scroll != _SCROLL_ACCEL_FIRST_LINE)
 MOVW	R1, #lo_addr(__disp_accel_scroll+0)
 MOVT	R1, #hi_addr(__disp_accel_scroll+0)
@@ -282,6 +286,7 @@ ASRS	R0, R0, #8
 SXTH	R0, R0
 ADDS	R0, #90
 SXTH	R0, R0
+; temp1 start address is: 0 (R0)
 ;ADXL345_main.c,128 :: 		temp2 = (new->Xvalue * 30) / 256 + 90;
 LDR	R2, [SP, #8]
 LDRSH	R3, [R2, #0]
@@ -302,6 +307,7 @@ LDRSH	R2, [R2, #0]
 ADDS	R2, R2, #2
 SXTH	R1, R2
 SXTH	R2, R5
+; temp1 end address is: 0 (R0)
 BL	_TFT_Line+0
 ;ADXL345_main.c,131 :: 		TFT_Set_Pen(CL_BLUE, 2);
 MOVS	R1, #2
@@ -319,6 +325,7 @@ ASRS	R0, R0, #8
 SXTH	R0, R0
 ADDS	R0, #240
 SXTH	R0, R0
+; temp1 start address is: 0 (R0)
 ;ADXL345_main.c,133 :: 		temp2 = (new->Yvalue * 30) / 256 + 240;
 LDR	R2, [SP, #8]
 ADDS	R2, R2, #2
@@ -340,6 +347,7 @@ LDRSH	R2, [R2, #0]
 ADDS	R2, R2, #2
 SXTH	R1, R2
 SXTH	R2, R5
+; temp1 end address is: 0 (R0)
 BL	_TFT_Line+0
 ;ADXL345_main.c,136 :: 		TFT_Set_Pen(CL_GREEN, 2);
 MOVS	R1, #2
@@ -356,6 +364,7 @@ SXTH	R2, R2
 ASRS	R2, R2, #8
 SXTH	R2, R2
 ADD	R2, R2, #390
+; temp1 start address is: 0 (R0)
 SXTH	R0, R2
 ;ADXL345_main.c,138 :: 		temp2 = (new->Zvalue * 30) / 256 + 390;
 LDR	R2, [SP, #8]
@@ -378,6 +387,7 @@ LDRSH	R2, [R2, #0]
 ADDS	R2, R2, #2
 SXTH	R1, R2
 SXTH	R2, R5
+; temp1 end address is: 0 (R0)
 BL	_TFT_Line+0
 ;ADXL345_main.c,125 :: 		if ((_disp_accel_scroll < _SCROLL_ACCEL_LAST_LINE - 2) && (_disp_accel_scroll > _SCROLL_ACCEL_FIRST_LINE)){
 L_ADXL345_main_WriteGraph28:
@@ -390,18 +400,23 @@ BX	LR
 ; end of ADXL345_main_WriteGraph
 ADXL345_main_Scroll_Add_Line:
 ;ADXL345_main.c,150 :: 		static void Scroll_Add_Line(char ScrollDiection){
+; ScrollDiection start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
+; ScrollDiection end address is: 0 (R0)
+; ScrollDiection start address is: 0 (R0)
 ;ADXL345_main.c,152 :: 		if (ScrollDiection > 0){
 CMP	R0, #0
 IT	LS
 BLS	L_ADXL345_main_Scroll_Add_Line12
+; ScrollDiection end address is: 0 (R0)
 ;ADXL345_main.c,153 :: 		temp = _disp_accel_scroll + 1;
 MOVW	R1, #lo_addr(__disp_accel_scroll+0)
 MOVT	R1, #hi_addr(__disp_accel_scroll+0)
 LDRSH	R1, [R1, #0]
 ADDS	R1, R1, #1
 SXTH	R1, R1
+; temp start address is: 0 (R0)
 SXTH	R0, R1
 ;ADXL345_main.c,154 :: 		if (temp > _SCROLL_ACCEL_LAST_LINE - 1)
 CMP	R1, #245
@@ -410,6 +425,7 @@ BLE	L_ADXL345_main_Scroll_Add_Line29
 ;ADXL345_main.c,155 :: 		temp = _SCROLL_ACCEL_FIRST_LINE;
 MOVW	R0, #41
 SXTH	R0, R0
+; temp end address is: 0 (R0)
 IT	AL
 BAL	L_ADXL345_main_Scroll_Add_Line13
 L_ADXL345_main_Scroll_Add_Line29:
@@ -417,6 +433,7 @@ L_ADXL345_main_Scroll_Add_Line29:
 ;ADXL345_main.c,155 :: 		temp = _SCROLL_ACCEL_FIRST_LINE;
 L_ADXL345_main_Scroll_Add_Line13:
 ;ADXL345_main.c,156 :: 		TFT_CS = 0;
+; temp start address is: 0 (R0)
 MOVS	R2, #0
 SXTB	R2, R2
 MOVW	R1, #lo_addr(TFT_CS+0)
@@ -426,15 +443,19 @@ STR	R2, [R1, #0]
 UXTH	R3, R0
 MOVW	R2, #480
 UXTH	R1, R3
+; temp end address is: 0 (R0)
 MOVS	R0, #0
 MOVW	R4, #lo_addr(_TFT_SSD1963_Set_Address_Ptr+0)
 MOVT	R4, #hi_addr(_TFT_SSD1963_Set_Address_Ptr+0)
 LDR	R4, [R4, #0]
 BLX	R4
 ;ADXL345_main.c,158 :: 		for (i = 0; i < 480; i++)
+; i start address is: 0 (R0)
 MOVS	R0, #0
 SXTH	R0, R0
+; i end address is: 0 (R0)
 L_ADXL345_main_Scroll_Add_Line14:
+; i start address is: 0 (R0)
 CMP	R0, #480
 IT	GE
 BGE	L_ADXL345_main_Scroll_Add_Line15
@@ -488,6 +509,7 @@ L_ADXL345_main_Scroll_Add_Line18:
 ADDS	R0, R0, #1
 SXTH	R0, R0
 ;ADXL345_main.c,162 :: 		TFT_Write_Data_Ptr(CL_WHITE);
+; i end address is: 0 (R0)
 IT	AL
 BAL	L_ADXL345_main_Scroll_Add_Line14
 L_ADXL345_main_Scroll_Add_Line15:
@@ -521,9 +543,11 @@ BX	LR
 ; end of _Accel_Stop
 _ACCEL_Start:
 ;ADXL345_main.c,185 :: 		void ACCEL_Start(char *test) {
+; test start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
 MOV	R2, R0
+; test end address is: 0 (R0)
 ; test start address is: 8 (R2)
 ;ADXL345_main.c,187 :: 		*test = 0;
 MOVS	R1, #0
@@ -590,8 +614,11 @@ BX	LR
 ; end of _ACCEL_Start
 ADXL345_main_ACCEL_Test:
 ;ADXL345_main.c,210 :: 		static void ACCEL_Test(TAccel_values *values) {
+; values start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
+; values end address is: 0 (R0)
+; values start address is: 0 (R0)
 ;ADXL345_main.c,211 :: 		Accel_Average();               // Calculate average X, Y and Z reads
 STR	R0, [SP, #4]
 BL	ADXL345_main_Accel_Average+0
@@ -609,6 +636,7 @@ LDRSH	R1, [R1, #0]
 STRH	R1, [R2, #0]
 ;ADXL345_main.c,215 :: 		values->Zvalue = readings[2];
 ADDS	R2, R0, #4
+; values end address is: 0 (R0)
 MOVW	R1, #lo_addr(_readings+4)
 MOVT	R1, #hi_addr(_readings+4)
 LDRSH	R1, [R1, #0]

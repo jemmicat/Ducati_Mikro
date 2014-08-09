@@ -1,6 +1,6 @@
-#line 1 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
-#line 1 "c:/users/jjmcdo1/documents/mikroelektronika/mikroc pro for arm/include/built_in.h"
-#line 1 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
+#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
+#line 1 "c:/users/jemmi/documents/mikroelektronika/mikroc pro for arm/include/built_in.h"
+#line 1 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
 
 typedef struct Screen TScreen;
@@ -446,6 +446,18 @@ extern TLabel * const code Screen10_Labels[4];
 extern TImage * const code Screen10_Images[1];
 extern TBox * const code Screen10_Boxes[2];
 
+extern TScreen Humidity_test;
+extern TBox Box21;
+extern TBox Box22;
+extern TImage Image55;
+extern TLabel Label42;
+extern TLabel Label43;
+extern TLabel Label44;
+extern TLabel Label45;
+extern TLabel * const code Screen11_Labels[4];
+extern TImage * const code Screen11_Images[1];
+extern TBox * const code Screen11_Boxes[2];
+
 
 
 
@@ -622,6 +634,13 @@ extern char Label38_Caption[];
 extern char Label39_Caption[];
 extern char Label40_Caption[];
 extern char Label41_Caption[];
+extern char Box21_Caption[];
+extern char Box22_Caption[];
+extern char Image55_Caption[];
+extern char Label42_Caption[];
+extern char Label43_Caption[];
+extern char Label44_Caption[];
+extern char Label45_Caption[];
 
 
 void DrawScreen(TScreen *aScreen);
@@ -639,7 +658,7 @@ void Start_TP();
 void Process_TP_Press(unsigned int X, unsigned int Y);
 void Process_TP_Up(unsigned int X, unsigned int Y);
 void Process_TP_Down(unsigned int X, unsigned int Y);
-#line 10 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
+#line 10 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
 void ADXL345_Read(int *data_X, int *data_Y, int *data_Z);
 char ADXL345_Init();
 void Scroll_Undone(unsigned int first, unsigned int last);
@@ -666,7 +685,7 @@ typedef struct Accel_values{
 } TAccel_values;
 
 char cACCEL_test_status;
-#line 44 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
+#line 44 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
 static void Accel_Average() {
  int i, sx, sy, sz, xx, yy, zz;
 
@@ -685,7 +704,7 @@ static void Accel_Average() {
  readings[1] = sy >> 4;
  readings[2] = sz >> 4;
 }
-#line 70 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
+#line 70 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
 static void Display_Value(TLabel *label, int val) {
 char text[7];
 char text1[10];
@@ -703,7 +722,7 @@ char *ptr;
 }
 
 const _ACCEL_UP = 1, _ACCEL_DOWN = 0;
-#line 95 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
+#line 95 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
 static void Scroll_ACCEL(char Adir) {
 unsigned int _temp;
 
@@ -724,7 +743,7 @@ if (Adir == _ACCEL_UP) {
 
  Scroll(_disp_accel_scroll);
 }
-#line 123 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
+#line 123 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
 static void WriteGraph(TAccel_values *old, TAccel_values *new){
 int temp1, temp2;
  if ((_disp_accel_scroll < _SCROLL_ACCEL_LAST_LINE - 2) && (_disp_accel_scroll > _SCROLL_ACCEL_FIRST_LINE)){
@@ -744,7 +763,7 @@ int temp1, temp2;
  TFT_Line(temp1, _disp_accel_scroll + 2, temp2, _disp_accel_scroll + 1);
  }
 }
-#line 150 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
+#line 150 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
 static void Scroll_Add_Line(char ScrollDiection){
 int i, temp;
  if (ScrollDiection > 0){
@@ -761,11 +780,11 @@ int i, temp;
  TFT_CS = 1;
  }
 }
-#line 174 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
+#line 174 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
 void Accel_Stop(){
  Scroll_Undone(_SCROLL_ACCEL_FIRST_LINE, _SCROLL_ACCEL_LAST_LINE);
 }
-#line 185 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
+#line 185 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
 void ACCEL_Start(char *test) {
 
  *test = 0;
@@ -783,7 +802,7 @@ void ACCEL_Start(char *test) {
  }
  Scroll_Undone(_SCROLL_ACCEL_FIRST_LINE, _SCROLL_ACCEL_LAST_LINE);
 }
-#line 210 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
+#line 210 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
 static void ACCEL_Test(TAccel_values *values) {
  Accel_Average();
 
@@ -793,7 +812,7 @@ static void ACCEL_Test(TAccel_values *values) {
 }
 
 TAccel_values Accel_vals, Old_Accel_vals = {0, 0, 0};
-#line 227 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
+#line 227 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/ADXL345_main.c"
 void doAccel(){
  ACCEL_Test(&Accel_vals);
  Scroll_ACCEL(_ACCEL_UP);
@@ -801,7 +820,7 @@ void doAccel(){
  WriteGraph(&Old_Accel_vals, &Accel_vals);
  Old_accel_vals = Accel_vals;
 
- Display_Value(&LAbel2, Accel_vals.Xvalue);
- Display_Value(&LAbel3, Accel_vals.Yvalue);
- Display_Value(&LAbel4, Accel_vals.Zvalue);
+ Display_Value(&Label3, Accel_vals.Xvalue);
+ Display_Value(&Label4, Accel_vals.Yvalue);
+ Display_Value(&Label7, Accel_vals.Zvalue);
 }

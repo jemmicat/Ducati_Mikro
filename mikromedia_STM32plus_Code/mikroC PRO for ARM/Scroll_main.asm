@@ -1,8 +1,11 @@
 _Dummy_Set_address:
 ;Scroll_main.c,67 :: 		void Dummy_Set_address(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2){
 ; y1 start address is: 4 (R1)
+; x1 start address is: 0 (R0)
 SUB	SP, SP, #8
 ; y1 end address is: 4 (R1)
+; x1 end address is: 0 (R0)
+; x1 start address is: 0 (R0)
 ; y1 start address is: 4 (R1)
 ;Scroll_main.c,68 :: 		if (current_text_column == y1)
 MOVW	R4, #lo_addr(_current_text_column+0)
@@ -16,6 +19,7 @@ BNE	L_Dummy_Set_address0
 MOVW	R4, #lo_addr(_pix_array+0)
 MOVT	R4, #hi_addr(_pix_array+0)
 ADDS	R5, R4, R0
+; x1 end address is: 0 (R0)
 MOVS	R4, #1
 STRB	R4, [R5, #0]
 L_Dummy_Set_address0:
@@ -33,11 +37,13 @@ BX	LR
 _Scroll_Get_One_Text_Line:
 ;Scroll_main.c,83 :: 		void Scroll_Get_One_Text_Line(char line, char *text){
 ; text start address is: 4 (R1)
-SUB	SP, SP, #8
+; line start address is: 0 (R0)
+SUB	SP, SP, #4
 STR	LR, [SP, #0]
 UXTB	R7, R0
 MOV	R6, R1
 ; text end address is: 4 (R1)
+; line end address is: 0 (R0)
 ; line start address is: 28 (R7)
 ; text start address is: 24 (R6)
 ;Scroll_main.c,84 :: 		memset(pix_array, 0, 165);
@@ -57,7 +63,6 @@ MOVW	R3, #lo_addr(_Dummy_Write_data+0)
 MOVT	R3, #hi_addr(_Dummy_Write_data+0)
 MOVW	R2, #lo_addr(_TFT_Write_Data_Ptr+0)
 MOVT	R2, #hi_addr(_TFT_Write_Data_Ptr+0)
-STR	R2, [SP, #4]
 STR	R3, [R2, #0]
 ;Scroll_main.c,87 :: 		TFT_SSD1963_Set_Address_Ptr = Dummy_Set_address;
 MOVW	R3, #lo_addr(_Dummy_Set_address+0)
@@ -85,23 +90,21 @@ MOVT	R3, #hi_addr(_TFT_Set_Address_SSD1963II+0)
 MOVW	R2, #lo_addr(_TFT_SSD1963_Set_Address_Ptr+0)
 MOVT	R2, #hi_addr(_TFT_SSD1963_Set_Address_Ptr+0)
 STR	R3, [R2, #0]
-;Scroll_main.c,91 :: 		TFT_Write_Data_Ptr = TFT_Write_to_16bitPort;
-MOVW	R3, #lo_addr(_TFT_Write_to_16bitPort+0)
-MOVT	R3, #hi_addr(_TFT_Write_to_16bitPort+0)
-LDR	R2, [SP, #4]
-STR	R3, [R2, #0]
 ;Scroll_main.c,92 :: 		}
 L_end_Scroll_Get_One_Text_Line:
 LDR	LR, [SP, #0]
-ADD	SP, SP, #8
+ADD	SP, SP, #4
 BX	LR
 ; end of _Scroll_Get_One_Text_Line
 _Scroll_New_Tex_From_List:
 ;Scroll_main.c,101 :: 		char Scroll_New_Tex_From_List(char text_number, char *Text){
 ; Text start address is: 4 (R1)
+; text_number start address is: 0 (R0)
 SUB	SP, SP, #4
 MOV	R2, R1
 ; Text end address is: 4 (R1)
+; text_number end address is: 0 (R0)
+; text_number start address is: 0 (R0)
 ; Text start address is: 8 (R2)
 ;Scroll_main.c,103 :: 		dptr = Text;
 ; dptr start address is: 4 (R1)
@@ -117,6 +120,7 @@ ADDS	R2, R2, R3
 MOV	R3, R2
 ; dptr end address is: 4 (R1)
 ; ptr end address is: 12 (R3)
+; text_number end address is: 0 (R0)
 STR	R3, [SP, #0]
 MOV	R3, R1
 LDR	R1, [SP, #0]
@@ -126,6 +130,7 @@ L_Scroll_New_Tex_From_List1:
 ; ptr start address is: 4 (R1)
 ; dptr start address is: 20 (R5)
 ; dptr start address is: 12 (R3)
+; text_number start address is: 0 (R0)
 MOV	R4, R3
 ADDS	R2, R3, #1
 ; dptr end address is: 12 (R3)
@@ -156,6 +161,7 @@ L_Scroll_New_Tex_From_List2:
 ;Scroll_main.c,109 :: 		return File_List[text_number].FIleType;
 MOVS	R2, #14
 MUL	R3, R2, R0
+; text_number end address is: 0 (R0)
 MOVW	R2, #lo_addr(_File_List+0)
 MOVT	R2, #hi_addr(_File_List+0)
 ADDS	R2, R2, R3
@@ -170,9 +176,12 @@ BX	LR
 _Get_Next_File_Name:
 ;Scroll_main.c,121 :: 		char Get_Next_File_Name(signed short number, char *Text){
 ; Text start address is: 4 (R1)
+; number start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
 ; Text end address is: 4 (R1)
+; number end address is: 0 (R0)
+; number start address is: 0 (R0)
 ; Text start address is: 4 (R1)
 ;Scroll_main.c,123 :: 		if ((number > Total_Entries) || (number < 0))
 MOVW	R2, #lo_addr(_Total_Entries+0)
@@ -186,6 +195,7 @@ IT	LT
 BLT	L__Get_Next_File_Name104
 IT	AL
 BAL	L_Get_Next_File_Name5
+; number end address is: 0 (R0)
 ; Text end address is: 4 (R1)
 L__Get_Next_File_Name105:
 L__Get_Next_File_Name104:
@@ -196,8 +206,10 @@ BAL	L_end_Get_Next_File_Name
 L_Get_Next_File_Name5:
 ;Scroll_main.c,125 :: 		temp = Scroll_New_Tex_From_List(number, Text);
 ; Text start address is: 4 (R1)
+; number start address is: 0 (R0)
 ; Text end address is: 4 (R1)
 UXTB	R0, R0
+; number end address is: 0 (R0)
 BL	_Scroll_New_Tex_From_List+0
 ; temp start address is: 4 (R1)
 UXTB	R1, R0
@@ -230,8 +242,11 @@ BX	LR
 ; end of _Get_Next_File_Name
 _Scrool_Get_new_text:
 ;Scroll_main.c,140 :: 		char Scrool_Get_new_text(char Text_no){
+; Text_no start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
+; Text_no end address is: 0 (R0)
+; Text_no start address is: 0 (R0)
 ;Scroll_main.c,141 :: 		if (current_loaded_text != Text_no){
 MOVW	R1, #lo_addr(_current_loaded_text+0)
 MOVT	R1, #hi_addr(_current_loaded_text+0)
@@ -254,6 +269,7 @@ L_Scrool_Get_new_text9:
 ;Scroll_main.c,145 :: 		return File_List[Text_no].FileType;
 MOVS	R1, #14
 MUL	R2, R1, R0
+; Text_no end address is: 0 (R0)
 MOVW	R1, #lo_addr(_File_List+0)
 MOVT	R1, #hi_addr(_File_List+0)
 ADDS	R1, R1, R2
@@ -268,9 +284,12 @@ BX	LR
 ; end of _Scrool_Get_new_text
 _Scroll_Write_One_Line:
 ;Scroll_main.c,155 :: 		void Scroll_Write_One_Line(unsigned int HO_Line, TImage *Img){
+; HO_Line start address is: 0 (R0)
 SUB	SP, SP, #16
 STR	LR, [SP, #0]
 STR	R1, [SP, #12]
+; HO_Line end address is: 0 (R0)
+; HO_Line start address is: 0 (R0)
 ;Scroll_main.c,160 :: 		ptr = Img->Picture_Name + 6;
 LDR	R2, [SP, #12]
 ADDS	R2, #16
@@ -300,6 +319,7 @@ STR	R3, [R2, #0]
 UXTH	R3, R0
 MOVW	R2, #479
 UXTH	R1, R3
+; HO_Line end address is: 0 (R0)
 MOVS	R0, #0
 MOVW	R4, #lo_addr(_TFT_SSD1963_Set_Address_Ptr+0)
 MOVT	R4, #hi_addr(_TFT_SSD1963_Set_Address_Ptr+0)
@@ -427,10 +447,13 @@ _Add_Image_Line:
 ;Scroll_main.c,193 :: 		void Add_Image_Line(const unsigned long image, int line, int disp_scroll){
 ; disp_scroll start address is: 8 (R2)
 ; line start address is: 4 (R1)
+; image start address is: 0 (R0)
 SUB	SP, SP, #20
 STR	LR, [SP, #0]
 ; disp_scroll end address is: 8 (R2)
 ; line end address is: 4 (R1)
+; image end address is: 0 (R0)
+; image start address is: 0 (R0)
 ; line start address is: 4 (R1)
 ; disp_scroll start address is: 8 (R2)
 ;Scroll_main.c,198 :: 		TFT_CS = 0;
@@ -441,6 +464,7 @@ MOVT	R3, #hi_addr(TFT_CS+0)
 STR	R4, [R3, #0]
 ;Scroll_main.c,199 :: 		offset = image + 6 + (unsigned long)line*238;
 ADDS	R5, R0, #6
+; image end address is: 0 (R0)
 SXTH	R4, R1
 ; line end address is: 4 (R1)
 MOVS	R3, #238
@@ -499,6 +523,7 @@ BCS	L_Add_Image_Line24
 ;Scroll_main.c,208 :: 		color = *ptr++;
 LDR	R3, [SP, #16]
 LDRB	R3, [R3, #0]
+; color start address is: 0 (R0)
 UXTB	R0, R3
 LDR	R3, [SP, #16]
 ADDS	R5, R3, #1
@@ -507,6 +532,7 @@ LDRB	R3, [R5, #0]
 LSLS	R3, R3, #8
 UXTH	R3, R3
 ADDS	R4, R0, R3
+; color end address is: 0 (R0)
 ADDS	R3, R5, #1
 STR	R3, [SP, #16]
 ;Scroll_main.c,210 :: 		TFT_Write_Data_Ptr(color);
@@ -825,9 +851,11 @@ BX	LR
 ; end of _Scroll_Fill_Area
 _Scroll_Add_newTextLine:
 ;Scroll_main.c,285 :: 		void Scroll_Add_newTextLine(char ScrollDiection){
+; ScrollDiection start address is: 0 (R0)
 SUB	SP, SP, #12
 STR	LR, [SP, #0]
 UXTB	R6, R0
+; ScrollDiection end address is: 0 (R0)
 ; ScrollDiection start address is: 24 (R6)
 ;Scroll_main.c,289 :: 		memset(pix_array, 0, 479);
 MOVW	R2, #479
@@ -866,7 +894,7 @@ SXTH	R1, R1
 SDIV	R1, R2, R1
 UXTB	R0, R1
 BL	_Scrool_Get_new_text+0
-STRB	R0, [SP, #8]
+STRB	R0, [SP, #10]
 ;Scroll_main.c,294 :: 		Scroll_Get_One_Text_Line(current_text_column, Scroll_text);
 MOVW	R1, #lo_addr(_current_text_column+0)
 MOVT	R1, #hi_addr(_current_text_column+0)
@@ -880,7 +908,7 @@ MOVW	R1, #lo_addr(Scroll_main__disp_scroll+0)
 MOVT	R1, #hi_addr(Scroll_main__disp_scroll+0)
 LDRSH	R1, [R1, #0]
 SUBS	R1, R1, #1
-STRH	R1, [SP, #6]
+STRH	R1, [SP, #8]
 ;Scroll_main.c,297 :: 		if (temp < _SCROLL_FIRST_LINE)
 UXTH	R1, R1
 CMP	R1, #48
@@ -888,28 +916,28 @@ IT	CS
 BCS	L_Scroll_Add_newTextLine42
 ;Scroll_main.c,298 :: 		temp = _SCROLL_LAST_LINE - 1;
 MOVS	R1, #237
-STRH	R1, [SP, #6]
+STRH	R1, [SP, #8]
 L_Scroll_Add_newTextLine42:
 ;Scroll_main.c,300 :: 		if (temp_file_type == 1)
-LDRB	R1, [SP, #8]
+LDRB	R1, [SP, #10]
 CMP	R1, #1
 IT	NE
 BNE	L_Scroll_Add_newTextLine43
 ;Scroll_main.c,301 :: 		Scroll_Write_One_Line(temp, &file_icon);
 MOVW	R1, #lo_addr(_file_icon+0)
 MOVT	R1, #hi_addr(_file_icon+0)
-LDRH	R0, [SP, #6]
+LDRH	R0, [SP, #8]
 BL	_Scroll_Write_One_Line+0
 L_Scroll_Add_newTextLine43:
 ;Scroll_main.c,302 :: 		if (temp_file_type == 2)
-LDRB	R1, [SP, #8]
+LDRB	R1, [SP, #10]
 CMP	R1, #2
 IT	NE
 BNE	L_Scroll_Add_newTextLine44
 ;Scroll_main.c,303 :: 		Scroll_Write_One_Line(temp, &folder_icon);
 MOVW	R1, #lo_addr(_folder_icon+0)
 MOVT	R1, #hi_addr(_folder_icon+0)
-LDRH	R0, [SP, #6]
+LDRH	R0, [SP, #8]
 BL	_Scroll_Write_One_Line+0
 L_Scroll_Add_newTextLine44:
 ;Scroll_main.c,304 :: 		}
@@ -921,7 +949,7 @@ MOVW	R1, #lo_addr(Scroll_main__disp_scroll+0)
 MOVT	R1, #hi_addr(Scroll_main__disp_scroll+0)
 LDRSH	R1, [R1, #0]
 SUBS	R1, R1, #1
-STRH	R1, [SP, #6]
+STRH	R1, [SP, #8]
 ;Scroll_main.c,307 :: 		if (temp < _SCROLL_FIRST_LINE)
 UXTH	R1, R1
 CMP	R1, #48
@@ -929,7 +957,7 @@ IT	CS
 BCS	L_Scroll_Add_newTextLine46
 ;Scroll_main.c,308 :: 		temp = _SCROLL_LAST_LINE - 1;
 MOVS	R1, #237
-STRH	R1, [SP, #6]
+STRH	R1, [SP, #8]
 L_Scroll_Add_newTextLine46:
 ;Scroll_main.c,310 :: 		TFT_CS = 0;
 MOVS	R2, #0
@@ -938,9 +966,9 @@ MOVW	R1, #lo_addr(TFT_CS+0)
 MOVT	R1, #hi_addr(TFT_CS+0)
 STR	R2, [R1, #0]
 ;Scroll_main.c,311 :: 		TFT_SSD1963_Set_Address_Ptr(0, temp, 479, temp);
-LDRH	R3, [SP, #6]
+LDRH	R3, [SP, #8]
 MOVW	R2, #479
-LDRH	R1, [SP, #6]
+LDRH	R1, [SP, #8]
 MOVS	R0, #0
 MOVW	R4, #lo_addr(_TFT_SSD1963_Set_Address_Ptr+0)
 MOVT	R4, #hi_addr(_TFT_SSD1963_Set_Address_Ptr+0)
@@ -952,6 +980,7 @@ MOVS	R2, #0
 ; i end address is: 8 (R2)
 UXTH	R0, R2
 L_Scroll_Add_newTextLine47:
+; i start address is: 0 (R0)
 MOVW	R1, #479
 CMP	R0, R1
 IT	CS
@@ -966,6 +995,7 @@ BLX	R4
 LDRH	R0, [SP, #4]
 ;Scroll_main.c,312 :: 		for (i = 0; i < 479; i++)
 ADDS	R1, R0, #1
+; i end address is: 0 (R0)
 ; i start address is: 8 (R2)
 UXTH	R2, R1
 ;Scroll_main.c,313 :: 		TFT_Write_Data_Ptr(_MP3_BACKGOUND_COLOR);
@@ -986,7 +1016,7 @@ L_Scroll_Add_newTextLine45:
 MOVW	R1, #lo_addr(Scroll_main_imageLine+0)
 MOVT	R1, #hi_addr(Scroll_main_imageLine+0)
 LDRSH	R1, [R1, #0]
-LDRH	R2, [SP, #6]
+LDRH	R2, [SP, #8]
 MOVW	R0, _mp3_player_note_bmp
 MOVT	R0, _mp3_player_note_bmp+2
 BL	_Add_Image_Line+0
@@ -1019,7 +1049,7 @@ SXTH	R1, R1
 SDIV	R1, R2, R1
 UXTB	R0, R1
 BL	_Scrool_Get_new_text+0
-STRB	R0, [SP, #8]
+STRB	R0, [SP, #10]
 ;Scroll_main.c,322 :: 		Scroll_Get_One_Text_Line(current_text_column, Scroll_text);
 MOVW	R1, #lo_addr(_current_text_column+0)
 MOVT	R1, #hi_addr(_current_text_column+0)
@@ -1029,7 +1059,7 @@ MOVW	R1, #lo_addr(_Scroll_text+0)
 MOVT	R1, #hi_addr(_Scroll_text+0)
 BL	_Scroll_Get_One_Text_Line+0
 ;Scroll_main.c,324 :: 		if (temp_file_type == 1)
-LDRB	R1, [SP, #8]
+LDRB	R1, [SP, #10]
 CMP	R1, #1
 IT	NE
 BNE	L_Scroll_Add_newTextLine52
@@ -1043,7 +1073,7 @@ MOVT	R1, #hi_addr(_file_icon+0)
 BL	_Scroll_Write_One_Line+0
 L_Scroll_Add_newTextLine52:
 ;Scroll_main.c,326 :: 		if (temp_file_type == 2)
-LDRB	R1, [SP, #8]
+LDRB	R1, [SP, #10]
 CMP	R1, #2
 IT	NE
 BNE	L_Scroll_Add_newTextLine53
@@ -1079,8 +1109,11 @@ MOVT	R4, #hi_addr(_TFT_SSD1963_Set_Address_Ptr+0)
 LDR	R4, [R4, #0]
 BLX	R4
 ;Scroll_main.c,332 :: 		for (i = 0; i < 479; i++)
+; i start address is: 0 (R0)
 MOVS	R0, #0
+; i end address is: 0 (R0)
 L_Scroll_Add_newTextLine55:
+; i start address is: 0 (R0)
 MOVW	R1, #479
 CMP	R0, R1
 IT	CS
@@ -1095,6 +1128,7 @@ BLX	R4
 LDRH	R0, [SP, #4]
 ;Scroll_main.c,332 :: 		for (i = 0; i < 479; i++)
 ADDS	R1, R0, #1
+; i end address is: 0 (R0)
 ; i start address is: 4 (R1)
 ;Scroll_main.c,333 :: 		TFT_Write_Data_Ptr(_MP3_BACKGOUND_COLOR);
 UXTH	R0, R1
@@ -1130,12 +1164,16 @@ BX	LR
 ; end of _Scroll_Add_newTextLine
 _Scroll_Menu:
 ;Scroll_main.c,347 :: 		void Scroll_Menu(char Adir) {
+; Adir start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
+; Adir end address is: 0 (R0)
+; Adir start address is: 0 (R0)
 ;Scroll_main.c,349 :: 		if (Adir == _Up) {
 CMP	R0, #1
 IT	NE
 BNE	L_Scroll_Menu58
+; Adir end address is: 0 (R0)
 ;Scroll_main.c,350 :: 		if (_disp_scroll != _SCROLL_FIRST_LINE)
 MOVW	R1, #lo_addr(Scroll_main__disp_scroll+0)
 MOVT	R1, #hi_addr(Scroll_main__disp_scroll+0)
@@ -1216,17 +1254,24 @@ BX	LR
 ; end of _Scroll_Menu
 _ScrollUp:
 ;Scroll_main.c,376 :: 		void ScrollUp(int scroll){
+; scroll start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
+; scroll end address is: 0 (R0)
+; scroll start address is: 0 (R0)
 ;Scroll_main.c,377 :: 		while(scroll--){
 L_ScrollUp64:
+; scroll start address is: 0 (R0)
 SXTH	R2, R0
 SUBS	R1, R0, #1
 SXTH	R0, R1
+; scroll end address is: 0 (R0)
 CMP	R2, #0
 IT	EQ
 BEQ	L_ScrollUp65
+; scroll end address is: 0 (R0)
 ;Scroll_main.c,378 :: 		last_window_column --;
+; scroll start address is: 0 (R0)
 MOVW	R2, #lo_addr(_last_window_column+0)
 MOVT	R2, #hi_addr(_last_window_column+0)
 LDRSH	R1, [R2, #0]
@@ -1288,6 +1333,7 @@ STRH	R1, [R2, #0]
 ;Scroll_main.c,390 :: 		}
 L_ScrollUp68:
 ;Scroll_main.c,391 :: 		}
+; scroll end address is: 0 (R0)
 IT	AL
 BAL	L_ScrollUp64
 L_ScrollUp65:
@@ -1299,17 +1345,24 @@ BX	LR
 ; end of _ScrollUp
 _ScrollDown:
 ;Scroll_main.c,401 :: 		void ScrollDown(int scroll){
+; scroll start address is: 0 (R0)
 SUB	SP, SP, #8
 STR	LR, [SP, #0]
+; scroll end address is: 0 (R0)
+; scroll start address is: 0 (R0)
 ;Scroll_main.c,402 :: 		while(scroll--){
 L_ScrollDown69:
+; scroll start address is: 0 (R0)
 SXTH	R2, R0
 SUBS	R1, R0, #1
 SXTH	R0, R1
+; scroll end address is: 0 (R0)
 CMP	R2, #0
 IT	EQ
 BEQ	L_ScrollDown70
+; scroll end address is: 0 (R0)
 ;Scroll_main.c,403 :: 		last_window_column ++;
+; scroll start address is: 0 (R0)
 MOVW	R2, #lo_addr(_last_window_column+0)
 MOVT	R2, #hi_addr(_last_window_column+0)
 LDRSH	R1, [R2, #0]
@@ -1374,6 +1427,7 @@ STRH	R1, [R2, #0]
 ;Scroll_main.c,415 :: 		}
 L_ScrollDown73:
 ;Scroll_main.c,416 :: 		}
+; scroll end address is: 0 (R0)
 IT	AL
 BAL	L_ScrollDown69
 L_ScrollDown70:
@@ -1386,9 +1440,12 @@ BX	LR
 _Scroll_Disp:
 ;Scroll_main.c,426 :: 		void Scroll_Disp(unsigned int Apos, char Adir) {
 ; Adir start address is: 4 (R1)
+; Apos start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
 ; Adir end address is: 4 (R1)
+; Apos end address is: 0 (R0)
+; Apos start address is: 0 (R0)
 ; Adir start address is: 4 (R1)
 ;Scroll_main.c,427 :: 		if (Adir == _Up) {
 CMP	R1, #1
@@ -1397,13 +1454,16 @@ BNE	L_Scroll_Disp74
 ; Adir end address is: 4 (R1)
 ;Scroll_main.c,428 :: 		ScrollUP(Apos);
 SXTH	R0, R0
+; Apos end address is: 0 (R0)
 BL	_ScrollUp+0
 ;Scroll_main.c,429 :: 		}
 IT	AL
 BAL	L_Scroll_Disp75
 L_Scroll_Disp74:
 ;Scroll_main.c,431 :: 		ScrollDown(Apos);
+; Apos start address is: 0 (R0)
 SXTH	R0, R0
+; Apos end address is: 0 (R0)
 BL	_ScrollDown+0
 ;Scroll_main.c,432 :: 		}
 L_Scroll_Disp75:
@@ -1415,7 +1475,7 @@ BX	LR
 ; end of _Scroll_Disp
 _ScrollPress:
 ;Scroll_main.c,444 :: 		void ScrollPress(){
-SUB	SP, SP, #8
+SUB	SP, SP, #12
 STR	LR, [SP, #0]
 ;Scroll_main.c,449 :: 		if (Xcoord > 240){
 MOVW	R0, #lo_addr(_Xcoord+0)
@@ -1465,7 +1525,7 @@ IT	LE
 BLE	L_ScrollPress78
 ;Scroll_main.c,457 :: 		dir = 0;
 MOVS	R0, #0
-STRB	R0, [SP, #7]
+STRB	R0, [SP, #8]
 ;Scroll_main.c,458 :: 		}
 L_ScrollPress78:
 ;Scroll_main.c,459 :: 		if (delta < 0){
@@ -1474,7 +1534,7 @@ IT	GE
 BGE	L__ScrollPress109
 ;Scroll_main.c,460 :: 		dir = 1;
 MOVS	R0, #1
-STRB	R0, [SP, #7]
+STRB	R0, [SP, #8]
 ;Scroll_main.c,461 :: 		delta = - delta;
 RSBS	R1, R1, #0
 SXTH	R1, R1
@@ -1513,7 +1573,9 @@ L__ScrollPress110:
 L_ScrollPress81:
 ;Scroll_main.c,467 :: 		for (Scrollcnt = 0; Scrollcnt < delta; Scrollcnt ++){
 ; delta start address is: 4 (R1)
+; Scrollcnt start address is: 0 (R0)
 MOVS	R0, #0
+; Scrollcnt end address is: 0 (R0)
 ; delta end address is: 4 (R1)
 UXTB	R2, R0
 L_ScrollPress82:
@@ -1523,7 +1585,7 @@ CMP	R2, R1
 IT	GE
 BGE	L_ScrollPress83
 ;Scroll_main.c,468 :: 		if (dir == 1)
-LDRB	R0, [SP, #7]
+LDRB	R0, [SP, #8]
 CMP	R0, #1
 IT	NE
 BNE	L_ScrollPress85
@@ -1568,7 +1630,7 @@ L_ScrollPress76:
 ;Scroll_main.c,475 :: 		}
 L_end_ScrollPress:
 LDR	LR, [SP, #0]
-ADD	SP, SP, #8
+ADD	SP, SP, #12
 BX	LR
 ; end of _ScrollPress
 _Process_file:
@@ -1600,11 +1662,15 @@ BX	LR
 ; end of _Process_file
 _Process_folder:
 ;Scroll_main.c,502 :: 		void Process_folder(char File_No){
+; File_No start address is: 0 (R0)
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
+; File_No end address is: 0 (R0)
+; File_No start address is: 0 (R0)
 ;Scroll_main.c,503 :: 		FAT32_ChangeDir(File_List[File_No].FileName);
 MOVS	R1, #14
 MUL	R2, R1, R0
+; File_No end address is: 0 (R0)
 MOVW	R1, #lo_addr(_File_List+0)
 MOVT	R1, #hi_addr(_File_List+0)
 ADDS	R1, R1, R2
@@ -1714,12 +1780,14 @@ BL	_memset+0
 UXTB	R0, R6
 ;Scroll_main.c,540 :: 		while ((MyError != 0) && (MyError != 0xFF)){
 L_Fill_List90:
+; MyError start address is: 0 (R0)
 CMP	R0, #0
 IT	EQ
 BEQ	L__Fill_List119
 CMP	R0, #255
 IT	EQ
 BEQ	L__Fill_List118
+; MyError end address is: 0 (R0)
 L__Fill_List113:
 ;Scroll_main.c,541 :: 		MyError = FAT32_FindNext(&MyDir);
 MOVW	R0, #lo_addr(_MyDir+0)
