@@ -24,6 +24,7 @@ void RTC_Init();
 void Init_SDIO();
 char Init_FAT();
 void Init_GPIO();
+void Init_Ext_Mem();
 //void Timer4_SoftPWM_ISR();
 char ADXL345_Init();
 char ITG3200_Init();
@@ -46,6 +47,7 @@ void main() {
 
   Init_GPIO();
   Init_SDIO();
+  Init_Ext_Mem();
   Init_FAT();
   RTC_Init();
 
@@ -53,8 +55,8 @@ void main() {
     DisableInterrupts();
     Check_TP();
     EnableInterrupts();
-    DrawScreen(&Boot);
-    DrawScreen(&Speedometer_graphics);
+    //DrawScreen(&Boot);
+    //DrawScreen(&Speedometer_graphics);
     Run_logger();
 
   }

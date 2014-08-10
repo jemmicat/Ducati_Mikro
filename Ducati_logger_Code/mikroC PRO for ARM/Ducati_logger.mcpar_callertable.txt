@@ -4,6 +4,8 @@ main
 			GPIO_Digital_Output
 				GPIO_Config
 					GPIO_Clk_Enable
+			GPIO_Digital_Input
+				GPIO_Config
 			I2C1_Init_Advanced
 				I2Cx_Init_Advanced
 					GPIO_Alternate_Function_Enable
@@ -409,6 +411,14 @@ main
 						Write_to_Port
 						Delay_1us
 			TFT_Set_Ext_Buffer
+			TFT_Set_DBC_SSD1963
+				Set_Index
+				Write_Command
+				USBD_USR_DeviceReset
+				TFT_Set_Index
+				TFT_Write_Command
+				TFT_SSD1963_8bit_Set_Index
+				TFT_SSD1963YT_8bit_Write_Command
 		STMPE610_Config
 			STMPE610_SetI2CAddress
 			STMPE610_IsOperational
@@ -766,6 +776,7 @@ main
 			STMPE610_SetSize
 			TFT_Set_Ext_Buffer
 			TFT_Fill_Screen
+			TFT_Set_DBC_SSD1963
 			DrawRoundButton
 				TFT_Set_Brush
 				TFT_Set_Pen
@@ -931,11 +942,11 @@ main
 				ADCx_Init
 					RCC_GetClocksFrequency
 			GPIO_Digital_Input
-				GPIO_Config
 	Init_SDIO
 		SDIO_Reset
 		SDIO_Init
 		Mmc_Set_Interface
+	Init_Ext_Mem
 	Init_FAT
 		FAT32_Init
 			FAT32_Dev_Init
@@ -1027,13 +1038,6 @@ main
 			doSettings
 				BLED_Fade_Out
 					TFT_Set_DBC_SSD1963
-						Set_Index
-						Write_Command
-						USBD_USR_DeviceReset
-						TFT_Set_Index
-						TFT_Write_Command
-						TFT_SSD1963_8bit_Set_Index
-						TFT_SSD1963YT_8bit_Write_Command
 				DrawScreen
 				BLED_Fade_In
 					TFT_Set_DBC_SSD1963
@@ -1255,7 +1259,6 @@ main
 			USBD_USR_DeviceConnected
 			USBD_USR_DeviceDisconnected
 	EnableInterrupts
-	DrawScreen
 	Run_Logger
 		checkRTC
 			RTCC_Read

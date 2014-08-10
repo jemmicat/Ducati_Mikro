@@ -6,7 +6,7 @@ Value=0
 [BUILD_TYPE]
 Value=0
 [ACTIVE_TAB]
-Value=Ducati_logger_main.c
+Value=Add-Ons\Init_routines.c
 [USE_EEPROM]
 Value=0
 [EEPROM_DEFINITION]
@@ -43,13 +43,16 @@ Count=0
 Count=0
 ActiveImageIndex=-1
 [OPENED_FILES]
-Count=6
+Count=9
 File0=Ducati_logger_main.c
 File1=Ducati_logger_events_code.c
 File2=Sensors\ITG3200_main.c
 File3=Sensors\ITG3200_driver.c
 File4=Sensors\HMC5883L_driver.c
 File5=Sensors\HMC5883L_main.c
+File6=Ducati_logger_driver.c
+File7=Ducati_logger_resources.c
+File8=Add-Ons\Init_routines.c
 [EEPROM]
 Count=0
 [ACTIVE_COMMENTS_FILES]

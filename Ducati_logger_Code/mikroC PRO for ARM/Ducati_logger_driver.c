@@ -71,7 +71,7 @@ void Write_to_Data_Lines(unsigned char _hi, unsigned char _lo) {
   GPIOG_ODR = temp | _lo;
 }
 
- void Set_Index(unsigned short index) {
+void Set_Index(unsigned short index) {
   TFT_RS = 0;
   Write_to_Data_Lines(0, index);
   TFT_WR = 0;
@@ -126,6 +126,7 @@ static void InitializeTouchPanel() {
   TFT_Init_SSD1963(480, 272);
   TFT_Set_Ext_Buffer(TFT_Get_Data);
 
+  TFT_Set_DBC_SSD1963(255);
 
   PenDown = 0;
   PressedObject = 0;
@@ -2724,7 +2725,7 @@ static void InitializeObjects() {
   Label6.Order           = 10;
   Label6.Left            = 15;
   Label6.Top             = 235;
-  Label6.Width           = 0;
+  Label6.Width           = 50;
   Label6.Height          = 19;
   Label6.Visible         = 1;
   Label6.Active          = 0;
@@ -3991,6 +3992,7 @@ void DrawScreen(TScreen *aScreen) {
     STMPE610_SetSize(CurrentScreen->Width, CurrentScreen->Height);
     TFT_Set_Ext_Buffer(TFT_Get_Data);
     TFT_Fill_Screen(CurrentScreen->Color);
+    TFT_Set_DBC_SSD1963(255);
     display_width = CurrentScreen->Width;
     display_height = CurrentScreen->Height;
     TFT_BLED           = save_bled;
@@ -4626,16 +4628,20 @@ void Check_TP() {
 }
 
 void Init_MCU() {
-char _cnt;
-  GPIO_Digital_Output(&GPIOB_BASE, _GPIO_PINMASK_6);
-  for (_cnt = 0; _cnt < 20; _cnt++) {
-    GPIOB_ODR.B6 = 0;
-    Delay_ms(1);
-    GPIOB_ODR.B6 = 1;
-    Delay_ms(1);
-  }
+  // Place your code here
 
+  // If bus is busy wait SDA high before initializing I2C module
+  GPIO_Digital_Output(&GPIOB_BASE, _GPIO_PINMASK_6);
+  GPIO_Digital_Input(&GPIOB_BASE, _GPIO_PINMASK_7);
+  GPIOB_ODR.B6 = 1;
+  while (GPIOB_IDR.B7 == 0) {
+    GPIOB_ODR.B6 = 0;
+    Delay_us(10);
+    GPIOB_ODR.B6 = 1;
+    Delay_us(10);
+  }
   I2C1_Init_Advanced(400000, &_GPIO_MODULE_I2C1_PB67);
+
   TFT_Set_Default_Mode();
   GPIO_Digital_Output(&GPIOG_BASE, 0x00FF);
   GPIO_Digital_Output(&GPIOE_BASE, 0xFF00);

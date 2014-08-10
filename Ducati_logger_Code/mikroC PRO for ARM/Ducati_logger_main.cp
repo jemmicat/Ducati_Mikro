@@ -662,18 +662,20 @@ void RTC_Init();
 void Init_SDIO();
 char Init_FAT();
 void Init_GPIO();
+void Init_Ext_Mem();
 
 char ADXL345_Init();
 char ITG3200_Init();
 void doCalibration();
 void Run_logger();
-#line 43 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_main.c"
+#line 44 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_main.c"
 void main() {
 
  Start_TP();
 
  Init_GPIO();
  Init_SDIO();
+ Init_Ext_Mem();
  Init_FAT();
  RTC_Init();
 
@@ -681,8 +683,8 @@ void main() {
  DisableInterrupts();
  Check_TP();
  EnableInterrupts();
- DrawScreen(&Boot);
- DrawScreen(&Speedometer_graphics);
+
+
  Run_logger();
 
  }
