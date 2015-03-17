@@ -493,10 +493,10 @@ MOVW	R1, #0
 BNE	L__parse_decimal149
 MOVS	R1, #1
 L__parse_decimal149:
-UXTB	R1, R1
 ; isneg start address is: 20 (R5)
 UXTB	R5, R1
 ;TinyGPS.c,171 :: 		if (isneg)
+UXTB	R1, R1
 CMP	R1, #0
 IT	EQ
 BEQ	L__parse_decimal126
@@ -1407,14 +1407,14 @@ STR	LR, [SP, #0]
 ; lat1 start address is: 0 (R0)
 VMOV.F32	S10, S0
 VMOV.F32	S0, S1
-VMOV.F32	S7, S2
+VMOV.F32	S6, S2
 ; long2 end address is: 12 (R3)
 ; lat2 end address is: 8 (R2)
 ; long1 end address is: 4 (R1)
 ; lat1 end address is: 0 (R0)
 ; lat1 start address is: 40 (R10)
 ; long1 start address is: 0 (R0)
-; lat2 start address is: 28 (R7)
+; lat2 start address is: 24 (R6)
 ; long2 start address is: 12 (R3)
 ;TinyGPS.c,354 :: 		float delta = (PI/180)*(long1-long2);
 MOVW	R4, #lo_addr(_PI+0)
@@ -1432,8 +1432,8 @@ VMUL.F32	S0, S0, S1
 VMOV.F32	S5, S0
 ;TinyGPS.c,355 :: 		float sdlong = sin(delta);
 BL	_sin+0
-; sdlong start address is: 24 (R6)
-VMOV.F32	S6, S0
+; sdlong start address is: 28 (R7)
+VMOV.F32	S7, S0
 ;TinyGPS.c,356 :: 		float cdlong = cos(delta);
 VMOV.F32	S0, S5
 ; delta end address is: 20 (R5)
@@ -1452,43 +1452,37 @@ BL	_cos+0
 ; clat1 start address is: 40 (R10)
 VMOV.F32	S10, S0
 ;TinyGPS.c,359 :: 		float slat2 = sin(lat2);
-VMOV.F32	S0, S7
+VMOV.F32	S0, S6
 BL	_sin+0
 ; slat2 start address is: 44 (R11)
 VMOV.F32	S11, S0
 ;TinyGPS.c,360 :: 		float clat2 = cos(lat2);
-VMOV.F32	S0, S7
-; lat2 end address is: 28 (R7)
+VMOV.F32	S0, S6
+; lat2 end address is: 24 (R6)
 BL	_cos+0
-; clat2 start address is: 8 (R2)
-VMOV.F32	S2, S0
 ;TinyGPS.c,361 :: 		float denom = (slat1 * slat2) + (clat1 * clat2 * cdlong);
-VMUL.F32	S1, S9, S11
-VMUL.F32	S0, S10, S2
-VMUL.F32	S0, S0, S8
-VADD.F32	S0, S1, S0
+VMUL.F32	S2, S9, S11
+VMUL.F32	S1, S10, S0
+VMUL.F32	S1, S1, S8
+VADD.F32	S1, S2, S1
 ; denom start address is: 16 (R4)
-VMOV.F32	S4, S0
+VMOV.F32	S4, S1
 ;TinyGPS.c,364 :: 		delta = (clat1 * slat2) - (slat1 * clat2 * cdlong);
-VMUL.F32	S1, S10, S11
+VMUL.F32	S2, S10, S11
 ; clat1 end address is: 40 (R10)
 ; slat2 end address is: 44 (R11)
-VMUL.F32	S0, S9, S2
+VMUL.F32	S1, S9, S0
 ; slat1 end address is: 36 (R9)
-VMUL.F32	S0, S0, S8
+VMUL.F32	S1, S1, S8
 ; cdlong end address is: 32 (R8)
-VSUB.F32	S0, S1, S0
+VSUB.F32	S1, S2, S1
 ;TinyGPS.c,365 :: 		delta = (delta * delta );
-VMUL.F32	S0, S0, S0
-; delta start address is: 4 (R1)
-VMOV.F32	S1, S0
+VMUL.F32	S1, S1, S1
 ;TinyGPS.c,366 :: 		delta += (clat2 * sdlong) * (clat2 * sdlong);
-VMUL.F32	S0, S2, S6
-; sdlong end address is: 24 (R6)
-; clat2 end address is: 8 (R2)
+VMUL.F32	S0, S0, S7
+; sdlong end address is: 28 (R7)
 VMUL.F32	S0, S0, S0
 VADD.F32	S0, S1, S0
-; delta end address is: 4 (R1)
 ;TinyGPS.c,367 :: 		delta = sqrt(delta);
 BL	_sqrt+0
 ;TinyGPS.c,368 :: 		delta = atan2(delta, denom);
@@ -1515,16 +1509,16 @@ STR	LR, [SP, #0]
 ; lat2 start address is: 8 (R2)
 ; long1 start address is: 4 (R1)
 ; lat1 start address is: 0 (R0)
-VMOV.F32	S7, S0
+VMOV.F32	S6, S0
 VMOV.F32	S0, S1
-VMOV.F32	S6, S2
+VMOV.F32	S7, S2
 ; long2 end address is: 12 (R3)
 ; lat2 end address is: 8 (R2)
 ; long1 end address is: 4 (R1)
 ; lat1 end address is: 0 (R0)
-; lat1 start address is: 28 (R7)
+; lat1 start address is: 24 (R6)
 ; long1 start address is: 0 (R0)
-; lat2 start address is: 24 (R6)
+; lat2 start address is: 28 (R7)
 ; long2 start address is: 12 (R3)
 ;TinyGPS.c,378 :: 		float dlon = (PI/180)*(long2-long1);
 MOVW	R4, #lo_addr(_PI+0)
@@ -1543,17 +1537,17 @@ VMOV.F32	S9, S0
 ;TinyGPS.c,379 :: 		float a1 = sin(dlon) * cos(lat2);
 BL	_sin+0
 VSTR	#1, S0, [SP, #4]
-VMOV.F32	S0, S6
+VMOV.F32	S0, S7
 BL	_cos+0
 VLDR	#1, S1, [SP, #4]
 VMUL.F32	S0, S1, S0
 ; a1 start address is: 32 (R8)
 VMOV.F32	S8, S0
 ;TinyGPS.c,380 :: 		float a2 = sin(lat1) * cos(lat2) * cos(dlon);
-VMOV.F32	S0, S7
+VMOV.F32	S0, S6
 BL	_sin+0
 VSTR	#1, S0, [SP, #4]
-VMOV.F32	S0, S6
+VMOV.F32	S0, S7
 BL	_cos+0
 VLDR	#1, S1, [SP, #4]
 VMUL.F32	S0, S1, S0
@@ -1562,9 +1556,9 @@ VMOV.F32	S0, S9
 ; dlon end address is: 36 (R9)
 BL	_cos+0
 VLDR	#1, S1, [SP, #4]
-VMUL.F32	S0, S1, S0
+VMUL.F32	S1, S1, S0
 ; a2 start address is: 36 (R9)
-VMOV.F32	S9, S0
+VMOV.F32	S9, S1
 ;TinyGPS.c,381 :: 		float degrees = (180/PI)*(a2);
 MOVW	R6, #lo_addr(_PI+0)
 MOVT	R6, #hi_addr(_PI+0)
@@ -1573,7 +1567,7 @@ MOVS	R4, #180
 UDIV	R4, R4, R5
 VMOV	S0, R4
 VCVT.F32	#0, S0, S0
-VMUL.F32	S0, S0, S9
+VMUL.F32	S0, S0, S1
 ; degrees start address is: 40 (R10)
 VMOV.F32	S10, S0
 ;TinyGPS.c,382 :: 		lat1 = (PI/180)*(lat1);
@@ -1581,17 +1575,17 @@ MOV	R4, R6
 LDR	R5, [R4, #0]
 MOVS	R4, #180
 UDIV	R4, R5, R4
-VMOV	S1, R4
-VCVT.F32	#0, S1, S1
-VMUL.F32	S0, S1, S7
-; lat1 end address is: 28 (R7)
-; lat1 start address is: 8 (R2)
-VMOV.F32	S2, S0
+VMOV	S0, R4
+VCVT.F32	#0, S0, S0
+VMUL.F32	S1, S0, S6
+; lat1 end address is: 24 (R6)
 ;TinyGPS.c,383 :: 		lat2 = (PI/180)*(lat2);
-VMUL.F32	S6, S1, S6
+VMUL.F32	S0, S0, S7
+; lat2 end address is: 28 (R7)
+; lat2 start address is: 24 (R6)
+VMOV.F32	S6, S0
 ;TinyGPS.c,384 :: 		a2 = cos(lat1) * sin(lat2) - a2;
-VMOV.F32	S0, S2
-; lat1 end address is: 8 (R2)
+VMOV.F32	S0, S1
 BL	_cos+0
 VSTR	#1, S0, [SP, #4]
 VMOV.F32	S0, S6

@@ -1,6 +1,6 @@
 #line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/GPS/TinyGPS.c"
 #line 1 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/gps/tinygps.h"
-#line 1 "c:/users/jemmi/documents/mikroelektronika/mikroc pro for arm/include/stdbool.h"
+#line 1 "c:/users/public/documents/mikroelektronika/mikroc pro for arm/include/stdbool.h"
 
 
 

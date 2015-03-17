@@ -1,5 +1,5 @@
 #line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Scroll.c"
-#line 1 "c:/users/jemmi/documents/mikroelektronika/mikroc pro for arm/include/built_in.h"
+#line 1 "c:/users/public/documents/mikroelektronika/mikroc pro for arm/include/built_in.h"
 #line 25 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Add-Ons/Scroll.c"
 extern sbit sfr TFT_CS;
 

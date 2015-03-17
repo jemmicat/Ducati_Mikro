@@ -770,70 +770,60 @@ CMP	R3, #0
 IT	LE
 BLE	L_Set_Roller26
 ;RTCC_main.c,242 :: 		direction = 1;
-; direction start address is: 4 (R1)
-MOVS	R1, #1
-; direction end address is: 4 (R1)
+MOVS	R3, #1
+STRB	R3, [SP, #12]
 IT	AL
 BAL	L_Set_Roller27
 L_Set_Roller26:
 ;RTCC_main.c,244 :: 		direction = 0;
-; direction start address is: 4 (R1)
-MOVS	R1, #0
+MOVS	R3, #0
+STRB	R3, [SP, #12]
 ;RTCC_main.c,245 :: 		temp = -temp;
 RSBS	R4, R4, #0
 SXTH	R4, R4
-; direction end address is: 4 (R1)
 ; temp end address is: 16 (R4)
 ;RTCC_main.c,246 :: 		}
 L_Set_Roller27:
 ;RTCC_main.c,247 :: 		while (temp > step){
 ; temp start address is: 16 (R4)
-; direction start address is: 4 (R1)
-STRB	R1, [SP, #4]
-; Roller end address is: 0 (R0)
 ; step end address is: 8 (R2)
-; direction end address is: 4 (R1)
+; Roller end address is: 0 (R0)
 ; temp end address is: 16 (R4)
-UXTB	R1, R2
-MOV	R2, R0
-LDRB	R0, [SP, #4]
+SXTH	R1, R4
 L_Set_Roller28:
-; direction start address is: 0 (R0)
-; temp start address is: 16 (R4)
-; step start address is: 4 (R1)
-; Roller start address is: 8 (R2)
-CMP	R4, R1
+; temp start address is: 4 (R1)
+; step start address is: 8 (R2)
+; Roller start address is: 0 (R0)
+CMP	R1, R2
 IT	LE
 BLE	L_Set_Roller29
 ;RTCC_main.c,248 :: 		Roll_Roller(Roller, direction, step);
-STR	R2, [SP, #4]
-STRB	R1, [SP, #8]
-STRH	R4, [SP, #10]
-STRB	R0, [SP, #12]
-STRB	R0, [SP, #13]
-MOV	R0, R2
-UXTB	R2, R1
-LDRB	R1, [SP, #13]
+STR	R0, [SP, #4]
+STRB	R2, [SP, #8]
+STRH	R1, [SP, #10]
+LDRB	R1, [SP, #12]
 BL	_Roll_Roller+0
-LDRB	R0, [SP, #12]
-LDRSH	R4, [SP, #10]
-LDRB	R1, [SP, #8]
-LDR	R2, [SP, #4]
+LDRSH	R1, [SP, #10]
+LDRB	R2, [SP, #8]
+LDR	R0, [SP, #4]
 ;RTCC_main.c,249 :: 		temp -= step;
-SUB	R4, R4, R1
-SXTH	R4, R4
+SUB	R3, R1, R2
+; temp end address is: 4 (R1)
+; temp start address is: 16 (R4)
+SXTH	R4, R3
 ;RTCC_main.c,250 :: 		}
-; step end address is: 4 (R1)
+; step end address is: 8 (R2)
+; temp end address is: 16 (R4)
+SXTH	R1, R4
 IT	AL
 BAL	L_Set_Roller28
 L_Set_Roller29:
 ;RTCC_main.c,251 :: 		Roll_Roller(Roller, direction, temp);
-UXTB	R1, R0
-; temp end address is: 16 (R4)
-MOV	R0, R2
-; direction end address is: 0 (R0)
-UXTB	R2, R4
-; Roller end address is: 8 (R2)
+; temp start address is: 4 (R1)
+UXTB	R2, R1
+; temp end address is: 4 (R1)
+LDRB	R1, [SP, #12]
+; Roller end address is: 0 (R0)
 BL	_Roll_Roller+0
 ;RTCC_main.c,252 :: 		}
 L_end_Set_Roller:
@@ -1003,7 +993,7 @@ MOVW	R0, #lo_addr(_Hour1Roll+18)
 MOVT	R0, #hi_addr(_Hour1Roll+18)
 STRH	R1, [R0, #0]
 ;RTCC_main.c,293 :: 		Hour1Roll.Picture_Name = stripe_black_bmp;
-MOVW	R1, #39042
+MOVW	R1, #60300
 MOVT	R1, #61
 MOVW	R0, #lo_addr(_Hour1Roll+12)
 MOVT	R0, #hi_addr(_Hour1Roll+12)
@@ -1051,7 +1041,7 @@ MOVW	R0, #lo_addr(_Hour2Roll+18)
 MOVT	R0, #hi_addr(_Hour2Roll+18)
 STRH	R1, [R0, #0]
 ;RTCC_main.c,303 :: 		Hour2Roll.Picture_Name = stripe_black_bmp;
-MOVW	R1, #39042
+MOVW	R1, #60300
 MOVT	R1, #61
 MOVW	R0, #lo_addr(_Hour2Roll+12)
 MOVT	R0, #hi_addr(_Hour2Roll+12)
@@ -1099,7 +1089,7 @@ MOVW	R0, #lo_addr(_Minute1Roll+18)
 MOVT	R0, #hi_addr(_Minute1Roll+18)
 STRH	R1, [R0, #0]
 ;RTCC_main.c,313 :: 		Minute1Roll.Picture_Name = stripe_black_bmp;
-MOVW	R1, #39042
+MOVW	R1, #60300
 MOVT	R1, #61
 MOVW	R0, #lo_addr(_Minute1Roll+12)
 MOVT	R0, #hi_addr(_Minute1Roll+12)
@@ -1147,7 +1137,7 @@ MOVW	R0, #lo_addr(_Minute2Roll+18)
 MOVT	R0, #hi_addr(_Minute2Roll+18)
 STRH	R1, [R0, #0]
 ;RTCC_main.c,323 :: 		Minute2Roll.Picture_Name = stripe_black_bmp;
-MOVW	R1, #39042
+MOVW	R1, #60300
 MOVT	R1, #61
 MOVW	R0, #lo_addr(_Minute2Roll+12)
 MOVT	R0, #hi_addr(_Minute2Roll+12)
@@ -1189,7 +1179,7 @@ MOVW	R0, #lo_addr(_AmPm+8)
 MOVT	R0, #hi_addr(_AmPm+8)
 STRH	R1, [R0, #0]
 ;RTCC_main.c,332 :: 		AmPm.Picture_Name = am_pm_bmp;
-MOVW	R1, #26792
+MOVW	R1, #48050
 MOVT	R1, #62
 MOVW	R0, #lo_addr(_AmPm+12)
 MOVT	R0, #hi_addr(_AmPm+12)

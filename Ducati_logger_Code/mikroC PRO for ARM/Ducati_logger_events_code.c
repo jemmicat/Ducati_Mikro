@@ -239,9 +239,9 @@ void doSettings() {
 
 }
 
-void doAccelerometerTest() {
+void doIMUTest() {
     BLED_Fade_Out();
-    DrawScreen(&Accelerometer_test);
+    DrawScreen(&IMU_test);
     BLED_Fade_In();
     Logger_State = 4;
     ACCEL_Start(&cACCEL_test_status);
@@ -254,28 +254,10 @@ void doGPSTest() {
     //Logger_State = 5;
 }
 
-void doGyroTest() {
-    BLED_Fade_Out();
-    DrawScreen(&Gyro_test);
-    BLED_Fade_In();
-    Logger_State = 5;
-    GYRO_Start(&cGYRO_test_status);
-}
-
-
 void doPressureTest() {
     BLED_Fade_Out();
     DrawScreen(&Pressure_test);
     BLED_Fade_In();
     //Logger_State = 6;
 
-}
-
-void doMagnetTest() {
-    BLED_Fade_Out();
-    DrawScreen(&Magnetometer_test);
-    BLED_Fade_In();
-    Logger_State = 6;
-    MAGNET_Start(&cMAGNET_test_status);
-    
 }
