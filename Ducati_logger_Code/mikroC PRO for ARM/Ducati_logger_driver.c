@@ -123,7 +123,7 @@ unsigned int fpos;
 }
 static void InitializeTouchPanel() {
   TFT_Set_Active(Set_Index, Write_Command, Write_Data);
-  TFT_Init(480, 272);
+  TFT_Init_SSD1963(480, 272);
   TFT_Set_Ext_Buffer(TFT_Get_Data);
 
   TFT_Set_DBC_SSD1963(255);
@@ -484,19 +484,13 @@ char Label29_Caption[2] = "N";
 char ButtonRound1_Caption[10] = "Set Clock";
 
   TButton_Round          ButtonRound2;
-char ButtonRound2_Caption[19] = "Accelerometer Test";
+char ButtonRound2_Caption[9] = "IMU Test";
 
   TButton_Round          ButtonRound3;
 char ButtonRound3_Caption[9] = "GPS Test";
 
-  TButton_Round          ButtonRound4;
-char ButtonRound4_Caption[18] = "Magnetometer Test";
-
   TButton_Round          ButtonRound5;
 char ButtonRound5_Caption[21] = "Pressure Sensor Test";
-
-  TButton_Round          ButtonRound6;
-char ButtonRound6_Caption[10] = "Gyro Test";
 
   TButton_Round          ButtonRound7;
 char ButtonRound7_Caption[22] = "Calibrate Touchscreen";
@@ -510,14 +504,12 @@ char Label30_Caption[9] = "12:56 AM";
   TLabel                 Label73;
 char Label73_Caption[5] = "Done";
 
-  TButton_Round          * const code Screen4_Buttons_Round[7]=
+  TButton_Round          * const code Screen4_Buttons_Round[5]=
          {
          &ButtonRound1,        
          &ButtonRound2,        
          &ButtonRound3,        
-         &ButtonRound4,        
          &ButtonRound5,        
-         &ButtonRound6,        
          &ButtonRound7         
          };
   TLabel                 * const code Screen4_Labels[2]=
@@ -590,13 +582,6 @@ char Label6_Caption[51] = " ";
   TBox                   Box25;
   TLabel                 Label1;
 char Label1_Caption[9] = "MPU 9DOF";
-
-  TLine                  Line3;
-  TLabel                 Label3;
-char Label3_Caption[17] = "mikroElektronika";
-
-  TLabel                 Label4;
-char Label4_Caption[15] = "www.mikroe.com";
 
   TBox                   Box26;
   TLabel                 Label7;
@@ -681,11 +666,9 @@ char Label80_Caption[8] = "[°/sec]";
   TLabel                 Label81;
 char Label81_Caption[4] = "raw";
 
-  TLabel                 * const code Screen6_Labels[29]=
+  TLabel                 * const code Screen6_Labels[27]=
          {
          &Label1,              
-         &Label3,              
-         &Label4,              
          &Label7,              
          &Label46,             
          &Label47,             
@@ -728,10 +711,6 @@ char Label81_Caption[4] = "raw";
          &Box28,               
          &Box29,               
          &Box30                
-         };
-  TLine                  * const code Screen6_Lines[1]=
-         {
-         &Line3                
          };
 
   TScreen                GPS_Test;
@@ -965,7 +944,7 @@ static void InitializeObjects() {
   Settings.Color                     = 0x5AEB;
   Settings.Width                     = 480;
   Settings.Height                    = 272;
-  Settings.Buttons_RoundCount        = 7;
+  Settings.Buttons_RoundCount        = 5;
   Settings.Buttons_Round             = Screen4_Buttons_Round;
   Settings.LabelsCount               = 2;
   Settings.Labels                    = Screen4_Labels;
@@ -979,7 +958,7 @@ static void InitializeObjects() {
   Settings.CBoxesCount               = 1;
   Settings.CBoxes                    = Screen4_CBoxes;
   Settings.LinesCount                = 0;
-  Settings.ObjectsCount              = 13;
+  Settings.ObjectsCount              = 11;
 
   Set_clock.Color                     = 0x0000;
   Set_clock.Width                     = 480;
@@ -1002,7 +981,7 @@ static void InitializeObjects() {
   IMU_test.Width                     = 480;
   IMU_test.Height                    = 272;
   IMU_test.Buttons_RoundCount        = 0;
-  IMU_test.LabelsCount               = 29;
+  IMU_test.LabelsCount               = 27;
   IMU_test.Labels                    = Screen6_Labels;
   IMU_test.ImagesCount               = 1;
   IMU_test.Images                    = Screen6_Images;
@@ -1012,9 +991,8 @@ static void InitializeObjects() {
   IMU_test.BoxesCount                = 9;
   IMU_test.Boxes                     = Screen6_Boxes;
   IMU_test.CBoxesCount               = 0;
-  IMU_test.LinesCount                = 1;
-  IMU_test.Lines                     = Screen6_Lines;
-  IMU_test.ObjectsCount              = 40;
+  IMU_test.LinesCount                = 0;
+  IMU_test.ObjectsCount              = 37;
 
   GPS_Test.Color                     = 0x5AEB;
   GPS_Test.Width                     = 480;
@@ -2309,8 +2287,8 @@ static void InitializeObjects() {
   ButtonRound2.Corner_Radius   = 3;
   ButtonRound2.OnUpPtr         = 0;
   ButtonRound2.OnDownPtr       = 0;
-  ButtonRound2.OnClickPtr      = doAccelerometerTest;
-  ButtonRound2.OnPressPtr      = doAccelerometerTest;
+  ButtonRound2.OnClickPtr      = doIMUTest;
+  ButtonRound2.OnPressPtr      = doIMUTest;
 
   ButtonRound3.OwnerScreen     = &Settings;
   ButtonRound3.Order           = 3;
@@ -2340,36 +2318,8 @@ static void InitializeObjects() {
   ButtonRound3.OnClickPtr      = doGPSTest;
   ButtonRound3.OnPressPtr      = doGPSTest;
 
-  ButtonRound4.OwnerScreen     = &Settings;
-  ButtonRound4.Order           = 4;
-  ButtonRound4.Left            = 52;
-  ButtonRound4.Top             = 208;
-  ButtonRound4.Width           = 164;
-  ButtonRound4.Height          = 48;
-  ButtonRound4.Pen_Width       = 1;
-  ButtonRound4.Pen_Color       = 0x0000;
-  ButtonRound4.Visible         = 1;
-  ButtonRound4.Active          = 1;
-  ButtonRound4.Transparent     = 1;
-  ButtonRound4.Caption         = ButtonRound4_Caption;
-  ButtonRound4.TextAlign       = _taCenter;
-  ButtonRound4.FontName        = Impact13x20_Regular;
-  ButtonRound4.PressColEnabled = 1;
-  ButtonRound4.Font_Color      = 0x0000;
-  ButtonRound4.Gradient        = 1;
-  ButtonRound4.Gradient_Orientation = 0;
-  ButtonRound4.Gradient_Start_Color = 0xFFFF;
-  ButtonRound4.Gradient_End_Color = 0xC618;
-  ButtonRound4.Color           = 0xC618;
-  ButtonRound4.Press_Color     = 0xE71C;
-  ButtonRound4.Corner_Radius   = 3;
-  ButtonRound4.OnUpPtr         = 0;
-  ButtonRound4.OnDownPtr       = 0;
-  ButtonRound4.OnClickPtr      = doMagnetTest;
-  ButtonRound4.OnPressPtr      = doMagnetTest;
-
   ButtonRound5.OwnerScreen     = &Settings;
-  ButtonRound5.Order           = 5;
+  ButtonRound5.Order           = 4;
   ButtonRound5.Left            = 262;
   ButtonRound5.Top             = 208;
   ButtonRound5.Width           = 164;
@@ -2396,36 +2346,8 @@ static void InitializeObjects() {
   ButtonRound5.OnClickPtr      = doPressureTest;
   ButtonRound5.OnPressPtr      = doPressureTest;
 
-  ButtonRound6.OwnerScreen     = &Settings;
-  ButtonRound6.Order           = 6;
-  ButtonRound6.Left            = 52;
-  ButtonRound6.Top             = 134;
-  ButtonRound6.Width           = 164;
-  ButtonRound6.Height          = 48;
-  ButtonRound6.Pen_Width       = 1;
-  ButtonRound6.Pen_Color       = 0x0000;
-  ButtonRound6.Visible         = 1;
-  ButtonRound6.Active          = 1;
-  ButtonRound6.Transparent     = 1;
-  ButtonRound6.Caption         = ButtonRound6_Caption;
-  ButtonRound6.TextAlign       = _taCenter;
-  ButtonRound6.FontName        = Impact13x20_Regular;
-  ButtonRound6.PressColEnabled = 1;
-  ButtonRound6.Font_Color      = 0x0000;
-  ButtonRound6.Gradient        = 1;
-  ButtonRound6.Gradient_Orientation = 0;
-  ButtonRound6.Gradient_Start_Color = 0xFFFF;
-  ButtonRound6.Gradient_End_Color = 0xC618;
-  ButtonRound6.Color           = 0xC618;
-  ButtonRound6.Press_Color     = 0xE71C;
-  ButtonRound6.Corner_Radius   = 3;
-  ButtonRound6.OnUpPtr         = 0;
-  ButtonRound6.OnDownPtr       = 0;
-  ButtonRound6.OnClickPtr      = doGyroTest;
-  ButtonRound6.OnPressPtr      = doGyroTest;
-
   ButtonRound7.OwnerScreen     = &Settings;
-  ButtonRound7.Order           = 7;
+  ButtonRound7.Order           = 5;
   ButtonRound7.Left            = 262;
   ButtonRound7.Top             = 134;
   ButtonRound7.Width           = 164;
@@ -2453,7 +2375,7 @@ static void InitializeObjects() {
   ButtonRound7.OnPressPtr      = doCalibration;
 
   Image48.OwnerScreen     = &Settings;
-  Image48.Order           = 8;
+  Image48.Order           = 6;
   Image48.Left            = 432;
   Image48.Top             = 2;
   Image48.Width           = 44;
@@ -2469,7 +2391,7 @@ static void InitializeObjects() {
   Image48.OnPressPtr      = 0;
 
   Label30.OwnerScreen     = &Settings;
-  Label30.Order           = 9;
+  Label30.Order           = 7;
   Label30.Left            = 365;
   Label30.Top             = 21;
   Label30.Width           = 109;
@@ -2485,7 +2407,7 @@ static void InitializeObjects() {
   Label30.OnPressPtr      = 0;
 
   Box17.OwnerScreen     = &Settings;
-  Box17.Order           = 10;
+  Box17.Order           = 8;
   Box17.Left            = 25;
   Box17.Top             = 15;
   Box17.Width           = 78;
@@ -2508,7 +2430,7 @@ static void InitializeObjects() {
   Box17.OnPressPtr      = 0;
 
   Image51.OwnerScreen     = &Settings;
-  Image51.Order           = 11;
+  Image51.Order           = 9;
   Image51.Left            = 29;
   Image51.Top             = 17;
   Image51.Width           = 22;
@@ -2524,7 +2446,7 @@ static void InitializeObjects() {
   Image51.OnPressPtr      = Image18OnPress;
 
   Label73.OwnerScreen     = &Settings;
-  Label73.Order           = 12;
+  Label73.Order           = 10;
   Label73.Left            = 57;
   Label73.Top             = 17;
   Label73.Width           = 46;
@@ -2745,7 +2667,7 @@ static void InitializeObjects() {
   Label6.Order           = 10;
   Label6.Left            = 15;
   Label6.Top             = 235;
-  Label6.Width           = 50;
+  Label6.Width           = 0;
   Label6.Height          = 19;
   Label6.Visible         = 1;
   Label6.Active          = 0;
@@ -2837,8 +2759,8 @@ static void InitializeObjects() {
 
   Box6.OwnerScreen     = &IMU_test;
   Box6.Order           = 2;
-  Box6.Left            = 140;
-  Box6.Top             = 176;
+  Box6.Left            = 8;
+  Box6.Top             = 150;
   Box6.Width           = 220;
   Box6.Height          = 45;
   Box6.Pen_Width       = 1;
@@ -2860,8 +2782,8 @@ static void InitializeObjects() {
 
   Box24.OwnerScreen     = &IMU_test;
   Box24.Order           = 3;
-  Box24.Left            = 140;
-  Box24.Top             = 121;
+  Box24.Left            = 7;
+  Box24.Top             = 97;
   Box24.Width           = 220;
   Box24.Height          = 45;
   Box24.Pen_Width       = 1;
@@ -2883,8 +2805,8 @@ static void InitializeObjects() {
 
   Box25.OwnerScreen     = &IMU_test;
   Box25.Order           = 4;
-  Box25.Left            = 140;
-  Box25.Top             = 65;
+  Box25.Left            = 8;
+  Box25.Top             = 40;
   Box25.Width           = 220;
   Box25.Height          = 45;
   Box25.Pen_Width       = 1;
@@ -2906,8 +2828,8 @@ static void InitializeObjects() {
 
   Label1.OwnerScreen     = &IMU_test;
   Label1.Order           = 5;
-  Label1.Left            = 176;
-  Label1.Top             = 4;
+  Label1.Left            = 50;
+  Label1.Top             = 3;
   Label1.Width           = 161;
   Label1.Height          = 41;
   Label1.Visible         = 1;
@@ -2920,52 +2842,10 @@ static void InitializeObjects() {
   Label1.OnClickPtr      = 0;
   Label1.OnPressPtr      = 0;
 
-  Line3.OwnerScreen     = &IMU_test;
-  Line3.Order           = 6;
-  Line3.First_Point_X   = 138;
-  Line3.First_Point_Y   = 122;
-  Line3.Second_Point_X  = 362;
-  Line3.Second_Point_Y  = 222;
-  Line3.Visible         = 1;
-  Line3.Pen_Width       = 1;
-  Line3.Color           = 0x0000;
-
-  Label3.OwnerScreen     = &IMU_test;
-  Label3.Order           = 7;
-  Label3.Left            = 140;
-  Label3.Top             = 115;
-  Label3.Width           = 92;
-  Label3.Height          = 14;
-  Label3.Visible         = 1;
-  Label3.Active          = 1;
-  Label3.Caption         = Label3_Caption;
-  Label3.FontName        = Arial11x14_Bold;
-  Label3.Font_Color      = 0x0000;
-  Label3.OnUpPtr         = 0;
-  Label3.OnDownPtr       = 0;
-  Label3.OnClickPtr      = 0;
-  Label3.OnPressPtr      = 0;
-
-  Label4.OwnerScreen     = &IMU_test;
-  Label4.Order           = 8;
-  Label4.Left            = 270;
-  Label4.Top             = 115;
-  Label4.Width           = 93;
-  Label4.Height          = 14;
-  Label4.Visible         = 1;
-  Label4.Active          = 1;
-  Label4.Caption         = Label4_Caption;
-  Label4.FontName        = Arial11x14_Bold;
-  Label4.Font_Color      = 0xF800;
-  Label4.OnUpPtr         = 0;
-  Label4.OnDownPtr       = 0;
-  Label4.OnClickPtr      = 0;
-  Label4.OnPressPtr      = 0;
-
   Box26.OwnerScreen     = &IMU_test;
-  Box26.Order           = 9;
-  Box26.Left            = 140;
-  Box26.Top             = 70;
+  Box26.Order           = 6;
+  Box26.Left            = 7;
+  Box26.Top             = 45;
   Box26.Width           = 42;
   Box26.Height          = 18;
   Box26.Pen_Width       = 1;
@@ -2986,9 +2866,9 @@ static void InitializeObjects() {
   Box26.OnPressPtr      = 0;
 
   Label7.OwnerScreen     = &IMU_test;
-  Label7.Order           = 10;
-  Label7.Left            = 146;
-  Label7.Top             = 72;
+  Label7.Order           = 7;
+  Label7.Left            = 14;
+  Label7.Top             = 47;
   Label7.Width           = 28;
   Label7.Height          = 15;
   Label7.Visible         = 1;
@@ -3002,9 +2882,9 @@ static void InitializeObjects() {
   Label7.OnPressPtr      = 0;
 
   Box27.OwnerScreen     = &IMU_test;
-  Box27.Order           = 11;
-  Box27.Left            = 140;
-  Box27.Top             = 126;
+  Box27.Order           = 8;
+  Box27.Left            = 7;
+  Box27.Top             = 102;
   Box27.Width           = 42;
   Box27.Height          = 18;
   Box27.Pen_Width       = 1;
@@ -3025,9 +2905,9 @@ static void InitializeObjects() {
   Box27.OnPressPtr      = 0;
 
   Label46.OwnerScreen     = &IMU_test;
-  Label46.Order           = 12;
-  Label46.Left            = 148;
-  Label46.Top             = 128;
+  Label46.Order           = 9;
+  Label46.Left            = 15;
+  Label46.Top             = 104;
   Label46.Width           = 23;
   Label46.Height          = 15;
   Label46.Visible         = 1;
@@ -3041,9 +2921,9 @@ static void InitializeObjects() {
   Label46.OnPressPtr      = 0;
 
   Box28.OwnerScreen     = &IMU_test;
-  Box28.Order           = 13;
-  Box28.Left            = 140;
-  Box28.Top             = 181;
+  Box28.Order           = 10;
+  Box28.Left            = 7;
+  Box28.Top             = 155;
   Box28.Width           = 42;
   Box28.Height          = 18;
   Box28.Pen_Width       = 1;
@@ -3064,9 +2944,9 @@ static void InitializeObjects() {
   Box28.OnPressPtr      = 0;
 
   Label47.OwnerScreen     = &IMU_test;
-  Label47.Order           = 14;
-  Label47.Left            = 149;
-  Label47.Top             = 183;
+  Label47.Order           = 11;
+  Label47.Left            = 17;
+  Label47.Top             = 157;
   Label47.Width           = 21;
   Label47.Height          = 15;
   Label47.Visible         = 1;
@@ -3080,9 +2960,9 @@ static void InitializeObjects() {
   Label47.OnPressPtr      = 0;
 
   Box29.OwnerScreen     = &IMU_test;
-  Box29.Order           = 15;
-  Box29.Left            = 140;
-  Box29.Top             = 231;
+  Box29.Order           = 12;
+  Box29.Left            = 8;
+  Box29.Top             = 206;
   Box29.Width           = 220;
   Box29.Height          = 45;
   Box29.Pen_Width       = 1;
@@ -3103,9 +2983,9 @@ static void InitializeObjects() {
   Box29.OnPressPtr      = 0;
 
   Box30.OwnerScreen     = &IMU_test;
-  Box30.Order           = 16;
-  Box30.Left            = 140;
-  Box30.Top             = 236;
+  Box30.Order           = 13;
+  Box30.Left            = 7;
+  Box30.Top             = 211;
   Box30.Width           = 42;
   Box30.Height          = 18;
   Box30.Pen_Width       = 1;
@@ -3126,9 +3006,9 @@ static void InitializeObjects() {
   Box30.OnPressPtr      = 0;
 
   Label48.OwnerScreen     = &IMU_test;
-  Label48.Order           = 17;
-  Label48.Left            = 146;
-  Label48.Top             = 237;
+  Label48.Order           = 14;
+  Label48.Left            = 13;
+  Label48.Top             = 212;
   Label48.Width           = 28;
   Label48.Height          = 15;
   Label48.Visible         = 1;
@@ -3142,9 +3022,9 @@ static void InitializeObjects() {
   Label48.OnPressPtr      = 0;
 
   Label49.OwnerScreen     = &IMU_test;
-  Label49.Order           = 18;
-  Label49.Left            = 317;
-  Label49.Top             = 70;
+  Label49.Order           = 15;
+  Label49.Left            = 184;
+  Label49.Top             = 45;
   Label49.Width           = 10;
   Label49.Height          = 15;
   Label49.Visible         = 1;
@@ -3158,9 +3038,9 @@ static void InitializeObjects() {
   Label49.OnPressPtr      = 0;
 
   Label50.OwnerScreen     = &IMU_test;
-  Label50.Order           = 19;
-  Label50.Left            = 205;
-  Label50.Top             = 70;
+  Label50.Order           = 16;
+  Label50.Left            = 73;
+  Label50.Top             = 45;
   Label50.Width           = 11;
   Label50.Height          = 15;
   Label50.Visible         = 1;
@@ -3174,9 +3054,9 @@ static void InitializeObjects() {
   Label50.OnPressPtr      = 0;
 
   Label51.OwnerScreen     = &IMU_test;
-  Label51.Order           = 20;
-  Label51.Left            = 262;
-  Label51.Top             = 70;
+  Label51.Order           = 17;
+  Label51.Left            = 130;
+  Label51.Top             = 45;
   Label51.Width           = 11;
   Label51.Height          = 15;
   Label51.Visible         = 1;
@@ -3190,9 +3070,9 @@ static void InitializeObjects() {
   Label51.OnPressPtr      = 0;
 
   accelX.OwnerScreen     = &IMU_test;
-  accelX.Order           = 21;
-  accelX.Left            = 192;
-  accelX.Top             = 85;
+  accelX.Order           = 18;
+  accelX.Left            = 59;
+  accelX.Top             = 60;
   accelX.Width           = 32;
   accelX.Height          = 21;
   accelX.Visible         = 1;
@@ -3206,9 +3086,9 @@ static void InitializeObjects() {
   accelX.OnPressPtr      = 0;
 
   accelY.OwnerScreen     = &IMU_test;
-  accelY.Order           = 22;
-  accelY.Left            = 249;
-  accelY.Top             = 85;
+  accelY.Order           = 19;
+  accelY.Left            = 116;
+  accelY.Top             = 60;
   accelY.Width           = 32;
   accelY.Height          = 21;
   accelY.Visible         = 1;
@@ -3222,9 +3102,9 @@ static void InitializeObjects() {
   accelY.OnPressPtr      = 0;
 
   accelZ.OwnerScreen     = &IMU_test;
-  accelZ.Order           = 23;
-  accelZ.Left            = 303;
-  accelZ.Top             = 85;
+  accelZ.Order           = 20;
+  accelZ.Left            = 170;
+  accelZ.Top             = 60;
   accelZ.Width           = 32;
   accelZ.Height          = 21;
   accelZ.Visible         = 1;
@@ -3238,9 +3118,9 @@ static void InitializeObjects() {
   accelZ.OnPressPtr      = 0;
 
   Label52.OwnerScreen     = &IMU_test;
-  Label52.Order           = 24;
-  Label52.Left            = 314;
-  Label52.Top             = 124;
+  Label52.Order           = 21;
+  Label52.Left            = 181;
+  Label52.Top             = 100;
   Label52.Width           = 10;
   Label52.Height          = 15;
   Label52.Visible         = 1;
@@ -3254,9 +3134,9 @@ static void InitializeObjects() {
   Label52.OnPressPtr      = 0;
 
   Label74.OwnerScreen     = &IMU_test;
-  Label74.Order           = 25;
-  Label74.Left            = 204;
-  Label74.Top             = 125;
+  Label74.Order           = 22;
+  Label74.Left            = 70;
+  Label74.Top             = 101;
   Label74.Width           = 11;
   Label74.Height          = 15;
   Label74.Visible         = 1;
@@ -3270,9 +3150,9 @@ static void InitializeObjects() {
   Label74.OnPressPtr      = 0;
 
   Label75.OwnerScreen     = &IMU_test;
-  Label75.Order           = 26;
-  Label75.Left            = 260;
-  Label75.Top             = 125;
+  Label75.Order           = 23;
+  Label75.Left            = 127;
+  Label75.Top             = 101;
   Label75.Width           = 11;
   Label75.Height          = 15;
   Label75.Visible         = 1;
@@ -3286,9 +3166,9 @@ static void InitializeObjects() {
   Label75.OnPressPtr      = 0;
 
   gyroX.OwnerScreen     = &IMU_test;
-  gyroX.Order           = 27;
-  gyroX.Left            = 190;
-  gyroX.Top             = 139;
+  gyroX.Order           = 24;
+  gyroX.Left            = 57;
+  gyroX.Top             = 115;
   gyroX.Width           = 32;
   gyroX.Height          = 21;
   gyroX.Visible         = 1;
@@ -3302,9 +3182,9 @@ static void InitializeObjects() {
   gyroX.OnPressPtr      = 0;
 
   gyroY.OwnerScreen     = &IMU_test;
-  gyroY.Order           = 28;
-  gyroY.Left            = 247;
-  gyroY.Top             = 139;
+  gyroY.Order           = 25;
+  gyroY.Left            = 113;
+  gyroY.Top             = 115;
   gyroY.Width           = 32;
   gyroY.Height          = 21;
   gyroY.Visible         = 1;
@@ -3318,9 +3198,9 @@ static void InitializeObjects() {
   gyroY.OnPressPtr      = 0;
 
   gyroZ.OwnerScreen     = &IMU_test;
-  gyroZ.Order           = 29;
-  gyroZ.Left            = 302;
-  gyroZ.Top             = 139;
+  gyroZ.Order           = 26;
+  gyroZ.Left            = 168;
+  gyroZ.Top             = 115;
   gyroZ.Width           = 32;
   gyroZ.Height          = 21;
   gyroZ.Visible         = 1;
@@ -3334,9 +3214,9 @@ static void InitializeObjects() {
   gyroZ.OnPressPtr      = 0;
 
   lblTemp.OwnerScreen     = &IMU_test;
-  lblTemp.Order           = 30;
-  lblTemp.Left            = 222;
-  lblTemp.Top             = 242;
+  lblTemp.Order           = 27;
+  lblTemp.Left            = 89;
+  lblTemp.Top             = 217;
   lblTemp.Width           = 65;
   lblTemp.Height          = 25;
   lblTemp.Visible         = 1;
@@ -3350,9 +3230,9 @@ static void InitializeObjects() {
   lblTemp.OnPressPtr      = 0;
 
   Label76.OwnerScreen     = &IMU_test;
-  Label76.Order           = 31;
-  Label76.Left            = 314;
-  Label76.Top             = 180;
+  Label76.Order           = 28;
+  Label76.Left            = 182;
+  Label76.Top             = 154;
   Label76.Width           = 10;
   Label76.Height          = 15;
   Label76.Visible         = 1;
@@ -3366,9 +3246,9 @@ static void InitializeObjects() {
   Label76.OnPressPtr      = 0;
 
   Label77.OwnerScreen     = &IMU_test;
-  Label77.Order           = 32;
-  Label77.Left            = 204;
-  Label77.Top             = 181;
+  Label77.Order           = 29;
+  Label77.Left            = 71;
+  Label77.Top             = 155;
   Label77.Width           = 11;
   Label77.Height          = 15;
   Label77.Visible         = 1;
@@ -3382,9 +3262,9 @@ static void InitializeObjects() {
   Label77.OnPressPtr      = 0;
 
   Label78.OwnerScreen     = &IMU_test;
-  Label78.Order           = 33;
-  Label78.Left            = 260;
-  Label78.Top             = 181;
+  Label78.Order           = 30;
+  Label78.Left            = 128;
+  Label78.Top             = 155;
   Label78.Width           = 11;
   Label78.Height          = 15;
   Label78.Visible         = 1;
@@ -3398,9 +3278,9 @@ static void InitializeObjects() {
   Label78.OnPressPtr      = 0;
 
   magX.OwnerScreen     = &IMU_test;
-  magX.Order           = 34;
-  magX.Left            = 190;
-  magX.Top             = 195;
+  magX.Order           = 31;
+  magX.Left            = 57;
+  magX.Top             = 169;
   magX.Width           = 32;
   magX.Height          = 21;
   magX.Visible         = 1;
@@ -3414,9 +3294,9 @@ static void InitializeObjects() {
   magX.OnPressPtr      = 0;
 
   magY.OwnerScreen     = &IMU_test;
-  magY.Order           = 35;
-  magY.Left            = 247;
-  magY.Top             = 195;
+  magY.Order           = 32;
+  magY.Left            = 114;
+  magY.Top             = 169;
   magY.Width           = 32;
   magY.Height          = 21;
   magY.Visible         = 1;
@@ -3430,9 +3310,9 @@ static void InitializeObjects() {
   magY.OnPressPtr      = 0;
 
   magZ.OwnerScreen     = &IMU_test;
-  magZ.Order           = 36;
-  magZ.Left            = 302;
-  magZ.Top             = 195;
+  magZ.Order           = 33;
+  magZ.Left            = 169;
+  magZ.Top             = 169;
   magZ.Width           = 32;
   magZ.Height          = 21;
   magZ.Visible         = 1;
@@ -3446,9 +3326,9 @@ static void InitializeObjects() {
   magZ.OnPressPtr      = 0;
 
   Label79.OwnerScreen     = &IMU_test;
-  Label79.Order           = 37;
-  Label79.Left            = 148;
-  Label79.Top             = 92;
+  Label79.Order           = 34;
+  Label79.Left            = 15;
+  Label79.Top             = 67;
   Label79.Width           = 14;
   Label79.Height          = 15;
   Label79.Visible         = 1;
@@ -3462,9 +3342,9 @@ static void InitializeObjects() {
   Label79.OnPressPtr      = 0;
 
   Label80.OwnerScreen     = &IMU_test;
-  Label80.Order           = 38;
-  Label80.Left            = 144;
-  Label80.Top             = 148;
+  Label80.Order           = 35;
+  Label80.Left            = 11;
+  Label80.Top             = 124;
   Label80.Width           = 35;
   Label80.Height          = 15;
   Label80.Visible         = 1;
@@ -3478,9 +3358,9 @@ static void InitializeObjects() {
   Label80.OnPressPtr      = 0;
 
   Label81.OwnerScreen     = &IMU_test;
-  Label81.Order           = 39;
-  Label81.Left            = 148;
-  Label81.Top             = 202;
+  Label81.Order           = 36;
+  Label81.Left            = 16;
+  Label81.Top             = 176;
   Label81.Width           = 18;
   Label81.Height          = 15;
   Label81.Visible         = 1;
@@ -4327,7 +4207,7 @@ void DrawScreen(TScreen *aScreen) {
     save_bled = TFT_BLED;
     TFT_BLED           = 0;
     TFT_Set_Active(Set_Index, Write_Command, Write_Data);
-    TFT_Init(CurrentScreen->Width, CurrentScreen->Height);
+    TFT_Init_SSD1963(CurrentScreen->Width, CurrentScreen->Height);
     STMPE610_SetSize(CurrentScreen->Width, CurrentScreen->Height);
     TFT_Set_Ext_Buffer(TFT_Get_Data);
     TFT_Fill_Screen(CurrentScreen->Color);

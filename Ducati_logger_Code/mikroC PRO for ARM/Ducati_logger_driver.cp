@@ -335,16 +335,14 @@ extern TCBox Box1;
 extern TButton_Round ButtonRound1;
 extern TButton_Round ButtonRound2;
 extern TButton_Round ButtonRound3;
-extern TButton_Round ButtonRound4;
 extern TButton_Round ButtonRound5;
-extern TButton_Round ButtonRound6;
 extern TButton_Round ButtonRound7;
 extern TImage Image48;
 extern TLabel Label30;
 extern TBox Box17;
 extern TImage Image51;
 extern TLabel Label73;
-extern TButton_Round * const code Screen4_Buttons_Round[7];
+extern TButton_Round * const code Screen4_Buttons_Round[5];
 extern TLabel * const code Screen4_Labels[2];
 extern TImage * const code Screen4_Images[2];
 extern TBox * const code Screen4_Boxes[1];
@@ -375,9 +373,6 @@ extern TBox Box6;
 extern TBox Box24;
 extern TBox Box25;
 extern TLabel Label1;
-extern TLine Line3;
-extern TLabel Label3;
-extern TLabel Label4;
 extern TBox Box26;
 extern TLabel Label7;
 extern TBox Box27;
@@ -409,10 +404,9 @@ extern TLabel magZ;
 extern TLabel Label79;
 extern TLabel Label80;
 extern TLabel Label81;
-extern TLabel * const code Screen6_Labels[29];
+extern TLabel * const code Screen6_Labels[27];
 extern TImage * const code Screen6_Images[1];
 extern TBox * const code Screen6_Boxes[9];
-extern TLine * const code Screen6_Lines[1];
 
 extern TScreen GPS_Test;
 extern TBox Box9;
@@ -476,12 +470,10 @@ void Box3OnPress();
 void Box4OnPress();
 void Box5OnPress();
 void Box8OnClick();
-void doAccelerometerTest();
 void doCalibration();
 void doGPSTest();
-void doGyroTest();
+void doIMUTest();
 void doLog();
-void doMagnetTest();
 void doNextScreen();
 void doPressureTest();
 void doPrevScreen();
@@ -569,9 +561,7 @@ extern const char Box1_Caption[];
 extern char ButtonRound1_Caption[];
 extern char ButtonRound2_Caption[];
 extern char ButtonRound3_Caption[];
-extern char ButtonRound4_Caption[];
 extern char ButtonRound5_Caption[];
-extern char ButtonRound6_Caption[];
 extern char ButtonRound7_Caption[];
 extern char Image48_Caption[];
 extern char Label30_Caption[];
@@ -597,9 +587,6 @@ extern char Box6_Caption[];
 extern char Box24_Caption[];
 extern char Box25_Caption[];
 extern char Label1_Caption[];
-extern char Line3_Caption[];
-extern char Label3_Caption[];
-extern char Label4_Caption[];
 extern char Box26_Caption[];
 extern char Label7_Caption[];
 extern char Box27_Caption[];
@@ -808,7 +795,7 @@ unsigned int fpos;
 }
 static void InitializeTouchPanel() {
  TFT_Set_Active(Set_Index, Write_Command, Write_Data);
- TFT_Init(480, 272);
+ TFT_Init_SSD1963(480, 272);
  TFT_Set_Ext_Buffer(TFT_Get_Data);
 
  TFT_Set_DBC_SSD1963(255);
@@ -923,7 +910,7 @@ void Calibrate() {
  0 ,
  480 ,
  272 ,
-  0x00356418 ,
+  0x00355D0A ,
  1 ,
  1 ,
  0 ,
@@ -1033,7 +1020,7 @@ char ButtonRound8_Caption[4] = "Log";
  0 ,
  480 ,
  272 ,
-  0x0039E7EA ,
+  0x0039E0DC ,
  1 ,
  1 ,
  0 ,
@@ -1169,19 +1156,13 @@ char Label29_Caption[2] = "N";
 char ButtonRound1_Caption[10] = "Set Clock";
 
  TButton_Round ButtonRound2;
-char ButtonRound2_Caption[19] = "Accelerometer Test";
+char ButtonRound2_Caption[9] = "IMU Test";
 
  TButton_Round ButtonRound3;
 char ButtonRound3_Caption[9] = "GPS Test";
 
- TButton_Round ButtonRound4;
-char ButtonRound4_Caption[18] = "Magnetometer Test";
-
  TButton_Round ButtonRound5;
 char ButtonRound5_Caption[21] = "Pressure Sensor Test";
-
- TButton_Round ButtonRound6;
-char ButtonRound6_Caption[10] = "Gyro Test";
 
  TButton_Round ButtonRound7;
 char ButtonRound7_Caption[22] = "Calibrate Touchscreen";
@@ -1195,14 +1176,12 @@ char Label30_Caption[9] = "12:56 AM";
  TLabel Label73;
 char Label73_Caption[5] = "Done";
 
- TButton_Round * const code Screen4_Buttons_Round[7]=
+ TButton_Round * const code Screen4_Buttons_Round[5]=
  {
  &ButtonRound1,
  &ButtonRound2,
  &ButtonRound3,
- &ButtonRound4,
  &ButtonRound5,
- &ButtonRound6,
  &ButtonRound7
  };
  TLabel * const code Screen4_Labels[2]=
@@ -1275,13 +1254,6 @@ char Label6_Caption[51] = " ";
  TBox Box25;
  TLabel Label1;
 char Label1_Caption[9] = "MPU 9DOF";
-
- TLine Line3;
- TLabel Label3;
-char Label3_Caption[17] = "mikroElektronika";
-
- TLabel Label4;
-char Label4_Caption[15] = "www.mikroe.com";
 
  TBox Box26;
  TLabel Label7;
@@ -1366,11 +1338,9 @@ char Label80_Caption[8] = "[°/sec]";
  TLabel Label81;
 char Label81_Caption[4] = "raw";
 
- TLabel * const code Screen6_Labels[29]=
+ TLabel * const code Screen6_Labels[27]=
  {
  &Label1,
- &Label3,
- &Label4,
  &Label7,
  &Label46,
  &Label47,
@@ -1413,10 +1383,6 @@ char Label81_Caption[4] = "raw";
  &Box28,
  &Box29,
  &Box30
- };
- TLine * const code Screen6_Lines[1]=
- {
- &Line3
  };
 
  TScreen GPS_Test;
@@ -1650,7 +1616,7 @@ static void InitializeObjects() {
  Settings.Color = 0x5AEB;
  Settings.Width = 480;
  Settings.Height = 272;
- Settings.Buttons_RoundCount = 7;
+ Settings.Buttons_RoundCount = 5;
  Settings.Buttons_Round = Screen4_Buttons_Round;
  Settings.LabelsCount = 2;
  Settings.Labels = Screen4_Labels;
@@ -1664,7 +1630,7 @@ static void InitializeObjects() {
  Settings.CBoxesCount = 1;
  Settings.CBoxes = Screen4_CBoxes;
  Settings.LinesCount = 0;
- Settings.ObjectsCount = 13;
+ Settings.ObjectsCount = 11;
 
  Set_clock.Color = 0x0000;
  Set_clock.Width = 480;
@@ -1687,7 +1653,7 @@ static void InitializeObjects() {
  IMU_test.Width = 480;
  IMU_test.Height = 272;
  IMU_test.Buttons_RoundCount = 0;
- IMU_test.LabelsCount = 29;
+ IMU_test.LabelsCount = 27;
  IMU_test.Labels = Screen6_Labels;
  IMU_test.ImagesCount = 1;
  IMU_test.Images = Screen6_Images;
@@ -1697,9 +1663,8 @@ static void InitializeObjects() {
  IMU_test.BoxesCount = 9;
  IMU_test.Boxes = Screen6_Boxes;
  IMU_test.CBoxesCount = 0;
- IMU_test.LinesCount = 1;
- IMU_test.Lines = Screen6_Lines;
- IMU_test.ObjectsCount = 40;
+ IMU_test.LinesCount = 0;
+ IMU_test.ObjectsCount = 37;
 
  GPS_Test.Color = 0x5AEB;
  GPS_Test.Width = 480;
@@ -1761,7 +1726,7 @@ static void InitializeObjects() {
  Image1.Height = 263;
  Image1.Picture_Type = 1;
  Image1.Picture_Ratio = 1;
- Image1.Picture_Name =  0x00016D70 ;
+ Image1.Picture_Name =  0x00016662 ;
  Image1.Visible = 1;
  Image1.Active = 1;
  Image1.OnUpPtr = 0;
@@ -1777,7 +1742,7 @@ static void InitializeObjects() {
  Image2.Height = 263;
  Image2.Picture_Type = 1;
  Image2.Picture_Ratio = 1;
- Image2.Picture_Name =  0x00036D14 ;
+ Image2.Picture_Name =  0x00036606 ;
  Image2.Visible = 1;
  Image2.Active = 1;
  Image2.OnUpPtr = 0;
@@ -1793,7 +1758,7 @@ static void InitializeObjects() {
  Image10.Height = 263;
  Image10.Picture_Type = 1;
  Image10.Picture_Ratio = 1;
- Image10.Picture_Name =  0x00056CB8 ;
+ Image10.Picture_Name =  0x000565AA ;
  Image10.Visible = 1;
  Image10.Active = 1;
  Image10.OnUpPtr = 0;
@@ -1809,7 +1774,7 @@ static void InitializeObjects() {
  Image11.Height = 263;
  Image11.Picture_Type = 1;
  Image11.Picture_Ratio = 1;
- Image11.Picture_Name =  0x00076C5C ;
+ Image11.Picture_Name =  0x0007654E ;
  Image11.Visible = 1;
  Image11.Active = 1;
  Image11.OnUpPtr = 0;
@@ -1825,7 +1790,7 @@ static void InitializeObjects() {
  Image12.Height = 263;
  Image12.Picture_Type = 1;
  Image12.Picture_Ratio = 1;
- Image12.Picture_Name =  0x00096C00 ;
+ Image12.Picture_Name =  0x000964F2 ;
  Image12.Visible = 1;
  Image12.Active = 1;
  Image12.OnUpPtr = 0;
@@ -1841,7 +1806,7 @@ static void InitializeObjects() {
  Image16.Height = 263;
  Image16.Picture_Type = 1;
  Image16.Picture_Ratio = 1;
- Image16.Picture_Name =  0x000B6BA4 ;
+ Image16.Picture_Name =  0x000B6496 ;
  Image16.Visible = 1;
  Image16.Active = 1;
  Image16.OnUpPtr = 0;
@@ -1857,7 +1822,7 @@ static void InitializeObjects() {
  Image17.Height = 263;
  Image17.Picture_Type = 1;
  Image17.Picture_Ratio = 1;
- Image17.Picture_Name =  0x000D6B48 ;
+ Image17.Picture_Name =  0x000D643A ;
  Image17.Visible = 1;
  Image17.Active = 1;
  Image17.OnUpPtr = 0;
@@ -1873,7 +1838,7 @@ static void InitializeObjects() {
  Image21.Height = 263;
  Image21.Picture_Type = 1;
  Image21.Picture_Ratio = 1;
- Image21.Picture_Name =  0x000F6AEC ;
+ Image21.Picture_Name =  0x000F63DE ;
  Image21.Visible = 1;
  Image21.Active = 1;
  Image21.OnUpPtr = 0;
@@ -1889,7 +1854,7 @@ static void InitializeObjects() {
  Image22.Height = 263;
  Image22.Picture_Type = 1;
  Image22.Picture_Ratio = 1;
- Image22.Picture_Name =  0x00116A90 ;
+ Image22.Picture_Name =  0x00116382 ;
  Image22.Visible = 1;
  Image22.Active = 1;
  Image22.OnUpPtr = 0;
@@ -1905,7 +1870,7 @@ static void InitializeObjects() {
  Image23.Height = 263;
  Image23.Picture_Type = 1;
  Image23.Picture_Ratio = 1;
- Image23.Picture_Name =  0x00136A34 ;
+ Image23.Picture_Name =  0x00136326 ;
  Image23.Visible = 1;
  Image23.Active = 1;
  Image23.OnUpPtr = 0;
@@ -1921,7 +1886,7 @@ static void InitializeObjects() {
  Image24.Height = 263;
  Image24.Picture_Type = 1;
  Image24.Picture_Ratio = 1;
- Image24.Picture_Name =  0x001569D8 ;
+ Image24.Picture_Name =  0x001562CA ;
  Image24.Visible = 1;
  Image24.Active = 1;
  Image24.OnUpPtr = 0;
@@ -1937,7 +1902,7 @@ static void InitializeObjects() {
  Image25.Height = 263;
  Image25.Picture_Type = 1;
  Image25.Picture_Ratio = 1;
- Image25.Picture_Name =  0x0017697C ;
+ Image25.Picture_Name =  0x0017626E ;
  Image25.Visible = 1;
  Image25.Active = 1;
  Image25.OnUpPtr = 0;
@@ -1953,7 +1918,7 @@ static void InitializeObjects() {
  Image26.Height = 263;
  Image26.Picture_Type = 1;
  Image26.Picture_Ratio = 1;
- Image26.Picture_Name =  0x00196920 ;
+ Image26.Picture_Name =  0x00196212 ;
  Image26.Visible = 1;
  Image26.Active = 1;
  Image26.OnUpPtr = 0;
@@ -1969,7 +1934,7 @@ static void InitializeObjects() {
  Image27.Height = 263;
  Image27.Picture_Type = 1;
  Image27.Picture_Ratio = 1;
- Image27.Picture_Name =  0x001B68C4 ;
+ Image27.Picture_Name =  0x001B61B6 ;
  Image27.Visible = 1;
  Image27.Active = 1;
  Image27.OnUpPtr = 0;
@@ -1985,7 +1950,7 @@ static void InitializeObjects() {
  Image28.Height = 263;
  Image28.Picture_Type = 1;
  Image28.Picture_Ratio = 1;
- Image28.Picture_Name =  0x001D6868 ;
+ Image28.Picture_Name =  0x001D615A ;
  Image28.Visible = 1;
  Image28.Active = 1;
  Image28.OnUpPtr = 0;
@@ -2001,7 +1966,7 @@ static void InitializeObjects() {
  Image29.Height = 263;
  Image29.Picture_Type = 1;
  Image29.Picture_Ratio = 1;
- Image29.Picture_Name =  0x001F680C ;
+ Image29.Picture_Name =  0x001F60FE ;
  Image29.Visible = 1;
  Image29.Active = 1;
  Image29.OnUpPtr = 0;
@@ -2017,7 +1982,7 @@ static void InitializeObjects() {
  Image30.Height = 263;
  Image30.Picture_Type = 1;
  Image30.Picture_Ratio = 1;
- Image30.Picture_Name =  0x002167B0 ;
+ Image30.Picture_Name =  0x002160A2 ;
  Image30.Visible = 1;
  Image30.Active = 1;
  Image30.OnUpPtr = 0;
@@ -2033,7 +1998,7 @@ static void InitializeObjects() {
  Image31.Height = 263;
  Image31.Picture_Type = 1;
  Image31.Picture_Ratio = 1;
- Image31.Picture_Name =  0x00236754 ;
+ Image31.Picture_Name =  0x00236046 ;
  Image31.Visible = 1;
  Image31.Active = 1;
  Image31.OnUpPtr = 0;
@@ -2049,7 +2014,7 @@ static void InitializeObjects() {
  Image32.Height = 263;
  Image32.Picture_Type = 1;
  Image32.Picture_Ratio = 1;
- Image32.Picture_Name =  0x002566F8 ;
+ Image32.Picture_Name =  0x00255FEA ;
  Image32.Visible = 1;
  Image32.Active = 1;
  Image32.OnUpPtr = 0;
@@ -2065,7 +2030,7 @@ static void InitializeObjects() {
  Image33.Height = 263;
  Image33.Picture_Type = 1;
  Image33.Picture_Ratio = 1;
- Image33.Picture_Name =  0x0027669C ;
+ Image33.Picture_Name =  0x00275F8E ;
  Image33.Visible = 1;
  Image33.Active = 1;
  Image33.OnUpPtr = 0;
@@ -2081,7 +2046,7 @@ static void InitializeObjects() {
  Image34.Height = 263;
  Image34.Picture_Type = 1;
  Image34.Picture_Ratio = 1;
- Image34.Picture_Name =  0x00296640 ;
+ Image34.Picture_Name =  0x00295F32 ;
  Image34.Visible = 1;
  Image34.Active = 1;
  Image34.OnUpPtr = 0;
@@ -2097,7 +2062,7 @@ static void InitializeObjects() {
  Image35.Height = 263;
  Image35.Picture_Type = 1;
  Image35.Picture_Ratio = 1;
- Image35.Picture_Name =  0x002B65E4 ;
+ Image35.Picture_Name =  0x002B5ED6 ;
  Image35.Visible = 1;
  Image35.Active = 1;
  Image35.OnUpPtr = 0;
@@ -2113,7 +2078,7 @@ static void InitializeObjects() {
  Image36.Height = 263;
  Image36.Picture_Type = 1;
  Image36.Picture_Ratio = 1;
- Image36.Picture_Name =  0x002D6588 ;
+ Image36.Picture_Name =  0x002D5E7A ;
  Image36.Visible = 1;
  Image36.Active = 1;
  Image36.OnUpPtr = 0;
@@ -2129,7 +2094,7 @@ static void InitializeObjects() {
  Image37.Height = 263;
  Image37.Picture_Type = 1;
  Image37.Picture_Ratio = 1;
- Image37.Picture_Name =  0x002F652C ;
+ Image37.Picture_Name =  0x002F5E1E ;
  Image37.Visible = 1;
  Image37.Active = 1;
  Image37.OnUpPtr = 0;
@@ -2145,7 +2110,7 @@ static void InitializeObjects() {
  Image38.Height = 263;
  Image38.Picture_Type = 1;
  Image38.Picture_Ratio = 1;
- Image38.Picture_Name =  0x003164D0 ;
+ Image38.Picture_Name =  0x00315DC2 ;
  Image38.Visible = 1;
  Image38.Active = 1;
  Image38.OnUpPtr = 0;
@@ -2161,7 +2126,7 @@ static void InitializeObjects() {
  Image39.Height = 263;
  Image39.Picture_Type = 1;
  Image39.Picture_Ratio = 1;
- Image39.Picture_Name =  0x00336474 ;
+ Image39.Picture_Name =  0x00335D66 ;
  Image39.Visible = 1;
  Image39.Active = 1;
  Image39.OnUpPtr = 0;
@@ -2193,7 +2158,7 @@ static void InitializeObjects() {
  Image15.Height = 20;
  Image15.Picture_Type = 0;
  Image15.Picture_Ratio = 1;
- Image15.Picture_Name =  0x0039601E ;
+ Image15.Picture_Name =  0x00395910 ;
  Image15.Visible = 1;
  Image15.Active = 0;
  Image15.OnUpPtr = 0;
@@ -2209,7 +2174,7 @@ static void InitializeObjects() {
  Image3.Height = 50;
  Image3.Picture_Type = 1;
  Image3.Picture_Ratio = 1;
- Image3.Picture_Name =  0x00396704 ;
+ Image3.Picture_Name =  0x00395FF6 ;
  Image3.Visible = 1;
  Image3.Active = 1;
  Image3.OnUpPtr = 0;
@@ -2225,7 +2190,7 @@ static void InitializeObjects() {
  Image4.Height = 50;
  Image4.Picture_Type = 1;
  Image4.Picture_Ratio = 1;
- Image4.Picture_Name =  0x00397A92 ;
+ Image4.Picture_Name =  0x00397384 ;
  Image4.Visible = 1;
  Image4.Active = 1;
  Image4.OnUpPtr = 0;
@@ -2241,7 +2206,7 @@ static void InitializeObjects() {
  Image5.Height = 50;
  Image5.Picture_Type = 1;
  Image5.Picture_Ratio = 1;
- Image5.Picture_Name =  0x00398E20 ;
+ Image5.Picture_Name =  0x00398712 ;
  Image5.Visible = 1;
  Image5.Active = 1;
  Image5.OnUpPtr = 0;
@@ -2257,7 +2222,7 @@ static void InitializeObjects() {
  Image6.Height = 50;
  Image6.Picture_Type = 1;
  Image6.Picture_Ratio = 1;
- Image6.Picture_Name =  0x0039A1AE ;
+ Image6.Picture_Name =  0x00399AA0 ;
  Image6.Visible = 1;
  Image6.Active = 1;
  Image6.OnUpPtr = 0;
@@ -2273,7 +2238,7 @@ static void InitializeObjects() {
  Image7.Height = 50;
  Image7.Picture_Type = 1;
  Image7.Picture_Ratio = 1;
- Image7.Picture_Name =  0x0039B53C ;
+ Image7.Picture_Name =  0x0039AE2E ;
  Image7.Visible = 1;
  Image7.Active = 1;
  Image7.OnUpPtr = 0;
@@ -2289,7 +2254,7 @@ static void InitializeObjects() {
  Image8.Height = 39;
  Image8.Picture_Type = 1;
  Image8.Picture_Ratio = 1;
- Image8.Picture_Name =  0x0039C8CA ;
+ Image8.Picture_Name =  0x0039C1BC ;
  Image8.Visible = 1;
  Image8.Active = 1;
  Image8.OnUpPtr = 0;
@@ -2305,7 +2270,7 @@ static void InitializeObjects() {
  Image9.Height = 39;
  Image9.Picture_Type = 1;
  Image9.Picture_Ratio = 1;
- Image9.Picture_Name =  0x0039D85A ;
+ Image9.Picture_Name =  0x0039D14C ;
  Image9.Visible = 1;
  Image9.Active = 1;
  Image9.OnUpPtr = 0;
@@ -2357,7 +2322,7 @@ static void InitializeObjects() {
  CircleButton1.Transparent = 0;
  CircleButton1.Caption = CircleButton1_Caption;
  CircleButton1.TextAlign = _taCenter;
- CircleButton1.FontName =  0x000162DC ;
+ CircleButton1.FontName =  0x00015BCE ;
  CircleButton1.PressColEnabled = 1;
  CircleButton1.Font_Color = 0x0000;
  CircleButton1.Gradient = 0;
@@ -2552,7 +2517,7 @@ static void InitializeObjects() {
  Image40.Height = 50;
  Image40.Picture_Type = 1;
  Image40.Picture_Ratio = 1;
- Image40.Picture_Name =  0x00396704 ;
+ Image40.Picture_Name =  0x00395FF6 ;
  Image40.Visible = 1;
  Image40.Active = 1;
  Image40.OnUpPtr = 0;
@@ -2568,7 +2533,7 @@ static void InitializeObjects() {
  Image41.Height = 50;
  Image41.Picture_Type = 1;
  Image41.Picture_Ratio = 1;
- Image41.Picture_Name =  0x00398E20 ;
+ Image41.Picture_Name =  0x00398712 ;
  Image41.Visible = 1;
  Image41.Active = 1;
  Image41.OnUpPtr = 0;
@@ -2584,7 +2549,7 @@ static void InitializeObjects() {
  Image42.Height = 50;
  Image42.Picture_Type = 1;
  Image42.Picture_Ratio = 1;
- Image42.Picture_Name =  0x00397A92 ;
+ Image42.Picture_Name =  0x00397384 ;
  Image42.Visible = 1;
  Image42.Active = 1;
  Image42.OnUpPtr = 0;
@@ -2600,7 +2565,7 @@ static void InitializeObjects() {
  Image43.Height = 50;
  Image43.Picture_Type = 1;
  Image43.Picture_Ratio = 1;
- Image43.Picture_Name =  0x0039A1AE ;
+ Image43.Picture_Name =  0x00399AA0 ;
  Image43.Visible = 1;
  Image43.Active = 1;
  Image43.OnUpPtr = 0;
@@ -2616,7 +2581,7 @@ static void InitializeObjects() {
  Image44.Height = 39;
  Image44.Picture_Type = 1;
  Image44.Picture_Ratio = 1;
- Image44.Picture_Name =  0x0039C8CA ;
+ Image44.Picture_Name =  0x0039C1BC ;
  Image44.Visible = 1;
  Image44.Active = 1;
  Image44.OnUpPtr = 0;
@@ -2632,7 +2597,7 @@ static void InitializeObjects() {
  Image45.Height = 39;
  Image45.Picture_Type = 1;
  Image45.Picture_Ratio = 1;
- Image45.Picture_Name =  0x0039D85A ;
+ Image45.Picture_Name =  0x0039D14C ;
  Image45.Visible = 1;
  Image45.Active = 1;
  Image45.OnUpPtr = 0;
@@ -2735,7 +2700,7 @@ static void InitializeObjects() {
  Image46.Height = 50;
  Image46.Picture_Type = 1;
  Image46.Picture_Ratio = 1;
- Image46.Picture_Name =  0x0039B53C ;
+ Image46.Picture_Name =  0x0039AE2E ;
  Image46.Visible = 1;
  Image46.Active = 1;
  Image46.OnUpPtr = 0;
@@ -2811,7 +2776,7 @@ static void InitializeObjects() {
  Image47.Height = 20;
  Image47.Picture_Type = 0;
  Image47.Picture_Ratio = 1;
- Image47.Picture_Name =  0x0039601E ;
+ Image47.Picture_Name =  0x00395910 ;
  Image47.Visible = 1;
  Image47.Active = 0;
  Image47.OnUpPtr = 0;
@@ -2879,7 +2844,7 @@ static void InitializeObjects() {
  CircleButton2.Transparent = 0;
  CircleButton2.Caption = CircleButton2_Caption;
  CircleButton2.TextAlign = _taCenter;
- CircleButton2.FontName =  0x000162DC ;
+ CircleButton2.FontName =  0x00015BCE ;
  CircleButton2.PressColEnabled = 1;
  CircleButton2.Font_Color = 0x0000;
  CircleButton2.Gradient = 0;
@@ -2954,7 +2919,7 @@ static void InitializeObjects() {
  ButtonRound1.Transparent = 1;
  ButtonRound1.Caption = ButtonRound1_Caption;
  ButtonRound1.TextAlign = _taCenter;
- ButtonRound1.FontName =  0x0000E28F ;
+ ButtonRound1.FontName =  0x0000DB81 ;
  ButtonRound1.PressColEnabled = 1;
  ButtonRound1.Font_Color = 0x0000;
  ButtonRound1.Gradient = 1;
@@ -2982,7 +2947,7 @@ static void InitializeObjects() {
  ButtonRound2.Transparent = 1;
  ButtonRound2.Caption = ButtonRound2_Caption;
  ButtonRound2.TextAlign = _taCenter;
- ButtonRound2.FontName =  0x0000E28F ;
+ ButtonRound2.FontName =  0x0000DB81 ;
  ButtonRound2.PressColEnabled = 1;
  ButtonRound2.Font_Color = 0x0000;
  ButtonRound2.Gradient = 1;
@@ -2994,8 +2959,8 @@ static void InitializeObjects() {
  ButtonRound2.Corner_Radius = 3;
  ButtonRound2.OnUpPtr = 0;
  ButtonRound2.OnDownPtr = 0;
- ButtonRound2.OnClickPtr = doAccelerometerTest;
- ButtonRound2.OnPressPtr = doAccelerometerTest;
+ ButtonRound2.OnClickPtr = doIMUTest;
+ ButtonRound2.OnPressPtr = doIMUTest;
 
  ButtonRound3.OwnerScreen = &Settings;
  ButtonRound3.Order = 3;
@@ -3010,7 +2975,7 @@ static void InitializeObjects() {
  ButtonRound3.Transparent = 1;
  ButtonRound3.Caption = ButtonRound3_Caption;
  ButtonRound3.TextAlign = _taCenter;
- ButtonRound3.FontName =  0x0000E28F ;
+ ButtonRound3.FontName =  0x0000DB81 ;
  ButtonRound3.PressColEnabled = 1;
  ButtonRound3.Font_Color = 0x0000;
  ButtonRound3.Gradient = 1;
@@ -3025,36 +2990,8 @@ static void InitializeObjects() {
  ButtonRound3.OnClickPtr = doGPSTest;
  ButtonRound3.OnPressPtr = doGPSTest;
 
- ButtonRound4.OwnerScreen = &Settings;
- ButtonRound4.Order = 4;
- ButtonRound4.Left = 52;
- ButtonRound4.Top = 208;
- ButtonRound4.Width = 164;
- ButtonRound4.Height = 48;
- ButtonRound4.Pen_Width = 1;
- ButtonRound4.Pen_Color = 0x0000;
- ButtonRound4.Visible = 1;
- ButtonRound4.Active = 1;
- ButtonRound4.Transparent = 1;
- ButtonRound4.Caption = ButtonRound4_Caption;
- ButtonRound4.TextAlign = _taCenter;
- ButtonRound4.FontName =  0x0000E28F ;
- ButtonRound4.PressColEnabled = 1;
- ButtonRound4.Font_Color = 0x0000;
- ButtonRound4.Gradient = 1;
- ButtonRound4.Gradient_Orientation = 0;
- ButtonRound4.Gradient_Start_Color = 0xFFFF;
- ButtonRound4.Gradient_End_Color = 0xC618;
- ButtonRound4.Color = 0xC618;
- ButtonRound4.Press_Color = 0xE71C;
- ButtonRound4.Corner_Radius = 3;
- ButtonRound4.OnUpPtr = 0;
- ButtonRound4.OnDownPtr = 0;
- ButtonRound4.OnClickPtr = doMagnetTest;
- ButtonRound4.OnPressPtr = doMagnetTest;
-
  ButtonRound5.OwnerScreen = &Settings;
- ButtonRound5.Order = 5;
+ ButtonRound5.Order = 4;
  ButtonRound5.Left = 262;
  ButtonRound5.Top = 208;
  ButtonRound5.Width = 164;
@@ -3066,7 +3003,7 @@ static void InitializeObjects() {
  ButtonRound5.Transparent = 1;
  ButtonRound5.Caption = ButtonRound5_Caption;
  ButtonRound5.TextAlign = _taCenter;
- ButtonRound5.FontName =  0x0000E28F ;
+ ButtonRound5.FontName =  0x0000DB81 ;
  ButtonRound5.PressColEnabled = 1;
  ButtonRound5.Font_Color = 0x0000;
  ButtonRound5.Gradient = 1;
@@ -3081,36 +3018,8 @@ static void InitializeObjects() {
  ButtonRound5.OnClickPtr = doPressureTest;
  ButtonRound5.OnPressPtr = doPressureTest;
 
- ButtonRound6.OwnerScreen = &Settings;
- ButtonRound6.Order = 6;
- ButtonRound6.Left = 52;
- ButtonRound6.Top = 134;
- ButtonRound6.Width = 164;
- ButtonRound6.Height = 48;
- ButtonRound6.Pen_Width = 1;
- ButtonRound6.Pen_Color = 0x0000;
- ButtonRound6.Visible = 1;
- ButtonRound6.Active = 1;
- ButtonRound6.Transparent = 1;
- ButtonRound6.Caption = ButtonRound6_Caption;
- ButtonRound6.TextAlign = _taCenter;
- ButtonRound6.FontName =  0x0000E28F ;
- ButtonRound6.PressColEnabled = 1;
- ButtonRound6.Font_Color = 0x0000;
- ButtonRound6.Gradient = 1;
- ButtonRound6.Gradient_Orientation = 0;
- ButtonRound6.Gradient_Start_Color = 0xFFFF;
- ButtonRound6.Gradient_End_Color = 0xC618;
- ButtonRound6.Color = 0xC618;
- ButtonRound6.Press_Color = 0xE71C;
- ButtonRound6.Corner_Radius = 3;
- ButtonRound6.OnUpPtr = 0;
- ButtonRound6.OnDownPtr = 0;
- ButtonRound6.OnClickPtr = doGyroTest;
- ButtonRound6.OnPressPtr = doGyroTest;
-
  ButtonRound7.OwnerScreen = &Settings;
- ButtonRound7.Order = 7;
+ ButtonRound7.Order = 5;
  ButtonRound7.Left = 262;
  ButtonRound7.Top = 134;
  ButtonRound7.Width = 164;
@@ -3122,7 +3031,7 @@ static void InitializeObjects() {
  ButtonRound7.Transparent = 1;
  ButtonRound7.Caption = ButtonRound7_Caption;
  ButtonRound7.TextAlign = _taCenter;
- ButtonRound7.FontName =  0x0000E28F ;
+ ButtonRound7.FontName =  0x0000DB81 ;
  ButtonRound7.PressColEnabled = 1;
  ButtonRound7.Font_Color = 0x0000;
  ButtonRound7.Gradient = 1;
@@ -3138,14 +3047,14 @@ static void InitializeObjects() {
  ButtonRound7.OnPressPtr = doCalibration;
 
  Image48.OwnerScreen = &Settings;
- Image48.Order = 8;
+ Image48.Order = 6;
  Image48.Left = 432;
  Image48.Top = 2;
  Image48.Width = 44;
  Image48.Height = 20;
  Image48.Picture_Type = 0;
  Image48.Picture_Ratio = 1;
- Image48.Picture_Name =  0x0039601E ;
+ Image48.Picture_Name =  0x00395910 ;
  Image48.Visible = 1;
  Image48.Active = 0;
  Image48.OnUpPtr = 0;
@@ -3154,7 +3063,7 @@ static void InitializeObjects() {
  Image48.OnPressPtr = 0;
 
  Label30.OwnerScreen = &Settings;
- Label30.Order = 9;
+ Label30.Order = 7;
  Label30.Left = 365;
  Label30.Top = 21;
  Label30.Width = 109;
@@ -3170,7 +3079,7 @@ static void InitializeObjects() {
  Label30.OnPressPtr = 0;
 
  Box17.OwnerScreen = &Settings;
- Box17.Order = 10;
+ Box17.Order = 8;
  Box17.Left = 25;
  Box17.Top = 15;
  Box17.Width = 78;
@@ -3193,14 +3102,14 @@ static void InitializeObjects() {
  Box17.OnPressPtr = 0;
 
  Image51.OwnerScreen = &Settings;
- Image51.Order = 11;
+ Image51.Order = 9;
  Image51.Left = 29;
  Image51.Top = 17;
  Image51.Width = 22;
  Image51.Height = 22;
  Image51.Picture_Type = 0;
  Image51.Picture_Ratio = 1;
- Image51.Picture_Name =  0x003DE3F0 ;
+ Image51.Picture_Name =  0x003DDCE2 ;
  Image51.Visible = 1;
  Image51.Active = 0;
  Image51.OnUpPtr = 0;
@@ -3209,7 +3118,7 @@ static void InitializeObjects() {
  Image51.OnPressPtr = Image18OnPress;
 
  Label73.OwnerScreen = &Settings;
- Label73.Order = 12;
+ Label73.Order = 10;
  Label73.Left = 57;
  Label73.Top = 17;
  Label73.Width = 46;
@@ -3279,7 +3188,7 @@ static void InitializeObjects() {
  Label2.Visible = 1;
  Label2.Active = 1;
  Label2.Caption = Label2_Caption;
- Label2.FontName =  0x000114E5 ;
+ Label2.FontName =  0x00010DD7 ;
  Label2.Font_Color = 0xFFFF;
  Label2.OnUpPtr = 0;
  Label2.OnDownPtr = 0;
@@ -3356,7 +3265,7 @@ static void InitializeObjects() {
  Image18.Height = 22;
  Image18.Picture_Type = 0;
  Image18.Picture_Ratio = 1;
- Image18.Picture_Name =  0x003DE7BE ;
+ Image18.Picture_Name =  0x003DE0B0 ;
  Image18.Visible = 1;
  Image18.Active = 0;
  Image18.OnUpPtr = 0;
@@ -3418,7 +3327,7 @@ static void InitializeObjects() {
  Image19.Height = 740;
  Image19.Picture_Type = 0;
  Image19.Picture_Ratio = 1;
- Image19.Picture_Name =  0x003DEB8C ;
+ Image19.Picture_Name =  0x003DE47E ;
  Image19.Visible = 0;
  Image19.Active = 0;
  Image19.OnUpPtr = 0;
@@ -3430,12 +3339,12 @@ static void InitializeObjects() {
  Label6.Order = 10;
  Label6.Left = 15;
  Label6.Top = 235;
- Label6.Width = 50;
+ Label6.Width = 0;
  Label6.Height = 19;
  Label6.Visible = 1;
  Label6.Active = 0;
  Label6.Caption = Label6_Caption;
- Label6.FontName =  0x0000EC5F ;
+ Label6.FontName =  0x0000E551 ;
  Label6.Font_Color = 0xFFFF;
  Label6.OnUpPtr = 0;
  Label6.OnDownPtr = 0;
@@ -3450,7 +3359,7 @@ static void InitializeObjects() {
  Image20.Height = 151;
  Image20.Picture_Type = 0;
  Image20.Picture_Ratio = 1;
- Image20.Picture_Name =  0x003EBBB2 ;
+ Image20.Picture_Name =  0x003EB4A4 ;
  Image20.Visible = 0;
  Image20.Active = 0;
  Image20.OnUpPtr = 0;
@@ -3512,7 +3421,7 @@ static void InitializeObjects() {
  Image49.Height = 22;
  Image49.Picture_Type = 0;
  Image49.Picture_Ratio = 1;
- Image49.Picture_Name =  0x003F25E4 ;
+ Image49.Picture_Name =  0x003F1ED6 ;
  Image49.Visible = 1;
  Image49.Active = 0;
  Image49.OnUpPtr = 0;
@@ -3522,8 +3431,8 @@ static void InitializeObjects() {
 
  Box6.OwnerScreen = &IMU_test;
  Box6.Order = 2;
- Box6.Left = 140;
- Box6.Top = 176;
+ Box6.Left = 8;
+ Box6.Top = 150;
  Box6.Width = 220;
  Box6.Height = 45;
  Box6.Pen_Width = 1;
@@ -3545,8 +3454,8 @@ static void InitializeObjects() {
 
  Box24.OwnerScreen = &IMU_test;
  Box24.Order = 3;
- Box24.Left = 140;
- Box24.Top = 121;
+ Box24.Left = 7;
+ Box24.Top = 97;
  Box24.Width = 220;
  Box24.Height = 45;
  Box24.Pen_Width = 1;
@@ -3568,8 +3477,8 @@ static void InitializeObjects() {
 
  Box25.OwnerScreen = &IMU_test;
  Box25.Order = 4;
- Box25.Left = 140;
- Box25.Top = 65;
+ Box25.Left = 8;
+ Box25.Top = 40;
  Box25.Width = 220;
  Box25.Height = 45;
  Box25.Pen_Width = 1;
@@ -3591,8 +3500,8 @@ static void InitializeObjects() {
 
  Label1.OwnerScreen = &IMU_test;
  Label1.Order = 5;
- Label1.Left = 176;
- Label1.Top = 4;
+ Label1.Left = 50;
+ Label1.Top = 3;
  Label1.Width = 161;
  Label1.Height = 41;
  Label1.Visible = 1;
@@ -3605,52 +3514,10 @@ static void InitializeObjects() {
  Label1.OnClickPtr = 0;
  Label1.OnPressPtr = 0;
 
- Line3.OwnerScreen = &IMU_test;
- Line3.Order = 6;
- Line3.First_Point_X = 138;
- Line3.First_Point_Y = 122;
- Line3.Second_Point_X = 362;
- Line3.Second_Point_Y = 222;
- Line3.Visible = 1;
- Line3.Pen_Width = 1;
- Line3.Color = 0x0000;
-
- Label3.OwnerScreen = &IMU_test;
- Label3.Order = 7;
- Label3.Left = 140;
- Label3.Top = 115;
- Label3.Width = 92;
- Label3.Height = 14;
- Label3.Visible = 1;
- Label3.Active = 1;
- Label3.Caption = Label3_Caption;
- Label3.FontName =  0x0000DB81 ;
- Label3.Font_Color = 0x0000;
- Label3.OnUpPtr = 0;
- Label3.OnDownPtr = 0;
- Label3.OnClickPtr = 0;
- Label3.OnPressPtr = 0;
-
- Label4.OwnerScreen = &IMU_test;
- Label4.Order = 8;
- Label4.Left = 270;
- Label4.Top = 115;
- Label4.Width = 93;
- Label4.Height = 14;
- Label4.Visible = 1;
- Label4.Active = 1;
- Label4.Caption = Label4_Caption;
- Label4.FontName =  0x0000DB81 ;
- Label4.Font_Color = 0xF800;
- Label4.OnUpPtr = 0;
- Label4.OnDownPtr = 0;
- Label4.OnClickPtr = 0;
- Label4.OnPressPtr = 0;
-
  Box26.OwnerScreen = &IMU_test;
- Box26.Order = 9;
- Box26.Left = 140;
- Box26.Top = 70;
+ Box26.Order = 6;
+ Box26.Left = 7;
+ Box26.Top = 45;
  Box26.Width = 42;
  Box26.Height = 18;
  Box26.Pen_Width = 1;
@@ -3671,15 +3538,15 @@ static void InitializeObjects() {
  Box26.OnPressPtr = 0;
 
  Label7.OwnerScreen = &IMU_test;
- Label7.Order = 10;
- Label7.Left = 146;
- Label7.Top = 72;
+ Label7.Order = 7;
+ Label7.Left = 14;
+ Label7.Top = 47;
  Label7.Width = 28;
  Label7.Height = 15;
  Label7.Visible = 1;
  Label7.Active = 1;
  Label7.Caption = Label7_Caption;
- Label7.FontName =  0x000162DC ;
+ Label7.FontName =  0x00015BCE ;
  Label7.Font_Color = 0xFFFF;
  Label7.OnUpPtr = 0;
  Label7.OnDownPtr = 0;
@@ -3687,9 +3554,9 @@ static void InitializeObjects() {
  Label7.OnPressPtr = 0;
 
  Box27.OwnerScreen = &IMU_test;
- Box27.Order = 11;
- Box27.Left = 140;
- Box27.Top = 126;
+ Box27.Order = 8;
+ Box27.Left = 7;
+ Box27.Top = 102;
  Box27.Width = 42;
  Box27.Height = 18;
  Box27.Pen_Width = 1;
@@ -3710,15 +3577,15 @@ static void InitializeObjects() {
  Box27.OnPressPtr = 0;
 
  Label46.OwnerScreen = &IMU_test;
- Label46.Order = 12;
- Label46.Left = 148;
- Label46.Top = 128;
+ Label46.Order = 9;
+ Label46.Left = 15;
+ Label46.Top = 104;
  Label46.Width = 23;
  Label46.Height = 15;
  Label46.Visible = 1;
  Label46.Active = 1;
  Label46.Caption = Label46_Caption;
- Label46.FontName =  0x000162DC ;
+ Label46.FontName =  0x00015BCE ;
  Label46.Font_Color = 0xFFFF;
  Label46.OnUpPtr = 0;
  Label46.OnDownPtr = 0;
@@ -3726,9 +3593,9 @@ static void InitializeObjects() {
  Label46.OnPressPtr = 0;
 
  Box28.OwnerScreen = &IMU_test;
- Box28.Order = 13;
- Box28.Left = 140;
- Box28.Top = 181;
+ Box28.Order = 10;
+ Box28.Left = 7;
+ Box28.Top = 155;
  Box28.Width = 42;
  Box28.Height = 18;
  Box28.Pen_Width = 1;
@@ -3749,15 +3616,15 @@ static void InitializeObjects() {
  Box28.OnPressPtr = 0;
 
  Label47.OwnerScreen = &IMU_test;
- Label47.Order = 14;
- Label47.Left = 149;
- Label47.Top = 183;
+ Label47.Order = 11;
+ Label47.Left = 17;
+ Label47.Top = 157;
  Label47.Width = 21;
  Label47.Height = 15;
  Label47.Visible = 1;
  Label47.Active = 1;
  Label47.Caption = Label47_Caption;
- Label47.FontName =  0x000162DC ;
+ Label47.FontName =  0x00015BCE ;
  Label47.Font_Color = 0xFFFF;
  Label47.OnUpPtr = 0;
  Label47.OnDownPtr = 0;
@@ -3765,9 +3632,9 @@ static void InitializeObjects() {
  Label47.OnPressPtr = 0;
 
  Box29.OwnerScreen = &IMU_test;
- Box29.Order = 15;
- Box29.Left = 140;
- Box29.Top = 231;
+ Box29.Order = 12;
+ Box29.Left = 8;
+ Box29.Top = 206;
  Box29.Width = 220;
  Box29.Height = 45;
  Box29.Pen_Width = 1;
@@ -3788,9 +3655,9 @@ static void InitializeObjects() {
  Box29.OnPressPtr = 0;
 
  Box30.OwnerScreen = &IMU_test;
- Box30.Order = 16;
- Box30.Left = 140;
- Box30.Top = 236;
+ Box30.Order = 13;
+ Box30.Left = 7;
+ Box30.Top = 211;
  Box30.Width = 42;
  Box30.Height = 18;
  Box30.Pen_Width = 1;
@@ -3811,15 +3678,15 @@ static void InitializeObjects() {
  Box30.OnPressPtr = 0;
 
  Label48.OwnerScreen = &IMU_test;
- Label48.Order = 17;
- Label48.Left = 146;
- Label48.Top = 237;
+ Label48.Order = 14;
+ Label48.Left = 13;
+ Label48.Top = 212;
  Label48.Width = 28;
  Label48.Height = 15;
  Label48.Visible = 1;
  Label48.Active = 1;
  Label48.Caption = Label48_Caption;
- Label48.FontName =  0x000162DC ;
+ Label48.FontName =  0x00015BCE ;
  Label48.Font_Color = 0xFFFF;
  Label48.OnUpPtr = 0;
  Label48.OnDownPtr = 0;
@@ -3827,15 +3694,15 @@ static void InitializeObjects() {
  Label48.OnPressPtr = 0;
 
  Label49.OwnerScreen = &IMU_test;
- Label49.Order = 18;
- Label49.Left = 317;
- Label49.Top = 70;
+ Label49.Order = 15;
+ Label49.Left = 184;
+ Label49.Top = 45;
  Label49.Width = 10;
  Label49.Height = 15;
  Label49.Visible = 1;
  Label49.Active = 1;
  Label49.Caption = Label49_Caption;
- Label49.FontName =  0x000162DC ;
+ Label49.FontName =  0x00015BCE ;
  Label49.Font_Color = 0x0000;
  Label49.OnUpPtr = 0;
  Label49.OnDownPtr = 0;
@@ -3843,15 +3710,15 @@ static void InitializeObjects() {
  Label49.OnPressPtr = 0;
 
  Label50.OwnerScreen = &IMU_test;
- Label50.Order = 19;
- Label50.Left = 205;
- Label50.Top = 70;
+ Label50.Order = 16;
+ Label50.Left = 73;
+ Label50.Top = 45;
  Label50.Width = 11;
  Label50.Height = 15;
  Label50.Visible = 1;
  Label50.Active = 1;
  Label50.Caption = Label50_Caption;
- Label50.FontName =  0x000162DC ;
+ Label50.FontName =  0x00015BCE ;
  Label50.Font_Color = 0x0000;
  Label50.OnUpPtr = 0;
  Label50.OnDownPtr = 0;
@@ -3859,15 +3726,15 @@ static void InitializeObjects() {
  Label50.OnPressPtr = 0;
 
  Label51.OwnerScreen = &IMU_test;
- Label51.Order = 20;
- Label51.Left = 262;
- Label51.Top = 70;
+ Label51.Order = 17;
+ Label51.Left = 130;
+ Label51.Top = 45;
  Label51.Width = 11;
  Label51.Height = 15;
  Label51.Visible = 1;
  Label51.Active = 1;
  Label51.Caption = Label51_Caption;
- Label51.FontName =  0x000162DC ;
+ Label51.FontName =  0x00015BCE ;
  Label51.Font_Color = 0x0000;
  Label51.OnUpPtr = 0;
  Label51.OnDownPtr = 0;
@@ -3875,15 +3742,15 @@ static void InitializeObjects() {
  Label51.OnPressPtr = 0;
 
  accelX.OwnerScreen = &IMU_test;
- accelX.Order = 21;
- accelX.Left = 192;
- accelX.Top = 85;
+ accelX.Order = 18;
+ accelX.Left = 59;
+ accelX.Top = 60;
  accelX.Width = 32;
  accelX.Height = 21;
  accelX.Visible = 1;
  accelX.Active = 1;
  accelX.Caption = accelX_Caption;
- accelX.FontName =  0x000140BD ;
+ accelX.FontName =  0x000139AF ;
  accelX.Font_Color = 0x0000;
  accelX.OnUpPtr = 0;
  accelX.OnDownPtr = 0;
@@ -3891,15 +3758,15 @@ static void InitializeObjects() {
  accelX.OnPressPtr = 0;
 
  accelY.OwnerScreen = &IMU_test;
- accelY.Order = 22;
- accelY.Left = 249;
- accelY.Top = 85;
+ accelY.Order = 19;
+ accelY.Left = 116;
+ accelY.Top = 60;
  accelY.Width = 32;
  accelY.Height = 21;
  accelY.Visible = 1;
  accelY.Active = 1;
  accelY.Caption = accelY_Caption;
- accelY.FontName =  0x000140BD ;
+ accelY.FontName =  0x000139AF ;
  accelY.Font_Color = 0x0000;
  accelY.OnUpPtr = 0;
  accelY.OnDownPtr = 0;
@@ -3907,15 +3774,15 @@ static void InitializeObjects() {
  accelY.OnPressPtr = 0;
 
  accelZ.OwnerScreen = &IMU_test;
- accelZ.Order = 23;
- accelZ.Left = 303;
- accelZ.Top = 85;
+ accelZ.Order = 20;
+ accelZ.Left = 170;
+ accelZ.Top = 60;
  accelZ.Width = 32;
  accelZ.Height = 21;
  accelZ.Visible = 1;
  accelZ.Active = 1;
  accelZ.Caption = accelZ_Caption;
- accelZ.FontName =  0x000140BD ;
+ accelZ.FontName =  0x000139AF ;
  accelZ.Font_Color = 0x0000;
  accelZ.OnUpPtr = 0;
  accelZ.OnDownPtr = 0;
@@ -3923,15 +3790,15 @@ static void InitializeObjects() {
  accelZ.OnPressPtr = 0;
 
  Label52.OwnerScreen = &IMU_test;
- Label52.Order = 24;
- Label52.Left = 314;
- Label52.Top = 124;
+ Label52.Order = 21;
+ Label52.Left = 181;
+ Label52.Top = 100;
  Label52.Width = 10;
  Label52.Height = 15;
  Label52.Visible = 1;
  Label52.Active = 1;
  Label52.Caption = Label52_Caption;
- Label52.FontName =  0x000162DC ;
+ Label52.FontName =  0x00015BCE ;
  Label52.Font_Color = 0x0000;
  Label52.OnUpPtr = 0;
  Label52.OnDownPtr = 0;
@@ -3939,15 +3806,15 @@ static void InitializeObjects() {
  Label52.OnPressPtr = 0;
 
  Label74.OwnerScreen = &IMU_test;
- Label74.Order = 25;
- Label74.Left = 204;
- Label74.Top = 125;
+ Label74.Order = 22;
+ Label74.Left = 70;
+ Label74.Top = 101;
  Label74.Width = 11;
  Label74.Height = 15;
  Label74.Visible = 1;
  Label74.Active = 1;
  Label74.Caption = Label74_Caption;
- Label74.FontName =  0x000162DC ;
+ Label74.FontName =  0x00015BCE ;
  Label74.Font_Color = 0x0000;
  Label74.OnUpPtr = 0;
  Label74.OnDownPtr = 0;
@@ -3955,15 +3822,15 @@ static void InitializeObjects() {
  Label74.OnPressPtr = 0;
 
  Label75.OwnerScreen = &IMU_test;
- Label75.Order = 26;
- Label75.Left = 260;
- Label75.Top = 125;
+ Label75.Order = 23;
+ Label75.Left = 127;
+ Label75.Top = 101;
  Label75.Width = 11;
  Label75.Height = 15;
  Label75.Visible = 1;
  Label75.Active = 1;
  Label75.Caption = Label75_Caption;
- Label75.FontName =  0x000162DC ;
+ Label75.FontName =  0x00015BCE ;
  Label75.Font_Color = 0x0000;
  Label75.OnUpPtr = 0;
  Label75.OnDownPtr = 0;
@@ -3971,15 +3838,15 @@ static void InitializeObjects() {
  Label75.OnPressPtr = 0;
 
  gyroX.OwnerScreen = &IMU_test;
- gyroX.Order = 27;
- gyroX.Left = 190;
- gyroX.Top = 139;
+ gyroX.Order = 24;
+ gyroX.Left = 57;
+ gyroX.Top = 115;
  gyroX.Width = 32;
  gyroX.Height = 21;
  gyroX.Visible = 1;
  gyroX.Active = 1;
  gyroX.Caption = gyroX_Caption;
- gyroX.FontName =  0x000140BD ;
+ gyroX.FontName =  0x000139AF ;
  gyroX.Font_Color = 0x0000;
  gyroX.OnUpPtr = 0;
  gyroX.OnDownPtr = 0;
@@ -3987,15 +3854,15 @@ static void InitializeObjects() {
  gyroX.OnPressPtr = 0;
 
  gyroY.OwnerScreen = &IMU_test;
- gyroY.Order = 28;
- gyroY.Left = 247;
- gyroY.Top = 139;
+ gyroY.Order = 25;
+ gyroY.Left = 113;
+ gyroY.Top = 115;
  gyroY.Width = 32;
  gyroY.Height = 21;
  gyroY.Visible = 1;
  gyroY.Active = 1;
  gyroY.Caption = gyroY_Caption;
- gyroY.FontName =  0x000140BD ;
+ gyroY.FontName =  0x000139AF ;
  gyroY.Font_Color = 0x0000;
  gyroY.OnUpPtr = 0;
  gyroY.OnDownPtr = 0;
@@ -4003,15 +3870,15 @@ static void InitializeObjects() {
  gyroY.OnPressPtr = 0;
 
  gyroZ.OwnerScreen = &IMU_test;
- gyroZ.Order = 29;
- gyroZ.Left = 302;
- gyroZ.Top = 139;
+ gyroZ.Order = 26;
+ gyroZ.Left = 168;
+ gyroZ.Top = 115;
  gyroZ.Width = 32;
  gyroZ.Height = 21;
  gyroZ.Visible = 1;
  gyroZ.Active = 1;
  gyroZ.Caption = gyroZ_Caption;
- gyroZ.FontName =  0x000140BD ;
+ gyroZ.FontName =  0x000139AF ;
  gyroZ.Font_Color = 0x0000;
  gyroZ.OnUpPtr = 0;
  gyroZ.OnDownPtr = 0;
@@ -4019,15 +3886,15 @@ static void InitializeObjects() {
  gyroZ.OnPressPtr = 0;
 
  lblTemp.OwnerScreen = &IMU_test;
- lblTemp.Order = 30;
- lblTemp.Left = 222;
- lblTemp.Top = 242;
+ lblTemp.Order = 27;
+ lblTemp.Left = 89;
+ lblTemp.Top = 217;
  lblTemp.Width = 65;
  lblTemp.Height = 25;
  lblTemp.Visible = 1;
  lblTemp.Active = 1;
  lblTemp.Caption = lblTemp_Caption;
- lblTemp.FontName =  0x00014B79 ;
+ lblTemp.FontName =  0x0001446B ;
  lblTemp.Font_Color = 0x0000;
  lblTemp.OnUpPtr = 0;
  lblTemp.OnDownPtr = 0;
@@ -4035,15 +3902,15 @@ static void InitializeObjects() {
  lblTemp.OnPressPtr = 0;
 
  Label76.OwnerScreen = &IMU_test;
- Label76.Order = 31;
- Label76.Left = 314;
- Label76.Top = 180;
+ Label76.Order = 28;
+ Label76.Left = 182;
+ Label76.Top = 154;
  Label76.Width = 10;
  Label76.Height = 15;
  Label76.Visible = 1;
  Label76.Active = 1;
  Label76.Caption = Label76_Caption;
- Label76.FontName =  0x000162DC ;
+ Label76.FontName =  0x00015BCE ;
  Label76.Font_Color = 0x0000;
  Label76.OnUpPtr = 0;
  Label76.OnDownPtr = 0;
@@ -4051,15 +3918,15 @@ static void InitializeObjects() {
  Label76.OnPressPtr = 0;
 
  Label77.OwnerScreen = &IMU_test;
- Label77.Order = 32;
- Label77.Left = 204;
- Label77.Top = 181;
+ Label77.Order = 29;
+ Label77.Left = 71;
+ Label77.Top = 155;
  Label77.Width = 11;
  Label77.Height = 15;
  Label77.Visible = 1;
  Label77.Active = 1;
  Label77.Caption = Label77_Caption;
- Label77.FontName =  0x000162DC ;
+ Label77.FontName =  0x00015BCE ;
  Label77.Font_Color = 0x0000;
  Label77.OnUpPtr = 0;
  Label77.OnDownPtr = 0;
@@ -4067,15 +3934,15 @@ static void InitializeObjects() {
  Label77.OnPressPtr = 0;
 
  Label78.OwnerScreen = &IMU_test;
- Label78.Order = 33;
- Label78.Left = 260;
- Label78.Top = 181;
+ Label78.Order = 30;
+ Label78.Left = 128;
+ Label78.Top = 155;
  Label78.Width = 11;
  Label78.Height = 15;
  Label78.Visible = 1;
  Label78.Active = 1;
  Label78.Caption = Label78_Caption;
- Label78.FontName =  0x000162DC ;
+ Label78.FontName =  0x00015BCE ;
  Label78.Font_Color = 0x0000;
  Label78.OnUpPtr = 0;
  Label78.OnDownPtr = 0;
@@ -4083,15 +3950,15 @@ static void InitializeObjects() {
  Label78.OnPressPtr = 0;
 
  magX.OwnerScreen = &IMU_test;
- magX.Order = 34;
- magX.Left = 190;
- magX.Top = 195;
+ magX.Order = 31;
+ magX.Left = 57;
+ magX.Top = 169;
  magX.Width = 32;
  magX.Height = 21;
  magX.Visible = 1;
  magX.Active = 1;
  magX.Caption = magX_Caption;
- magX.FontName =  0x000140BD ;
+ magX.FontName =  0x000139AF ;
  magX.Font_Color = 0x0000;
  magX.OnUpPtr = 0;
  magX.OnDownPtr = 0;
@@ -4099,15 +3966,15 @@ static void InitializeObjects() {
  magX.OnPressPtr = 0;
 
  magY.OwnerScreen = &IMU_test;
- magY.Order = 35;
- magY.Left = 247;
- magY.Top = 195;
+ magY.Order = 32;
+ magY.Left = 114;
+ magY.Top = 169;
  magY.Width = 32;
  magY.Height = 21;
  magY.Visible = 1;
  magY.Active = 1;
  magY.Caption = magY_Caption;
- magY.FontName =  0x000140BD ;
+ magY.FontName =  0x000139AF ;
  magY.Font_Color = 0x0000;
  magY.OnUpPtr = 0;
  magY.OnDownPtr = 0;
@@ -4115,15 +3982,15 @@ static void InitializeObjects() {
  magY.OnPressPtr = 0;
 
  magZ.OwnerScreen = &IMU_test;
- magZ.Order = 36;
- magZ.Left = 302;
- magZ.Top = 195;
+ magZ.Order = 33;
+ magZ.Left = 169;
+ magZ.Top = 169;
  magZ.Width = 32;
  magZ.Height = 21;
  magZ.Visible = 1;
  magZ.Active = 1;
  magZ.Caption = magZ_Caption;
- magZ.FontName =  0x000140BD ;
+ magZ.FontName =  0x000139AF ;
  magZ.Font_Color = 0x0000;
  magZ.OnUpPtr = 0;
  magZ.OnDownPtr = 0;
@@ -4131,15 +3998,15 @@ static void InitializeObjects() {
  magZ.OnPressPtr = 0;
 
  Label79.OwnerScreen = &IMU_test;
- Label79.Order = 37;
- Label79.Left = 148;
- Label79.Top = 92;
+ Label79.Order = 34;
+ Label79.Left = 15;
+ Label79.Top = 67;
  Label79.Width = 14;
  Label79.Height = 15;
  Label79.Visible = 1;
  Label79.Active = 1;
  Label79.Caption = Label79_Caption;
- Label79.FontName =  0x000162DC ;
+ Label79.FontName =  0x00015BCE ;
  Label79.Font_Color = 0x0000;
  Label79.OnUpPtr = 0;
  Label79.OnDownPtr = 0;
@@ -4147,15 +4014,15 @@ static void InitializeObjects() {
  Label79.OnPressPtr = 0;
 
  Label80.OwnerScreen = &IMU_test;
- Label80.Order = 38;
- Label80.Left = 144;
- Label80.Top = 148;
+ Label80.Order = 35;
+ Label80.Left = 11;
+ Label80.Top = 124;
  Label80.Width = 35;
  Label80.Height = 15;
  Label80.Visible = 1;
  Label80.Active = 1;
  Label80.Caption = Label80_Caption;
- Label80.FontName =  0x000162DC ;
+ Label80.FontName =  0x00015BCE ;
  Label80.Font_Color = 0x0000;
  Label80.OnUpPtr = 0;
  Label80.OnDownPtr = 0;
@@ -4163,15 +4030,15 @@ static void InitializeObjects() {
  Label80.OnPressPtr = 0;
 
  Label81.OwnerScreen = &IMU_test;
- Label81.Order = 39;
- Label81.Left = 148;
- Label81.Top = 202;
+ Label81.Order = 36;
+ Label81.Left = 16;
+ Label81.Top = 176;
  Label81.Width = 18;
  Label81.Height = 15;
  Label81.Visible = 1;
  Label81.Active = 1;
  Label81.Caption = Label81_Caption;
- Label81.FontName =  0x000162DC ;
+ Label81.FontName =  0x00015BCE ;
  Label81.Font_Color = 0x0000;
  Label81.OnUpPtr = 0;
  Label81.OnDownPtr = 0;
@@ -4232,7 +4099,7 @@ static void InitializeObjects() {
  Image50.Height = 22;
  Image50.Picture_Type = 0;
  Image50.Picture_Ratio = 1;
- Image50.Picture_Name =  0x003DE7BE ;
+ Image50.Picture_Name =  0x003DE0B0 ;
  Image50.Visible = 1;
  Image50.Active = 0;
  Image50.OnUpPtr = 0;
@@ -4630,7 +4497,7 @@ static void InitializeObjects() {
  Image54.Height = 22;
  Image54.Picture_Type = 0;
  Image54.Picture_Ratio = 1;
- Image54.Picture_Name =  0x003F29B2 ;
+ Image54.Picture_Name =  0x003F22A4 ;
  Image54.Visible = 1;
  Image54.Active = 0;
  Image54.OnUpPtr = 0;
@@ -4647,7 +4514,7 @@ static void InitializeObjects() {
  Label38.Visible = 1;
  Label38.Active = 0;
  Label38.Caption = Label38_Caption;
- Label38.FontName =  0x00010151 ;
+ Label38.FontName =  0x0000FA43 ;
  Label38.Font_Color = 0xFFFF;
  Label38.OnUpPtr = 0;
  Label38.OnDownPtr = 0;
@@ -4663,7 +4530,7 @@ static void InitializeObjects() {
  Label39.Visible = 1;
  Label39.Active = 1;
  Label39.Caption = Label39_Caption;
- Label39.FontName =  0x0000F537 ;
+ Label39.FontName =  0x0000EE29 ;
  Label39.Font_Color = 0xF800;
  Label39.OnUpPtr = 0;
  Label39.OnDownPtr = 0;
@@ -4679,7 +4546,7 @@ static void InitializeObjects() {
  Label40.Visible = 1;
  Label40.Active = 1;
  Label40.Caption = Label40_Caption;
- Label40.FontName =  0x0000F537 ;
+ Label40.FontName =  0x0000EE29 ;
  Label40.Font_Color = 0x001F;
  Label40.OnUpPtr = 0;
  Label40.OnDownPtr = 0;
@@ -4695,7 +4562,7 @@ static void InitializeObjects() {
  Label41.Visible = 1;
  Label41.Active = 1;
  Label41.Caption = Label41_Caption;
- Label41.FontName =  0x0000F537 ;
+ Label41.FontName =  0x0000EE29 ;
  Label41.Font_Color = 0x0400;
  Label41.OnUpPtr = 0;
  Label41.OnDownPtr = 0;
@@ -4756,7 +4623,7 @@ static void InitializeObjects() {
  Image55.Height = 22;
  Image55.Picture_Type = 0;
  Image55.Picture_Ratio = 1;
- Image55.Picture_Name =  0x003F29B2 ;
+ Image55.Picture_Name =  0x003F22A4 ;
  Image55.Visible = 1;
  Image55.Active = 0;
  Image55.OnUpPtr = 0;
@@ -4773,7 +4640,7 @@ static void InitializeObjects() {
  Label42.Visible = 1;
  Label42.Active = 0;
  Label42.Caption = Label42_Caption;
- Label42.FontName =  0x00010151 ;
+ Label42.FontName =  0x0000FA43 ;
  Label42.Font_Color = 0xFFFF;
  Label42.OnUpPtr = 0;
  Label42.OnDownPtr = 0;
@@ -4789,7 +4656,7 @@ static void InitializeObjects() {
  Label43.Visible = 1;
  Label43.Active = 1;
  Label43.Caption = Label43_Caption;
- Label43.FontName =  0x0000F537 ;
+ Label43.FontName =  0x0000EE29 ;
  Label43.Font_Color = 0xF800;
  Label43.OnUpPtr = 0;
  Label43.OnDownPtr = 0;
@@ -4805,7 +4672,7 @@ static void InitializeObjects() {
  Label44.Visible = 1;
  Label44.Active = 1;
  Label44.Caption = Label44_Caption;
- Label44.FontName =  0x0000F537 ;
+ Label44.FontName =  0x0000EE29 ;
  Label44.Font_Color = 0x001F;
  Label44.OnUpPtr = 0;
  Label44.OnDownPtr = 0;
@@ -4821,7 +4688,7 @@ static void InitializeObjects() {
  Label45.Visible = 1;
  Label45.Active = 1;
  Label45.Caption = Label45_Caption;
- Label45.FontName =  0x0000F537 ;
+ Label45.FontName =  0x0000EE29 ;
  Label45.Font_Color = 0x0400;
  Label45.OnUpPtr = 0;
  Label45.OnDownPtr = 0;
@@ -4836,7 +4703,7 @@ static char IsInsideObject (unsigned int X, unsigned int Y, unsigned int Left, u
  else
  return 0;
 }
-#line 4167 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_driver.c"
+#line 4047 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_driver.c"
 void DrawRoundButton(TButton_Round *Around_button) {
  if (Around_button->Visible == 1) {
  if (object_pressed == 1) {
@@ -5000,7 +4867,7 @@ void DrawScreen(TScreen *aScreen) {
  save_bled = TFT_BLED;
  TFT_BLED = 0;
  TFT_Set_Active(Set_Index, Write_Command, Write_Data);
- TFT_Init(CurrentScreen->Width, CurrentScreen->Height);
+ TFT_Init_SSD1963(CurrentScreen->Width, CurrentScreen->Height);
  STMPE610_SetSize(CurrentScreen->Width, CurrentScreen->Height);
  TFT_Set_Ext_Buffer(TFT_Get_Data);
  TFT_Fill_Screen(CurrentScreen->Color);

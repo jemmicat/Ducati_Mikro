@@ -17,16 +17,9 @@ void AmPmRun();
 void doAccel();
 void ACCEL_Start(char *test);
 void Accel_Stop();
-void doGYRO();
-void GYRO_Start(char *test);
-void Gyro_Stop();
 void checkPowerM();
-extern char cGYRO_test_status;
 extern char cACCEL_test_status;
-void doMAGNET();
-void MAGNET_Start(char *test);
-void Magnet_Stop();
-extern char cMAGNET_test_status;
+
 
 extern char PenDown;
 extern char Display_Bat_Stat;
@@ -102,20 +95,8 @@ void Run_Logger(){
                 doRTC_Example();
              }; break;                
     case 4 : {
-                 doAccel();
+                 doIMU();
               };   break;                  // Accelerometer Test
-    case 5 : {
-                 doGyro();                      // Gyro Test
-             }; break;
-    case 6 : {
-                 doMagnet();                      // Gyro Test
-             }break;                   //Sensor Calibration
-    case 7 : {                       // Oxygen sensor test
-               //doSlide();
-             }; break;
-    case 8 : {                       // Shift Light Adjust
-               //doTicTacToe();
-             }; break;
   }
 }
 

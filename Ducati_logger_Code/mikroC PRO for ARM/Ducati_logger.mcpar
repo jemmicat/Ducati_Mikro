@@ -6,7 +6,7 @@ Value=0
 [BUILD_TYPE]
 Value=0
 [ACTIVE_TAB]
-Value=Ducati_logger_driver.c
+Value=Add-Ons\Init_routines.c
 [USE_EEPROM]
 Value=0
 [EEPROM_DEFINITION]
@@ -44,8 +44,8 @@ File0=Ducati_logger_main.c
 File1=Ducati_logger_events_code.c
 File2=Ducati_logger_driver.c
 File3=Ducati_logger_resources.c
-File4=Add-Ons\Init_routines.c
-File5=Add-Ons\__Lib_FAT32.h
+File4=Sensors\MPU9150A_I2C.c
+File5=Add-Ons\Init_routines.c
 [EEPROM]
 Count=0
 [ACTIVE_COMMENTS_FILES]

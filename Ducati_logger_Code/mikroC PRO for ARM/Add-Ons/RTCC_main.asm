@@ -993,7 +993,7 @@ MOVW	R0, #lo_addr(_Hour1Roll+18)
 MOVT	R0, #hi_addr(_Hour1Roll+18)
 STRH	R1, [R0, #0]
 ;RTCC_main.c,293 :: 		Hour1Roll.Picture_Name = stripe_black_bmp;
-MOVW	R1, #60300
+MOVW	R1, #58494
 MOVT	R1, #61
 MOVW	R0, #lo_addr(_Hour1Roll+12)
 MOVT	R0, #hi_addr(_Hour1Roll+12)
@@ -1041,7 +1041,7 @@ MOVW	R0, #lo_addr(_Hour2Roll+18)
 MOVT	R0, #hi_addr(_Hour2Roll+18)
 STRH	R1, [R0, #0]
 ;RTCC_main.c,303 :: 		Hour2Roll.Picture_Name = stripe_black_bmp;
-MOVW	R1, #60300
+MOVW	R1, #58494
 MOVT	R1, #61
 MOVW	R0, #lo_addr(_Hour2Roll+12)
 MOVT	R0, #hi_addr(_Hour2Roll+12)
@@ -1089,7 +1089,7 @@ MOVW	R0, #lo_addr(_Minute1Roll+18)
 MOVT	R0, #hi_addr(_Minute1Roll+18)
 STRH	R1, [R0, #0]
 ;RTCC_main.c,313 :: 		Minute1Roll.Picture_Name = stripe_black_bmp;
-MOVW	R1, #60300
+MOVW	R1, #58494
 MOVT	R1, #61
 MOVW	R0, #lo_addr(_Minute1Roll+12)
 MOVT	R0, #hi_addr(_Minute1Roll+12)
@@ -1137,7 +1137,7 @@ MOVW	R0, #lo_addr(_Minute2Roll+18)
 MOVT	R0, #hi_addr(_Minute2Roll+18)
 STRH	R1, [R0, #0]
 ;RTCC_main.c,323 :: 		Minute2Roll.Picture_Name = stripe_black_bmp;
-MOVW	R1, #60300
+MOVW	R1, #58494
 MOVT	R1, #61
 MOVW	R0, #lo_addr(_Minute2Roll+12)
 MOVT	R0, #hi_addr(_Minute2Roll+12)
@@ -1179,7 +1179,7 @@ MOVW	R0, #lo_addr(_AmPm+8)
 MOVT	R0, #hi_addr(_AmPm+8)
 STRH	R1, [R0, #0]
 ;RTCC_main.c,332 :: 		AmPm.Picture_Name = am_pm_bmp;
-MOVW	R1, #48050
+MOVW	R1, #46244
 MOVT	R1, #62
 MOVW	R0, #lo_addr(_AmPm+12)
 MOVT	R0, #hi_addr(_AmPm+12)
