@@ -1,5 +1,5 @@
-#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_main.c"
-#line 1 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
+#line 1 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_main.c"
+#line 1 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/ducati_logger_objects.h"
 typedef enum {_taLeft, _taCenter, _taRight} TTextAlign;
 
 typedef struct Screen TScreen;
@@ -673,18 +673,96 @@ void Start_TP();
 void Process_TP_Press(unsigned int X, unsigned int Y);
 void Process_TP_Up(unsigned int X, unsigned int Y);
 void Process_TP_Down(unsigned int X, unsigned int Y);
-#line 23 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_main.c"
+#line 1 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/sensors/typedefs.h"
+
+typedef struct {
+ int x;
+ int y;
+ int z;
+} tAxisB;
+
+typedef struct {
+ int x;
+ int y;
+ int z;
+} tAxis;
+
+typedef struct {
+ float x;
+ float y;
+ float z;
+} tAxisF;
+
+
+
+typedef struct {
+ tAxis accel;
+ tAxis gyro;
+ tAxis mag;
+ tAxisF calib_accel;
+ tAxisF calib_gyro;
+ tAxisF calib_mag;
+ tAxisF out_accel;
+ tAxisF out_gyro;
+ tAxisF out_mag;
+ tAxisF mag_scale;
+ tAxis mag_off;
+ float temp;
+ float gdt;
+} tSensor;
+#line 1 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/sensors/mpu9150a_i2c.h"
+
+char MPU9150A_Init();
+char MPU9150A_Detect();
+void MPU9150A_Read();
+char MAG_Detect();
+#line 1 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/sensors/imu_processor.h"
+
+void IMU_Update();
+#line 1 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/sensors/ahrs_processor.h"
+void AHRS_Update();
+#line 31 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_main.c"
+sbit MPU9150A_FSY at GPIOC_ODR.B2;
+sbit MPU9150_INT at GPIOE_IDR.B0;
+
+extern unsigned int tmrTicks;
+extern tSensor MPU9150A;
+char txt[32];
+
+
 void RTC_Init();
 void Init_SDIO();
 char Init_FAT();
 void Init_GPIO();
 void Init_Ext_Mem();
-
-char ADXL345_Init();
-char ITG3200_Init();
 void doCalibration();
 void Run_logger();
-#line 44 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Ducati_logger_main.c"
+
+
+void InitTimer2(){
+ RCC_APB1ENR.TIM2EN = 1;
+ TIM2_CR1.CEN = 0;
+ TIM2_PSC = 0;
+ TIM2_ARR = 6000;
+}
+
+void Timer2_interrupt() iv IVT_INT_TIM2 {
+ TIM2_SR.UIF = 0;
+ tmrTicks++;
+}
+
+void Timer2_On(){
+ NVIC_IntEnable(IVT_INT_TIM2);
+ TIM2_DIER.UIE = 1;
+ TIM2_CR1.CEN = 1;
+}
+
+void Timer2_Off() {
+ NVIC_IntDisable(IVT_INT_TIM2);
+ TIM2_DIER.UIE = 0;
+ TIM2_CR1.CEN = 0;
+}
+
 void main() {
 
  Start_TP();
@@ -694,6 +772,17 @@ void main() {
  Init_Ext_Mem();
  Init_FAT();
  RTC_Init();
+
+ I2C2_Init_Advanced(400000, &_GPIO_MODULE_I2C2_PF01);
+ MPU9150A_FSY = 0;
+ MPU9150A_Init();
+ MPU9150A_Detect();
+ MAG_Detect();
+ tmrTicks = 0;
+ initTimer2();
+ Timer2_On();
+ MPU9150A_Read();
+ delay_ms(10);
 
  while (1) {
  DisableInterrupts();

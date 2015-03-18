@@ -18,28 +18,56 @@
 
 #include "Ducati_logger_objects.h"
 
+// --- MPU 9DOF
+#include "typedefs.h"
+#include "MPU9150A_I2C.h"
+#include "IMU_Processor.h"
+#include "AHRS_Processor.h"
+
+#define _AHRS_FILTER
+//or
+//#define _IMU_FILTER
+
+sbit MPU9150A_FSY at GPIOC_ODR.B2;
+sbit MPU9150_INT at GPIOE_IDR.B0;
+
+extern unsigned int tmrTicks;
+extern tSensor MPU9150A;
+char txt[32];
+
 // external declarations
-//void Run_Example();
 void RTC_Init();
 void Init_SDIO();
 char Init_FAT();
 void Init_GPIO();
 void Init_Ext_Mem();
-//void Timer4_SoftPWM_ISR();
-char ADXL345_Init();
-char ITG3200_Init();
 void doCalibration();
 void Run_logger();
 
-//******************************************************************************
-// Timer interrupt - Timer4 (62.5us)
-// Used to drive soft PWM on RGB diode
-//******************************************************************************
-/*void Timer4_interrupt() iv IVT_INT_TIM4{
-  TIM4_SR.UIF = 0;
-  //Enter your code here
-  Timer4_SoftPWM_ISR();
-}*/
+//Timer2: Actual Interrupt Time = 100 us
+void InitTimer2(){
+  RCC_APB1ENR.TIM2EN = 1;
+  TIM2_CR1.CEN = 0;
+  TIM2_PSC = 0;
+  TIM2_ARR = 6000;
+}
+
+void Timer2_interrupt() iv IVT_INT_TIM2 {
+  TIM2_SR.UIF = 0;
+  tmrTicks++;
+}
+
+void Timer2_On(){
+  NVIC_IntEnable(IVT_INT_TIM2);
+  TIM2_DIER.UIE = 1;
+  TIM2_CR1.CEN = 1;
+}
+
+void Timer2_Off() {
+  NVIC_IntDisable(IVT_INT_TIM2);
+  TIM2_DIER.UIE = 0;
+  TIM2_CR1.CEN = 0;
+}
 
 void main() {
 
@@ -50,6 +78,17 @@ void main() {
   Init_Ext_Mem();
   Init_FAT();
   RTC_Init();
+  
+  I2C2_Init_Advanced(400000, &_GPIO_MODULE_I2C2_PF01);
+  MPU9150A_FSY = 0;
+  MPU9150A_Init();
+  MPU9150A_Detect();
+  MAG_Detect();
+  tmrTicks = 0;
+  initTimer2();
+  Timer2_On();
+  MPU9150A_Read(); //initial read
+  delay_ms(10);
 
   while (1) {
     DisableInterrupts();

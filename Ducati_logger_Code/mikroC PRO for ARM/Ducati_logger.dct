@@ -24873,6 +24873,7 @@ initf_bit
 inits
 inits
 inits_bit
+inittimer2
 inmis
 inmis
 inmis_bit
@@ -31127,8 +31128,10 @@ mpsiz9_otg_hs_hcchar6_bit
 mpsiz9_otg_hs_hcchar7_bit
 mpsiz9_otg_hs_hcchar8_bit
 mpsiz9_otg_hs_hcchar9_bit
+mpu9150_int
 mpu9150a
 mpu9150a_detect
+mpu9150a_fsy
 mpu9150a_init
 mpu9150a_read
 mr
@@ -46802,6 +46805,9 @@ timeout
 timeout_bit
 timeout_i2c1_sr1_bit
 timeout_i2c2_sr1_bit
+timer2_interrupt
+timer2_off
+timer2_on
 tinygps_init
 tjtie
 tjtie
@@ -48334,6 +48340,7 @@ txrq_can1_ti1r_bit
 txrq_can1_ti2r_bit
 txrq_can2_ti1r_bit
 txrq_can2_ti2r_bit
+txt
 txthrlen
 txthrlen0
 txthrlen0_bit

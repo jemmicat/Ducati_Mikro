@@ -1,5 +1,5 @@
-#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/IMU_Processor.c"
-#line 1 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/sensors/typedefs.h"
+#line 1 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/IMU_Processor.c"
+#line 1 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/sensors/typedefs.h"
 
 typedef struct {
  int x;
@@ -36,8 +36,8 @@ typedef struct {
  float temp;
  float gdt;
 } tSensor;
-#line 1 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/sensors/globals.h"
-#line 11 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/IMU_Processor.c"
+#line 1 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/sensors/globals.h"
+#line 11 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/IMU_Processor.c"
 extern float q0;
 extern float q1;
 extern float q2;
@@ -57,7 +57,7 @@ extern float Norm;
 extern float gx, gy, gz, ax, ay, az;
 
 extern tSensor MPU9150A;
-#line 45 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/IMU_Processor.c"
+#line 45 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/IMU_Processor.c"
 void IMU_Update() {
 
  ax = (float)MPU9150A.accel.x - MPU9150A.calib_accel.x;

@@ -14,12 +14,10 @@ void HoursTens();
 void Deactivate_All_Rollers();
 void AmPmRun();
 
-void doAccel();
-void ACCEL_Start(char *test);
-void Accel_Stop();
 void checkPowerM();
 extern char cACCEL_test_status;
 
+void MPU9150A_Read();
 
 extern char PenDown;
 extern char Display_Bat_Stat;
@@ -95,8 +93,8 @@ void Run_Logger(){
                 doRTC_Example();
              }; break;                
     case 4 : {
-                 doIMU();
-              };   break;                  // Accelerometer Test
+                 MPU9150A_Read();
+              };   break;                  // IMU Test
   }
 }
 
@@ -225,7 +223,7 @@ void doIMUTest() {
     DrawScreen(&IMU_test);
     BLED_Fade_In();
     Logger_State = 4;
-    ACCEL_Start(&cACCEL_test_status);
+    //ACCEL_Start(&cACCEL_test_status);
 }
 
 void doGPSTest() {

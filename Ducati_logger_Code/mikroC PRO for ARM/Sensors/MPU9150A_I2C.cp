@@ -1,5 +1,5 @@
-#line 1 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/MPU9150A_I2C.c"
-#line 1 "c:/users/jemmi/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/sensors/typedefs.h"
+#line 1 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/MPU9150A_I2C.c"
+#line 1 "c:/users/jjmcdo1/documents/github/ducati_mikro/ducati_logger_code/mikroc pro for arm/sensors/typedefs.h"
 
 typedef struct {
  int x;
@@ -36,7 +36,7 @@ typedef struct {
  float temp;
  float gdt;
 } tSensor;
-#line 88 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/MPU9150A_I2C.c"
+#line 88 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/MPU9150A_I2C.c"
 extern sfr sbit MPU9150A_INT;
 static char reg_data[8];
 static char raw_data[32];
@@ -175,7 +175,7 @@ static void MPU9150A_ReadGyro() {
  MPU9150A.gdt = (float)tmrTicks/10000;
  tmrTicks = 0;
 }
-#line 231 "C:/Users/Jemmi/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/MPU9150A_I2C.c"
+#line 231 "C:/Users/jjmcdo1/Documents/GitHub/Ducati_Mikro/Ducati_logger_Code/mikroC PRO for ARM/Sensors/MPU9150A_I2C.c"
 static void MPU9150A_ReadTemp() {
  char valueH, valueL;
  int temp;

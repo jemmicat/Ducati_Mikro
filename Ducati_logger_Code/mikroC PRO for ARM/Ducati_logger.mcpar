@@ -53,30 +53,42 @@ Count=0
 [OTHER_FILES]
 Count=0
 [SEARCH_PATH]
-Count=12
-Path0=C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for ARM\defs\
-Path1=C:\Users\Jemmi\Documents\GitHub\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\
-Path2=C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for ARM\Uses\ST M4\
-Path3=C:\Users\Jemmi\Documents\Mikroelektronika\mikroC PRO for ARM\defs\
-Path4=C:\Users\Jemmi\Documents\Mikroelektronika\mikroC PRO for ARM\Uses\ST M4\
-Path5=C:\Users\Jemmi\Documents\GitHub\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\Add-Ons\
-Path6=C:\Users\Jemmi\Documents\GitHub\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\Screen_Data\
-Path7=C:\Users\Jemmi\Documents\GitHub\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\GPS\
-Path8=C:\Users\Jemmi\Documents\Mikroelektronika\mikroC PRO for ARM\Packages\FAT32 Library\Uses\
-Path9=C:\Users\Jemmi\Documents\GitHub\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\Sensors\
-Path10=C:\Users\Jemmi\Documents\Mikroelektronika\mikroC PRO for ARM\Packages\TFT_Graphics\Uses\
-Path11=C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for ARM\Packages\FAT32 Library\Uses\
+Count=20
+Path0=C:\Users\jjmcdo1\Documents\Mikroelektronika\mikroC PRO for ARM\defs\
+Path1=C:\Users\jjmcdo1\Documents\GitHub\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\
+Path2=C:\Users\jjmcdo1\Documents\Mikroelektronika\mikroC PRO for ARM\Uses\ST M4\
+Path3=C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for ARM\defs\
+Path4=C:\Users\Jemmi\Documents\GitHub\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\
+Path5=C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for ARM\Uses\ST M4\
+Path6=C:\Users\Jemmi\Documents\Mikroelektronika\mikroC PRO for ARM\defs\
+Path7=C:\Users\Jemmi\Documents\Mikroelektronika\mikroC PRO for ARM\Uses\ST M4\
+Path8=C:\Users\Jemmi\Documents\GitHub\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\Add-Ons\
+Path9=C:\Users\Jemmi\Documents\GitHub\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\Screen_Data\
+Path10=C:\Users\Jemmi\Documents\GitHub\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\GPS\
+Path11=C:\Users\Jemmi\Documents\Mikroelektronika\mikroC PRO for ARM\Packages\FAT32 Library\Uses\
+Path12=C:\Users\Jemmi\Documents\GitHub\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\Sensors\
+Path13=C:\Users\Jemmi\Documents\Mikroelektronika\mikroC PRO for ARM\Packages\TFT_Graphics\Uses\
+Path14=C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for ARM\Packages\FAT32 Library\Uses\
+Path15=C:\Users\jjmcdo1\Documents\GitHub\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\Add-Ons\
+Path16=C:\Users\jjmcdo1\Documents\GitHub\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\Screen_Data\
+Path17=C:\Users\jjmcdo1\Documents\GitHub\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\GPS\
+Path18=C:\Users\jjmcdo1\Documents\GitHub\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\Sensors\
+Path19=C:\Users\jjmcdo1\Documents\Mikroelektronika\mikroC PRO for ARM\Packages\FAT32 Library\Uses\
 [HEADER_PATH]
-Count=2
+Count=5
 Path0=C:\Users\Jemmi\Documents\GitHub\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\
 Path1=C:\Users\Jemmi\Documents\GitHub\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\Add-Ons\
+Path2=C:\Users\jjmcdo1\Documents\GitHub\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\
+Path3=C:\Users\jjmcdo1\Documents\GitHub\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\Add-Ons\
+Path4=C:\Users\jjmcdo1\Documents\GitHub\Ducati_Mikro\Ducati_logger_Code\mikroC PRO for ARM\Sensors\
 [HEADERS]
-Count=5
+Count=6
 File0=Ducati_logger_objects.h
 File1=Ducati_logger_resources.h
 File2=Add-Ons\__Lib_FAT32.h
 File3=__Time.h
 File4=stdbool.h
+File5=Sensors\typedefs.h
 [PLDS]
 Count=0
 [Useses]
