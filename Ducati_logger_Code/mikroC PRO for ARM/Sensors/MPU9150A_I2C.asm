@@ -18,15 +18,15 @@ MOVW	R2, #lo_addr(MPU9150A_I2C_reg_data+1)
 MOVT	R2, #hi_addr(MPU9150A_I2C_reg_data+1)
 STRB	R1, [R2, #0]
 ; wData end address is: 4 (R1)
-;MPU9150A_I2C.c,97 :: 		I2C_Start();
-BL	_I2C_Start+0
-;MPU9150A_I2C.c,98 :: 		I2C_Write(MPU9150A_I2C_ADDR,reg_data, 2, END_MODE_STOP);
+;MPU9150A_I2C.c,97 :: 		I2C2_Start();
+BL	_I2C2_Start+0
+;MPU9150A_I2C.c,98 :: 		I2C2_Write(MPU9150A_I2C_ADDR,reg_data, 2, END_MODE_STOP);
 MOVW	R3, #1
 MOVS	R2, #2
 MOVW	R1, #lo_addr(MPU9150A_I2C_reg_data+0)
 MOVT	R1, #hi_addr(MPU9150A_I2C_reg_data+0)
 MOVS	R0, #105
-BL	_I2C_Write+0
+BL	_I2C2_Write+0
 ;MPU9150A_I2C.c,99 :: 		}
 L_end_MPU9150A_I2C_WriteReg:
 LDR	LR, [SP, #0]
@@ -45,22 +45,22 @@ MOVW	R1, #lo_addr(MPU9150A_I2C_reg_data+0)
 MOVT	R1, #hi_addr(MPU9150A_I2C_reg_data+0)
 STRB	R0, [R1, #0]
 ; rAddr end address is: 0 (R0)
-;MPU9150A_I2C.c,103 :: 		I2C_Start();
-BL	_I2C_Start+0
-;MPU9150A_I2C.c,104 :: 		I2C_Write(MPU9150A_I2C_ADDR, reg_data, 1 , END_MODE_RESTART);
+;MPU9150A_I2C.c,103 :: 		I2C2_Start();
+BL	_I2C2_Start+0
+;MPU9150A_I2C.c,104 :: 		I2C2_Write(MPU9150A_I2C_ADDR, reg_data, 1 , END_MODE_RESTART);
 MOVW	R3, #0
 MOVS	R2, #1
 MOVW	R1, #lo_addr(MPU9150A_I2C_reg_data+0)
 MOVT	R1, #hi_addr(MPU9150A_I2C_reg_data+0)
 MOVS	R0, #105
-BL	_I2C_Write+0
-;MPU9150A_I2C.c,105 :: 		I2C_Read(MPU9150A_I2C_ADDR, reg_data,  1 , END_MODE_STOP);
+BL	_I2C2_Write+0
+;MPU9150A_I2C.c,105 :: 		I2C2_Read(MPU9150A_I2C_ADDR, reg_data,  1 , END_MODE_STOP);
 MOVW	R3, #1
 MOVS	R2, #1
 MOVW	R1, #lo_addr(MPU9150A_I2C_reg_data+0)
 MOVT	R1, #hi_addr(MPU9150A_I2C_reg_data+0)
 MOVS	R0, #105
-BL	_I2C_Read+0
+BL	_I2C2_Read+0
 ;MPU9150A_I2C.c,106 :: 		return reg_data[0];
 MOVW	R1, #lo_addr(MPU9150A_I2C_reg_data+0)
 MOVT	R1, #hi_addr(MPU9150A_I2C_reg_data+0)
@@ -91,15 +91,15 @@ MOVW	R2, #lo_addr(MPU9150A_I2C_reg_data+1)
 MOVT	R2, #hi_addr(MPU9150A_I2C_reg_data+1)
 STRB	R1, [R2, #0]
 ; wData end address is: 4 (R1)
-;MPU9150A_I2C.c,112 :: 		I2C_Start();
-BL	_I2C_Start+0
-;MPU9150A_I2C.c,113 :: 		I2C_Write(MAG_I2C_ADDR,reg_data,2,END_MODE_STOP);
+;MPU9150A_I2C.c,112 :: 		I2C2_Start();
+BL	_I2C2_Start+0
+;MPU9150A_I2C.c,113 :: 		I2C2_Write(MAG_I2C_ADDR,reg_data,2,END_MODE_STOP);
 MOVW	R3, #1
 MOVS	R2, #2
 MOVW	R1, #lo_addr(MPU9150A_I2C_reg_data+0)
 MOVT	R1, #hi_addr(MPU9150A_I2C_reg_data+0)
 MOVS	R0, #12
-BL	_I2C_Write+0
+BL	_I2C2_Write+0
 ;MPU9150A_I2C.c,114 :: 		}
 L_end_MAG_I2C_WriteReg:
 LDR	LR, [SP, #0]
@@ -118,22 +118,22 @@ MOVW	R1, #lo_addr(MPU9150A_I2C_reg_data+0)
 MOVT	R1, #hi_addr(MPU9150A_I2C_reg_data+0)
 STRB	R0, [R1, #0]
 ; rAddr end address is: 0 (R0)
-;MPU9150A_I2C.c,118 :: 		I2C_Start();
-BL	_I2C_Start+0
-;MPU9150A_I2C.c,119 :: 		I2C_Write(MAG_I2C_ADDR, reg_data, 1 , END_MODE_RESTART);
+;MPU9150A_I2C.c,118 :: 		I2C2_Start();
+BL	_I2C2_Start+0
+;MPU9150A_I2C.c,119 :: 		I2C2_Write(MAG_I2C_ADDR, reg_data, 1 , END_MODE_RESTART);
 MOVW	R3, #0
 MOVS	R2, #1
 MOVW	R1, #lo_addr(MPU9150A_I2C_reg_data+0)
 MOVT	R1, #hi_addr(MPU9150A_I2C_reg_data+0)
 MOVS	R0, #12
-BL	_I2C_Write+0
-;MPU9150A_I2C.c,120 :: 		I2C_Read(MAG_I2C_ADDR, reg_data,  1 , END_MODE_STOP);
+BL	_I2C2_Write+0
+;MPU9150A_I2C.c,120 :: 		I2C2_Read(MAG_I2C_ADDR, reg_data,  1 , END_MODE_STOP);
 MOVW	R3, #1
 MOVS	R2, #1
 MOVW	R1, #lo_addr(MPU9150A_I2C_reg_data+0)
 MOVT	R1, #hi_addr(MPU9150A_I2C_reg_data+0)
 MOVS	R0, #12
-BL	_I2C_Read+0
+BL	_I2C2_Read+0
 ;MPU9150A_I2C.c,121 :: 		return reg_data[0];
 MOVW	R1, #lo_addr(MPU9150A_I2C_reg_data+0)
 MOVT	R1, #hi_addr(MPU9150A_I2C_reg_data+0)
@@ -189,10 +189,10 @@ MPU9150A_I2C_MPU9150A_Config:
 ;MPU9150A_I2C.c,140 :: 		static void MPU9150A_Config() {
 SUB	SP, SP, #4
 STR	LR, [SP, #0]
-;MPU9150A_I2C.c,141 :: 		while(!I2C1_IS_IDLE);
+;MPU9150A_I2C.c,141 :: 		while(!I2C2_IS_IDLE);
 L_MPU9150A_I2C_MPU9150A_Config2:
-MOVW	R0, #lo_addr(_I2C1_Is_Idle+0)
-MOVT	R0, #hi_addr(_I2C1_Is_Idle+0)
+MOVW	R0, #lo_addr(_I2C2_Is_Idle+0)
+MOVT	R0, #hi_addr(_I2C2_Is_Idle+0)
 CMP	R0, #0
 IT	NE
 BNE	L_MPU9150A_I2C_MPU9150A_Config3
@@ -426,19 +426,20 @@ BX	LR
 ; end of _MPU9150A_Init
 MPU9150A_I2C_MPU9150A_ReadAccel:
 ;MPU9150A_I2C.c,192 :: 		static void MPU9150A_ReadAccel() {
-SUB	SP, SP, #8
+SUB	SP, SP, #4
 STR	LR, [SP, #0]
 ;MPU9150A_I2C.c,195 :: 		valueH = MPU9150A_I2C_ReadReg(MPUREG_ACCEL_XOUT_H);
 MOVS	R0, #59
 BL	MPU9150A_I2C_MPU9150A_I2C_ReadReg+0
-STRB	R0, [SP, #4]
+; valueH start address is: 44 (R11)
+UXTB	R11, R0
 ;MPU9150A_I2C.c,196 :: 		valueL = MPU9150A_I2C_ReadReg(MPUREG_ACCEL_XOUT_L);
 MOVS	R0, #60
 BL	MPU9150A_I2C_MPU9150A_I2C_ReadReg+0
 ;MPU9150A_I2C.c,197 :: 		MPU9150A.accel.x = (int)((valueH << 8) | valueL );
-LDRB	R1, [SP, #4]
-LSLS	R1, R1, #8
+LSL	R1, R11, #8
 UXTH	R1, R1
+; valueH end address is: 44 (R11)
 ORR	R0, R1, R0, LSL #0
 SXTH	R1, R0
 MOVW	R0, #lo_addr(_MPU9150A+0)
@@ -447,14 +448,15 @@ STRH	R1, [R0, #0]
 ;MPU9150A_I2C.c,199 :: 		valueH = MPU9150A_I2C_ReadReg(MPUREG_ACCEL_YOUT_H);
 MOVS	R0, #61
 BL	MPU9150A_I2C_MPU9150A_I2C_ReadReg+0
-STRB	R0, [SP, #4]
+; valueH start address is: 44 (R11)
+UXTB	R11, R0
 ;MPU9150A_I2C.c,200 :: 		valueL = MPU9150A_I2C_ReadReg(MPUREG_ACCEL_YOUT_L);
 MOVS	R0, #62
 BL	MPU9150A_I2C_MPU9150A_I2C_ReadReg+0
 ;MPU9150A_I2C.c,201 :: 		MPU9150A.accel.y = (int)((valueH << 8) | valueL );
-LDRB	R1, [SP, #4]
-LSLS	R1, R1, #8
+LSL	R1, R11, #8
 UXTH	R1, R1
+; valueH end address is: 44 (R11)
 ORR	R0, R1, R0, LSL #0
 SXTH	R1, R0
 MOVW	R0, #lo_addr(_MPU9150A+2)
@@ -463,14 +465,15 @@ STRH	R1, [R0, #0]
 ;MPU9150A_I2C.c,203 :: 		valueH = MPU9150A_I2C_ReadReg(MPUREG_ACCEL_ZOUT_H);
 MOVS	R0, #63
 BL	MPU9150A_I2C_MPU9150A_I2C_ReadReg+0
-STRB	R0, [SP, #4]
+; valueH start address is: 44 (R11)
+UXTB	R11, R0
 ;MPU9150A_I2C.c,204 :: 		valueL = MPU9150A_I2C_ReadReg(MPUREG_ACCEL_ZOUT_L);
 MOVS	R0, #64
 BL	MPU9150A_I2C_MPU9150A_I2C_ReadReg+0
 ;MPU9150A_I2C.c,205 :: 		MPU9150A.accel.z = (int)((valueH << 8) | valueL );
-LDRB	R1, [SP, #4]
-LSLS	R1, R1, #8
+LSL	R1, R11, #8
 UXTH	R1, R1
+; valueH end address is: 44 (R11)
 ORR	R0, R1, R0, LSL #0
 SXTH	R1, R0
 MOVW	R0, #lo_addr(_MPU9150A+4)
@@ -479,24 +482,25 @@ STRH	R1, [R0, #0]
 ;MPU9150A_I2C.c,206 :: 		}
 L_end_MPU9150A_ReadAccel:
 LDR	LR, [SP, #0]
-ADD	SP, SP, #8
+ADD	SP, SP, #4
 BX	LR
 ; end of MPU9150A_I2C_MPU9150A_ReadAccel
 MPU9150A_I2C_MPU9150A_ReadGyro:
 ;MPU9150A_I2C.c,208 :: 		static void MPU9150A_ReadGyro() {
-SUB	SP, SP, #8
+SUB	SP, SP, #4
 STR	LR, [SP, #0]
 ;MPU9150A_I2C.c,211 :: 		valueH = MPU9150A_I2C_ReadReg(MPUREG_GYRO_XOUT_H);
 MOVS	R0, #67
 BL	MPU9150A_I2C_MPU9150A_I2C_ReadReg+0
-STRB	R0, [SP, #4]
+; valueH start address is: 44 (R11)
+UXTB	R11, R0
 ;MPU9150A_I2C.c,212 :: 		valueL = MPU9150A_I2C_ReadReg(MPUREG_GYRO_XOUT_L);
 MOVS	R0, #68
 BL	MPU9150A_I2C_MPU9150A_I2C_ReadReg+0
 ;MPU9150A_I2C.c,213 :: 		MPU9150A.gyro.x = (int)((valueH << 8) | valueL );
-LDRB	R1, [SP, #4]
-LSLS	R1, R1, #8
+LSL	R1, R11, #8
 UXTH	R1, R1
+; valueH end address is: 44 (R11)
 ORR	R0, R1, R0, LSL #0
 SXTH	R1, R0
 MOVW	R0, #lo_addr(_MPU9150A+6)
@@ -505,14 +509,15 @@ STRH	R1, [R0, #0]
 ;MPU9150A_I2C.c,215 :: 		valueH = MPU9150A_I2C_ReadReg(MPUREG_GYRO_YOUT_H);
 MOVS	R0, #69
 BL	MPU9150A_I2C_MPU9150A_I2C_ReadReg+0
-STRB	R0, [SP, #4]
+; valueH start address is: 44 (R11)
+UXTB	R11, R0
 ;MPU9150A_I2C.c,216 :: 		valueL = MPU9150A_I2C_ReadReg(MPUREG_GYRO_YOUT_L);
 MOVS	R0, #70
 BL	MPU9150A_I2C_MPU9150A_I2C_ReadReg+0
 ;MPU9150A_I2C.c,217 :: 		MPU9150A.gyro.y = (int)((valueH << 8) | valueL );
-LDRB	R1, [SP, #4]
-LSLS	R1, R1, #8
+LSL	R1, R11, #8
 UXTH	R1, R1
+; valueH end address is: 44 (R11)
 ORR	R0, R1, R0, LSL #0
 SXTH	R1, R0
 MOVW	R0, #lo_addr(_MPU9150A+8)
@@ -521,14 +526,15 @@ STRH	R1, [R0, #0]
 ;MPU9150A_I2C.c,219 :: 		valueH = MPU9150A_I2C_ReadReg(MPUREG_GYRO_ZOUT_H);
 MOVS	R0, #71
 BL	MPU9150A_I2C_MPU9150A_I2C_ReadReg+0
-STRB	R0, [SP, #4]
+; valueH start address is: 44 (R11)
+UXTB	R11, R0
 ;MPU9150A_I2C.c,220 :: 		valueL = MPU9150A_I2C_ReadReg(MPUREG_GYRO_ZOUT_L);
 MOVS	R0, #72
 BL	MPU9150A_I2C_MPU9150A_I2C_ReadReg+0
 ;MPU9150A_I2C.c,221 :: 		MPU9150A.gyro.z = (int)((valueH << 8) | valueL );
-LDRB	R1, [SP, #4]
-LSLS	R1, R1, #8
+LSL	R1, R11, #8
 UXTH	R1, R1
+; valueH end address is: 44 (R11)
 ORR	R0, R1, R0, LSL #0
 SXTH	R1, R0
 MOVW	R0, #lo_addr(_MPU9150A+10)
@@ -553,24 +559,25 @@ STRH	R0, [R1, #0]
 ;MPU9150A_I2C.c,225 :: 		}
 L_end_MPU9150A_ReadGyro:
 LDR	LR, [SP, #0]
-ADD	SP, SP, #8
+ADD	SP, SP, #4
 BX	LR
 ; end of MPU9150A_I2C_MPU9150A_ReadGyro
 MPU9150A_I2C_MPU9150A_ReadTemp:
 ;MPU9150A_I2C.c,231 :: 		static void MPU9150A_ReadTemp() {
-SUB	SP, SP, #8
+SUB	SP, SP, #4
 STR	LR, [SP, #0]
 ;MPU9150A_I2C.c,235 :: 		valueH = MPU9150A_I2C_ReadReg(MPUREG_TEMP_OUT_H);
 MOVS	R0, #65
 BL	MPU9150A_I2C_MPU9150A_I2C_ReadReg+0
-STRB	R0, [SP, #4]
+; valueH start address is: 44 (R11)
+UXTB	R11, R0
 ;MPU9150A_I2C.c,236 :: 		valueL = MPU9150A_I2C_ReadReg(MPUREG_TEMP_OUT_L);
 MOVS	R0, #66
 BL	MPU9150A_I2C_MPU9150A_I2C_ReadReg+0
 ;MPU9150A_I2C.c,237 :: 		temp = (int)((valueH << 8) | valueL );
-LDRB	R1, [SP, #4]
-LSLS	R1, R1, #8
+LSL	R1, R11, #8
 UXTH	R1, R1
+; valueH end address is: 44 (R11)
 ORR	R0, R1, R0, LSL #0
 ;MPU9150A_I2C.c,239 :: 		MPU9150A.temp = (float)(temp/340) + 36.5;
 SXTH	R1, R0
@@ -590,12 +597,12 @@ VSTR	#1, S0, [R0, #0]
 ;MPU9150A_I2C.c,240 :: 		}
 L_end_MPU9150A_ReadTemp:
 LDR	LR, [SP, #0]
-ADD	SP, SP, #8
+ADD	SP, SP, #4
 BX	LR
 ; end of MPU9150A_I2C_MPU9150A_ReadTemp
 MPU9150A_I2C_MPU9150A_ReadMagnetometer:
 ;MPU9150A_I2C.c,242 :: 		static void MPU9150A_ReadMagnetometer() {
-SUB	SP, SP, #8
+SUB	SP, SP, #4
 STR	LR, [SP, #0]
 ;MPU9150A_I2C.c,245 :: 		dataReady = MAG_I2C_ReadReg(MAGREG_ST1);
 MOVS	R0, #2
@@ -607,14 +614,15 @@ BEQ	L_MPU9150A_I2C_MPU9150A_ReadMagnetometer8
 ;MPU9150A_I2C.c,248 :: 		valueH = MAG_I2C_ReadReg(MAGREG_HXH);
 MOVS	R0, #4
 BL	MPU9150A_I2C_MAG_I2C_ReadReg+0
-STRB	R0, [SP, #4]
+; valueH start address is: 44 (R11)
+UXTB	R11, R0
 ;MPU9150A_I2C.c,249 :: 		valueL = MAG_I2C_ReadReg(MAGREG_HXL);
 MOVS	R0, #3
 BL	MPU9150A_I2C_MAG_I2C_ReadReg+0
 ;MPU9150A_I2C.c,250 :: 		MPU9150A.mag.x = (int)((valueH << 8) | valueL );
-LDRB	R1, [SP, #4]
-LSLS	R1, R1, #8
+LSL	R1, R11, #8
 UXTH	R1, R1
+; valueH end address is: 44 (R11)
 ORR	R0, R1, R0, LSL #0
 SXTH	R1, R0
 MOVW	R0, #lo_addr(_MPU9150A+12)
@@ -623,14 +631,15 @@ STRH	R1, [R0, #0]
 ;MPU9150A_I2C.c,252 :: 		valueH = MAG_I2C_ReadReg(MAGREG_HYH);
 MOVS	R0, #6
 BL	MPU9150A_I2C_MAG_I2C_ReadReg+0
-STRB	R0, [SP, #4]
+; valueH start address is: 44 (R11)
+UXTB	R11, R0
 ;MPU9150A_I2C.c,253 :: 		valueL = MAG_I2C_ReadReg(MAGREG_HYL);
 MOVS	R0, #5
 BL	MPU9150A_I2C_MAG_I2C_ReadReg+0
 ;MPU9150A_I2C.c,254 :: 		MPU9150A.mag.y = (int)((valueH << 8) | valueL );
-LDRB	R1, [SP, #4]
-LSLS	R1, R1, #8
+LSL	R1, R11, #8
 UXTH	R1, R1
+; valueH end address is: 44 (R11)
 ORR	R0, R1, R0, LSL #0
 SXTH	R1, R0
 MOVW	R0, #lo_addr(_MPU9150A+14)
@@ -639,14 +648,15 @@ STRH	R1, [R0, #0]
 ;MPU9150A_I2C.c,256 :: 		valueH = MAG_I2C_ReadReg(MAGREG_HZH);
 MOVS	R0, #8
 BL	MPU9150A_I2C_MAG_I2C_ReadReg+0
-STRB	R0, [SP, #4]
+; valueH start address is: 44 (R11)
+UXTB	R11, R0
 ;MPU9150A_I2C.c,257 :: 		valueL = MAG_I2C_ReadReg(MAGREG_HZL);
 MOVS	R0, #7
 BL	MPU9150A_I2C_MAG_I2C_ReadReg+0
 ;MPU9150A_I2C.c,258 :: 		MPU9150A.mag.z = (int)((valueH << 8) | valueL );
-LDRB	R1, [SP, #4]
-LSLS	R1, R1, #8
+LSL	R1, R11, #8
 UXTH	R1, R1
+; valueH end address is: 44 (R11)
 ORR	R0, R1, R0, LSL #0
 SXTH	R1, R0
 MOVW	R0, #lo_addr(_MPU9150A+16)
@@ -683,7 +693,7 @@ BL	MPU9150A_I2C_MAG_I2C_WriteReg+0
 ;MPU9150A_I2C.c,266 :: 		}
 L_end_MPU9150A_ReadMagnetometer:
 LDR	LR, [SP, #0]
-ADD	SP, SP, #8
+ADD	SP, SP, #4
 BX	LR
 ; end of MPU9150A_I2C_MPU9150A_ReadMagnetometer
 _MPU9150A_Read:

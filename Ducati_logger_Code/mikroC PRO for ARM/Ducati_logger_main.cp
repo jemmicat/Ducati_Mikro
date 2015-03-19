@@ -763,6 +763,49 @@ void Timer2_Off() {
  TIM2_CR1.CEN = 0;
 }
 
+void updateLabel(tlabel *lbl, char *str){
+ TFT_Set_Font(lbl->Fontname, Box1.Color, FO_HORIZONTAL);
+ TFT_Write_Text(lbl->Caption, lbl->Left, lbl->Top);
+ strcpy(lbl->Caption, str);
+ TFT_Set_Font(lbl->Fontname, lbl->Font_Color, FO_HORIZONTAL);
+ DrawLabel(lbl);
+}
+
+void doIMU() {
+
+ IntToStr((int)(MPU9150A.out_accel.x * 90.0f),txt);
+ updateLabel(&accelX, ltrim(txt));
+ IntToStr((int)(MPU9150A.out_accel.y * 90.0f),txt);
+ updateLabel(&accelY, ltrim(txt));
+ IntToStr((int)(MPU9150A.out_accel.z * 90.0f),txt);
+ updateLabel(&accelZ, ltrim(txt));
+
+ IntToStr((int)(MPU9150A.out_gyro.x * 1000.0f / MPU9150A.gdt),txt);
+ updateLabel(&gyroX, ltrim(txt));
+ IntToStr((int)(MPU9150A.out_gyro.y * 1000.0f / MPU9150A.gdt),txt);
+ updateLabel(&gyroY, ltrim(txt));
+ IntToStr((int)(MPU9150A.out_gyro.z * 1000.0f / MPU9150A.gdt),txt);
+ updateLabel(&gyroZ, ltrim(txt));
+
+ WordToStr((int)(MPU9150A.mag.x),txt);
+ updateLabel(&magX, ltrim(txt));
+ IntToStr((int)(MPU9150A.mag.y),txt);
+ updateLabel(&magY, ltrim(txt));
+ IntToStr((int)(MPU9150A.mag.z),txt);
+ updateLabel(&magZ, ltrim(txt));
+
+ sprintf(txt, "%.2f", MPU9150A.temp);
+ strcat (txt, " °C");
+ updateLabel(&lblTemp, ltrim(txt));
+}
+
+
+
+
+
+
+
+
 void main() {
 
  Start_TP();

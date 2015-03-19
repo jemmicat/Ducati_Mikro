@@ -46,30 +46,30 @@ tSensor MPU9150A;
 static void MPU9150A_I2C_WriteReg(char wAddr, char wData){
  reg_data[0] = wAddr;
  reg_data[1] = wData;
- I2C_Start();
- I2C_Write( 0x69 ,reg_data, 2, END_MODE_STOP);
+ I2C2_Start();
+ I2C2_Write( 0x69 ,reg_data, 2, END_MODE_STOP);
 }
 
 static char MPU9150A_I2C_ReadReg(char rAddr){
  reg_data[0] = rAddr;
- I2C_Start();
- I2C_Write( 0x69 , reg_data, 1 , END_MODE_RESTART);
- I2C_Read( 0x69 , reg_data, 1 , END_MODE_STOP);
+ I2C2_Start();
+ I2C2_Write( 0x69 , reg_data, 1 , END_MODE_RESTART);
+ I2C2_Read( 0x69 , reg_data, 1 , END_MODE_STOP);
  return reg_data[0];
 }
 
 static void MAG_I2C_WriteReg(char wAddr, char wData){
  reg_data[0] = wAddr;
  reg_data[1] = wData;
- I2C_Start();
- I2C_Write( 0x0C ,reg_data,2,END_MODE_STOP);
+ I2C2_Start();
+ I2C2_Write( 0x0C ,reg_data,2,END_MODE_STOP);
 }
 
 static char MAG_I2C_ReadReg(char rAddr){
  reg_data[0] = rAddr;
- I2C_Start();
- I2C_Write( 0x0C , reg_data, 1 , END_MODE_RESTART);
- I2C_Read( 0x0C , reg_data, 1 , END_MODE_STOP);
+ I2C2_Start();
+ I2C2_Write( 0x0C , reg_data, 1 , END_MODE_RESTART);
+ I2C2_Read( 0x0C , reg_data, 1 , END_MODE_STOP);
  return reg_data[0];
 }
 
@@ -90,7 +90,7 @@ char MAG_Detect() {
 }
 
 static void MPU9150A_Config() {
- while(!I2C1_IS_IDLE);
+ while(!I2C2_IS_IDLE);
  MPU9150A_I2C_WriteReg( 0x6B ,  0x80 );
  delay_ms(10);
 

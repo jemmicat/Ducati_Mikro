@@ -16877,6 +16877,7 @@ doen
 doen
 doen_bit
 dogpstest
+doimu
 doimutest
 dolog
 donextscreen
@@ -43592,6 +43593,7 @@ spliten_otg_hs_hcsplt9_bit
 spreadsel
 spreadsel
 spreadsel_bit
+sprintf
 sq1
 sq1
 sq1
@@ -48678,6 +48680,7 @@ undefinstr_bit
 unstkerr
 unstkerr
 unstkerr_bit
+updatelabel
 updatetime
 upfd
 upfd

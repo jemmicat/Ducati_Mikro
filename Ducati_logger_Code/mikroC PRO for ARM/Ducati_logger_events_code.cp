@@ -691,7 +691,7 @@ void checkPowerM();
 extern char cACCEL_test_status;
 
 void MPU9150A_Read();
-
+void doIMU();
 extern char PenDown;
 extern char Display_Bat_Stat;
 extern sfr sbit TFT_BLED;
@@ -766,7 +766,7 @@ void Run_Logger(){
  doRTC_Example();
  }; break;
  case 4 : {
- MPU9150A_Read();
+ doIMUTest();
  }; break;
  }
 }
@@ -856,7 +856,7 @@ void doIMUTest() {
  DrawScreen(&IMU_test);
  BLED_Fade_In();
  Logger_State = 4;
-
+ doIMU();
 }
 
 void doGPSTest() {

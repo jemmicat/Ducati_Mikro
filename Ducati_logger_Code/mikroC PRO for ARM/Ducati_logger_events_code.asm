@@ -147,8 +147,8 @@ IT	AL
 BAL	L_Run_Logger11
 ;Ducati_logger_events_code.c,95 :: 		case 4 : {
 L_Run_Logger17:
-;Ducati_logger_events_code.c,96 :: 		MPU9150A_Read();
-BL	_MPU9150A_Read+0
+;Ducati_logger_events_code.c,96 :: 		doIMUTest();
+BL	_doIMUTest+0
 ;Ducati_logger_events_code.c,97 :: 		};   break;                  // IMU Test
 IT	AL
 BAL	L_Run_Logger11
@@ -448,6 +448,8 @@ MOVS	R1, #4
 MOVW	R0, #lo_addr(_Logger_State+0)
 MOVT	R0, #hi_addr(_Logger_State+0)
 STRB	R1, [R0, #0]
+;Ducati_logger_events_code.c,226 :: 		doIMU();
+BL	_doIMU+0
 ;Ducati_logger_events_code.c,227 :: 		}
 L_end_doIMUTest:
 LDR	LR, [SP, #0]
