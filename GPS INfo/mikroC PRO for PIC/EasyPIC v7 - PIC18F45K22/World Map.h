@@ -1,0 +1,1 @@
+unsigned char const World_bmp[1024];
