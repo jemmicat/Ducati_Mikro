@@ -403,30 +403,40 @@ MOVT	R1, #hi_addr(__GPIO_MODULE_I2C2_PF01+0)
 MOVW	R0, #6784
 MOVT	R0, #6
 BL	_I2C2_Init_Advanced+0
-;Ducati_logger_main.c,126 :: 		MPU9150A_FSY = 0;
+;Ducati_logger_main.c,126 :: 		UART2_Init_Advanced(9600, _UART_8_BIT_DATA, _UART_NOPARITY, _UART_ONE_STOPBIT, &_GPIO_MODULE_USART2_PD5_PA3);
+MOVW	R0, #lo_addr(__GPIO_MODULE_USART2_PD5_PA3+0)
+MOVT	R0, #hi_addr(__GPIO_MODULE_USART2_PD5_PA3+0)
+PUSH	(R0)
+MOVW	R3, #0
+MOVW	R2, #0
+MOVW	R1, #0
+MOVW	R0, #9600
+BL	_UART2_Init_Advanced+0
+ADD	SP, SP, #4
+;Ducati_logger_main.c,127 :: 		MPU9150A_FSY = 0;
 MOVS	R1, #0
 SXTB	R1, R1
 MOVW	R0, #lo_addr(GPIOC_ODR+0)
 MOVT	R0, #hi_addr(GPIOC_ODR+0)
 STR	R1, [R0, #0]
-;Ducati_logger_main.c,127 :: 		MPU9150A_Init();
+;Ducati_logger_main.c,128 :: 		MPU9150A_Init();
 BL	_MPU9150A_Init+0
-;Ducati_logger_main.c,128 :: 		MPU9150A_Detect();
+;Ducati_logger_main.c,129 :: 		MPU9150A_Detect();
 BL	_MPU9150A_Detect+0
-;Ducati_logger_main.c,129 :: 		MAG_Detect();
+;Ducati_logger_main.c,130 :: 		MAG_Detect();
 BL	_MAG_Detect+0
-;Ducati_logger_main.c,130 :: 		tmrTicks = 0;
+;Ducati_logger_main.c,131 :: 		tmrTicks = 0;
 MOVS	R1, #0
 MOVW	R0, #lo_addr(_tmrTicks+0)
 MOVT	R0, #hi_addr(_tmrTicks+0)
 STRH	R1, [R0, #0]
-;Ducati_logger_main.c,131 :: 		initTimer2();
+;Ducati_logger_main.c,132 :: 		initTimer2();
 BL	_InitTimer2+0
-;Ducati_logger_main.c,132 :: 		Timer2_On();
+;Ducati_logger_main.c,133 :: 		Timer2_On();
 BL	_Timer2_On+0
-;Ducati_logger_main.c,133 :: 		MPU9150A_Read(); //initial read
+;Ducati_logger_main.c,134 :: 		MPU9150A_Read(); //initial read
 BL	_MPU9150A_Read+0
-;Ducati_logger_main.c,134 :: 		delay_ms(10);
+;Ducati_logger_main.c,135 :: 		delay_ms(10);
 MOVW	R7, #41246
 MOVT	R7, #7
 NOP
@@ -437,20 +447,20 @@ BNE	L_main0
 NOP
 NOP
 NOP
-;Ducati_logger_main.c,136 :: 		while (1) {
+;Ducati_logger_main.c,137 :: 		while (1) {
 L_main2:
-;Ducati_logger_main.c,137 :: 		DisableInterrupts();
+;Ducati_logger_main.c,138 :: 		DisableInterrupts();
 BL	_DisableInterrupts+0
-;Ducati_logger_main.c,138 :: 		Check_TP();
+;Ducati_logger_main.c,139 :: 		Check_TP();
 BL	_Check_TP+0
-;Ducati_logger_main.c,139 :: 		EnableInterrupts();
+;Ducati_logger_main.c,140 :: 		EnableInterrupts();
 BL	_EnableInterrupts+0
-;Ducati_logger_main.c,142 :: 		Run_logger();
+;Ducati_logger_main.c,143 :: 		Run_logger();
 BL	_Run_logger+0
-;Ducati_logger_main.c,144 :: 		}
+;Ducati_logger_main.c,145 :: 		}
 IT	AL
 BAL	L_main2
-;Ducati_logger_main.c,145 :: 		}
+;Ducati_logger_main.c,146 :: 		}
 L_end_main:
 L__main_end_loop:
 B	L__main_end_loop
